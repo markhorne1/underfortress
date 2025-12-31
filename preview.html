@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Under Fortress - Game Preview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #ccc;
+            padding: 20px;
+        }
+        
+        .phone-frame {
+            max-width: 375px;
+            margin: 0 auto;
+            background: #000;
+            border-radius: 40px;
+            padding: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+        
+        .screen {
+            background: #0a0a0a;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        
+        .header {
+            background: #1a1a1a;
+            padding: 15px;
+            border-bottom: 2px solid #ffd700;
+        }
+        
+        .game-title {
+            color: #ffd700;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .header-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .header-button {
+            background: #2a2a2a;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: 1px solid #ffd700;
+            font-size: 20px;
+        }
+        
+        .content {
+            padding: 15px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        .page-title {
+            color: #ffd700;
+            font-size: 26px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .page-number {
+            color: #666;
+            font-size: 12px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .image-placeholder {
+            background: #1a1a1a;
+            border: 2px solid #ffd700;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        
+        .page-text {
+            color: #ccc;
+            font-size: 16px;
+            line-height: 1.5;
+            text-align: justify;
+            margin-bottom: 25px;
+        }
+        
+        .choice-button {
+            background: #2a2a2a;
+            padding: 18px;
+            border-radius: 10px;
+            border: 2px solid #ffd700;
+            margin-bottom: 12px;
+            cursor: pointer;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .choice-button:hover {
+            background: #3a3a3a;
+            transform: translateX(5px);
+        }
+        
+        .character-sheet {
+            background: #1a1a1a;
+            border: 2px solid #ffd700;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .cs-title {
+            color: #ffd700;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            color: #ccc;
+            font-weight: 600;
+        }
+        
+        .stat-value {
+            font-weight: bold;
+        }
+        
+        .map-container {
+            background: #1a1a1a;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .map-title {
+            color: #ffd700;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .map-grid {
+            display: grid;
+            grid-template-columns: repeat(11, 25px);
+            gap: 1px;
+            justify-content: center;
+        }
+        
+        .map-cell {
+            width: 25px;
+            height: 25px;
+            background: #0a0a0a;
+            border: 1px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        
+        .map-cell.visited {
+            background: #2a4a2a;
+            border-color: #4a6a4a;
+        }
+        
+        .map-cell.current {
+            background: #4a4a2a;
+            border: 2px solid #ffd700;
+            color: #ffd700;
+        }
+        
+        .demo-section {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            color: #ffd700;
+            font-size: 28px;
+            font-weight: bold;
+            text-align: center;
+            margin: 40px 0 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="section-title">⚔️ Under Fortress - Game Preview ⚔️</div>
+    
+    <div class="demo-section">
+        <h2 style="color: #ffd700; text-align: center; margin-bottom: 20px;">Main Game Screen</h2>
+        <div class="phone-frame">
+            <div class="screen">
+                <div class="header">
+                    <div class="game-title">⚔️ Under Fortress ⚔️</div>
+                    <div class="header-buttons">
+                        <div class="header-button">📊</div>
+                        <div class="header-button">🎒</div>
+                        <div class="header-button">🗺️</div>
+                        <div class="header-button">🍖</div>
+                    </div>
+                </div>
+                
+                <div class="content">
+                    <div class="page-title">The Gates of the Underfortress</div>
+                    <div class="page-number">#1</div>
+                    
+                    <div class="image-placeholder">🏰 gate</div>
+                    
+                    <div class="page-text">
+                        You stand before the ancient gates of the Underfortress, a legendary dungeon said to hold untold treasures. The iron gates are rusted but still imposing. Strange symbols are carved into the stone archway above. A cold wind blows from within, carrying whispers of danger and riches alike.
+                        <br><br>
+                        Your adventure begins here, brave hero. Will you enter the fortress through the main gate, or search for another entrance?
+                    </div>
+                    
+                    <div class="choice-button">▶ Push open the main gates and enter boldly</div>
+                    <div class="choice-button">▶ Search around the walls for a secret entrance</div>
+                    <div class="choice-button">▶ Study the symbols on the archway</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="demo-section">
+        <h2 style="color: #ffd700; text-align: center; margin-bottom: 20px;">Character Sheet View</h2>
+        <div class="phone-frame">
+            <div class="screen">
+                <div class="header">
+                    <div class="game-title">⚔️ Under Fortress ⚔️</div>
+                    <div class="header-buttons">
+                        <div class="header-button" style="background: #4a4a0a;">📊</div>
+                        <div class="header-button">🎒</div>
+                        <div class="header-button">🗺️</div>
+                        <div class="header-button">🍖</div>
+                    </div>
+                </div>
+                
+                <div class="content">
+                    <div class="character-sheet">
+                        <div class="cs-title">Character Stats</div>
+                        <div class="stat-row">
+                            <span class="stat-label">SKILL:</span>
+                            <span class="stat-value" style="color: #4CAF50;">12</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">STAMINA:</span>
+                            <span class="stat-value" style="color: #4CAF50;">18 / 18</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">LUCK:</span>
+                            <span class="stat-value" style="color: #4CAF50;">9 / 9</span>
+                        </div>
+                        <div style="height: 1px; background: #444; margin: 10px 0;"></div>
+                        <div class="stat-row">
+                            <span class="stat-label">GOLD:</span>
+                            <span class="stat-value" style="color: #FFD700;">15</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">PROVISIONS:</span>
+                            <span class="stat-value" style="color: #8B4513;">10</span>
+                        </div>
+                    </div>
+                    
+                    <div class="page-title">The Entry Hall</div>
+                    <div class="page-number">#2</div>
+                    <div class="page-text">
+                        The heavy gates creak open. You enter a vast stone hall lit by flickering torches...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="demo-section">
+        <h2 style="color: #ffd700; text-align: center; margin-bottom: 20px;">Map View (Fog of War)</h2>
+        <div class="phone-frame">
+            <div class="screen">
+                <div class="header">
+                    <div class="game-title">⚔️ Under Fortress ⚔️</div>
+                    <div class="header-buttons">
+                        <div class="header-button">📊</div>
+                        <div class="header-button">🎒</div>
+                        <div class="header-button" style="background: #4a4a0a;">🗺️</div>
+                        <div class="header-button">🍖</div>
+                    </div>
+                </div>
+                
+                <div class="content">
+                    <div class="map-container">
+                        <div class="map-title">Map - Fog of War</div>
+                        <div class="map-grid">
+                            <!-- Generate 11x11 grid -->
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell visited"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell visited"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell visited"></div>
+                            <div class="map-cell current">@</div>
+                            <div class="map-cell visited"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell visited"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                            <div class="map-cell"></div>
+                        </div>
+                        <div style="color: #888; font-size: 12px; text-align: center; margin-top: 8px;">
+                            @ = You | ■ = Visited | □ = Unknown
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div style="text-align: center; color: #ffd700; margin: 40px 0;">
+        <h1>✅ Complete Game Implementation</h1>
+        <p style="color: #ccc; margin-top: 10px;">
+            All features implemented: Combat system, fog-of-war map, branching narrative,<br>
+            inventory management, spell system, and 40+ pages of content!
+        </p>
+    </div>
+</body>
+</html>
