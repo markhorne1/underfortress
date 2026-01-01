@@ -1,0 +1,479 @@
+[
+  {
+    "id": "e_battle_horns",
+    "title": "The Horns",
+    "x": 0,
+    "y": -10,
+    "floorId": "battle",
+    "tileStyle": "battle_start",
+    "cover": "none",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, city gate in storm rain, horns blowing, soldiers rushing, cinematic, no text",
+    "description": "A horn bellows from the wall — then another answers from the fields.\n\nRain turns to needles. Somewhere beyond sight, something huge moves.\n\nCaptain Roth shouts: \"TO YOUR POSTS! THIS IS IT!\"",
+    "choices": [
+      {
+        "id": "to_barricade",
+        "label": "Run to the barricade line.",
+        "goToAreaId": "e_barricade_hold"
+      },
+      {
+        "id": "to_ward_plinth",
+        "label": "Run to the ward plinth near the gate.",
+        "goToAreaId": "e_ward_crisis"
+      },
+      {
+        "id": "to_parapet",
+        "label": "Climb to the parapet post to support archers.",
+        "goToAreaId": "e_parapet_volley"
+      }
+    ]
+  },
+  {
+    "id": "e_barricade_hold",
+    "title": "Hold the Barricade",
+    "x": 1,
+    "y": -10,
+    "floorId": "battle",
+    "tileStyle": "barricade",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, defenders behind barricade, goblins charging in rain, torchlight, cinematic, no text",
+    "description": "The first wave hits like a thrown sack of knives.\n\nYour barricade teams look to you — not because you’re in charge, but because you’re still standing.",
+    "choices": [
+      {
+        "id": "start_hold",
+        "label": "Brace and hold.",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_breach_probe_01",
+              "enemyGroupId": "gate_breach_probe",
+              "distance": 3,
+              "direction": "s",
+              "speed": 1,
+              "targetAreaId": "e_barricade_hold",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "e_barricade_choices"
+      }
+    ]
+  },
+  {
+    "id": "e_barricade_choices",
+    "title": "Rain and Arrows",
+    "x": 1,
+    "y": -11,
+    "floorId": "battle",
+    "tileStyle": "barricade",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, close combat at barricade, arrows and shields, chaos, cinematic, no text",
+    "description": "The enemy closes. Archers fire past your shoulder.\n\nIf your preparations mattered, you’ll feel it now.",
+    "choices": [
+      {
+        "id": "volley_support",
+        "label": "Support with bow fire (and retreat behind cover).",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "training_bow",
+            "qty": 1
+          },
+          {
+            "type": "hasAmmo",
+            "ammoType": "arrow",
+            "minCount": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "shootThreat",
+            "threatId": "t_breach_probe_01",
+            "ammoType": "arrow",
+            "ammoToConsume": 1,
+            "damage": {
+              "mode": "roll",
+              "expr": "1d6"
+            }
+          },
+          {
+            "type": "enemyReturnFireIfInRange",
+            "threatId": "t_breach_probe_01"
+          },
+          {
+            "type": "advanceThreat",
+            "threatId": "t_breach_probe_01"
+          }
+        ]
+      },
+      {
+        "id": "spikes",
+        "label": "Plant spikes at the choke point.",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "spike_bundle",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "removeItem",
+            "itemId": "spike_bundle",
+            "qty": 1
+          },
+          {
+            "type": "placeHazard",
+            "threatId": "t_breach_probe_01",
+            "hazard": {
+              "kind": "spikes",
+              "damage": 3,
+              "triggerAtDistance": 1
+            }
+          },
+          {
+            "type": "advanceThreat",
+            "threatId": "t_breach_probe_01"
+          }
+        ]
+      },
+      {
+        "id": "stonebind",
+        "label": "Cast Stonebind to slow the wave.",
+        "requirements": [
+          {
+            "type": "knowsSpell",
+            "spellId": "stonebind"
+          }
+        ],
+        "effects": [
+          {
+            "type": "castSpell",
+            "spellId": "stonebind",
+            "threatId": "t_breach_probe_01"
+          },
+          {
+            "type": "advanceThreat",
+            "threatId": "t_breach_probe_01"
+          }
+        ]
+      },
+      {
+        "id": "force_fight",
+        "label": "When they hit, fight.",
+        "effects": [
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_breach_probe_01"
+          }
+        ],
+        "goToAreaId": "e_barricade_result"
+      }
+    ]
+  },
+  {
+    "id": "e_barricade_result",
+    "title": "The Line Holds",
+    "x": 1,
+    "y": -12,
+    "floorId": "battle",
+    "tileStyle": "barricade",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, defenders pushing back goblins, broken shields, victory moment, cinematic, no text",
+    "description": "The first press breaks — not cleanly, not kindly — but it breaks.\n\nCaptain Roth’s runner screams over the din: \"SAPPERS! AT THE WARD PLINTH!\"",
+    "effectsOnEnter": [
+      {
+        "type": "flag",
+        "key": "barricade_held",
+        "value": true
+      },
+      {
+        "type": "addXP",
+        "amount": 20
+      }
+    ],
+    "choices": [
+      {
+        "id": "to_ward",
+        "label": "Sprint to the ward plinth.",
+        "goToAreaId": "e_ward_crisis"
+      },
+      {
+        "id": "to_triage",
+        "label": "Run wounded to triage (short breather).",
+        "goToAreaId": "e_triage"
+      }
+    ]
+  },
+  {
+    "id": "e_ward_crisis",
+    "title": "Ward Crisis",
+    "x": 0,
+    "y": -11,
+    "floorId": "battle",
+    "tileStyle": "ward_site",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, ward plinth under attack, goblin sappers with fuse, defenders panicking, cinematic, no text",
+    "description": "A goblin sapper team rushes the plinth, fuse cords in hand.\n\nIf the ward fails, the gate becomes a suggestion.",
+    "choices": [
+      {
+        "id": "start_sappers",
+        "label": "Intercept the sappers!",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_sapper_team_01",
+              "enemyGroupId": "goblin_sapper_team",
+              "distance": 2,
+              "direction": "s",
+              "speed": 1,
+              "targetAreaId": "e_ward_crisis",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "e_ward_choices"
+      }
+    ]
+  },
+  {
+    "id": "e_ward_choices",
+    "title": "Fuses in the Rain",
+    "x": 0,
+    "y": -12,
+    "floorId": "battle",
+    "tileStyle": "ward_site",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, close-up sapper lighting fuse, arrows flying, rain steam, cinematic, no text",
+    "description": "One sapper shields a spark. Another laughs.\n\nYou have seconds.",
+    "choices": [
+      {
+        "id": "shoot",
+        "label": "Shoot the sapper with the fuse.",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "training_bow",
+            "qty": 1
+          },
+          {
+            "type": "hasAmmo",
+            "ammoType": "arrow",
+            "minCount": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "shootThreat",
+            "threatId": "t_sapper_team_01",
+            "ammoType": "arrow",
+            "ammoToConsume": 1,
+            "damage": {
+              "mode": "roll",
+              "expr": "1d6"
+            }
+          },
+          {
+            "type": "enemyReturnFireIfInRange",
+            "threatId": "t_sapper_team_01"
+          },
+          {
+            "type": "advanceThreat",
+            "threatId": "t_sapper_team_01"
+          }
+        ]
+      },
+      {
+        "id": "water",
+        "label": "Soak the fuse with a water skin.",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "water_skin",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "flag",
+            "key": "ward_fuse_doused",
+            "value": true
+          },
+          {
+            "type": "threatMoraleDelta",
+            "threatId": "t_sapper_team_01",
+            "amount": -2
+          },
+          {
+            "type": "advanceThreat",
+            "threatId": "t_sapper_team_01"
+          }
+        ]
+      },
+      {
+        "id": "flare",
+        "label": "Cast Flare Signal to rally defenders and panic the sappers.",
+        "requirements": [
+          {
+            "type": "knowsSpell",
+            "spellId": "flare_signal"
+          }
+        ],
+        "effects": [
+          {
+            "type": "castSpell",
+            "spellId": "flare_signal",
+            "threatId": "t_sapper_team_01"
+          },
+          {
+            "type": "threatMoraleDelta",
+            "threatId": "t_sapper_team_01",
+            "amount": -2
+          },
+          {
+            "type": "advanceThreat",
+            "threatId": "t_sapper_team_01"
+          }
+        ]
+      },
+      {
+        "id": "fight",
+        "label": "Close and fight.",
+        "effects": [
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_sapper_team_01"
+          }
+        ],
+        "goToAreaId": "e_ward_after"
+      }
+    ]
+  },
+  {
+    "id": "e_ward_after",
+    "title": "Ward Saved",
+    "x": 0,
+    "y": -13,
+    "floorId": "battle",
+    "tileStyle": "ward_site",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, ward plinth glowing stable, defenders relieved, broken fuse on stone, cinematic, no text",
+    "description": "The fuse dies. The ward hum steadies.\n\nA mage-priest grips your shoulder hard enough to bruise. \"You kept the gate alive.\"",
+    "effectsOnEnter": [
+      {
+        "type": "flag",
+        "key": "ward_saved",
+        "value": true
+      },
+      {
+        "type": "addXP",
+        "amount": 22
+      }
+    ],
+    "choices": [
+      {
+        "id": "to_triage",
+        "label": "Head to triage.",
+        "goToAreaId": "e_triage"
+      },
+      {
+        "id": "to_parapet",
+        "label": "Return to the parapet for the next wave.",
+        "goToAreaId": "e_parapet_volley"
+      }
+    ]
+  },
+  {
+    "id": "e_parapet_volley",
+    "title": "Parapet Volley",
+    "x": 0,
+    "y": -14,
+    "floorId": "battle",
+    "tileStyle": "battlements",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, archers firing from parapet into storm, enemies below as silhouettes, cinematic, no text",
+    "description": "Archers loose volleys into the storm.\n\nIf you stocked the barrels earlier, the firing doesn’t slow. If you didn’t… hands reach for empty air.",
+    "choices": [
+      {
+        "id": "support_archers",
+        "label": "Support the archers (spend 1 bundle of arrows if you have it).",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "arrow_bundle",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "removeItem",
+            "itemId": "arrow_bundle",
+            "qty": 1
+          },
+          {
+            "type": "addXP",
+            "amount": 16
+          },
+          {
+            "type": "flag",
+            "key": "parapet_helped_in_battle",
+            "value": true
+          }
+        ],
+        "goToAreaId": "e_triage"
+      },
+      {
+        "id": "if_stocked",
+        "label": "If the parapet is stocked, coordinate volleys.",
+        "requirements": [
+          {
+            "type": "flagEquals",
+            "key": "parapet_stocked",
+            "value": true
+          }
+        ],
+        "effects": [
+          {
+            "type": "addXP",
+            "amount": 14
+          }
+        ],
+        "goToAreaId": "e_triage"
+      }
+    ]
+  },
+  {
+    "id": "e_triage",
+    "title": "Triage Under Lanterns",
+    "x": -1,
+    "y": -12,
+    "floorId": "battle",
+    "tileStyle": "triage",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, triage tent near gate, lanterns, healers, wounded soldiers, rain outside, cinematic, no text",
+    "description": "Healers work fast. Bandages run red.\n\nA runner arrives with a message: \"The first wave is only a test. The real push is coming.\"",
+    "choices": [
+      {
+        "id": "act1_end",
+        "label": "Steel yourself for the next phase of the battle.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "battle_act1_complete",
+            "value": true
+          }
+        ]
+      }
+    ]
+  }
+]

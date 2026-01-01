@@ -1,0 +1,48 @@
+[
+  {
+    "id": "q_underfortress_ch2_orb",
+    "name": "Under-Fortress II: Seize or Sabotage the Sight Orb",
+    "giverNpcId": "npc_councilor_vayne",
+    "startAreaId": "u_reliquary_antechamber",
+    "objective": {
+      "type": "setFlag",
+      "key": "underfortress_ch2_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 55,
+      "items": [
+        {
+          "itemId": "council_sigil_silver",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_free_tess",
+    "name": "Free the Tower Apprentice",
+    "giverNpcId": "npc_captive_mage_apprentice",
+    "startAreaId": "u_reliquary_cells",
+    "objective": {
+      "type": "setFlag",
+      "key": "tess_freed",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 22,
+      "items": [
+        {
+          "itemId": "ward_damper",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  }
+]

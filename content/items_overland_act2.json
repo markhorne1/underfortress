@@ -1,0 +1,58 @@
+[
+  {
+    "id": "torch_bundle",
+    "name": "Torch Bundle",
+    "type": "tool",
+    "stackable": true,
+    "value": 8,
+    "description": "Dry pitch torches. Useful for burning supplies… or lighting your own retreat."
+  },
+  {
+    "id": "bitterroot_vial",
+    "name": "Bitterroot Vial",
+    "type": "tool",
+    "stackable": true,
+    "value": 0,
+    "description": "A pungent herbal concentrate. In small doses it dulls pain. In soup pots it ruins an army’s day."
+  },
+  {
+    "id": "camp_scout_badge",
+    "name": "Camp Scout Badge",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A crude badge used by goblin scouts. Wearing it might fool someone for a heartbeat."
+  },
+  {
+    "id": "tunnel_survey_map",
+    "name": "Tunnel Survey Map",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A charcoal sketch marking a ‘second mouth’ into the city drains—and a deeper route labeled: RED KNIFE HOLD (TRANSFER)."
+  },
+  {
+    "id": "siege_order_strip",
+    "name": "Siege Order Strip",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A bark-paper order: ‘Tomorrow: push ladders at dawn. If the orb is lost, hold until the Hold delivers the prize.’"
+  },
+  {
+    "id": "shackle_key",
+    "name": "Shackle Key",
+    "type": "tool",
+    "stackable": false,
+    "value": 12,
+    "description": "A small key for simple iron shackles. Not for cell locks—just cages and chains."
+  },
+  {
+    "id": "smoke_jar",
+    "name": "Smoke Jar",
+    "type": "tool",
+    "stackable": true,
+    "value": 18,
+    "description": "A clay jar that cracks into thick smoke when thrown. Cruder than pellets, but effective."
+  }
+]

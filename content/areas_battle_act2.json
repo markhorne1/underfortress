@@ -1,0 +1,651 @@
+[
+  {
+    "id": "f_act2_real_push",
+    "title": "The Real Push",
+    "x": 0,
+    "y": -20,
+    "floorId": "battle",
+    "tileStyle": "battle_start",
+    "cover": "none",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, massive enemy wave in rain, drums, torches, silhouettes of orcs and a troll, city gate looming, cinematic, no text",
+    "description": "Drums thud like a second heart.\n\nThe field erupts with torches and black shapes — orcs in tight ranks, and behind them something huge that lumbers as if the world owes it space.\n\nA runner screams: \"THEY’RE PUSHING THE RAM! AND SOMETHING’S INSIDE THE WALLS!\"",
+    "effectsOnEnter": [
+      {
+        "type": "flag",
+        "key": "battle_act2_started",
+        "value": true
+      }
+    ],
+    "choices": [
+      {
+        "id": "to_gateface",
+        "label": "Run to the gate face and join the defenders.",
+        "goToAreaId": "f_gate_face"
+      },
+      {
+        "id": "to_mechanisms",
+        "label": "Run to the gate mechanisms (emergency access).",
+        "goToAreaId": "f_mechanism_entry"
+      },
+      {
+        "id": "to_infiltrators",
+        "label": "Hunt the infiltrators inside the walls.",
+        "goToAreaId": "f_infiltrator_alert"
+      }
+    ]
+  },
+  {
+    "id": "f_gate_face",
+    "title": "Gate Face",
+    "x": 0,
+    "y": -21,
+    "floorId": "battle",
+    "tileStyle": "gate_yard",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, defenders at gate with shields, arrows raining, huge ram approaching, cinematic, no text",
+    "description": "A battering ram surges forward under a roof of shields.\n\nIf the ward holds, the ram hits like a blunt prayer. If it fails, it hits like a verdict.",
+    "choices": [
+      {
+        "id": "ward_matters",
+        "label": "If the gate is warded, focus fire on the ram crew.",
+        "requirements": [
+          {
+            "type": "flagEquals",
+            "key": "gate_warded",
+            "value": true
+          }
+        ],
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_orc_assault_01",
+              "enemyGroupId": "orc_assault_wave",
+              "distance": 3,
+              "direction": "s",
+              "speed": 1,
+              "targetAreaId": "f_gate_face",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "f_gate_face_choices"
+      },
+      {
+        "id": "if_not_warded",
+        "label": "If the ward is weak, brace for impact and prepare to fall back.",
+        "requirements": [
+          {
+            "type": "notFlag",
+            "key": "gate_warded"
+          }
+        ],
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_troll_push_01",
+              "enemyGroupId": "troll_push",
+              "distance": 2,
+              "direction": "s",
+              "speed": 1,
+              "targetAreaId": "f_gate_face",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "f_gate_breach_risk"
+      }
+    ]
+  },
+  {
+    "id": "f_gate_face_choices",
+    "title": "Arrowstorm",
+    "x": 0,
+    "y": -22,
+    "floorId": "battle",
+    "tileStyle": "gate_yard",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, arrow volleys from parapet, orcs pushing forward, rain streaks, cinematic, no text",
+    "description": "The ram crew advances in a tight wedge.\n\nYour choices are simple: thin them out, slow them down, or meet them when they hit.",
+    "choices": [
+      {
+        "id": "shoot",
+        "label": "Open fire with my bow.",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "training_bow",
+            "qty": 1
+          },
+          {
+            "type": "hasAmmo",
+            "ammoType": "arrow",
+            "minCount": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "shootThreat",
+            "threatId": "t_orc_assault_01",
+            "ammoType": "arrow",
+            "ammoToConsume": 1,
+            "damage": {
+              "mode": "roll",
+              "expr": "1d6"
+            }
+          },
+          {
+            "type": "enemyReturnFireIfInRange",
+            "threatId": "t_orc_assault_01"
+          },
+          {
+            "type": "advanceThreat",
+            "threatId": "t_orc_assault_01"
+          }
+        ]
+      },
+      {
+        "id": "stonebind",
+        "label": "Cast Stonebind to slow the front ranks.",
+        "requirements": [
+          {
+            "type": "knowsSpell",
+            "spellId": "stonebind"
+          }
+        ],
+        "effects": [
+          {
+            "type": "castSpell",
+            "spellId": "stonebind",
+            "threatId": "t_orc_assault_01"
+          },
+          {
+            "type": "advanceThreat",
+            "threatId": "t_orc_assault_01"
+          }
+        ]
+      },
+      {
+        "id": "fight",
+        "label": "Fight when they reach the line.",
+        "effects": [
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_orc_assault_01"
+          }
+        ],
+        "goToAreaId": "f_gate_face_outcome"
+      }
+    ]
+  },
+  {
+    "id": "f_gate_face_outcome",
+    "title": "A Cracked Moment",
+    "x": 0,
+    "y": -23,
+    "floorId": "battle",
+    "tileStyle": "gate_yard",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, gate shaking, defenders grimacing, ward glow straining, cinematic, no text",
+    "description": "The ram hits. The ward flares. The gate shudders.\n\nYou hear it — a crack that isn’t wood. It’s certainty.",
+    "choices": [
+      {
+        "id": "mechanisms_now",
+        "label": "Sprint to the gate mechanisms to reinforce the lift chains.",
+        "goToAreaId": "f_mechanism_entry"
+      },
+      {
+        "id": "hold_more",
+        "label": "Stay and hold one more impact.",
+        "effects": [
+          {
+            "type": "addXP",
+            "amount": 10
+          }
+        ],
+        "goToAreaId": "f_gate_breach_risk"
+      }
+    ]
+  },
+  {
+    "id": "f_gate_breach_risk",
+    "title": "Breach Risk",
+    "x": 0,
+    "y": -24,
+    "floorId": "battle",
+    "tileStyle": "gate_yard",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, troll brute pushing forward, orcs yelling, gate splintering, cinematic, no text",
+    "description": "A troll brute crashes into the press like a living siege engine.\n\nDefenders stumble. Someone screams: \"THE HINGE!\"",
+    "choices": [
+      {
+        "id": "start_troll",
+        "label": "Engage the troll push!",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_troll_push_01",
+              "enemyGroupId": "troll_push",
+              "distance": 2,
+              "direction": "s",
+              "speed": 1,
+              "targetAreaId": "f_gate_breach_risk",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "f_breach_choices"
+      }
+    ]
+  },
+  {
+    "id": "f_breach_choices",
+    "title": "Hinge and Chain",
+    "x": 0,
+    "y": -25,
+    "floorId": "battle",
+    "tileStyle": "gate_yard",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, close view of gate hinge and chain under strain, defenders fighting in rain, cinematic, no text",
+    "description": "If the chain holds, the gate holds.\n\nIf the chain slips, the city becomes a maze of last stands.",
+    "choices": [
+      {
+        "id": "resin_patch",
+        "label": "Use a resin patch to reinforce the hinge seam.",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "resin_patch",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "removeItem",
+            "itemId": "resin_patch",
+            "qty": 1
+          },
+          {
+            "type": "flag",
+            "key": "hinge_reinforced",
+            "value": true
+          },
+          {
+            "type": "addXP",
+            "amount": 12
+          }
+        ],
+        "goToAreaId": "f_mechanism_entry"
+      },
+      {
+        "id": "fight",
+        "label": "Fight through the press and buy time.",
+        "effects": [
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_troll_push_01"
+          }
+        ],
+        "goToAreaId": "f_breach_outcome"
+      },
+      {
+        "id": "fall_back",
+        "label": "Fall back to the inner streets and organize a choke point.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "gate_breached_partial",
+            "value": true
+          }
+        ],
+        "goToAreaId": "g_inner_streets_intro"
+      }
+    ]
+  },
+  {
+    "id": "f_breach_outcome",
+    "title": "Splinters and Smoke",
+    "x": 0,
+    "y": -26,
+    "floorId": "battle",
+    "tileStyle": "gate_yard",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, gate splintering, smoke and rain, defenders retreating, cinematic, no text",
+    "description": "You win seconds — not safety.\n\nThe gate gives a handspan. Then another.\n\nA narrow breach opens. Enough for knives. Enough for screams.",
+    "choices": [
+      {
+        "id": "hold_or_fall",
+        "label": "Fall back to the inner streets to prevent a full spill-in.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "gate_breached_partial",
+            "value": true
+          }
+        ],
+        "goToAreaId": "g_inner_streets_intro"
+      },
+      {
+        "id": "mechanisms_last_chance",
+        "label": "Last chance: run to the mechanisms to lift and slam the portcullis.",
+        "goToAreaId": "f_mechanism_entry"
+      }
+    ]
+  },
+  {
+    "id": "f_mechanism_entry",
+    "title": "Mechanism Door",
+    "x": -1,
+    "y": -21,
+    "floorId": "battle",
+    "tileStyle": "mechanism",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, iron door to gate mechanisms, guards, sparks, rumbling gate, cinematic, no text",
+    "description": "An iron door set into the inner wall.\n\nA guard blocks you. \"Only the Gatewarden—\"\n\nThe wall shakes. Dust sifts down like slow snow.",
+    "choices": [
+      {
+        "id": "use_seal",
+        "label": "Show the Gatewarden’s Seal.",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "gatewarden_seal",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "flag",
+            "key": "inner_mechanism_access",
+            "value": true
+          }
+        ],
+        "goToAreaId": "f_mechanism_room"
+      },
+      {
+        "id": "if_already_access",
+        "label": "Enter (you already have access).",
+        "requirements": [
+          {
+            "type": "flagEquals",
+            "key": "inner_mechanism_access",
+            "value": true
+          }
+        ],
+        "goToAreaId": "f_mechanism_room"
+      },
+      {
+        "id": "no_access",
+        "label": "No seal—fall back to the inner streets.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "gate_breached_partial",
+            "value": true
+          }
+        ],
+        "goToAreaId": "g_inner_streets_intro"
+      }
+    ]
+  },
+  {
+    "id": "f_mechanism_room",
+    "title": "Gate Mechanisms",
+    "x": -2,
+    "y": -21,
+    "floorId": "battle",
+    "tileStyle": "mechanism",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, gate mechanism room with chains and winch, sparks, defenders straining, cinematic, no text",
+    "description": "Chains groan. A winch screams. The portcullis is half-raised — stuck between fate and physics.\n\nA crewman shouts: \"Something’s cutting the ropes from inside!\"",
+    "choices": [
+      {
+        "id": "hook_chain",
+        "label": "Use a chain hook to re-seat the slipping chain (risky).",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "chain_hook",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "flag",
+            "key": "portcullis_stabilized",
+            "value": true
+          },
+          {
+            "type": "addXP",
+            "amount": 18
+          }
+        ],
+        "goToAreaId": "f_mechanism_infiltration"
+      },
+      {
+        "id": "wardseal",
+        "label": "Cast Wardseal to steady the mechanism room’s ward-lines.",
+        "requirements": [
+          {
+            "type": "knowsSpell",
+            "spellId": "wardseal"
+          }
+        ],
+        "effects": [
+          {
+            "type": "castSpell",
+            "spellId": "wardseal"
+          },
+          {
+            "type": "addXP",
+            "amount": 10
+          }
+        ],
+        "goToAreaId": "f_mechanism_infiltration"
+      },
+      {
+        "id": "rush_infiltrators",
+        "label": "Ignore the chain—hunt whoever is cutting from inside.",
+        "goToAreaId": "f_mechanism_infiltration"
+      }
+    ]
+  },
+  {
+    "id": "f_mechanism_infiltration",
+    "title": "Ropes Cut From Within",
+    "x": -3,
+    "y": -21,
+    "floorId": "battle",
+    "tileStyle": "tunnel",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow inner-wall tunnel, goblin infiltrators with knives, hanging ropes, cinematic, no text",
+    "description": "A narrow service tunnel runs inside the wall.\n\nGoblin infiltrators — soaked, laughing — slash at rope lines like children ruining toys.\n\nOne drops something that clinks: a key fragment.",
+    "choices": [
+      {
+        "id": "start_infiltrators",
+        "label": "Stop the infiltrators!",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_infil_cell_01",
+              "enemyGroupId": "infiltrator_cell",
+              "distance": 2,
+              "direction": "s",
+              "speed": 1,
+              "targetAreaId": "f_mechanism_infiltration",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "f_infiltration_choices"
+      }
+    ]
+  },
+  {
+    "id": "f_infiltration_choices",
+    "title": "Knives on Ropes",
+    "x": -4,
+    "y": -21,
+    "floorId": "battle",
+    "tileStyle": "tunnel",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, close fight in tunnel, goblins slashing ropes, sparks and rain drip, cinematic, no text",
+    "description": "If they finish cutting, the portcullis drops crooked — and jams open.\n\nYou must stop them now.",
+    "choices": [
+      {
+        "id": "shoot",
+        "label": "Shoot and retreat to keep distance in the tunnel.",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "training_bow",
+            "qty": 1
+          },
+          {
+            "type": "hasAmmo",
+            "ammoType": "arrow",
+            "minCount": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "shootThreat",
+            "threatId": "t_infil_cell_01",
+            "ammoType": "arrow",
+            "ammoToConsume": 1,
+            "damage": {
+              "mode": "roll",
+              "expr": "1d6"
+            }
+          },
+          {
+            "type": "breakLOS",
+            "durationTurns": 1
+          },
+          {
+            "type": "advanceThreat",
+            "threatId": "t_infil_cell_01"
+          }
+        ]
+      },
+      {
+        "id": "smoke",
+        "label": "Use a smoke pellet to break line of sight and rush them.",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "smoke_pellet",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "removeItem",
+            "itemId": "smoke_pellet",
+            "qty": 1
+          },
+          {
+            "type": "breakLOS",
+            "durationTurns": 2
+          },
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_infil_cell_01"
+          }
+        ],
+        "goToAreaId": "f_infiltration_after"
+      },
+      {
+        "id": "fight",
+        "label": "Fight.",
+        "effects": [
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_infil_cell_01"
+          }
+        ],
+        "goToAreaId": "f_infiltration_after"
+      }
+    ]
+  },
+  {
+    "id": "f_infiltration_after",
+    "title": "A Slam of Iron",
+    "x": -5,
+    "y": -21,
+    "floorId": "battle",
+    "tileStyle": "mechanism",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, portcullis slamming down, sparks, defenders cheering briefly, cinematic, no text",
+    "description": "The last rope holds.\n\nThe portcullis drops clean.\n\nFor a heartbeat, the city breathes.",
+    "effectsOnEnter": [
+      {
+        "type": "flag",
+        "key": "portcullis_slammed",
+        "value": true
+      },
+      {
+        "type": "addItem",
+        "itemId": "gate_key_fragment",
+        "qty": 1
+      },
+      {
+        "type": "addXP",
+        "amount": 22
+      }
+    ],
+    "choices": [
+      {
+        "id": "act2_win",
+        "label": "Return to the inner yard and see what remains.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "battle_act2_complete",
+            "value": true
+          }
+        ],
+        "goToAreaId": "h_after_act2"
+      }
+    ]
+  },
+  {
+    "id": "f_infiltrator_alert",
+    "title": "Infiltrator Alert",
+    "x": -1,
+    "y": -20,
+    "floorId": "battle",
+    "tileStyle": "alley",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, inner alley with panicked citizens, guard pointing, shadowy movement, cinematic, no text",
+    "description": "A guard points into an alley. \"They’re inside! They cut ropes and open doors — they want the gate to fail from within!\"",
+    "choices": [
+      {
+        "id": "to_tunnel",
+        "label": "Chase them into the inner wall tunnel.",
+        "goToAreaId": "f_mechanism_infiltration"
+      },
+      {
+        "id": "to_streets",
+        "label": "Fall back to organize inner street choke points.",
+        "goToAreaId": "g_inner_streets_intro"
+      }
+    ]
+  }
+]

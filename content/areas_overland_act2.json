@@ -1,0 +1,835 @@
+[
+  {
+    "id": "o_field_camp_edge",
+    "title": "Forward Camp Edge",
+    "x": 12,
+    "y": -2,
+    "floorId": "overland",
+    "tileStyle": "forest_edge",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, hidden view of goblin camp through trees, smoke from cookfires, crude palisade, cinematic, no text",
+    "description": "Through the trees you see it: a forward camp.\n\nLow palisade. Cookfires. Crates.\n\nNot a fortress—just a mouth feeding the siege.",
+    "choices": [
+      {
+        "id": "stealth_in",
+        "label": "Approach quietly (best with Muffle Steps).",
+        "requirements": [
+          {
+            "type": "knowsSpell",
+            "spellId": "muffle_steps"
+          }
+        ],
+        "effects": [
+          {
+            "type": "castSpell",
+            "spellId": "muffle_steps"
+          },
+          {
+            "type": "addXP",
+            "amount": 6
+          }
+        ],
+        "goToAreaId": "o_camp_inner_lane"
+      },
+      {
+        "id": "rush_in",
+        "label": "Rush in before patrol loops back.",
+        "effects": [
+          {
+            "type": "addXP",
+            "amount": 3
+          }
+        ],
+        "goToAreaId": "o_camp_inner_lane"
+      }
+    ],
+    "exits": {
+      "w": "o_forest_track",
+      "e": "o_camp_inner_lane"
+    }
+  },
+  {
+    "id": "o_camp_inner_lane",
+    "title": "Camp Inner Lane",
+    "x": 13,
+    "y": -2,
+    "floorId": "overland",
+    "tileStyle": "camp",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, muddy lane between crude tents, goblin scouts, lanterns, cinematic, no text",
+    "description": "Tents sag in the rain. Goblins trot with bundles.\n\nA patrol whistles a crude rhythm.\n\nYou can still turn this into a quiet victory—or a loud one.",
+    "choices": [
+      {
+        "id": "patrol",
+        "label": "A patrol turns in—avoid or fight.",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_camp_patrol_01",
+              "enemyGroupId": "camp_patrol",
+              "distance": 3,
+              "direction": "e",
+              "speed": 1,
+              "targetAreaId": "o_camp_inner_lane",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "o_camp_patrol_contact"
+      },
+      {
+        "id": "to_supplies",
+        "label": "Slip toward the supply tents.",
+        "goToAreaId": "o_supply_tents"
+      },
+      {
+        "id": "to_kettle",
+        "label": "Move toward the mess kettle.",
+        "goToAreaId": "o_mess_kettle"
+      },
+      {
+        "id": "to_cages",
+        "label": "Head toward the cage pens.",
+        "goToAreaId": "o_cage_pens"
+      },
+      {
+        "id": "to_signal",
+        "label": "Climb toward the signal post.",
+        "goToAreaId": "o_signal_post"
+      }
+    ]
+  },
+  {
+    "id": "o_camp_patrol_contact",
+    "title": "Patrol Contact: Whistles and Teeth",
+    "x": 14,
+    "y": -2,
+    "floorId": "overland",
+    "tileStyle": "camp",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, goblin patrol with lantern catching an intruder, tense moment, cinematic, no text",
+    "description": "A goblin scout’s lantern swings your way.\n\nIt inhales—about to whistle.\n\nYou have one clean moment.",
+    "choices": [
+      {
+        "id": "shoot",
+        "label": "Shoot the scout before it whistles.",
+        "requirements": [
+          {
+            "type": "hasAnyItem",
+            "itemIds": [
+              "training_bow",
+              "hunting_bow"
+            ],
+            "qty": 1
+          },
+          {
+            "type": "hasAmmo",
+            "ammoType": "arrow",
+            "minCount": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "shootThreat",
+            "threatId": "t_camp_patrol_01",
+            "ammoType": "arrow",
+            "ammoToConsume": 1,
+            "damage": {
+              "mode": "roll",
+              "expr": "1d6"
+            }
+          },
+          {
+            "type": "advanceThreat",
+            "threatId": "t_camp_patrol_01"
+          }
+        ],
+        "goToAreaId": "o_camp_inner_lane"
+      },
+      {
+        "id": "smoke",
+        "label": "Throw a smoke jar and slip away.",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "smoke_jar",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "removeItem",
+            "itemId": "smoke_jar",
+            "qty": 1
+          },
+          {
+            "type": "breakLOS",
+            "durationTurns": 2
+          }
+        ],
+        "goToAreaId": "o_supply_tents"
+      },
+      {
+        "id": "fight",
+        "label": "Fight.",
+        "effects": [
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_camp_patrol_01"
+          }
+        ],
+        "goToAreaId": "o_camp_inner_lane"
+      }
+    ]
+  },
+  {
+    "id": "o_supply_tents",
+    "title": "Supply Tents",
+    "x": 13,
+    "y": -3,
+    "floorId": "overland",
+    "tileStyle": "camp_supplies",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, supply tents with crates, sacks of grain, stacked arrows, torchlight, cinematic, no text",
+    "description": "Crates. Grain sacks. Spare spearheads.\n\nThis camp’s purpose is simple: keep the siege alive.\n\nBurning this would save lives. But it would also light you up like a beacon.",
+    "actionsAvailable": {
+      "investigate": {
+        "text": "A crate is marked with charcoal: ‘TUNNEL—TOOLS’ and ‘TRANSFER—HOLD.’",
+        "choices": [
+          {
+            "id": "take_map",
+            "label": "Take the Tunnel Survey Map.",
+            "effects": [
+              {
+                "type": "addItem",
+                "itemId": "tunnel_survey_map",
+                "qty": 1
+              },
+              {
+                "type": "flag",
+                "key": "hostage_swap_chain_unlocked",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 12
+              }
+            ]
+          },
+          {
+            "id": "take_orders",
+            "label": "Take a strip of siege orders.",
+            "effects": [
+              {
+                "type": "addItem",
+                "itemId": "siege_order_strip",
+                "qty": 1
+              },
+              {
+                "type": "addXP",
+                "amount": 6
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "burn_supplies",
+        "label": "Burn the supplies (major sabotage).",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "torch_bundle",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "removeItem",
+            "itemId": "torch_bundle",
+            "qty": 1
+          },
+          {
+            "type": "flag",
+            "key": "siege_supplies_burned",
+            "value": true
+          },
+          {
+            "type": "flag",
+            "key": "enemy_morale_reduced",
+            "value": true
+          },
+          {
+            "type": "addXP",
+            "amount": 18
+          }
+        ],
+        "goToAreaId": "o_alarm_rising"
+      },
+      {
+        "id": "leave",
+        "label": "Leave quietly.",
+        "goToAreaId": "o_camp_inner_lane"
+      }
+    ]
+  },
+  {
+    "id": "o_mess_kettle",
+    "title": "Mess Kettle",
+    "x": 14,
+    "y": -3,
+    "floorId": "overland",
+    "tileStyle": "camp_kitchen",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, camp cookfire with huge kettle, goblin cook stirring, greasy smoke, cinematic, no text",
+    "description": "A goblin cook stirs a kettle that could feed fifty.\n\nIf you poison this, the siege line weakens tomorrow.\n\nBut you must be quick and quiet.",
+    "choices": [
+      {
+        "id": "poison",
+        "label": "Poison the kettle with Bitterroot.",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "bitterroot_vial",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "removeItem",
+            "itemId": "bitterroot_vial",
+            "qty": 1
+          },
+          {
+            "type": "flag",
+            "key": "enemy_rations_poisoned",
+            "value": true
+          },
+          {
+            "type": "flag",
+            "key": "enemy_stamina_penalty_next_battle",
+            "value": true
+          },
+          {
+            "type": "addXP",
+            "amount": 16
+          }
+        ],
+        "goToAreaId": "o_alarm_rising"
+      },
+      {
+        "id": "fight_cook",
+        "label": "Confront the cook (risk a shout).",
+        "effects": [
+          {
+            "type": "startCombat",
+            "enemyGroup": [
+              {
+                "enemyId": "goblin_cook",
+                "count": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "o_camp_inner_lane"
+      },
+      {
+        "id": "leave",
+        "label": "Leave quietly.",
+        "goToAreaId": "o_camp_inner_lane"
+      }
+    ]
+  },
+  {
+    "id": "o_cage_pens",
+    "title": "Cage Pens",
+    "x": 12,
+    "y": -3,
+    "floorId": "overland",
+    "tileStyle": "camp_cages",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, crude cages with frightened farmers, orc taskmaster, rain and mud, cinematic, no text",
+    "description": "Cages. People.\n\nAn orc taskmaster paces with a cudgel.\n\nA farmer meets your eyes—defiant, not broken.",
+    "actionsAvailable": {
+      "talk": {
+        "text": "The captive whispers through the bars.",
+        "choices": [
+          {
+            "id": "dialogue",
+            "label": "Talk to Rill Dane.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_captive_farmer_rill"
+              }
+            ]
+          },
+          {
+            "id": "start_q",
+            "label": "Start: Free the Captive Farmers.",
+            "effects": [
+              {
+                "type": "startJob",
+                "jobId": "q_free_farmers"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "free_with_key",
+        "label": "Free the captives (if you have a shackle key).",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "shackle_key",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "flag",
+            "key": "farmers_freed",
+            "value": true
+          },
+          {
+            "type": "completeJob",
+            "jobId": "q_free_farmers"
+          },
+          {
+            "type": "addXP",
+            "amount": 16
+          }
+        ],
+        "goToAreaId": "o_farmer_escape_lane"
+      },
+      {
+        "id": "fight_taskmaster",
+        "label": "Fight the taskmaster and his detail.",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_taskmaster_01",
+              "enemyGroupId": "taskmaster_detail",
+              "distance": 2,
+              "direction": "e",
+              "speed": 1,
+              "targetAreaId": "o_cage_pens",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "o_taskmaster_fight"
+      }
+    ]
+  },
+  {
+    "id": "o_taskmaster_fight",
+    "title": "Taskmaster Fight",
+    "x": 12,
+    "y": -4,
+    "floorId": "overland",
+    "tileStyle": "camp",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, orc taskmaster raising cudgel, goblins swarming, muddy camp, cinematic, no text",
+    "description": "The taskmaster bellows and charges.\n\nIf you drop him, you’ll have time to free the cages.\n\nIf you don’t, you’ll be the next lesson.",
+    "choices": [
+      {
+        "id": "fight",
+        "label": "Fight.",
+        "effects": [
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_taskmaster_01"
+          }
+        ],
+        "goToAreaId": "o_taskmaster_after"
+      }
+    ]
+  },
+  {
+    "id": "o_taskmaster_after",
+    "title": "Keys in the Mud",
+    "x": 12,
+    "y": -5,
+    "floorId": "overland",
+    "tileStyle": "camp_cages",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, fallen orc, keys in mud, cages behind, cinematic, no text",
+    "description": "The taskmaster falls.\n\nA key glints in the mud.\n\nThe cages rattle—not with begging, but with readiness.",
+    "effectsOnEnter": [
+      {
+        "type": "addItem",
+        "itemId": "shackle_key",
+        "qty": 1
+      },
+      {
+        "type": "addXP",
+        "amount": 12
+      }
+    ],
+    "choices": [
+      {
+        "id": "free_now",
+        "label": "Free the captives.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "farmers_freed",
+            "value": true
+          },
+          {
+            "type": "completeJob",
+            "jobId": "q_free_farmers"
+          },
+          {
+            "type": "addXP",
+            "amount": 10
+          }
+        ],
+        "goToAreaId": "o_farmer_escape_lane"
+      },
+      {
+        "id": "leave",
+        "label": "Leave before the alarm rises.",
+        "goToAreaId": "o_alarm_rising"
+      }
+    ]
+  },
+  {
+    "id": "o_farmer_escape_lane",
+    "title": "Escape Lane: Back Roads",
+    "x": 11,
+    "y": -4,
+    "floorId": "overland",
+    "tileStyle": "hedgerow",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, hedgerow lane with fleeing captives, distant camp fires, cinematic, no text",
+    "description": "The freed farmers slip into hedgerows like ghosts.\n\nRill whispers: \"There’s an overlook on the ridge. You’ll see the siege lines from there.\"\n\n\"And the sinkholes—those are real. The map you took… it’s a death road.\"",
+    "choices": [
+      {
+        "id": "to_overlook",
+        "label": "Go to the ridge overlook.",
+        "goToAreaId": "o_siege_overlook"
+      },
+      {
+        "id": "to_city",
+        "label": "Escort them toward the city road.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "farmers_reached_city",
+            "value": true
+          }
+        ],
+        "goToAreaId": "o_city_gate_outside"
+      }
+    ]
+  },
+  {
+    "id": "o_signal_post",
+    "title": "Signal Post",
+    "x": 14,
+    "y": -4,
+    "floorId": "overland",
+    "tileStyle": "camp_signal",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, crude signal post with horns and flags, goblin scout watching horizon, cinematic, no text",
+    "description": "A crude post with horns and flags.\n\nOne good signal could call half the camp.\n\nOne broken signal buys you minutes.",
+    "choices": [
+      {
+        "id": "cut_signal",
+        "label": "Sabotage the signal horn (quiet).",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "camp_signal_sabotaged",
+            "value": true
+          },
+          {
+            "type": "addXP",
+            "amount": 10
+          }
+        ],
+        "goToAreaId": "o_alarm_rising"
+      },
+      {
+        "id": "fight_scout",
+        "label": "Fight the scout on duty.",
+        "effects": [
+          {
+            "type": "startCombat",
+            "enemyGroup": [
+              {
+                "enemyId": "goblin_scout",
+                "count": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "o_alarm_rising"
+      }
+    ]
+  },
+  {
+    "id": "o_alarm_rising",
+    "title": "Alarm Rising",
+    "x": 13,
+    "y": -5,
+    "floorId": "overland",
+    "tileStyle": "camp",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, camp in chaos, torches flaring, goblins shouting, smoke, cinematic, no text",
+    "description": "Somewhere a whistle shrieks.\n\nTorches flare.\n\nThe camp wakes like a kicked hive.\n\nYou must choose: slip away now—or risk a last look at the siege line itself.",
+    "choices": [
+      {
+        "id": "to_overlook",
+        "label": "Go to the ridge overlook (recon).",
+        "goToAreaId": "o_siege_overlook"
+      },
+      {
+        "id": "escape",
+        "label": "Escape into the forest track.",
+        "goToAreaId": "o_forest_track"
+      }
+    ]
+  },
+  {
+    "id": "o_siege_overlook",
+    "title": "Ridge Overlook",
+    "x": 15,
+    "y": -6,
+    "floorId": "overland",
+    "tileStyle": "ridge",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, high ridge overlooking siege lines, campfires like stars, city walls distant, cinematic, no text",
+    "description": "From the ridge you see it: the siege line.\n\nLadders stacked like teeth. Fires in long rows. Shapes moving with purpose.\n\nYour city is a dark shape beyond—still standing.\n\nFor now.",
+    "choices": [
+      {
+        "id": "start_recon",
+        "label": "Complete recon of the siege lines (and count ladders).",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "siege_lines_reconned",
+            "value": true
+          },
+          {
+            "type": "completeJob",
+            "jobId": "q_siege_lines_recon"
+          },
+          {
+            "type": "addXP",
+            "amount": 12
+          }
+        ],
+        "goToAreaId": "o_siege_skirmish_prompt"
+      }
+    ],
+    "exits": {
+      "w": "o_forest_track"
+    }
+  },
+  {
+    "id": "o_siege_skirmish_prompt",
+    "title": "A Small Role in a Big War",
+    "x": 15,
+    "y": -7,
+    "floorId": "overland",
+    "tileStyle": "ridge",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, skirmish breaking out near siege stores, sentries turning, cinematic, no text",
+    "description": "A small supply knot sits apart from the main line—guarded lightly.\n\nIf you strike it, you’ll thin tomorrow’s push.\n\nBut you might not walk away.",
+    "choices": [
+      {
+        "id": "skirmish",
+        "label": "Strike the siege skirmish line and flee.",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_siege_skirmish_01",
+              "enemyGroupId": "siege_skirmish_line",
+              "distance": 3,
+              "direction": "n",
+              "speed": 1,
+              "targetAreaId": "o_siege_skirmish_prompt",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "o_siege_skirmish_loop"
+      },
+      {
+        "id": "withdraw",
+        "label": "Withdraw and return to the city with what you learned.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "overland_act2_complete",
+            "value": true
+          }
+        ],
+        "goToAreaId": "o_city_gate_outside"
+      }
+    ]
+  },
+  {
+    "id": "o_siege_skirmish_loop",
+    "title": "Skirmish at Distance",
+    "x": 15,
+    "y": -8,
+    "floorId": "overland",
+    "tileStyle": "open_field",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, arrows exchanged near siege stores, smoke rising, cinematic, no text",
+    "description": "You can fight and retreat—buying distance square by square.\n\nIf you break them quickly, you escape.\n\nIf you linger, the full line notices.",
+    "choices": [
+      {
+        "id": "fire_retreat",
+        "label": "Fire, then retreat one square.",
+        "requirements": [
+          {
+            "type": "hasAnyItem",
+            "itemIds": [
+              "training_bow",
+              "hunting_bow"
+            ],
+            "qty": 1
+          },
+          {
+            "type": "hasAmmo",
+            "ammoType": "arrow",
+            "minCount": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "shootThreat",
+            "threatId": "t_siege_skirmish_01",
+            "ammoType": "arrow",
+            "ammoToConsume": 1,
+            "damage": {
+              "mode": "roll",
+              "expr": "1d6"
+            }
+          },
+          {
+            "type": "advanceThreat",
+            "threatId": "t_siege_skirmish_01"
+          }
+        ],
+        "goToAreaId": "o_siege_escape_choice"
+      },
+      {
+        "id": "fight",
+        "label": "Fight to finish it.",
+        "effects": [
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_siege_skirmish_01"
+          }
+        ],
+        "goToAreaId": "o_siege_skirmish_after"
+      }
+    ]
+  },
+  {
+    "id": "o_siege_escape_choice",
+    "title": "Escape Choice",
+    "x": 14,
+    "y": -8,
+    "floorId": "overland",
+    "tileStyle": "open_field",
+    "cover": "none",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, adventurer sprinting through grass, city walls far away, pursuit behind, cinematic, no text",
+    "description": "Distance is your friend.\n\nChoose a direction and don’t stop moving.",
+    "choices": [
+      {
+        "id": "to_forest",
+        "label": "Retreat toward the forest track.",
+        "effects": [
+          {
+            "type": "advanceThreat",
+            "threatId": "t_siege_skirmish_01"
+          }
+        ],
+        "goToAreaId": "o_forest_track"
+      },
+      {
+        "id": "to_city",
+        "label": "Retreat toward the city road.",
+        "effects": [
+          {
+            "type": "advanceThreat",
+            "threatId": "t_siege_skirmish_01"
+          }
+        ],
+        "goToAreaId": "o_city_gate_outside"
+      }
+    ]
+  },
+  {
+    "id": "o_siege_skirmish_after",
+    "title": "Quiet After Fire",
+    "x": 15,
+    "y": -9,
+    "floorId": "overland",
+    "tileStyle": "open_field",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, burned supply knot, fallen spears, smoke drifting, cinematic, no text",
+    "description": "You leave them in the grass.\n\nSmoke rises from a small supply knot.\n\nIt isn’t a victory the bards will sing—but it’s one the city will feel.",
+    "effectsOnEnter": [
+      {
+        "type": "flag",
+        "key": "siege_knot_destroyed",
+        "value": true
+      },
+      {
+        "type": "flag",
+        "key": "enemy_morale_reduced",
+        "value": true
+      },
+      {
+        "type": "addXP",
+        "amount": 18
+      }
+    ],
+    "choices": [
+      {
+        "id": "complete",
+        "label": "Return to the city with your report.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "overland_act2_complete",
+            "value": true
+          }
+        ],
+        "goToAreaId": "o_city_gate_outside"
+      }
+    ]
+  }
+]

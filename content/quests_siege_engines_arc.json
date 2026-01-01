@@ -1,0 +1,29 @@
+[
+  {
+    "id": "q_siege_engines_arc",
+    "name": "Siege Engines: Break Their Machines",
+    "giverNpcId": "npc_scout_kess",
+    "startAreaId": "se_approach",
+    "objective": {
+      "type": "setFlag",
+      "key": "siege_engines_arc_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 16,
+      "xp": 85,
+      "items": [
+        {
+          "itemId": "axle_spike_wedge",
+          "qty": 1
+        },
+        {
+          "itemId": "pitch_sand_sack",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  }
+]

@@ -1,0 +1,34 @@
+[
+  {
+    "id": "job_ba2_gate_breach",
+    "name": "Press the Gate Breach",
+    "startAreaId": "ba2_battle_approach",
+    "objective": { "type": "setFlag", "key": "gate_breach_pressed", "value": true },
+    "rewards": { "gold": 12, "xp": 40, "items": [{ "itemId": "iron_fortress_key", "qty": 1 }] },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "job_ba2_sweep_sewers",
+    "name": "Sweep the Sewers",
+    "startAreaId": "ba2_battle_approach",
+    "objective": { "type": "setFlag", "key": "sewers_swept", "value": true },
+    "rewards": { "gold": 8, "xp": 28 },
+    "cooldownMinutes": 180
+  },
+  {
+    "id": "job_ba2_explore_caves",
+    "name": "Explore the Caves",
+    "startAreaId": "ba2_gate_breach",
+    "objective": { "type": "setFlag", "key": "caves_explored", "value": true },
+    "rewards": { "gold": 10, "xp": 30 },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "job_ba2_underfortress_probe",
+    "name": "Probe the Underfortress",
+    "startAreaId": "ba2_cave_anteroom",
+    "objective": { "type": "setFlag", "key": "underfortress_probed", "value": true },
+    "rewards": { "gold": 20, "xp": 60 },
+    "cooldownMinutes": 99999
+  }
+]

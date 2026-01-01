@@ -1,0 +1,41 @@
+[
+  {
+    "id": "silkblade_assassin",
+    "name": "Silkblade Assassin",
+    "kind": "humanoid",
+    "skill": 14,
+    "stamina": 16,
+    "meta": {
+      "special": "quiet_cut"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 8,
+        "max": 24
+      }
+    ],
+    "tags": [
+      "city",
+      "assassin"
+    ]
+  },
+  {
+    "id": "riot_mob",
+    "name": "Panic Mob",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "silkblade_assassin",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "special": "chaos_cover"
+    },
+    "tags": [
+      "city",
+      "chaos"
+    ]
+  }
+]

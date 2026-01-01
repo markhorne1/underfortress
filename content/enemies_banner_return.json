@@ -1,0 +1,48 @@
+[
+  {
+    "id": "city_rioter",
+    "name": "Panicked Rioter",
+    "kind": "humanoid",
+    "skill": 7,
+    "stamina": 7,
+    "meta": {
+      "special": "panic_shove"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 2
+      }
+    ],
+    "tags": [
+      "city",
+      "panic"
+    ]
+  },
+  {
+    "id": "enemy_scout_sniper",
+    "name": "Enemy Scout Sniper",
+    "kind": "humanoid",
+    "skill": 10,
+    "stamina": 9,
+    "meta": {
+      "ranged": true,
+      "range": 3,
+      "damage": "1d6",
+      "ammoType": "arrow"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 1,
+        "max": 10
+      }
+    ],
+    "tags": [
+      "enemy",
+      "scout",
+      "ranged"
+    ]
+  }
+]

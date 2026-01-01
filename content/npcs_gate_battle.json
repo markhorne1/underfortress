@@ -1,0 +1,66 @@
+[
+  {
+    "id": "npc_captain_harl",
+    "name": "Captain Harl",
+    "role": "Battlements Captain",
+    "portraitPrompt": "fantasy character portrait, battle-worn city captain on battlements, rain on armor, stern eyes, torchlight, painterly, no text",
+    "dialogue": {
+      "greeting": "No speeches. No prayers. Hold the wall.",
+      "nodes": [
+        {
+          "id": "harl_orders",
+          "text": "If goblins slip past, they’ll set the city alight. Chase them if you must—just don’t lose the gate for it.",
+          "choices": [
+            {
+              "label": "Ask for tools.",
+              "effects": [
+                {
+                  "type": "addItem",
+                  "itemId": "hook_knife",
+                  "qty": 1
+                }
+              ]
+            },
+            {
+              "label": "Request a city whistle for chases.",
+              "effects": [
+                {
+                  "type": "addItem",
+                  "itemId": "signal_whistle_city",
+                  "qty": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_guard_serjeant_mara",
+    "name": "Serjeant Mara",
+    "role": "Street Patrol Leader",
+    "portraitPrompt": "fantasy character portrait, city guard serjeant with spear and lantern, narrow alley, determined face, painterly, no text",
+    "dialogue": {
+      "greeting": "You again. Good. Means you’re still breathing.",
+      "nodes": [
+        {
+          "id": "mara_arson",
+          "text": "Reports of arson are coming in. If we don’t catch them early, it becomes bodies. That’s how it always goes.",
+          "choices": [
+            {
+              "label": "Accept chase orders.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "chase_orders_taken",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

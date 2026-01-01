@@ -1,0 +1,66 @@
+[
+  {
+    "id": "q_crystal_delivery_scry",
+    "name": "Crystal Ball Delivered: The Scrying",
+    "giverNpcId": "npc_mage_archivist_salenne",
+    "startAreaId": "s_mage_scrying_chamber",
+    "objective": {
+      "type": "setFlag",
+      "key": "scrying_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 24,
+      "items": [
+        {
+          "itemId": "scrying_transcript",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_night_assault",
+    "name": "Night Assault: Choose What to Save",
+    "giverNpcId": "npc_councilor_vayne",
+    "startAreaId": "s_council_emergency",
+    "objective": {
+      "type": "setFlag",
+      "key": "night_assault_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 14,
+      "xp": 60,
+      "items": []
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_traitor_hunt",
+    "name": "The Traitor: Blackwax Seal",
+    "giverNpcId": "npc_councilor_vayne",
+    "startAreaId": "s_council_emergency",
+    "objective": {
+      "type": "setFlag",
+      "key": "traitor_resolved",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 10,
+      "xp": 40,
+      "items": [
+        {
+          "itemId": "traitor_ring_blackwax",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  }
+]

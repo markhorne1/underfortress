@@ -1,0 +1,529 @@
+[
+  {
+    "id": "f_postern_return",
+    "title": "Postern Gate: Return from Fog",
+    "x": 0,
+    "y": -1,
+    "floorId": "city",
+    "tileStyle": "postern",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, small postern gate at night, scouts returning through fog, lanterns, cinematic, no text",
+    "description": "The gate opens a finger-width.\n\nFriendly lantern code flashes once.\n\nIf you brought prisoners and the codebook, the city breathes easier.",
+    "choices": [
+      {
+        "id": "start_debrief",
+        "label": "Report immediately to the council.",
+        "effects": [
+          {
+            "type": "startJob",
+            "jobId": "q_watchfort_return_debrief"
+          }
+        ],
+        "goToAreaId": "f_council_return_debrief"
+      }
+    ],
+    "exits": {
+      "n": "v_council_chamber"
+    }
+  },
+  {
+    "id": "f_council_return_debrief",
+    "title": "Council Return Debrief",
+    "x": 0,
+    "y": 0,
+    "floorId": "city",
+    "tileStyle": "council",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, council chamber with codebook on table, exhausted officials leaning in, cinematic, no text",
+    "description": "The stolen codebook thuds onto the council table.\n\nVayne’s mouth tightens in approval.\n\n\"Good. Now we can make them mishear themselves.\"",
+    "choices": [
+      {
+        "id": "deliver",
+        "label": "Deliver the codebook and prisoner intel.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "watchfort_debrief_complete",
+            "value": true
+          },
+          {
+            "type": "completeJob",
+            "jobId": "q_watchfort_return_debrief"
+          },
+          {
+            "type": "conditional",
+            "when": [
+              {
+                "key": "signal_codebook_taken",
+                "op": "==",
+                "value": true
+              }
+            ],
+            "then": [
+              {
+                "type": "flag",
+                "key": "counter_signal_unlocked",
+                "value": true
+              },
+              {
+                "type": "addItem",
+                "itemId": "counter_signal_slip",
+                "qty": 1
+              },
+              {
+                "type": "addXP",
+                "amount": 12
+              }
+            ],
+            "else": []
+          },
+          {
+            "type": "conditional",
+            "when": [
+              {
+                "key": "watchfort_prisoners_freed",
+                "op": "==",
+                "value": true
+              }
+            ],
+            "then": [
+              {
+                "type": "flag",
+                "key": "militia_bolstered",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 8
+              }
+            ],
+            "else": []
+          },
+          {
+            "type": "conditional",
+            "when": [
+              {
+                "key": "watchfort_alerted",
+                "op": "==",
+                "value": true
+              }
+            ],
+            "then": [
+              {
+                "type": "flag",
+                "key": "enemy_suspicious_signals",
+                "value": true
+              }
+            ],
+            "else": []
+          }
+        ],
+        "goToAreaId": "f_mage_tower_brief"
+      }
+    ],
+    "exits": {
+      "s": "g_inner_gate_yard"
+    }
+  },
+  {
+    "id": "f_mage_tower_brief",
+    "title": "Mage Tower: The Next Edge",
+    "x": 1,
+    "y": 0,
+    "floorId": "city",
+    "tileStyle": "tower",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, mage tower study with star charts, crystal lenses, war maps, cinematic, no text",
+    "description": "Archivist Salenne spreads a thin map of underways.\n\n\"There is a crystal ball taken from the city long ago,\" she says.\n\n\"With it, we can see enemy movements before they become screams.\"",
+    "actionsAvailable": {
+      "talk": {
+        "text": "Salenne speaks quickly—like time is a leaking cup.",
+        "choices": [
+          {
+            "id": "salenne",
+            "label": "Talk to Archivist Salenne.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_mage_archivist_salenne"
+              }
+            ]
+          },
+          {
+            "id": "start",
+            "label": "Start: The Crystal Ball thread.",
+            "effects": [
+              {
+                "type": "startJob",
+                "jobId": "q_crystal_arc_start"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "to_false_dawn",
+        "label": "A horn sounds—another push at ‘false dawn’. Go to the signal tower.",
+        "effects": [
+          {
+            "type": "startJob",
+            "jobId": "q_false_dawn"
+          }
+        ],
+        "goToAreaId": "f_signal_tower"
+      }
+    ]
+  },
+  {
+    "id": "f_signal_tower",
+    "title": "Signal Tower: Dawn That Isn’t Dawn",
+    "x": 2,
+    "y": 0,
+    "floorId": "city",
+    "tileStyle": "signal",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, city signal tower with lantern shutters and horns, pre-dawn mist, cinematic, no text",
+    "description": "The sky is dark—but the enemy horns say ‘dawn push’.\n\nThis is a trick.\n\nOr an opportunity.\n\nIf you can lie in their signal language, you can turn their coordination into confusion.",
+    "choices": [
+      {
+        "id": "counter_signal",
+        "label": "Counter-signal using the stolen codebook (mind check).",
+        "requirements": [
+          {
+            "type": "flagEquals",
+            "key": "counter_signal_unlocked",
+            "value": true
+          }
+        ],
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "mind",
+            "dc": 10,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "false_dawn_confused_enemy",
+                "value": true
+              },
+              {
+                "type": "flag",
+                "key": "enemy_stamina_penalty_next_battle",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 16
+              }
+            ],
+            "onFail": [
+              {
+                "type": "flag",
+                "key": "false_dawn_confused_enemy",
+                "value": false
+              },
+              {
+                "type": "flag",
+                "key": "enemy_suspicious_signals",
+                "value": true
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "f_battlements_false_dawn"
+      },
+      {
+        "id": "no_counter",
+        "label": "Ignore signals; go to the battlements to fight it straight.",
+        "goToAreaId": "f_battlements_false_dawn"
+      }
+    ],
+    "exits": {
+      "w": "g_battlements_wallwalk"
+    }
+  },
+  {
+    "id": "f_battlements_false_dawn",
+    "title": "Battlements: The False Dawn Push",
+    "x": 2,
+    "y": 1,
+    "floorId": "city",
+    "tileStyle": "battlements",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, battlements under gray pre-dawn sky, sappers and riders below, horns blaring, cinematic, no text",
+    "description": "Sappers move low under shields.\n\nA goblin signalman blasts a horn pattern.\n\nA warg rider circles like a knife finding a seam.",
+    "choices": [
+      {
+        "id": "weakened_wave",
+        "label": "If counter-signal succeeded, their timing is off—press the advantage.",
+        "requirements": [
+          {
+            "type": "flagEquals",
+            "key": "false_dawn_confused_enemy",
+            "value": true
+          }
+        ],
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_false_dawn_01",
+              "enemyGroupId": "false_dawn_wave",
+              "distance": 3,
+              "direction": "n",
+              "speed": 1,
+              "targetAreaId": "f_battlements_false_dawn",
+              "hazards": []
+            }
+          },
+          {
+            "type": "addXP",
+            "amount": 6
+          }
+        ],
+        "goToAreaId": "f_false_dawn_fight"
+      },
+      {
+        "id": "normal_wave",
+        "label": "Meet the push head-on.",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_false_dawn_01",
+              "enemyGroupId": "false_dawn_wave",
+              "distance": 3,
+              "direction": "n",
+              "speed": 1,
+              "targetAreaId": "f_battlements_false_dawn",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "f_false_dawn_fight"
+      }
+    ],
+    "exits": {
+      "s": "f_inner_yard_dawn"
+    }
+  },
+  {
+    "id": "f_false_dawn_fight",
+    "title": "Clash: Sappers and Signals",
+    "x": 2,
+    "y": 2,
+    "floorId": "city",
+    "tileStyle": "battlements",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, melee at battlements edge, sapper reaching for charge, signalman horn raised, cinematic, no text",
+    "description": "Stop the sapper or the wall cracks.\n\nStop the signalman or the push stays coordinated.\n\nChoose your target first—and live with it.",
+    "choices": [
+      {
+        "id": "shoot_sapper",
+        "label": "Shoot the sapper, then hold position.",
+        "requirements": [
+          {
+            "type": "hasAnyItem",
+            "itemIds": [
+              "training_bow",
+              "hunting_bow"
+            ],
+            "qty": 1
+          },
+          {
+            "type": "hasAmmo",
+            "ammoType": "arrow",
+            "minCount": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "shootThreat",
+            "threatId": "t_false_dawn_01",
+            "ammoType": "arrow",
+            "ammoToConsume": 1,
+            "damage": {
+              "mode": "roll",
+              "expr": "1d6"
+            }
+          },
+          {
+            "type": "advanceThreat",
+            "threatId": "t_false_dawn_01"
+          }
+        ],
+        "goToAreaId": "f_false_dawn_fight"
+      },
+      {
+        "id": "fight",
+        "label": "Fight.",
+        "effects": [
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_false_dawn_01"
+          }
+        ],
+        "goToAreaId": "f_false_dawn_resolution"
+      }
+    ]
+  },
+  {
+    "id": "f_inner_yard_dawn",
+    "title": "Inner Yard: Dawn Smoke",
+    "x": 1,
+    "y": 1,
+    "floorId": "city",
+    "tileStyle": "yard",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, inner yard with runners and smoke, dawn light barely starting, cinematic, no text",
+    "description": "Runners shout conflicting reports.\n\nIf the enemy still has a drains route, knives may already be inside the city.\n\nYou can’t be everywhere—so your choices matter.",
+    "choices": [
+      {
+        "id": "drains_complication",
+        "label": "If drains threat persists, respond to knifers inside the walls.",
+        "requirements": [
+          {
+            "type": "flagEquals",
+            "key": "drains_threat_persistent",
+            "value": true
+          }
+        ],
+        "effects": [
+          {
+            "type": "startJob",
+            "jobId": "q_false_dawn_drains"
+          }
+        ],
+        "goToAreaId": "f_drains_knifers"
+      },
+      {
+        "id": "stay_wall",
+        "label": "Ignore reports and stay focused on the battlements.",
+        "goToAreaId": "f_false_dawn_fight"
+      }
+    ]
+  },
+  {
+    "id": "f_drains_knifers",
+    "title": "Drains Knifers: Inside the Walls",
+    "x": 1,
+    "y": 0,
+    "floorId": "sewer",
+    "tileStyle": "sewer",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow sewer tunnel, lantern reflections, knife glint in darkness, cinematic, no text",
+    "description": "A knife flashes.\n\nA whisper in the wet.\n\nThey aren’t here to win a fight—they’re here to start fires and fear.",
+    "choices": [
+      {
+        "id": "fight",
+        "label": "Fight the knifers.",
+        "effects": [
+          {
+            "type": "startCombat",
+            "enemyGroup": [
+              {
+                "enemyId": "drain_knifer",
+                "count": 2
+              }
+            ]
+          },
+          {
+            "type": "flag",
+            "key": "false_dawn_drains_resolved",
+            "value": true
+          },
+          {
+            "type": "completeJob",
+            "jobId": "q_false_dawn_drains"
+          },
+          {
+            "type": "addXP",
+            "amount": 16
+          }
+        ],
+        "goToAreaId": "f_false_dawn_resolution"
+      }
+    ]
+  },
+  {
+    "id": "f_false_dawn_resolution",
+    "title": "False Dawn Broken",
+    "x": 2,
+    "y": 3,
+    "floorId": "city",
+    "tileStyle": "battlements",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, dawn light finally arriving, broken sapper tools, defenders leaning on walls, cinematic, no text",
+    "description": "The push falters.\n\nThe horn pattern stutters.\n\nFor once, dawn arrives after the fighting—not during it.",
+    "effectsOnEnter": [
+      {
+        "type": "flag",
+        "key": "false_dawn_complete",
+        "value": true
+      },
+      {
+        "type": "completeJob",
+        "jobId": "q_false_dawn"
+      }
+    ],
+    "choices": [
+      {
+        "id": "install_barricades",
+        "label": "Install barricade spikes in key streets (improves next city defense).",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "barricade_spike_crate",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "removeItem",
+            "itemId": "barricade_spike_crate",
+            "qty": 1
+          },
+          {
+            "type": "flag",
+            "key": "city_barricades_installed",
+            "value": true
+          },
+          {
+            "type": "addXP",
+            "amount": 10
+          }
+        ]
+      },
+      {
+        "id": "begin_descent",
+        "label": "Salenne’s map calls: descend to retrieve the crystal ball.",
+        "requirements": [
+          {
+            "type": "flagEquals",
+            "key": "crystal_ball_thread_known",
+            "value": true
+          }
+        ],
+        "effects": [
+          {
+            "type": "flag",
+            "key": "crystal_arc_ready",
+            "value": true
+          }
+        ],
+        "goToAreaId": "c_sewer_gate_descent"
+      }
+    ]
+  }
+]

@@ -1,0 +1,39 @@
+[
+  {
+    "id": "npc_captive_farmer_rill",
+    "name": "Rill Dane",
+    "role": "Captive Farmer (Knows Back Roads)",
+    "portraitPrompt": "fantasy character portrait, exhausted farmer in torn shirt with rope burns, dirt-streaked face, defiant eyes, torchlit cage, painterly, no text",
+    "dialogue": {
+      "greeting": "Don’t talk loud. They like it when we beg.",
+      "nodes": [
+        {
+          "id": "rill_info",
+          "text": "They’re feeding the siege with our grain. And they’re moving a ‘prize’ through the old sinkholes—deeper than these woods. Red Knife Hold. That name keeps coming up.",
+          "choices": [
+            {
+              "label": "Ask about the sinkholes route.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "sinkhole_route_hint",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Promise to free the captives.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "farmers_rescue_promised",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

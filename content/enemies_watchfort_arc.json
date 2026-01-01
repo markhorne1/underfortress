@@ -1,0 +1,148 @@
+[
+  {
+    "id": "goblin_watch_scout",
+    "name": "Watchfort Scout",
+    "kind": "humanoid",
+    "skill": 8,
+    "stamina": 8,
+    "meta": {
+      "ranged": true,
+      "range": 3,
+      "damage": "1d6",
+      "ammoType": "arrow"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 8
+      }
+    ],
+    "tags": [
+      "goblin",
+      "watchfort",
+      "ranged"
+    ]
+  },
+  {
+    "id": "orc_watch_sentinel",
+    "name": "Orc Sentinel",
+    "kind": "humanoid",
+    "skill": 10,
+    "stamina": 14,
+    "meta": {
+      "ranged": false,
+      "special": "alarm_roar"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 2,
+        "max": 12
+      }
+    ],
+    "tags": [
+      "orc",
+      "watchfort"
+    ]
+  },
+  {
+    "id": "hobgoblin_banner_captain",
+    "name": "Banner Captain (Relay Commander)",
+    "kind": "humanoid",
+    "skill": 12,
+    "stamina": 18,
+    "meta": {
+      "special": "signal_orders"
+    },
+    "loot": [
+      {
+        "itemId": "siege_signal_codebook",
+        "min": 1,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 6,
+        "max": 18
+      }
+    ],
+    "tags": [
+      "boss",
+      "hobgoblin",
+      "watchfort"
+    ]
+  },
+  {
+    "id": "troll_chain_guard",
+    "name": "Chain Troll (Pen Guard)",
+    "kind": "monster",
+    "skill": 11,
+    "stamina": 20,
+    "meta": {
+      "special": "sweep_chain"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 4,
+        "max": 14
+      }
+    ],
+    "tags": [
+      "troll",
+      "watchfort",
+      "elite"
+    ]
+  },
+  {
+    "id": "outer_patrol",
+    "name": "Outer Patrol",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "goblin_watch_scout",
+        "count": 2
+      },
+      {
+        "enemyId": "orc_watch_sentinel",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 8
+      }
+    },
+    "tags": [
+      "group",
+      "pursuit",
+      "watchfort"
+    ]
+  },
+  {
+    "id": "inner_patrol",
+    "name": "Inner Patrol",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "orc_watch_sentinel",
+        "count": 2
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 9
+      }
+    },
+    "tags": [
+      "group",
+      "pursuit",
+      "watchfort"
+    ]
+  }
+]

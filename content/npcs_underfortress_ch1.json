@@ -1,0 +1,66 @@
+[
+  {
+    "id": "npc_vip_prisoner_liora",
+    "name": "Liora Vale",
+    "role": "VIP Captive (Noble Courier)",
+    "portraitPrompt": "fantasy character portrait, noble courier woman with torn cloak, stubborn gaze, bruised but unbroken, torchlit dungeon, painterly, no text",
+    "dialogue": {
+      "greeting": "If you’ve come to bargain, I have nothing. If you’ve come to rescue, be quiet.",
+      "nodes": [
+        {
+          "id": "liora_info",
+          "text": "They took me for what I carried — not who I am. Their officers speak of a ‘sight orb’ being moved deeper. And they’re terrified of losing it.",
+          "choices": [
+            {
+              "label": "Ask: What is the ‘sight orb’?",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "crystal_orb_rumor_heard",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Promise: I’ll get you out.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "vip_rescue_promised",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_prisoner_old_scribe",
+    "name": "Old Scribe",
+    "role": "Broken Scribe (Knows Layout)",
+    "portraitPrompt": "fantasy character portrait, elderly scribe in rags, ink-stained fingers, haunted eyes, dungeon bars, painterly, no text",
+    "dialogue": {
+      "greeting": "Walls have ears. Floors have teeth.",
+      "nodes": [
+        {
+          "id": "scribe_layout",
+          "text": "There’s a maintenance slit behind the cistern. Leads to the chain gallery. Don’t go where the drums echo.",
+          "choices": [
+            {
+              "label": "Thank him and ask about keys.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "hint_chain_gallery",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

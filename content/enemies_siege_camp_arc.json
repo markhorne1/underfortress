@@ -1,0 +1,146 @@
+[
+  {
+    "id": "goblin_picket",
+    "name": "Goblin Picket",
+    "kind": "humanoid",
+    "skill": 8,
+    "stamina": 8,
+    "meta": {
+      "ranged": true,
+      "range": 3,
+      "damage": "1d6",
+      "ammoType": "arrow"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 6
+      }
+    ],
+    "tags": [
+      "goblin",
+      "camp",
+      "ranged"
+    ]
+  },
+  {
+    "id": "orc_drillmaster",
+    "name": "Orc Drillmaster",
+    "kind": "humanoid",
+    "skill": 11,
+    "stamina": 16,
+    "meta": {
+      "special": "bellow_command"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 4,
+        "max": 16
+      }
+    ],
+    "tags": [
+      "orc",
+      "camp",
+      "elite"
+    ]
+  },
+  {
+    "id": "siege_engineer",
+    "name": "Siege Engineer",
+    "kind": "humanoid",
+    "skill": 10,
+    "stamina": 12,
+    "meta": {
+      "special": "ignite_pitch"
+    },
+    "loot": [
+      {
+        "itemId": "burnt_oil_flask",
+        "min": 1,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 2,
+        "max": 12
+      }
+    ],
+    "tags": [
+      "camp",
+      "sapper"
+    ]
+  },
+  {
+    "id": "standard_guardian",
+    "name": "Standard Guardian",
+    "kind": "humanoid",
+    "skill": 12,
+    "stamina": 18,
+    "meta": {
+      "special": "guardian_stance"
+    },
+    "loot": [
+      {
+        "itemId": "command_seal_plate",
+        "min": 1,
+        "max": 1
+      }
+    ],
+    "tags": [
+      "boss",
+      "vault"
+    ]
+  },
+  {
+    "id": "camp_picket_line",
+    "name": "Picket Line",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "goblin_picket",
+        "count": 3
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 8
+      }
+    },
+    "tags": [
+      "group",
+      "pursuit",
+      "camp"
+    ]
+  },
+  {
+    "id": "camp_inner_guard",
+    "name": "Inner Camp Guard",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "orc_drillmaster",
+        "count": 1
+      },
+      {
+        "enemyId": "goblin_picket",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 9
+      }
+    },
+    "tags": [
+      "group",
+      "pursuit",
+      "camp"
+    ]
+  }
+]

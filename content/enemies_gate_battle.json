@@ -1,0 +1,259 @@
+[
+  {
+    "id": "orc_ladder_brute",
+    "name": "Orc Ladder Brute",
+    "kind": "humanoid",
+    "skill": 10,
+    "stamina": 14,
+    "meta": {
+      "ranged": false,
+      "special": "shove_off_wall"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 1,
+        "max": 10
+      }
+    ],
+    "tags": [
+      "orc",
+      "siege"
+    ]
+  },
+  {
+    "id": "goblin_ladder_runner",
+    "name": "Goblin Ladder Runner",
+    "kind": "humanoid",
+    "skill": 8,
+    "stamina": 7,
+    "meta": {
+      "ranged": false,
+      "special": "scurry"
+    },
+    "loot": [
+      {
+        "itemId": "infiltrator_token_black",
+        "min": 0,
+        "max": 1
+      }
+    ],
+    "tags": [
+      "goblin",
+      "siege"
+    ]
+  },
+  {
+    "id": "goblin_firebug",
+    "name": "Goblin Firebug",
+    "kind": "humanoid",
+    "skill": 8,
+    "stamina": 8,
+    "meta": {
+      "ranged": false,
+      "special": "ignite"
+    },
+    "loot": [
+      {
+        "itemId": "arsonist_tinder_pouch",
+        "min": 1,
+        "max": 2
+      }
+    ],
+    "tags": [
+      "goblin",
+      "infiltrator",
+      "arson"
+    ]
+  },
+  {
+    "id": "goblin_alley_cutthroat",
+    "name": "Goblin Alley Cutthroat",
+    "kind": "humanoid",
+    "skill": 9,
+    "stamina": 9,
+    "meta": {
+      "ranged": false,
+      "special": "dirty_stab"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 8
+      },
+      {
+        "itemId": "infiltrator_token_black",
+        "min": 1,
+        "max": 1
+      }
+    ],
+    "tags": [
+      "goblin",
+      "infiltrator"
+    ]
+  },
+  {
+    "id": "orc_breach_sergeant",
+    "name": "Orc Breach Sergeant",
+    "kind": "humanoid",
+    "skill": 11,
+    "stamina": 16,
+    "meta": {
+      "ranged": false,
+      "special": "banner_bellow"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 4,
+        "max": 16
+      }
+    ],
+    "tags": [
+      "orc",
+      "siege",
+      "elite"
+    ]
+  },
+  {
+    "id": "wave_gate_1",
+    "name": "Gate Wave I (Ladders)",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "goblin_ladder_runner",
+        "count": 3
+      },
+      {
+        "enemyId": "orc_ladder_brute",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 8
+      }
+    },
+    "tags": [
+      "wave",
+      "siege",
+      "group"
+    ]
+  },
+  {
+    "id": "wave_gate_2",
+    "name": "Gate Wave II (Brutes)",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "orc_ladder_brute",
+        "count": 2
+      },
+      {
+        "enemyId": "goblin_ladder_runner",
+        "count": 2
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 9
+      }
+    },
+    "tags": [
+      "wave",
+      "siege",
+      "group"
+    ]
+  },
+  {
+    "id": "wave_gate_3",
+    "name": "Gate Wave III (Sergeant Push)",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "orc_breach_sergeant",
+        "count": 1
+      },
+      {
+        "enemyId": "orc_ladder_brute",
+        "count": 1
+      },
+      {
+        "enemyId": "goblin_ladder_runner",
+        "count": 2
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 10
+      }
+    },
+    "tags": [
+      "wave",
+      "siege",
+      "group",
+      "elite"
+    ]
+  },
+  {
+    "id": "infiltrator_pack_small",
+    "name": "Infiltrator Pack (Small)",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "goblin_alley_cutthroat",
+        "count": 1
+      },
+      {
+        "enemyId": "goblin_firebug",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 8
+      }
+    },
+    "tags": [
+      "infiltrator",
+      "group",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "infiltrator_pack_large",
+    "name": "Infiltrator Pack (Large)",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "goblin_alley_cutthroat",
+        "count": 2
+      },
+      {
+        "enemyId": "goblin_firebug",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 9
+      }
+    },
+    "tags": [
+      "infiltrator",
+      "group",
+      "pursuit"
+    ]
+  }
+]

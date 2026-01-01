@@ -1,0 +1,465 @@
+[
+  {
+    "id": "ul_threshold",
+    "title": "Lair Threshold: Old Air, New Lies",
+    "x": 80,
+    "y": -50,
+    "floorId": "lair",
+    "tileStyle": "threshold",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, ancient threshold with runes, cavern beyond, torchlight, cinematic, no text",
+    "description": "The door closes behind you with the patience of stone.\n\nThis place is older than the war.\n\nBut it has learned the war’s language.\n\nYou feel watched—not by eyes, but by outcomes.",
+    "choices": [
+      {
+        "id": "start",
+        "label": "Enter the lair and finish this.",
+        "effects": [
+          {
+            "type": "startJob",
+            "jobId": "q_underground_lair_finale"
+          }
+        ],
+        "goToAreaId": "ul_guard_gate"
+      }
+    ]
+  },
+  {
+    "id": "ul_guard_gate",
+    "title": "Guard Gate: Chains and Warders",
+    "x": 81,
+    "y": -50,
+    "floorId": "lair",
+    "tileStyle": "gate",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, lair gate with chains and ward glyphs, cult warders, hulking ogre, cinematic, no text",
+    "description": "A warded gate.\n\nTwo warders chant.\n\nAn ogre waits like a boulder that hates you.\n\nIf you have ward nails, you might disrupt the chant.\n\nOtherwise: steel.",
+    "choices": [
+      {
+        "id": "disrupt",
+        "label": "Disrupt the ward chant with ward nails (mind check).",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "ward_nails_bundle",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "removeItem",
+            "itemId": "ward_nails_bundle",
+            "qty": 1
+          },
+          {
+            "type": "skillCheck",
+            "skill": "mind",
+            "dc": 10,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "ul_chant_disrupted",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 16
+              }
+            ],
+            "onFail": [
+              {
+                "type": "takeDamage",
+                "amount": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "ul_gate_fight"
+      },
+      {
+        "id": "fight",
+        "label": "Fight through the gate defenders.",
+        "goToAreaId": "ul_gate_fight"
+      }
+    ]
+  },
+  {
+    "id": "ul_gate_fight",
+    "title": "Gate Fight: Break the Lock by Force",
+    "x": 82,
+    "y": -50,
+    "floorId": "lair",
+    "tileStyle": "gate",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, brutal fight at rune gate, chains snapping, ogre swing, cinematic, no text",
+    "description": "A warder raises a hand.\n\nThe ogre swings.\n\nWin, and the lair opens.\n\nLose, and you become another lesson built into the stone.",
+    "choices": [
+      {
+        "id": "fight_guard_pack",
+        "label": "Fight the lair guard pack.",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_ul_guard",
+              "enemyGroupId": "ul_guard_pack",
+              "distance": 3,
+              "direction": "n",
+              "speed": 1,
+              "targetAreaId": "ul_gate_fight",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "ul_oracle_antechamber"
+      }
+    ]
+  },
+  {
+    "id": "ul_oracle_antechamber",
+    "title": "Oracle Antechamber: The War’s Quiet Room",
+    "x": 83,
+    "y": -51,
+    "floorId": "lair",
+    "tileStyle": "antechamber",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, quiet chamber with hanging chains and crystal reflections, eerie calm, cinematic, no text",
+    "description": "Silence here isn’t peace.\n\nIt’s a held breath.\n\nA crystal reflection shows you moving a half-second before you do.\n\nThat’s when you understand: the enemy isn’t only strong.\n\nIt’s *informed*.",
+    "choices": [
+      {
+        "id": "investigate",
+        "label": "Investigate the reflection (mind check).",
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "mind",
+            "dc": 10,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "ul_predictive_pattern_seen",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 14
+              }
+            ],
+            "onFail": [
+              {
+                "type": "takeDamage",
+                "amount": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "ul_overseer_chamber"
+      },
+      {
+        "id": "push_on",
+        "label": "Push on before it learns you.",
+        "goToAreaId": "ul_overseer_chamber"
+      }
+    ]
+  },
+  {
+    "id": "ul_overseer_chamber",
+    "title": "Overseer Chamber: The Warbrain Keeper",
+    "x": 84,
+    "y": -51,
+    "floorId": "lair",
+    "tileStyle": "boss",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, boss chamber with war map tablet, overseer with crystal-studded staff, oracle chains in background, cinematic, no text",
+    "description": "The Overseer doesn’t roar.\n\nIt *calculates*.\n\nA Heartspike relic hums in its grip.\n\nBehind it, chains descend into a deeper chamber.\n\nThat’s where the oracle is kept.",
+    "choices": [
+      {
+        "id": "bossfight",
+        "label": "Fight the Warbrain Overseer.",
+        "effects": [
+          {
+            "type": "startCombat",
+            "enemyGroup": [
+              {
+                "enemyId": "warbrain_overseer",
+                "count": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "ul_oracle_chamber"
+      }
+    ]
+  },
+  {
+    "id": "ul_oracle_chamber",
+    "title": "Oracle Chamber: Chains of Advantage",
+    "x": 85,
+    "y": -52,
+    "floorId": "lair",
+    "tileStyle": "oracle",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, chained oracle fused with crystal, runes glowing, water dripping, solemn mood, cinematic, no text",
+    "description": "The oracle is not a treasure.\n\nIt is a prisoner forced to make wars efficient.\n\nIf you claimed or retuned the Crystal Nexus earlier, the chamber responds to you.\n\nIf you shattered it, the chamber feels… blind.\n\nThe oracle lifts its eyes.",
+    "actionsAvailable": {
+      "talk": {
+        "text": "The oracle offers truth with a cost.",
+        "choices": [
+          {
+            "id": "oracle",
+            "label": "Talk to the Bound Oracle.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_bound_oracle"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "destroy",
+        "label": "1) Destroy the oracle’s war-sight (end the advantage forever).",
+        "effects": [
+          {
+            "type": "conditional",
+            "when": [
+              {
+                "key": "relic_heartspike",
+                "op": "hasItem",
+                "value": true
+              }
+            ],
+            "then": [
+              {
+                "type": "flag",
+                "key": "oracle_destroyed",
+                "value": true
+              },
+              {
+                "type": "flag",
+                "key": "enemy_warsight_denied",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 34
+              }
+            ],
+            "else": [
+              {
+                "type": "skillCheck",
+                "skill": "body",
+                "dc": 12,
+                "onPass": [
+                  {
+                    "type": "flag",
+                    "key": "oracle_destroyed",
+                    "value": true
+                  },
+                  {
+                    "type": "flag",
+                    "key": "enemy_warsight_denied",
+                    "value": true
+                  },
+                  {
+                    "type": "addXP",
+                    "amount": 30
+                  }
+                ],
+                "onFail": [
+                  {
+                    "type": "takeDamage",
+                    "amount": 3
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "ul_epilogue_choice"
+      },
+      {
+        "id": "free",
+        "label": "2) Free the oracle (risk: it may leave or demand repayment).",
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "mind",
+            "dc": 12,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "oracle_freed",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 36
+              }
+            ],
+            "onFail": [
+              {
+                "type": "takeDamage",
+                "amount": 2
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "ul_epilogue_choice"
+      },
+      {
+        "id": "rebind_city",
+        "label": "3) Rebind the oracle for the city (powerful, morally sharp).",
+        "effects": [
+          {
+            "type": "conditional",
+            "when": [
+              {
+                "key": "uf_nexus_retuned",
+                "op": "==",
+                "value": true
+              }
+            ],
+            "then": [
+              {
+                "type": "flag",
+                "key": "oracle_rebound_for_city",
+                "value": true
+              },
+              {
+                "type": "flag",
+                "key": "city_warsight_gained",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 40
+              }
+            ],
+            "else": [
+              {
+                "type": "skillCheck",
+                "skill": "mind",
+                "dc": 13,
+                "onPass": [
+                  {
+                    "type": "flag",
+                    "key": "oracle_rebound_for_city",
+                    "value": true
+                  },
+                  {
+                    "type": "flag",
+                    "key": "city_warsight_gained",
+                    "value": true
+                  },
+                  {
+                    "type": "addXP",
+                    "amount": 34
+                  }
+                ],
+                "onFail": [
+                  {
+                    "type": "takeDamage",
+                    "amount": 2
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "ul_epilogue_choice"
+      }
+    ]
+  },
+  {
+    "id": "ul_epilogue_choice",
+    "title": "Aftermath: The War Tilts",
+    "x": 86,
+    "y": -52,
+    "floorId": "lair",
+    "tileStyle": "after",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, cavern exit with dawn light, broken chains, map tablet in hand, cinematic, no text",
+    "description": "You leave with proof:\n\n- a war-map tablet,\n- chain links,\n- and a decision that changes the next year of history.\n\nIf you rescued many captives earlier, allies now whisper your name with trust.\n\nIf you rescued a high-value prisoner, the council will move like a blade.\n\nIf you took or retuned the nexus, magic will shift toward you.\n\nThe war will not end quietly.\n\nBut it may end *soon*.",
+    "effectsOnEnter": [
+      {
+        "type": "flag",
+        "key": "underground_lair_finale_complete",
+        "value": true
+      },
+      {
+        "type": "completeJob",
+        "jobId": "q_underground_lair_finale"
+      },
+      {
+        "type": "conditional",
+        "when": [
+          {
+            "key": "uf_rescued_many",
+            "op": "==",
+            "value": true
+          }
+        ],
+        "then": [
+          {
+            "type": "flag",
+            "key": "allies_from_captives",
+            "value": true
+          }
+        ],
+        "else": []
+      },
+      {
+        "type": "conditional",
+        "when": [
+          {
+            "key": "uf_rescued_princess",
+            "op": "==",
+            "value": true
+          }
+        ],
+        "then": [
+          {
+            "type": "flag",
+            "key": "political_mandate_strong",
+            "value": true
+          }
+        ],
+        "else": []
+      }
+    ],
+    "choices": [
+      {
+        "id": "return_city",
+        "label": "Return to the city for the Veteran Council Finale (titles, betrayals, final campaign hook).",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "veteran_council_finale_unlocked",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "hunt_warlord",
+        "label": "Begin the last hunt: chase the enemy warlord to the final fortress-heart (campaign climax).",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "final_warlord_hunt_unlocked",
+            "value": true
+          }
+        ]
+      }
+    ]
+  }
+]

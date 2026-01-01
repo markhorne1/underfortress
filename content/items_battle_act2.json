@@ -1,0 +1,26 @@
+[
+  {
+    "id": "resin_patch",
+    "name": "Resin Patch",
+    "type": "tool",
+    "stackable": true,
+    "value": 18,
+    "description": "Sticky alchemical resin used to seal cracks, reinforce hinges, or gum a mechanism at the right moment."
+  },
+  {
+    "id": "chain_hook",
+    "name": "Chain Hook",
+    "type": "tool",
+    "stackable": false,
+    "value": 25,
+    "description": "A heavy iron hook for grabbing chains and pulling hard. Gate crews use these in emergencies."
+  },
+  {
+    "id": "signal_whistle",
+    "name": "Signal Whistle",
+    "type": "tool",
+    "stackable": false,
+    "value": 12,
+    "description": "A sharp whistle that cuts through battle noise. Useful for rallying defenders to your position."
+  }
+]

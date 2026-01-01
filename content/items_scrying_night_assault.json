@@ -1,0 +1,42 @@
+[
+  {
+    "id": "scrying_transcript",
+    "name": "Scrying Transcript",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A hurried transcript of what the crystal ball revealed: timings, routes, and a single identifying detail of the traitor."
+  },
+  {
+    "id": "traitor_ring_blackwax",
+    "name": "Blackwax Signet Ring",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A ring stamped with a wax-seal sigil used for covert requisitions. It smells faintly of pitch and lamp oil."
+  },
+  {
+    "id": "warden_pass",
+    "name": "Warden’s Pass",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A curfew pass signed by the council. Lets you move through locked streets without being detained."
+  },
+  {
+    "id": "mage_ward_chalk",
+    "name": "Mage Ward Chalk",
+    "type": "tool",
+    "stackable": true,
+    "value": 5,
+    "description": "Drawn across thresholds to disrupt minor glamours and tripwire stealthy infiltrators."
+  },
+  {
+    "id": "smoke_mask",
+    "name": "Smoke Mask",
+    "type": "tool",
+    "stackable": false,
+    "value": 12,
+    "description": "Cloth and resin filter. Helps you act in heavy smoke without losing stamina."
+  }
+]

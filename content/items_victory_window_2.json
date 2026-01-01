@@ -1,0 +1,50 @@
+[
+  {
+    "id": "council_writ",
+    "name": "Council Writ",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A sealed writ granting you authority to requisition supplies and pass guarded streets during curfew."
+  },
+  {
+    "id": "royal_writ",
+    "name": "Royal Writ (Arclight Seal)",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A royal seal that opens doors normally closed. Proof that you were trusted when it mattered."
+  },
+  {
+    "id": "triage_bandage_roll",
+    "name": "Triage Bandage Roll",
+    "type": "consumable",
+    "stackable": true,
+    "value": 6,
+    "description": "Rough linen bandages. Restores a small amount of stamina after a fight or stabilizes injuries."
+  },
+  {
+    "id": "hotspot_report",
+    "name": "Hotspot Report",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A runner’s slate listing fires, breaches, and panic zones. Updated hourly—while the city lasts."
+  },
+  {
+    "id": "infiltrator_confession",
+    "name": "Infiltrator Confession",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A scribbled confession naming a watchfort relay point and a ‘banner captain’ who coordinates signal fires."
+  },
+  {
+    "id": "signal_lantern_blue",
+    "name": "Blue Signal Lantern",
+    "type": "tool",
+    "stackable": false,
+    "value": 0,
+    "description": "A shuttered lantern for signaling friendly patrols during curfew. Used to avoid accidental arrests."
+  }
+]

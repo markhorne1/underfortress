@@ -1,0 +1,146 @@
+[
+  {
+    "id": "goblin_cliff_archer",
+    "name": "Goblin Cliff Archer",
+    "kind": "humanoid",
+    "skill": 10,
+    "stamina": 10,
+    "meta": {
+      "ranged": true,
+      "range": 3,
+      "damage": "1d6",
+      "ammoType": "arrow",
+      "special": "harry_and_fallbait"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 1,
+        "max": 8
+      }
+    ],
+    "tags": [
+      "goblin",
+      "mountain",
+      "ranged"
+    ]
+  },
+  {
+    "id": "orc_pass_reaver",
+    "name": "Orc Pass Reaver",
+    "kind": "humanoid",
+    "skill": 13,
+    "stamina": 18,
+    "meta": {
+      "special": "ledge_charge"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 3,
+        "max": 16
+      }
+    ],
+    "tags": [
+      "orc",
+      "mountain"
+    ]
+  },
+  {
+    "id": "troll_scree_hunter",
+    "name": "Scree Troll Hunter",
+    "kind": "monster",
+    "skill": 12,
+    "stamina": 24,
+    "meta": {
+      "special": "rockslide"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 4,
+        "max": 20
+      }
+    ],
+    "tags": [
+      "troll",
+      "mountain"
+    ]
+  },
+  {
+    "id": "hobgoblin_sergeant",
+    "name": "Hobgoblin Sergeant",
+    "kind": "humanoid",
+    "skill": 14,
+    "stamina": 18,
+    "meta": {
+      "special": "whip_order"
+    },
+    "loot": [
+      {
+        "itemId": "fortress_badge_stolen",
+        "min": 0,
+        "max": 1
+      }
+    ],
+    "tags": [
+      "hobgoblin",
+      "fortress",
+      "elite"
+    ]
+  },
+  {
+    "id": "mf_pass_harriers",
+    "name": "Pass Harriers",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "goblin_cliff_archer",
+        "count": 2
+      },
+      {
+        "enemyId": "orc_pass_reaver",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 10
+      }
+    },
+    "tags": [
+      "group",
+      "mountain",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "mf_fortress_patrol",
+    "name": "Fortress Patrol",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "hobgoblin_sergeant",
+        "count": 1
+      },
+      {
+        "enemyId": "orc_pass_reaver",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 11
+      }
+    },
+    "tags": [
+      "group",
+      "fortress",
+      "pursuit"
+    ]
+  }
+]

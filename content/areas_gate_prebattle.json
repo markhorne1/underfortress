@@ -1,0 +1,311 @@
+[
+  {
+    "id": "c_gate_inner_yard",
+    "title": "Inner Gate Yard",
+    "x": 0,
+    "y": -1,
+    "floorId": "city",
+    "tileStyle": "gate_yard",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, inner gate yard with barricade materials, soldiers, carts, tense preparation, cinematic, no text",
+    "description": "Carts creak. Ropes tighten. Soldiers hammer planks into place. The gate is a throat — and the city is swallowing fear.\n\nA captain shouts: \"Timber here! Grain there! Arrows to the parapet!\"",
+    "exits": {
+      "n": "a_outer_gate",
+      "e": "c_barricade_line",
+      "w": "c_granary_checkpoint",
+      "s": "c_parapet_post"
+    },
+    "actionsAvailable": {
+      "talk": {
+        "text": "A captain eyes your gear. \"If you’ve got council backing, you’re not just a runner — you’re a fix.\"",
+        "choices": [
+          {
+            "id": "unlock_prebattle",
+            "label": "Offer help to finalize defenses (pre-battle readiness).",
+            "requirements": [
+              {
+                "type": "flagEquals",
+                "key": "council_trusted",
+                "value": true
+              }
+            ],
+            "effects": [
+              {
+                "type": "flag",
+                "key": "prebattle_active",
+                "value": true
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "c_barricade_line",
+    "title": "Barricade Line",
+    "x": 1,
+    "y": -1,
+    "floorId": "city",
+    "tileStyle": "barricade",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, barricade line being built, stacked timber, nails, engineers, torchlight, cinematic, no text",
+    "description": "Timber stacks become walls in fast hands. Nail buckets clatter. Engineers argue angles like it’s religion.\n\nThis line will decide how much blood reaches the gate.",
+    "exits": {
+      "w": "c_gate_inner_yard"
+    },
+    "actionsAvailable": {
+      "take": {
+        "text": "You can contribute materials directly.",
+        "choices": [
+          {
+            "id": "deliver_timber",
+            "label": "Deliver 1 timber bundle to the barricade teams.",
+            "requirements": [
+              {
+                "type": "hasItem",
+                "itemId": "timber_bundle",
+                "qty": 1
+              }
+            ],
+            "effects": [
+              {
+                "type": "removeItem",
+                "itemId": "timber_bundle",
+                "qty": 1
+              },
+              {
+                "type": "addXP",
+                "amount": 16
+              },
+              {
+                "type": "addGold",
+                "amount": 6
+              },
+              {
+                "type": "flag",
+                "key": "barricades_ready",
+                "value": true
+              }
+            ]
+          }
+        ]
+      },
+      "investigate": {
+        "text": "A foreman points at empty nail buckets. \"We’re building walls with wishes at this rate.\"",
+        "choices": [
+          {
+            "id": "nail_help",
+            "label": "Offer to run nail duty at the blacksmith.",
+            "effects": [
+              {
+                "type": "flag",
+                "key": "needs_nails",
+                "value": true
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "c_granary_checkpoint",
+    "title": "Granary Checkpoint",
+    "x": -1,
+    "y": -1,
+    "floorId": "city",
+    "tileStyle": "warehouse",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, granary checkpoint with grain sacks, armed clerks, ration ledgers, cinematic, no text",
+    "description": "Clerks with spears guard sacks like jewels. Hunger makes thieves of honest folk.\n\nThe city’s stomach must be full before its fist can swing.",
+    "exits": {
+      "e": "c_gate_inner_yard",
+      "n": "a_grain_store"
+    },
+    "actionsAvailable": {
+      "talk": {
+        "text": "\"If you’ve brought grain, stack it. If you’ve brought trouble, sign the ledger first.\"",
+        "choices": [
+          {
+            "id": "deliver_grain",
+            "label": "Deliver 1 sack of grain to the stores.",
+            "requirements": [
+              {
+                "type": "hasItem",
+                "itemId": "farm_sack",
+                "qty": 1
+              }
+            ],
+            "effects": [
+              {
+                "type": "removeItem",
+                "itemId": "farm_sack",
+                "qty": 1
+              },
+              {
+                "type": "addXP",
+                "amount": 14
+              },
+              {
+                "type": "addGold",
+                "amount": 5
+              },
+              {
+                "type": "flag",
+                "key": "stores_secured",
+                "value": true
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "c_ward_installation",
+    "title": "Ward Installation Plinth",
+    "x": 0,
+    "y": -2,
+    "floorId": "city",
+    "tileStyle": "ward_site",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, rune plinth near the gate, ward-stone socket, mage-priest, glowing sigils, cinematic, no text",
+    "description": "A rune plinth stands near the gate, its socket empty. A mage-priest wipes rain from a glyph and exhales.\n\n\"Without a ward-stone,\" they say, \"the gate is just a door.\"",
+    "exits": {
+      "n": "c_gate_inner_yard"
+    },
+    "actionsAvailable": {
+      "open": {
+        "text": "The plinth accepts a ward-stone.",
+        "choices": [
+          {
+            "id": "install_ward",
+            "label": "Install a ward-stone into the plinth.",
+            "requirements": [
+              {
+                "type": "hasItem",
+                "itemId": "ward_stone",
+                "qty": 1
+              }
+            ],
+            "effects": [
+              {
+                "type": "removeItem",
+                "itemId": "ward_stone",
+                "qty": 1
+              },
+              {
+                "type": "addXP",
+                "amount": 22
+              },
+              {
+                "type": "flag",
+                "key": "gate_warded",
+                "value": true
+              }
+            ]
+          },
+          {
+            "id": "cast_wardseal",
+            "label": "Cast Wardseal to strengthen the plinth temporarily.",
+            "requirements": [
+              {
+                "type": "knowsSpell",
+                "spellId": "wardseal"
+              }
+            ],
+            "effects": [
+              {
+                "type": "castSpell",
+                "spellId": "wardseal"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "c_parapet_post",
+    "title": "Parapet Post",
+    "x": 0,
+    "y": -3,
+    "floorId": "city",
+    "tileStyle": "battlements",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, parapet post overlooking fields, archers, arrow barrels, stormy horizon, cinematic, no text",
+    "description": "You look out over wet fields toward the tree line. Somewhere out there, the enemy counts the same distance.\n\nA sergeant points to empty arrow barrels. \"If we run dry, we die.\"",
+    "exits": {
+      "n": "c_gate_inner_yard"
+    },
+    "actionsAvailable": {
+      "take": {
+        "text": "You can deliver arrows here to stock the parapet.",
+        "choices": [
+          {
+            "id": "deliver_arrows",
+            "label": "Deliver 1 bundle of arrows to the parapet barrels.",
+            "requirements": [
+              {
+                "type": "hasItem",
+                "itemId": "arrow_bundle",
+                "qty": 1
+              }
+            ],
+            "effects": [
+              {
+                "type": "removeItem",
+                "itemId": "arrow_bundle",
+                "qty": 1
+              },
+              {
+                "type": "addXP",
+                "amount": 12
+              },
+              {
+                "type": "flag",
+                "key": "parapet_stocked",
+                "value": true
+              }
+            ]
+          },
+          {
+            "id": "finalize_readiness",
+            "label": "Report readiness to the captain (if key tasks are done).",
+            "requirements": [
+              {
+                "type": "flagEquals",
+                "key": "barricades_ready",
+                "value": true
+              },
+              {
+                "type": "flagEquals",
+                "key": "stores_secured",
+                "value": true
+              },
+              {
+                "type": "flagEquals",
+                "key": "gate_warded",
+                "value": true
+              }
+            ],
+            "effects": [
+              {
+                "type": "flag",
+                "key": "city_battle_ready",
+                "value": true
+              }
+            ],
+            "goToAreaId": "c_gate_inner_yard"
+          }
+        ]
+      }
+    }
+  }
+]

@@ -1,0 +1,219 @@
+[
+  {
+    "id": "npc_council_clerk_elm",
+    "name": "Clerk Elm",
+    "role": "Council Clerk",
+    "portraitPrompt": "fantasy character portrait, city clerk in plain robes, sharp eyes, wax seals and ledgers, painterly, no text",
+    "dialogue": {
+      "greeting": "Speak clearly. The city has no patience left for confusion.",
+      "nodes": [
+        {
+          "id": "clerks_desk",
+          "text": "We issue writs, warrants, and consequences.",
+          "choices": [
+            {
+              "label": "Exchange 5 Bronze Sigils for 1 Silver Sigil.",
+              "requirements": [
+                {
+                  "type": "hasItem",
+                  "itemId": "council_sigil_bronze",
+                  "qty": 5
+                }
+              ],
+              "effects": [
+                {
+                  "type": "craft",
+                  "recipeId": "trade_bronze_to_silver"
+                }
+              ]
+            },
+            {
+              "label": "Issue a Council Warrant (costs 2 Silver Sigils).",
+              "requirements": [
+                {
+                  "type": "hasItem",
+                  "itemId": "council_sigil_silver",
+                  "qty": 2
+                }
+              ],
+              "effects": [
+                {
+                  "type": "craft",
+                  "recipeId": "issue_council_warrant"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_councilor_vayne",
+    "name": "Councilor Vayne",
+    "role": "Councilor of Supply & Defense",
+    "portraitPrompt": "fantasy character portrait, severe councilor with signet ring, city banners behind, calculating expression, painterly, no text",
+    "dialogue": {
+      "greeting": "You’ve been seen. That is not the same as being trusted — yet.",
+      "nodes": [
+        {
+          "id": "vayne_work",
+          "text": "Our enemies probe the walls, but our true weakness is missing supplies and quiet betrayal.",
+          "choices": [
+            {
+              "label": "Accept: Disrupt contraband at the docks (low-level combat likely).",
+              "requirements": [
+                {
+                  "type": "flagEquals",
+                  "key": "council_introduced",
+                  "value": true
+                },
+                {
+                  "type": "notFlag",
+                  "key": "council_job_docks_taken"
+                }
+              ],
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "council_job_docks_taken",
+                  "value": true
+                },
+                {
+                  "type": "startJob",
+                  "jobId": "council_job_docks_raid"
+                }
+              ]
+            },
+            {
+              "label": "Report: Contraband disrupted. Request your reward.",
+              "requirements": [
+                {
+                  "type": "flagEquals",
+                  "key": "docks_contraband_disrupted",
+                  "value": true
+                },
+                {
+                  "type": "notFlag",
+                  "key": "council_reward_claimed"
+                }
+              ],
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "council_reward_ready",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "reward_choice",
+          "text": "You’ve proven useful. Choose something that keeps you useful.",
+          "choices": [
+            {
+              "label": "Take the Ironluck Charm (+1 Luck).",
+              "requirements": [
+                {
+                  "type": "flagEquals",
+                  "key": "council_reward_ready",
+                  "value": true
+                },
+                {
+                  "type": "notFlag",
+                  "key": "council_reward_claimed"
+                }
+              ],
+              "effects": [
+                {
+                  "type": "addItem",
+                  "itemId": "minor_charm_ironluck",
+                  "qty": 1
+                },
+                {
+                  "type": "addItem",
+                  "itemId": "council_sigil_silver",
+                  "qty": 1
+                },
+                {
+                  "type": "flag",
+                  "key": "council_reward_claimed",
+                  "value": true
+                },
+                {
+                  "type": "flag",
+                  "key": "council_trusted",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Take the Ring of Quickstep (+1 movement distance in pursuits).",
+              "requirements": [
+                {
+                  "type": "flagEquals",
+                  "key": "council_reward_ready",
+                  "value": true
+                },
+                {
+                  "type": "notFlag",
+                  "key": "council_reward_claimed"
+                }
+              ],
+              "effects": [
+                {
+                  "type": "addItem",
+                  "itemId": "ring_quickstep",
+                  "qty": 1
+                },
+                {
+                  "type": "addItem",
+                  "itemId": "council_sigil_silver",
+                  "qty": 1
+                },
+                {
+                  "type": "flag",
+                  "key": "council_reward_claimed",
+                  "value": true
+                },
+                {
+                  "type": "flag",
+                  "key": "council_trusted",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_smith_harrow",
+    "name": "Harrow the Smith",
+    "role": "Blacksmith",
+    "portraitPrompt": "fantasy character portrait, blacksmith with soot and sparks, heavy apron, stern eyes, painterly, no text",
+    "dialogue": {
+      "greeting": "If you can’t pay, you can sweat."
+    }
+  },
+  {
+    "id": "npc_apothecary_moss",
+    "name": "Moss the Apothecary",
+    "role": "Apothecary",
+    "portraitPrompt": "fantasy character portrait, apothecary with herb-stained hands, shelves of bottles, watchful gaze, painterly, no text",
+    "dialogue": {
+      "greeting": "Everything heals or harms — sometimes both."
+    }
+  },
+  {
+    "id": "npc_fletcher_ren",
+    "name": "Ren the Fletcher",
+    "role": "Fletcher",
+    "portraitPrompt": "fantasy character portrait, fletcher artisan with feathers and wax, calm focus, painterly, no text",
+    "dialogue": {
+      "greeting": "Keep your bow dry. Keep your hands steady."
+    }
+  }
+]

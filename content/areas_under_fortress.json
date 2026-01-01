@@ -1,0 +1,382 @@
+[
+  {
+    "id": "uf_approach_entry",
+    "title": "Under-Fortress Entry: The Throat of Stone",
+    "x": 40,
+    "y": -20,
+    "floorId": "under",
+    "tileStyle": "under_tunnel",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, descending stone throat tunnel, wet walls, lantern in darkness, cinematic, no text",
+    "description": "The air changes.\n\nColder.\n\nOlder.\n\nThe walls feel shaped by hands that hated daylight.\n\nAhead: faint torchlight, and the sound of distant iron on stone.",
+    "choices": [
+      {
+        "id": "to_market",
+        "label": "Follow the torchlight toward voices (possible market).",
+        "goToAreaId": "uf_goblin_market"
+      },
+      {
+        "id": "to_guardpost",
+        "label": "Take the narrower route toward a guardpost (riskier, faster).",
+        "goToAreaId": "uf_guardpost"
+      }
+    ]
+  },
+  {
+    "id": "uf_goblin_market",
+    "title": "Goblin Market: Quiet Violence",
+    "x": 41,
+    "y": -20,
+    "floorId": "under",
+    "tileStyle": "under_market",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, underground market with goblins trading, hanging lanterns, strange coins, guarded stalls, cinematic, no text",
+    "description": "A market in the dark.\n\nNot friendly.\n\nJust functional.\n\nYou can buy information with undercoin, trade favors, or start a fight that turns the whole cavern against you.",
+    "choices": [
+      {
+        "id": "trade",
+        "label": "Trade for Bonewhite Undercoin (requires a city coin sacrifice).",
+        "effects": [
+          {
+            "type": "addItem",
+            "itemId": "undercoin_bonewhite",
+            "qty": 3
+          }
+        ],
+        "goToAreaId": "uf_choice_objectives"
+      },
+      {
+        "id": "investigate",
+        "label": "Investigate whispers of ‘a princess’ and ‘a crystal key’.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "uf_rumors_heard",
+            "value": true
+          },
+          {
+            "type": "addXP",
+            "amount": 12
+          }
+        ],
+        "goToAreaId": "uf_choice_objectives"
+      }
+    ]
+  },
+  {
+    "id": "uf_guardpost",
+    "title": "Guardpost: Iron and Habit",
+    "x": 40,
+    "y": -21,
+    "floorId": "under",
+    "tileStyle": "under_guard",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, underground guardpost with iron bars and torchlight, disciplined captain silhouette, cinematic, no text",
+    "description": "A disciplined captain holds this post.\n\nNot a goblin.\n\nA hobgoblin trying to make retreat look like strategy.\n\nWithout a banner, he uses fear instead.",
+    "choices": [
+      {
+        "id": "boss",
+        "label": "Fight the Hobgoblin Captain.",
+        "effects": [
+          {
+            "type": "startCombat",
+            "enemyGroup": [
+              {
+                "enemyId": "hobgoblin_bannerless_captain",
+                "count": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "uf_choice_objectives"
+      }
+    ]
+  },
+  {
+    "id": "uf_choice_objectives",
+    "title": "Choice: What Ends the War Faster",
+    "x": 42,
+    "y": -21,
+    "floorId": "under",
+    "tileStyle": "under_crossroads",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, underground crossroads with two carved doorways, rune-lit paths, cinematic, no text",
+    "description": "Two paths are offered by rumor and necessity:\n\n1) Prisoner Vault — captives (and a princess) used as leverage.\n2) Crystal Nexus — the enemy’s war-sight, their hidden advantage.\n\nBoth matter.\n\nBut you can’t do everything before they adapt.",
+    "choices": [
+      {
+        "id": "to_prison",
+        "label": "1) Go to the Prisoner Vault (rescue).",
+        "goToAreaId": "uf_prison_vault_entry"
+      },
+      {
+        "id": "to_nexus",
+        "label": "2) Go to the Crystal Nexus (seize war-sight).",
+        "goToAreaId": "uf_nexus_entry"
+      }
+    ]
+  },
+  {
+    "id": "uf_prison_vault_entry",
+    "title": "Prisoner Vault: The Caged Promise",
+    "x": 43,
+    "y": -22,
+    "floorId": "under",
+    "tileStyle": "under_prison",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, underground prison corridor, iron doors, muffled cries, lantern reflection, cinematic, no text",
+    "description": "Iron doors. Old locks.\n\nYou smell fear.\n\nIf you promised to look for captives, this is where promises become real—or become shame.",
+    "choices": [
+      {
+        "id": "open_cells",
+        "label": "Attempt to open the cell block (mind check).",
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "mind",
+            "dc": 10,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "uf_cells_opened",
+                "value": true
+              },
+              {
+                "type": "addItem",
+                "itemId": "prisoner_token",
+                "qty": 2
+              },
+              {
+                "type": "addXP",
+                "amount": 18
+              }
+            ],
+            "onFail": [
+              {
+                "type": "takeDamage",
+                "amount": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "uf_prison_choice"
+      }
+    ]
+  },
+  {
+    "id": "uf_prison_choice",
+    "title": "Prison Choice: Save Many or Save One",
+    "x": 44,
+    "y": -22,
+    "floorId": "under",
+    "tileStyle": "under_prison",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, prison junction with two doors, one ornate, one crowded with hands through bars, cinematic, no text",
+    "description": "Two doors:\n\n- The crowded cells (many captives).\n- The ornate cell (a high-value prisoner — ‘princess’ by rumor).\n\nTime is a weapon.\n\nChoose.",
+    "choices": [
+      {
+        "id": "many",
+        "label": "1) Free the many (city morale, future allies).",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "uf_rescued_many",
+            "value": true
+          },
+          {
+            "type": "addXP",
+            "amount": 20
+          }
+        ],
+        "goToAreaId": "uf_return_to_surface"
+      },
+      {
+        "id": "one",
+        "label": "2) Rescue the high-value prisoner (political leverage).",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "uf_rescued_princess",
+            "value": true
+          },
+          {
+            "type": "addXP",
+            "amount": 22
+          }
+        ],
+        "goToAreaId": "uf_return_to_surface"
+      }
+    ]
+  },
+  {
+    "id": "uf_nexus_entry",
+    "title": "Crystal Nexus: The Enemy’s Sight",
+    "x": 43,
+    "y": -21,
+    "floorId": "under",
+    "tileStyle": "under_crystal",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, crystal-lined tunnel, pale glow, runes, cold mist, cinematic, no text",
+    "description": "Crystal threads the stone.\n\nYou feel it in your teeth.\n\nIf the enemy has war-sight, they will always strike first.\n\nUnless you take it.",
+    "choices": [
+      {
+        "id": "find_key",
+        "label": "Search for a resonant key (Investigate).",
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "mind",
+            "dc": 10,
+            "onPass": [
+              {
+                "type": "addItem",
+                "itemId": "crystal_nexus_key",
+                "qty": 1
+              },
+              {
+                "type": "addXP",
+                "amount": 18
+              }
+            ],
+            "onFail": [
+              {
+                "type": "takeDamage",
+                "amount": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "uf_nexus_chamber"
+      }
+    ]
+  },
+  {
+    "id": "uf_nexus_chamber",
+    "title": "Nexus Chamber: Turn the Tide",
+    "x": 44,
+    "y": -21,
+    "floorId": "under",
+    "tileStyle": "under_crystal",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, large crystal chamber with sealed dais, keyhole glowing, reflections like stars, cinematic, no text",
+    "description": "The chamber hums.\n\nThis is not treasure.\n\nThis is advantage.\n\nYou can claim it, shatter it, or re-tune it to feed the city instead.",
+    "choices": [
+      {
+        "id": "claim",
+        "label": "1) Claim the nexus power (dangerous, strongest).",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "crystal_nexus_key",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "flag",
+            "key": "uf_nexus_claimed",
+            "value": true
+          },
+          {
+            "type": "addXP",
+            "amount": 26
+          }
+        ],
+        "goToAreaId": "uf_return_to_surface"
+      },
+      {
+        "id": "shatter",
+        "label": "2) Shatter it (deny the enemy forever).",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "uf_nexus_shattered",
+            "value": true
+          },
+          {
+            "type": "addXP",
+            "amount": 22
+          }
+        ],
+        "goToAreaId": "uf_return_to_surface"
+      },
+      {
+        "id": "retune",
+        "label": "3) Re-tune it for the city (mind check).",
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "mind",
+            "dc": 11,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "uf_nexus_retuned",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 30
+              }
+            ],
+            "onFail": [
+              {
+                "type": "takeDamage",
+                "amount": 2
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "uf_return_to_surface"
+      }
+    ]
+  },
+  {
+    "id": "uf_return_to_surface",
+    "title": "Return Route: Veteran Steps",
+    "x": 42,
+    "y": -19,
+    "floorId": "under",
+    "tileStyle": "under_tunnel",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, climbing back through tunnels toward faint daylight, lantern low, cinematic, no text",
+    "description": "You return with something the enemy didn’t expect:\n\n- freed captives,\n- political leverage,\n- or a stolen advantage made of crystal.\n\nYou are no longer a novice.\n\nYou are a factor.",
+    "effectsOnEnter": [
+      {
+        "type": "flag",
+        "key": "pursuit_arc_complete",
+        "value": true
+      },
+      {
+        "type": "completeJob",
+        "jobId": "q_pursuit_arc"
+      },
+      {
+        "type": "addXP",
+        "amount": 18
+      }
+    ],
+    "choices": [
+      {
+        "id": "unlock_next",
+        "label": "Begin the next chapter: Mountain Fortress and the War’s True Heart.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "mountain_fortress_arc_unlocked",
+            "value": true
+          }
+        ],
+        "goToAreaId": "pa_outside_gate"
+      }
+    ]
+  }
+]

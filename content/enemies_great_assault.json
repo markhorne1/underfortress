@@ -1,0 +1,144 @@
+[
+  {
+    "id": "goblin_ladderman",
+    "name": "Goblin Ladderman",
+    "kind": "humanoid",
+    "skill": 8,
+    "stamina": 9,
+    "meta": {
+      "special": "set_ladder"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 6
+      }
+    ],
+    "tags": [
+      "goblin",
+      "siege"
+    ]
+  },
+  {
+    "id": "orc_ram_crew",
+    "name": "Orc Ram Crew",
+    "kind": "humanoid",
+    "skill": 11,
+    "stamina": 16,
+    "meta": {
+      "special": "ram_swing"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 2,
+        "max": 14
+      }
+    ],
+    "tags": [
+      "orc",
+      "siege",
+      "gate"
+    ]
+  },
+  {
+    "id": "siege_tower_vanguard",
+    "name": "Siege Tower Vanguard",
+    "kind": "humanoid",
+    "skill": 12,
+    "stamina": 18,
+    "meta": {
+      "special": "tower_push"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 4,
+        "max": 16
+      }
+    ],
+    "tags": [
+      "orc",
+      "siege",
+      "tower"
+    ]
+  },
+  {
+    "id": "panic_mob",
+    "name": "Panic Mob",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "city_rioter",
+        "count": 3
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 6
+      }
+    },
+    "tags": [
+      "city",
+      "panic",
+      "group"
+    ]
+  },
+  {
+    "id": "ga_wall_wave",
+    "name": "Great Assault: Wall Wave",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "goblin_ladderman",
+        "count": 3
+      },
+      {
+        "enemyId": "siege_tower_vanguard",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 10
+      }
+    },
+    "tags": [
+      "group",
+      "siege",
+      "wall"
+    ]
+  },
+  {
+    "id": "ga_gate_wave",
+    "name": "Great Assault: Gate Wave",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "orc_ram_crew",
+        "count": 1
+      },
+      {
+        "enemyId": "goblin_ladderman",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 10
+      }
+    },
+    "tags": [
+      "group",
+      "siege",
+      "gate"
+    ]
+  }
+]

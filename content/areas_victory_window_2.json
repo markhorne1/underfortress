@@ -1,0 +1,457 @@
+[
+  {
+    "id": "v_council_chamber",
+    "title": "Council Chamber: Maps and Candles",
+    "x": 0,
+    "y": 2,
+    "floorId": "city",
+    "tileStyle": "council",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, city council chamber, war maps, candles, exhausted officials, cinematic, no text",
+    "description": "War maps cover the table. Wax drips like slow blood.\n\nCouncilor Vayne waits with a quill.\n\nOutside: the city breathes smoke and relief.",
+    "actionsAvailable": {
+      "talk": {
+        "text": "The council is ready to hear what you changed.",
+        "choices": [
+          {
+            "id": "vayne",
+            "label": "Talk to Councilor Vayne.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_councilor_vayne"
+              }
+            ]
+          },
+          {
+            "id": "start",
+            "label": "Start: Council Debrief.",
+            "effects": [
+              {
+                "type": "startJob",
+                "jobId": "q_council_debrief"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "debrief_rewards",
+        "label": "Deliver your report and receive judgment.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "council_debrief_complete",
+            "value": true
+          },
+          {
+            "type": "completeJob",
+            "jobId": "q_council_debrief"
+          },
+          {
+            "type": "conditional",
+            "when": [
+              {
+                "key": "princess_rescued",
+                "op": "==",
+                "value": true
+              }
+            ],
+            "then": [
+              {
+                "type": "addItem",
+                "itemId": "royal_writ",
+                "qty": 1
+              },
+              {
+                "type": "addXP",
+                "amount": 12
+              },
+              {
+                "type": "flag",
+                "key": "royal_support_unlocked",
+                "value": true
+              }
+            ],
+            "else": []
+          },
+          {
+            "type": "conditional",
+            "when": [
+              {
+                "key": "second_mouth_collapsed",
+                "op": "==",
+                "value": true
+              }
+            ],
+            "then": [
+              {
+                "type": "addXP",
+                "amount": 10
+              },
+              {
+                "type": "flag",
+                "key": "drains_risk_reduced",
+                "value": true
+              }
+            ],
+            "else": []
+          },
+          {
+            "type": "conditional",
+            "when": [
+              {
+                "key": "enemy_second_mouth_active",
+                "op": "==",
+                "value": true
+              }
+            ],
+            "then": [
+              {
+                "type": "flag",
+                "key": "drains_threat_persistent",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 4
+              }
+            ],
+            "else": []
+          },
+          {
+            "type": "conditional",
+            "when": [
+              {
+                "key": "infiltrators_slipped_count",
+                "op": ">=",
+                "value": 2
+              }
+            ],
+            "then": [
+              {
+                "type": "flag",
+                "key": "city_damage_high",
+                "value": true
+              },
+              {
+                "type": "addItem",
+                "itemId": "hotspot_report",
+                "qty": 1
+              }
+            ],
+            "else": [
+              {
+                "type": "flag",
+                "key": "city_damage_high",
+                "value": false
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "v_infirmary_triage"
+      }
+    ],
+    "exits": {
+      "s": "g_inner_gate_yard",
+      "e": "v_infirmary_triage"
+    }
+  },
+  {
+    "id": "v_infirmary_triage",
+    "title": "Infirmary: Triage by Lantern",
+    "x": 1,
+    "y": 2,
+    "floorId": "city",
+    "tileStyle": "infirmary",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, crowded infirmary, healers working by lantern light, raincoats steaming, cinematic, no text",
+    "description": "Bandages, lanterns, and prayers.\n\nSister Elin doesn’t look up. \"If you’re not bleeding, you’re useful.\"",
+    "actionsAvailable": {
+      "talk": {
+        "text": "Elin points to a slate of locations marked in charcoal.",
+        "choices": [
+          {
+            "id": "elin",
+            "label": "Talk to Sister Elin.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_medic_sister_elin"
+              }
+            ]
+          },
+          {
+            "id": "start",
+            "label": "Start: Triage Hotspots.",
+            "effects": [
+              {
+                "type": "startJob",
+                "jobId": "q_triage_hotspots"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "to_burnt_quarter",
+        "label": "Take a hotspot report and head into the smoke.",
+        "effects": [
+          {
+            "type": "addItem",
+            "itemId": "hotspot_report",
+            "qty": 1
+          }
+        ],
+        "goToAreaId": "v_burnt_quarter"
+      },
+      {
+        "id": "to_cells",
+        "label": "The inquisitor requests you at the holding cells.",
+        "goToAreaId": "v_hold_cells"
+      }
+    ],
+    "exits": {
+      "w": "v_council_chamber",
+      "s": "g_inner_gate_yard"
+    }
+  },
+  {
+    "id": "v_burnt_quarter",
+    "title": "Burnt Quarter: Smoke and Embers",
+    "x": 2,
+    "y": 2,
+    "floorId": "city",
+    "tileStyle": "burnt",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, smoky street with burning timber, civilians carrying buckets, guards shouting, cinematic, no text",
+    "description": "Smoke stings your eyes.\n\nIf infiltrators slipped through, they left tinder behind.\n\nYou can save buildings—or chase shadows.",
+    "choices": [
+      {
+        "id": "smother_fires",
+        "label": "Smother fires and stabilize the quarter (good outcome).",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "hotspots_resolved",
+            "value": true
+          },
+          {
+            "type": "completeJob",
+            "jobId": "q_triage_hotspots"
+          },
+          {
+            "type": "addXP",
+            "amount": 14
+          }
+        ],
+        "goToAreaId": "v_memorial_square"
+      },
+      {
+        "id": "fail_spread",
+        "label": "You arrive too late — the fire spreads (city damage increases).",
+        "effects": [
+          {
+            "type": "addToCounter",
+            "key": "arson_damage_count",
+            "amount": 1
+          },
+          {
+            "type": "flag",
+            "key": "city_damage_high",
+            "value": true
+          }
+        ],
+        "goToAreaId": "v_memorial_square"
+      }
+    ]
+  },
+  {
+    "id": "v_hold_cells",
+    "title": "Holding Cells: Lantern and Ink",
+    "x": 1,
+    "y": 1,
+    "floorId": "city",
+    "tileStyle": "cells",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow holding cells, hooded inquisitor, frightened captive goblin, cinematic, no text",
+    "description": "The air smells of iron and ink.\n\nInquisitor Dran folds his sleeves.\n\n\"We need a location. A name. A route.\"",
+    "actionsAvailable": {
+      "talk": {
+        "text": "Dran gestures toward a shaking goblin courier.",
+        "choices": [
+          {
+            "id": "dran",
+            "label": "Talk to Inquisitor Dran.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_inquisitor_dran"
+              }
+            ]
+          },
+          {
+            "id": "start",
+            "label": "Start: Interrogate the Token Carrier.",
+            "effects": [
+              {
+                "type": "startJob",
+                "jobId": "q_interrogate_token_carrier"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "interrogate_skill",
+        "label": "Interrogate (skill check: mind).",
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "mind",
+            "dc": 9,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "interrogation_complete",
+                "value": true
+              },
+              {
+                "type": "completeJob",
+                "jobId": "q_interrogate_token_carrier"
+              },
+              {
+                "type": "addItem",
+                "itemId": "infiltrator_confession",
+                "qty": 1
+              },
+              {
+                "type": "addXP",
+                "amount": 18
+              },
+              {
+                "type": "flag",
+                "key": "watchfort_arc_unlocked",
+                "value": true
+              }
+            ],
+            "onFail": [
+              {
+                "type": "flag",
+                "key": "interrogation_complete",
+                "value": true
+              },
+              {
+                "type": "completeJob",
+                "jobId": "q_interrogate_token_carrier"
+              },
+              {
+                "type": "addXP",
+                "amount": 10
+              },
+              {
+                "type": "flag",
+                "key": "watchfort_arc_unlocked",
+                "value": true
+              },
+              {
+                "type": "flag",
+                "key": "watchfort_alerted",
+                "value": true
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "v_memorial_square"
+      }
+    ],
+    "exits": {
+      "n": "v_infirmary_triage",
+      "e": "v_memorial_square"
+    }
+  },
+  {
+    "id": "v_memorial_square",
+    "title": "Memorial Square: Quiet After Screams",
+    "x": 2,
+    "y": 1,
+    "floorId": "city",
+    "tileStyle": "memorial",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, memorial square with candles and cloaked bodies, guard lanterns, solemn rain, cinematic, no text",
+    "description": "Cloaks over bodies.\n\nCandles gutter in rain.\n\nThis is the bill the city pays when enemies step inside the walls.",
+    "choices": [
+      {
+        "id": "watch_duty",
+        "label": "Take memorial watch duty (curfew patrol).",
+        "effects": [
+          {
+            "type": "startJob",
+            "jobId": "q_guard_memorial"
+          },
+          {
+            "type": "flag",
+            "key": "memorial_watch_complete",
+            "value": true
+          },
+          {
+            "type": "completeJob",
+            "jobId": "q_guard_memorial"
+          },
+          {
+            "type": "addXP",
+            "amount": 12
+          }
+        ],
+        "goToAreaId": "v_postern_gate"
+      }
+    ],
+    "exits": {
+      "w": "v_hold_cells",
+      "s": "g_market_square_panic"
+    }
+  },
+  {
+    "id": "v_postern_gate",
+    "title": "Postern Gate: A Thin Door in a Thick Wall",
+    "x": 0,
+    "y": 0,
+    "floorId": "city",
+    "tileStyle": "postern",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, small hidden city gate at night, guards with lanterns, beyond is foggy field, cinematic, no text",
+    "description": "A small gate—barely more than a slit.\n\nThe confession names a relay point: a captured watchfort beyond the siege line.\n\nStrike it, and the enemy’s coordination falters.\n\nFail, and you won’t make it back to this door.",
+    "choices": [
+      {
+        "id": "depart",
+        "label": "Begin the counterstrike: go beyond the walls to the captured watchfort.",
+        "requirements": [
+          {
+            "type": "flagEquals",
+            "key": "watchfort_arc_unlocked",
+            "value": true
+          }
+        ],
+        "effects": [
+          {
+            "type": "addXP",
+            "amount": 8
+          }
+        ],
+        "goToAreaId": "w_no_mans_land"
+      }
+    ]
+  }
+]

@@ -1,0 +1,175 @@
+[
+  {
+    "id": "orc_sentry",
+    "name": "Orc Sentry",
+    "kind": "humanoid",
+    "skill": 9,
+    "stamina": 10,
+    "meta": {
+      "ranged": false
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 1,
+        "max": 10
+      }
+    ],
+    "tags": [
+      "orc",
+      "guard"
+    ]
+  },
+  {
+    "id": "goblin_runner",
+    "name": "Goblin Runner",
+    "kind": "humanoid",
+    "skill": 8,
+    "stamina": 6,
+    "meta": {
+      "ranged": false,
+      "special": "alarm"
+    },
+    "loot": [
+      {
+        "itemId": "prison_ring_token",
+        "min": 0,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 6
+      }
+    ],
+    "tags": [
+      "goblin",
+      "runner"
+    ]
+  },
+  {
+    "id": "troll_hound",
+    "name": "Troll-Hound",
+    "kind": "monster",
+    "skill": 8,
+    "stamina": 11,
+    "meta": {
+      "special": "scent_track"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 5
+      }
+    ],
+    "tags": [
+      "beast",
+      "hound"
+    ]
+  },
+  {
+    "id": "orc_jailer",
+    "name": "Orc Jailer",
+    "kind": "humanoid",
+    "skill": 10,
+    "stamina": 13,
+    "meta": {
+      "special": "keyring"
+    },
+    "loot": [
+      {
+        "itemId": "fortress_key_iron",
+        "min": 1,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 3,
+        "max": 14
+      }
+    ],
+    "tags": [
+      "orc",
+      "jailer",
+      "boss"
+    ]
+  },
+  {
+    "id": "sentry_pair",
+    "name": "Sentry Pair",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "orc_sentry",
+        "count": 2
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 9
+      }
+    },
+    "tags": [
+      "orc",
+      "group",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "prison_patrol",
+    "name": "Prison Patrol",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "orc_sentry",
+        "count": 1
+      },
+      {
+        "enemyId": "goblin_runner",
+        "count": 2
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 8
+      }
+    },
+    "tags": [
+      "mixed",
+      "group",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "hound_team",
+    "name": "Hound Team",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "troll_hound",
+        "count": 1
+      },
+      {
+        "enemyId": "goblin_runner",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 9
+      }
+    },
+    "tags": [
+      "beast",
+      "group",
+      "pursuit"
+    ]
+  }
+]

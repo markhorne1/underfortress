@@ -1,0 +1,71 @@
+[
+  {
+    "id": "q_overland_act2_field_camp",
+    "name": "Overland II: Break the Raiders’ Field Camp",
+    "giverNpcId": "npc_councilor_vayne",
+    "startAreaId": "o_forest_track",
+    "objective": {
+      "type": "setFlag",
+      "key": "overland_act2_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 10,
+      "xp": 40,
+      "items": [
+        {
+          "itemId": "field_ration_pack",
+          "qty": 2
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_free_farmers",
+    "name": "Free the Captive Farmers",
+    "giverNpcId": "npc_captive_farmer_rill",
+    "startAreaId": "o_cage_pens",
+    "objective": {
+      "type": "setFlag",
+      "key": "farmers_freed",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 26,
+      "items": [
+        {
+          "itemId": "work_contract_token",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_siege_lines_recon",
+    "name": "Recon the Siege Lines",
+    "giverNpcId": "npc_councilor_vayne",
+    "startAreaId": "o_siege_overlook",
+    "objective": {
+      "type": "setFlag",
+      "key": "siege_lines_reconned",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 22,
+      "items": [
+        {
+          "itemId": "work_contract_token",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  }
+]

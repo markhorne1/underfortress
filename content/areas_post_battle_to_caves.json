@@ -1,0 +1,412 @@
+[
+  {
+    "id": "h_after_act2",
+    "title": "After the Iron Falls",
+    "x": 0,
+    "y": -30,
+    "floorId": "battle",
+    "tileStyle": "gate_yard",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, exhausted defenders in gate yard, rain easing, broken shields, cinematic, no text",
+    "description": "The yard is mud, blood, and splintered courage.\n\nThe enemy recoils — not defeated, only delayed.\n\nA messenger finds you: \"Councilor Vayne wants you. Now.\"",
+    "choices": [
+      {
+        "id": "to_council",
+        "label": "Go to the council hall for a covert assignment.",
+        "goToAreaId": "h_council_covert"
+      },
+      {
+        "id": "forge_seal",
+        "label": "If you have 3 key fragments, bind them into a Gatewarden’s Seal.",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "gate_key_fragment",
+            "qty": 3
+          }
+        ],
+        "effects": [
+          {
+            "type": "craft",
+            "recipeId": "bind_gate_key"
+          }
+        ],
+        "goToAreaId": "h_council_covert"
+      }
+    ]
+  },
+  {
+    "id": "h_council_covert",
+    "title": "Covert Assignment",
+    "x": -1,
+    "y": -30,
+    "floorId": "city",
+    "tileStyle": "council",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, councilor leaning over map with candles, urgent whispers, cinematic, no text",
+    "description": "Vayne speaks without ceremony.\n\n\"They tested the gate — and they tested our inside.\n\nThere is another way in: old sewers that lead into limestone caves. From there, a forgotten under-fortress sits like a thorn.\n\nIf they hold it, they can pour into the city behind the gate. We need a knife in the dark.\"",
+    "choices": [
+      {
+        "id": "accept",
+        "label": "Accept the mission: descend into the sewers and find the under-fortress approach.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "mission_underfortress",
+            "value": true
+          },
+          {
+            "type": "addItem",
+            "itemId": "council_sigil_silver",
+            "qty": 1
+          }
+        ],
+        "goToAreaId": "h_sewer_descent_entry"
+      },
+      {
+        "id": "if_breached",
+        "label": "If the gate breached, offer to lead citizens to a safe route first.",
+        "requirements": [
+          {
+            "type": "flagEquals",
+            "key": "gate_breached_partial",
+            "value": true
+          }
+        ],
+        "effects": [
+          {
+            "type": "flag",
+            "key": "evac_helper",
+            "value": true
+          }
+        ],
+        "goToAreaId": "g_inner_streets_intro"
+      }
+    ]
+  },
+  {
+    "id": "g_inner_streets_intro",
+    "title": "Inner Streets: Choke Point",
+    "x": 0,
+    "y": -31,
+    "floorId": "city",
+    "tileStyle": "alley",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow medieval street barricade, citizens fleeing, defenders forming line, cinematic, no text",
+    "description": "A narrow street becomes a funnel. Barrels roll. Planks slam down.\n\nIf the gate spill widens, this is where the city dies — or holds.",
+    "choices": [
+      {
+        "id": "hold_short",
+        "label": "Hold for a short time to let civilians move.",
+        "effects": [
+          {
+            "type": "addXP",
+            "amount": 18
+          },
+          {
+            "type": "flag",
+            "key": "inner_streets_held",
+            "value": true
+          }
+        ],
+        "goToAreaId": "h_sewer_descent_entry"
+      },
+      {
+        "id": "retreat_to_sewers",
+        "label": "Slip into the sewer access route (covert).",
+        "requirements": [
+          {
+            "type": "flagEquals",
+            "key": "mission_underfortress",
+            "value": true
+          }
+        ],
+        "goToAreaId": "h_sewer_descent_entry"
+      }
+    ]
+  },
+  {
+    "id": "h_sewer_descent_entry",
+    "title": "Old Sewer Access",
+    "x": 5,
+    "y": -2,
+    "floorId": "sewer",
+    "tileStyle": "sewer_entry",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, hidden sewer hatch with lantern, rainwater running into darkness, cinematic, no text",
+    "description": "A hatch hidden behind a collapsed brick screen.\n\nWarm air breathes up from below — carrying rot, old water, and something like wet fur.\n\nThis route predates the city’s current walls. That’s why it’s dangerous. That’s why it matters.",
+    "choices": [
+      {
+        "id": "down",
+        "label": "Descend.",
+        "goToAreaId": "h_sewer_run_1"
+      }
+    ]
+  },
+  {
+    "id": "h_sewer_run_1",
+    "title": "Sewer Run: Whispering Water",
+    "x": 5,
+    "y": -3,
+    "floorId": "sewer",
+    "tileStyle": "sewer",
+    "cover": "none",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, sewer tunnel with fast shallow water, echoes, lantern glow, cinematic, no text",
+    "description": "Water whispers along the floor, carrying every sound.\n\nYou see chalk marks: old smugglers. New gouges: something clawed.",
+    "choices": [
+      {
+        "id": "keen_eye",
+        "label": "Cast Keen Eye to read the marks and find the safer route.",
+        "requirements": [
+          {
+            "type": "knowsSpell",
+            "spellId": "keen_eye"
+          }
+        ],
+        "effects": [
+          {
+            "type": "castSpell",
+            "spellId": "keen_eye"
+          },
+          {
+            "type": "addXP",
+            "amount": 6
+          }
+        ],
+        "goToAreaId": "h_sewer_split"
+      },
+      {
+        "id": "continue",
+        "label": "Continue carefully.",
+        "goToAreaId": "h_sewer_split"
+      }
+    ]
+  },
+  {
+    "id": "h_sewer_split",
+    "title": "Split: Brickwork and Stone",
+    "x": 5,
+    "y": -4,
+    "floorId": "sewer",
+    "tileStyle": "sewer",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, sewer split with one brick tunnel and one rough stone tunnel, cinematic, no text",
+    "description": "Two paths.\n\nLeft: newer brick, tighter, with iron brackets.\nRight: older stone, rough and damp, opening downward.\n\nThe older route smells like caves.",
+    "choices": [
+      {
+        "id": "brick",
+        "label": "Take the brick route (risk of patrols).",
+        "goToAreaId": "h_brick_patrol"
+      },
+      {
+        "id": "stone",
+        "label": "Take the old stone route (risk of beasts).",
+        "goToAreaId": "h_stone_drop"
+      }
+    ]
+  },
+  {
+    "id": "h_brick_patrol",
+    "title": "Brick Route: Patrol Shadows",
+    "x": 4,
+    "y": -4,
+    "floorId": "sewer",
+    "tileStyle": "sewer",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, brick sewer with lantern light ahead, shadowy figures, tense stealth, cinematic, no text",
+    "description": "Lantern light ahead.\n\nVoices — not guards. Too harsh. Too amused.\n\nSmugglers… or something worse wearing their confidence.",
+    "choices": [
+      {
+        "id": "sneak",
+        "label": "Use Muffle Steps and slip past.",
+        "requirements": [
+          {
+            "type": "knowsSpell",
+            "spellId": "muffle_steps"
+          }
+        ],
+        "effects": [
+          {
+            "type": "castSpell",
+            "spellId": "muffle_steps"
+          },
+          {
+            "type": "addXP",
+            "amount": 10
+          }
+        ],
+        "goToAreaId": "h_cave_mouth"
+      },
+      {
+        "id": "fight",
+        "label": "Confront them.",
+        "effects": [
+          {
+            "type": "startCombat",
+            "enemyGroup": [
+              {
+                "enemyId": "dockside_cutthroat",
+                "count": 2
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "h_cave_mouth"
+      }
+    ]
+  },
+  {
+    "id": "h_stone_drop",
+    "title": "Stone Drop",
+    "x": 6,
+    "y": -4,
+    "floorId": "sewer",
+    "tileStyle": "sewer",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, rough stone tunnel descending, water dripping, claw marks, cinematic, no text",
+    "description": "The stone route slopes down.\n\nClaw marks rake the wall. Something uses this as a corridor — not a home.\n\nHomes are safer than corridors.",
+    "choices": [
+      {
+        "id": "rats",
+        "label": "Proceed (and be ready for vermin).",
+        "effects": [
+          {
+            "type": "startCombat",
+            "enemyGroup": [
+              {
+                "enemyId": "sewer_rat",
+                "count": 2
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "h_cave_mouth"
+      }
+    ]
+  },
+  {
+    "id": "h_cave_mouth",
+    "title": "Cave Mouth: Limestone Breath",
+    "x": 5,
+    "y": -5,
+    "floorId": "caves",
+    "tileStyle": "cave",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, limestone cave mouth beyond sewer arch, mist, faint crystals, cinematic, no text",
+    "description": "The sewer ends in a limestone throat.\n\nMist curls from fissures. In the distance, faint crystals catch your lantern like eyes.\n\nSomewhere deeper, stone echoes with bootsteps — disciplined, not animal.\n\nThe under-fortress is real.",
+    "choices": [
+      {
+        "id": "continue",
+        "label": "Enter the caves toward the under-fortress.",
+        "goToAreaId": "i_cave_junction_1"
+      }
+    ]
+  },
+  {
+    "id": "i_cave_junction_1",
+    "title": "Cave Junction: The Forked Dark",
+    "x": 5,
+    "y": -6,
+    "floorId": "caves",
+    "tileStyle": "cave",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, cave junction with two tunnels, one with faint torch soot, one with crystal glimmer, cinematic, no text",
+    "description": "Two tunnels.\n\nLeft: soot on stone — torches. People.\nRight: crystal glimmer — natural… or bait.\n\nIf you want the fortress, you follow people. If you want answers, you follow the earth.",
+    "choices": [
+      {
+        "id": "soot",
+        "label": "Follow the soot trail (toward the under-fortress).",
+        "goToAreaId": "i_underfortress_outer"
+      },
+      {
+        "id": "crystal",
+        "label": "Follow the crystal glimmer (side loot / ward shards).",
+        "goToAreaId": "i_crystal_grotto"
+      }
+    ]
+  },
+  {
+    "id": "i_crystal_grotto",
+    "title": "Crystal Grotto",
+    "x": 6,
+    "y": -6,
+    "floorId": "caves",
+    "tileStyle": "cave",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, crystal grotto with glowing shards, shallow pool, eerie beauty, cinematic, no text",
+    "description": "Crystals stud the walls like frozen lightning.\n\nIn the pool, something metallic gleams — rune-metal, broken into familiar shapes.\n\nWard shards. Enough to make another stone… or strengthen a seal.",
+    "choices": [
+      {
+        "id": "take_shards",
+        "label": "Take the ward shards.",
+        "effects": [
+          {
+            "type": "addItem",
+            "itemId": "ward_shard",
+            "qty": 2
+          },
+          {
+            "type": "addXP",
+            "amount": 14
+          }
+        ],
+        "goToAreaId": "i_cave_junction_1"
+      }
+    ]
+  },
+  {
+    "id": "i_underfortress_outer",
+    "title": "Under-Fortress Outer Wall",
+    "x": 5,
+    "y": -7,
+    "floorId": "caves",
+    "tileStyle": "fortress",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, ancient underground fortress wall carved into rock, torchlight, skull motifs, cinematic, no text",
+    "description": "Stonework rises from rock as if it grew there.\n\nAn under-fortress — old as the first wars.\n\nYou hear orders in guttural tongues.\n\nIf this place feeds the invasion, cutting it will save the city more than any heroics at the gate.",
+    "choices": [
+      {
+        "id": "approach",
+        "label": "Approach the under-fortress entrance.",
+        "goToAreaId": "i_underfortress_entry"
+      }
+    ]
+  },
+  {
+    "id": "i_underfortress_entry",
+    "title": "Under-Fortress Entry",
+    "x": 5,
+    "y": -8,
+    "floorId": "caves",
+    "tileStyle": "fortress",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, underground fortress gate with iron bars, torch sconces, guards in silhouette, cinematic, no text",
+    "description": "A barred entry with two sentries.\n\nBeyond the bars: a corridor, disciplined footsteps, and the smell of oil.\n\nThis is where your city questing becomes war.",
+    "choices": [
+      {
+        "id": "next",
+        "label": "Proceed into Under-Fortress Scenario I (next chapter).",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "chapter_underfortress_started",
+            "value": true
+          }
+        ]
+      }
+    ]
+  }
+]

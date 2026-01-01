@@ -1,0 +1,61 @@
+[
+  {
+    "id": "powder_keg",
+    "name": "Black Powder Keg",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A sealed keg marked for the siege workshop. If this explodes in the wrong place, it won’t matter who wins the war."
+  },
+  {
+    "id": "fuse_coil",
+    "name": "Fuse Coil",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "Slow-burning fuse. Smugglers love it. Sappers worship it."
+  },
+  {
+    "id": "dock_ledger_page",
+    "name": "Dock Ledger Page",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A torn page listing ‘missing’ crates. The handwriting is careful. The numbers are not."
+  },
+  {
+    "id": "gate_key_fragment",
+    "name": "Gate Key Fragment",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A shard of an old key. It fits nothing alone — but it remembers a lock."
+  },
+  {
+    "id": "gatewarden_seal",
+    "name": "Gatewarden’s Seal",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A council-and-ward fused seal granting emergency access to restricted gate mechanisms and inner tunnels."
+  },
+  {
+    "id": "water_skin",
+    "name": "Water Skin",
+    "type": "tool",
+    "stackable": false,
+    "value": 10,
+    "description": "A leather skin of clean water. Useful for travel, or ruining a fuse at the right moment."
+  },
+  {
+    "id": "smoke_pellet",
+    "name": "Smoke Pellet",
+    "type": "tool",
+    "stackable": true,
+    "value": 14,
+    "meta": {
+      "breakLOS": 2
+    },
+    "description": "A compressed pellet that blooms into choking smoke. Perfect for escapes and ambushes."
+  }
+]

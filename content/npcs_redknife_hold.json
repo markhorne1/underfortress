@@ -1,0 +1,71 @@
+[
+  {
+    "id": "npc_princess_seren",
+    "name": "Lady Seren Arclight",
+    "role": "Royal Hostage (Princess Thread)",
+    "portraitPrompt": "fantasy character portrait, young noblewoman with dirt-streaked face, hair pinned back, chain marks on wrists, determined eyes, torchlit cavern, painterly, no text",
+    "dialogue": {
+      "greeting": "If you’re here to trade, don’t. If you’re here to fight, do it fast.",
+      "nodes": [
+        {
+          "id": "seren_truth",
+          "text": "They aren’t holding me for ransom alone. They want the gate opened from within. There’s a ‘second mouth’ into the drains—mapped, measured, ready.",
+          "choices": [
+            {
+              "label": "Ask about the ‘second mouth’.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "second_mouth_confirmed",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Promise: I’ll get you out alive.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "princess_rescue_promised",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_defector_runner_mip",
+    "name": "Mip",
+    "role": "Terrified Goblin Runner (Wants Amends)",
+    "portraitPrompt": "fantasy character portrait, small goblin with torn hood, wide fearful eyes, holding a cracked token, cavern shadows, painterly, no text",
+    "dialogue": {
+      "greeting": "Don’t kill me! I know where they keep the iron wedges. I know where the roof is weak.",
+      "nodes": [
+        {
+          "id": "mip_deal",
+          "text": "Captain Varg will trade. He loves trades. But he cheats. Always.\n\nIf you want to collapse the tunnel, the ‘breath pillars’ are the key. Three of them.",
+          "choices": [
+            {
+              "label": "Accept the info (mark weak supports).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "breath_pillars_hint",
+                  "value": true
+                },
+                {
+                  "type": "addItem",
+                  "itemId": "chalk_shard",
+                  "qty": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

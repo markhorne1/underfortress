@@ -1,0 +1,71 @@
+[
+  {
+    "id": "q_watchfort_raid",
+    "name": "Counterstrike: The Captured Watchfort",
+    "giverNpcId": "npc_scout_lieut_kess",
+    "startAreaId": "w_no_mans_land",
+    "objective": {
+      "type": "setFlag",
+      "key": "watchfort_raid_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 14,
+      "xp": 60,
+      "items": [
+        {
+          "itemId": "work_contract_token",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_watchfort_free_prisoners",
+    "name": "Watchfort: Free the Prisoners",
+    "giverNpcId": "npc_prisoner_sergeant_bram",
+    "startAreaId": "w_prison_pen",
+    "objective": {
+      "type": "setFlag",
+      "key": "watchfort_prisoners_freed",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 34,
+      "items": [
+        {
+          "itemId": "watchfort_gate_key",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_watchfort_steal_signals",
+    "name": "Watchfort: Steal the Signal Codebook",
+    "giverNpcId": "npc_scout_lieut_kess",
+    "startAreaId": "w_relay_tower_base",
+    "objective": {
+      "type": "setFlag",
+      "key": "signal_codebook_taken",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 40,
+      "items": [
+        {
+          "itemId": "siege_signal_codebook",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  }
+]

@@ -1,0 +1,141 @@
+[
+  {
+    "id": "rat_king_swarm",
+    "name": "Rat Swarm",
+    "kind": "monster",
+    "skill": 7,
+    "stamina": 7,
+    "meta": {
+      "special": "swarm_bite"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 2
+      }
+    ],
+    "tags": [
+      "sewer",
+      "swarm"
+    ]
+  },
+  {
+    "id": "spore_thrall",
+    "name": "Spore Thrall",
+    "kind": "humanoid",
+    "skill": 9,
+    "stamina": 10,
+    "meta": {
+      "special": "spore_burst"
+    },
+    "loot": [
+      {
+        "itemId": "fungal_tonic",
+        "min": 0,
+        "max": 1
+      }
+    ],
+    "tags": [
+      "cave",
+      "spore"
+    ]
+  },
+  {
+    "id": "underway_cult_warder",
+    "name": "Underway Warder",
+    "kind": "humanoid",
+    "skill": 10,
+    "stamina": 12,
+    "meta": {
+      "special": "ward_strike"
+    },
+    "loot": [
+      {
+        "itemId": "lumen_key_fragment",
+        "min": 1,
+        "max": 1
+      }
+    ],
+    "tags": [
+      "underfortress",
+      "warder"
+    ]
+  },
+  {
+    "id": "glass_eye_shaman",
+    "name": "Shaman of the Glass Eye",
+    "kind": "humanoid",
+    "skill": 12,
+    "stamina": 17,
+    "meta": {
+      "special": "hex_glare"
+    },
+    "loot": [
+      {
+        "itemId": "lumen_key_fragment",
+        "min": 1,
+        "max": 1
+      },
+      {
+        "itemId": "crystal_ball_shard",
+        "min": 1,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 6,
+        "max": 18
+      }
+    ],
+    "tags": [
+      "boss",
+      "shaman",
+      "underfortress"
+    ]
+  },
+  {
+    "id": "sewer_pack",
+    "name": "Sewer Pack",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "rat_king_swarm",
+        "count": 2
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 7
+      }
+    },
+    "tags": [
+      "group",
+      "sewer"
+    ]
+  },
+  {
+    "id": "cave_spore_pack",
+    "name": "Spore Pack",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "spore_thrall",
+        "count": 2
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 8
+      }
+    },
+    "tags": [
+      "group",
+      "cave"
+    ]
+  }
+]

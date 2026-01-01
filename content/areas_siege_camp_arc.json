@@ -1,0 +1,372 @@
+[
+  {
+    "id": "p_siege_camp_approach",
+    "title": "Siege Camp Approach: Firelight in Fog",
+    "x": 20,
+    "y": -5,
+    "floorId": "overland",
+    "tileStyle": "fog_field",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, fog field with scattered campfires ahead, silhouettes of tents and siege engines, cinematic, no text",
+    "description": "Campfires make the fog glow.\n\nSomewhere in that sprawl is the standard that keeps them brave.\n\nKess waits low in the grass.",
+    "actionsAvailable": {
+      "talk": {
+        "text": "Kess points toward a darker trench line.",
+        "choices": [
+          {
+            "id": "kess",
+            "label": "Talk to Lieutenant Kess.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_lieut_kess"
+              }
+            ]
+          },
+          {
+            "id": "start",
+            "label": "Start: Steal the War Standard.",
+            "effects": [
+              {
+                "type": "startJob",
+                "jobId": "q_siege_camp_raid"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "to_pickets",
+        "label": "Slip toward the picket line.",
+        "goToAreaId": "p_picket_line"
+      }
+    ]
+  },
+  {
+    "id": "p_picket_line",
+    "title": "Picket Line: Whispering Arrows",
+    "x": 21,
+    "y": -5,
+    "floorId": "camp",
+    "tileStyle": "camp_edge",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, goblin pickets with bows near stake fence, campfire glow, cinematic, no text",
+    "description": "Three goblins watch the fog.\n\nThey are bored.\n\nBored creatures shoot first to feel alive.",
+    "choices": [
+      {
+        "id": "fake_signal",
+        "label": "Use the stolen codebook to fake a recall signal (mind check).",
+        "requirements": [
+          {
+            "type": "flagEquals",
+            "key": "counter_signal_unlocked",
+            "value": true
+          }
+        ],
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "mind",
+            "dc": 10,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "camp_guards_pulled_away",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 12
+              }
+            ],
+            "onFail": [
+              {
+                "type": "flag",
+                "key": "camp_alarm_level",
+                "value": 1
+              },
+              {
+                "type": "flag",
+                "key": "enemy_suspicious_signals",
+                "value": true
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "p_trench_entry"
+      },
+      {
+        "id": "fight_pickets",
+        "label": "Fight through the pickets.",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_camp_pickets",
+              "enemyGroupId": "camp_picket_line",
+              "distance": 3,
+              "direction": "n",
+              "speed": 1,
+              "targetAreaId": "p_picket_line",
+              "hazards": []
+            }
+          },
+          {
+            "type": "flag",
+            "key": "camp_alarm_level",
+            "value": 1
+          }
+        ],
+        "goToAreaId": "p_picket_fight"
+      }
+    ]
+  },
+  {
+    "id": "p_picket_fight",
+    "title": "Picket Clash",
+    "x": 22,
+    "y": -5,
+    "floorId": "camp",
+    "tileStyle": "camp_edge",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, arrows in fog, close melee at stake fence, cinematic, no text",
+    "description": "The fog turns chaotic.\n\nA goblin screams.\n\nIf the camp wakes, the raid becomes a chase.",
+    "choices": [
+      {
+        "id": "fight",
+        "label": "Fight.",
+        "effects": [
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_camp_pickets"
+          }
+        ],
+        "goToAreaId": "p_trench_entry"
+      }
+    ]
+  },
+  {
+    "id": "p_trench_entry",
+    "title": "Command Trench Entry",
+    "x": 23,
+    "y": -5,
+    "floorId": "camp",
+    "tileStyle": "trench",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, trench line with crude boards, lanterns, muffled voices, cinematic, no text",
+    "description": "The trench smells of pitch and wet wool.\n\nOrders travel here like disease.\n\nSomewhere below is the ‘vault’ and its banner.",
+    "choices": [
+      {
+        "id": "to_command_tent",
+        "label": "Move toward the command tent.",
+        "goToAreaId": "p_command_tent"
+      },
+      {
+        "id": "to_tunnels",
+        "label": "Find the tunnel drop leading to the buried vault.",
+        "goToAreaId": "p_command_tunnels"
+      }
+    ]
+  },
+  {
+    "id": "p_command_tent",
+    "title": "Command Tent: Maps on Bloodwood",
+    "x": 24,
+    "y": -5,
+    "floorId": "camp",
+    "tileStyle": "tent",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, command tent interior, maps, wax seals, helmets, torch smoke, cinematic, no text",
+    "description": "Maps. Wax seals. A brass stamping plate.\n\nThis is where they decide which streets burn.\n\nTake what you can before footsteps arrive.",
+    "choices": [
+      {
+        "id": "take_plate",
+        "label": "Take the command seal plate.",
+        "effects": [
+          {
+            "type": "addItem",
+            "itemId": "command_seal_plate",
+            "qty": 1
+          },
+          {
+            "type": "addXP",
+            "amount": 12
+          }
+        ],
+        "goToAreaId": "p_command_tunnels"
+      },
+      {
+        "id": "inner_guard",
+        "label": "An inner guard approaches.",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_camp_inner",
+              "enemyGroupId": "camp_inner_guard",
+              "distance": 2,
+              "direction": "w",
+              "speed": 1,
+              "targetAreaId": "p_command_tent",
+              "hazards": []
+            }
+          },
+          {
+            "type": "flag",
+            "key": "camp_alarm_level",
+            "value": 2
+          }
+        ],
+        "goToAreaId": "p_tent_contact"
+      }
+    ]
+  },
+  {
+    "id": "p_tent_contact",
+    "title": "Tent Contact",
+    "x": 25,
+    "y": -5,
+    "floorId": "camp",
+    "tileStyle": "tent",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, orc drillmaster entering tent, goblin behind, torch flare, cinematic, no text",
+    "description": "The drillmaster fills the entrance.\n\nYou don’t have room to run.\n\nYou have room to win.",
+    "choices": [
+      {
+        "id": "fight",
+        "label": "Fight.",
+        "effects": [
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_camp_inner"
+          }
+        ],
+        "goToAreaId": "p_command_tunnels"
+      }
+    ]
+  },
+  {
+    "id": "p_command_tunnels",
+    "title": "Command Tunnels: Chalk and Breath",
+    "x": 23,
+    "y": -6,
+    "floorId": "camp",
+    "tileStyle": "tunnel",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow tunnels under camp, dripping earth, lanterns, chalk marks, cinematic, no text",
+    "description": "Earth tunnels beneath the trench.\n\nIf you get lost, you die quietly.\n\nA vault waits ahead—guarded by something that believes in the banner.",
+    "choices": [
+      {
+        "id": "mark",
+        "label": "Mark the tunnel path with chalk.",
+        "effects": [
+          {
+            "type": "addItem",
+            "itemId": "tunnel_chalk_mark",
+            "qty": 1
+          },
+          {
+            "type": "addXP",
+            "amount": 6
+          }
+        ],
+        "goToAreaId": "p_war_standard_vault"
+      },
+      {
+        "id": "press",
+        "label": "Press on without marking.",
+        "goToAreaId": "p_war_standard_vault"
+      }
+    ]
+  },
+  {
+    "id": "p_war_standard_vault",
+    "title": "War-Standard Vault: The Banner That Bites",
+    "x": 23,
+    "y": -7,
+    "floorId": "camp",
+    "tileStyle": "vault",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, buried vault chamber, black banner on rack, guardian in shadow, cinematic, no text",
+    "description": "The banner hangs heavy, as if soaked in fear.\n\nA guardian stands before it.\n\nNot a soldier.\n\nA believer.",
+    "choices": [
+      {
+        "id": "boss",
+        "label": "Fight the Standard Guardian.",
+        "effects": [
+          {
+            "type": "startCombat",
+            "enemyGroup": [
+              {
+                "enemyId": "standard_guardian",
+                "count": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "p_vault_loot"
+      }
+    ]
+  },
+  {
+    "id": "p_vault_loot",
+    "title": "Banner Taken",
+    "x": 23,
+    "y": -8,
+    "floorId": "camp",
+    "tileStyle": "vault",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, player lifting heavy black banner, torchlight, shattered rack, cinematic, no text",
+    "description": "You take the war standard.\n\nIt feels like lifting a piece of the enemy’s spine.\n\nAbove, the camp still thinks it is winning.\n\nNot for long.",
+    "effectsOnEnter": [
+      {
+        "type": "addItem",
+        "itemId": "war_standard_black",
+        "qty": 1
+      },
+      {
+        "type": "flag",
+        "key": "war_standard_taken",
+        "value": true
+      },
+      {
+        "type": "flag",
+        "key": "enemy_morale_shaken",
+        "value": true
+      },
+      {
+        "type": "completeJob",
+        "jobId": "q_siege_camp_raid"
+      },
+      {
+        "type": "addXP",
+        "amount": 22
+      }
+    ],
+    "choices": [
+      {
+        "id": "escape",
+        "label": "Escape back through the fog to the postern gate.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "camp_raid_escape",
+            "value": true
+          }
+        ],
+        "goToAreaId": "f_postern_return"
+      }
+    ]
+  }
+]

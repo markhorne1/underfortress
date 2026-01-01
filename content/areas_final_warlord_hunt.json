@@ -1,0 +1,422 @@
+[
+  {
+    "id": "fwh_departure",
+    "title": "Departure: Snow Road to the Fortress-Heart",
+    "x": 100,
+    "y": -70,
+    "floorId": "overland",
+    "tileStyle": "snow_road",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, snowy road with torches, fortress lights in distance, cinematic, no text",
+    "description": "Dawn is ash-grey.\n\nSnow falls like quiet judgment.\n\nThe fortress-heart burns with firelight ahead.\n\nIf the Warlord completes the rally and ritual, the next siege will be worse.\n\nKess checks your gear without a word.",
+    "actionsAvailable": {
+      "talk": {
+        "text": "Last brief before the end.",
+        "choices": [
+          {
+            "id": "kess",
+            "label": "Talk to Kess.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_kess_final"
+              }
+            ]
+          },
+          {
+            "id": "start",
+            "label": "Start the Final Warlord Hunt.",
+            "effects": [
+              {
+                "type": "startJob",
+                "jobId": "q_final_warlord_hunt"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "approach",
+        "label": "Approach the fortress-heart.",
+        "goToAreaId": "fwh_outer_chokepoint"
+      }
+    ]
+  },
+  {
+    "id": "fwh_outer_chokepoint",
+    "title": "Outer Chokepoint: The Last Skirmish",
+    "x": 101,
+    "y": -70,
+    "floorId": "final_fortress",
+    "tileStyle": "chokepoint",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow gate chokepoint, shields, firebrands with pitch, cinematic, no text",
+    "description": "A chokepoint held by survivors.\n\nPitch bombs arc like angry stars.\n\nIf you earned allies, you can call them.\n\nIf you carry the war-map tablet, you can bypass a flank.\n\nOtherwise: break the line.",
+    "choices": [
+      {
+        "id": "call_allies",
+        "label": "Use Signal Flare Scroll to call allies (if available).",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "signal_flare_scroll",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "removeItem",
+            "itemId": "signal_flare_scroll",
+            "qty": 1
+          },
+          {
+            "type": "conditional",
+            "when": [
+              {
+                "key": "allies_from_captives",
+                "op": "==",
+                "value": true
+              }
+            ],
+            "then": [
+              {
+                "type": "flag",
+                "key": "fwh_allies_arrived",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 18
+              }
+            ],
+            "else": []
+          },
+          {
+            "type": "conditional",
+            "when": [
+              {
+                "key": "political_mandate_strong",
+                "op": "==",
+                "value": true
+              }
+            ],
+            "then": [
+              {
+                "type": "flag",
+                "key": "fwh_elite_escort_arrived",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 18
+              }
+            ],
+            "else": []
+          }
+        ],
+        "goToAreaId": "fwh_inner_ramp"
+      },
+      {
+        "id": "bypass",
+        "label": "Bypass via known flank route (requires War-Map Tablet).",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "war_map_tablet",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "flag",
+            "key": "fwh_flank_bypass",
+            "value": true
+          },
+          {
+            "type": "addXP",
+            "amount": 16
+          }
+        ],
+        "goToAreaId": "fwh_inner_ramp"
+      },
+      {
+        "id": "fight_line",
+        "label": "Fight through the skirmish line.",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_fwh_line",
+              "enemyGroupId": "fwh_skirmish_line",
+              "distance": 3,
+              "direction": "n",
+              "speed": 1,
+              "targetAreaId": "fwh_outer_chokepoint",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "fwh_inner_ramp"
+      }
+    ]
+  },
+  {
+    "id": "fwh_inner_ramp",
+    "title": "Inner Ramp: Shoot and Retreat",
+    "x": 102,
+    "y": -71,
+    "floorId": "final_fortress",
+    "tileStyle": "ramp",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, steep inner ramp, enemy closing, archer vantage points, cinematic, no text",
+    "description": "The ramp is steep and exposed.\n\nEnemies surge from above.\n\nThis is where ranged veterans shine:\n\n- fire from distance,\n- retreat to widen space,\n- set spikes,\n- force the enemy to climb into bad footing.",
+    "choices": [
+      {
+        "id": "ranged_tactic",
+        "label": "Shoot and fall back one area (requires bow + arrows).",
+        "requirements": [
+          {
+            "type": "hasAnyItem",
+            "itemIds": [
+              "training_bow",
+              "hunting_bow",
+              "bow_wallwhisper",
+              "heirloom_wallwhisper_sunsteel"
+            ],
+            "qty": 1
+          },
+          {
+            "type": "hasAmmo",
+            "ammoType": "arrow",
+            "minCount": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "flag",
+            "key": "fwh_ranged_spacing_used",
+            "value": true
+          },
+          {
+            "type": "addXP",
+            "amount": 14
+          }
+        ],
+        "goToAreaId": "fwh_ritual_gate"
+      },
+      {
+        "id": "spikes",
+        "label": "Set spikes, then ready bow (if you have spikes).",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "spikes_bundle",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "flag",
+            "key": "fwh_spikes_set",
+            "value": true
+          },
+          {
+            "type": "addXP",
+            "amount": 12
+          }
+        ],
+        "goToAreaId": "fwh_ritual_gate"
+      },
+      {
+        "id": "push",
+        "label": "Push up the ramp by force.",
+        "goToAreaId": "fwh_ritual_gate"
+      }
+    ]
+  },
+  {
+    "id": "fwh_ritual_gate",
+    "title": "Ritual Gate: The Fortress-Heart Beats",
+    "x": 103,
+    "y": -71,
+    "floorId": "final_fortress",
+    "tileStyle": "ritual",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, ritual gate with runes, chanting echoes, red glow, cinematic, no text",
+    "description": "The gate hums.\n\nA ritual is underway.\n\nIf you destroyed the oracle, the ritual is blind and sloppy.\n\nIf the enemy still has war-sight, they anticipate your approach.\n\nIf the city has war-sight, you can interrupt at the perfect moment.",
+    "choices": [
+      {
+        "id": "interrupt",
+        "label": "Interrupt the ritual at the key moment (if city_warsight_gained).",
+        "requirements": [
+          {
+            "type": "flagEquals",
+            "key": "city_warsight_gained",
+            "value": true
+          }
+        ],
+        "effects": [
+          {
+            "type": "flag",
+            "key": "fwh_ritual_interrupted_clean",
+            "value": true
+          },
+          {
+            "type": "addXP",
+            "amount": 20
+          }
+        ],
+        "goToAreaId": "fwh_warlord_chamber"
+      },
+      {
+        "id": "rush",
+        "label": "Rush the gate before it completes (luck check).",
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "luck",
+            "dc": 12,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "fwh_ritual_rushed",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 18
+              }
+            ],
+            "onFail": [
+              {
+                "type": "takeDamage",
+                "amount": 2
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "fwh_warlord_chamber"
+      },
+      {
+        "id": "sabotage",
+        "label": "Sabotage the runes with ward nails (mind check).",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "ward_nails_bundle",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "removeItem",
+            "itemId": "ward_nails_bundle",
+            "qty": 1
+          },
+          {
+            "type": "skillCheck",
+            "skill": "mind",
+            "dc": 12,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "fwh_runes_sabotaged",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 18
+              }
+            ],
+            "onFail": [
+              {
+                "type": "takeDamage",
+                "amount": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "fwh_warlord_chamber"
+      }
+    ]
+  },
+  {
+    "id": "fwh_warlord_chamber",
+    "title": "Warlord Chamber: The Final Duel",
+    "x": 104,
+    "y": -72,
+    "floorId": "final_fortress",
+    "tileStyle": "boss",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, warlord on dais, broken banners, firelight, trophy weapons, cinematic, no text",
+    "description": "The Warlord stands before a broken banner.\n\nNot because he lacks a banner.\n\nBecause he wants you to believe he needs none.\n\nHe raises his weapon.\n\nThe fortress-heart beats once.\n\nThen again.\n\nAnd the fight begins.",
+    "choices": [
+      {
+        "id": "bossfight",
+        "label": "Fight the Orc Warlord.",
+        "effects": [
+          {
+            "type": "startCombat",
+            "enemyGroup": [
+              {
+                "enemyId": "orc_warlord",
+                "count": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "fwh_aftermath"
+      }
+    ]
+  },
+  {
+    "id": "fwh_aftermath",
+    "title": "Aftermath: The Helm in Your Hands",
+    "x": 105,
+    "y": -72,
+    "floorId": "final_fortress",
+    "tileStyle": "after",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, hero holding warlord helm trophy, dawn light through cracked stone, cinematic, no text",
+    "description": "The Warlord falls.\n\nThe host breaks.\n\nYou stand in the quiet after violence.\n\nThe war does not end in one room…\n\nBut it can tilt hard enough that the next battle becomes survivable.\n\nYou take the Warlord’s helm.\n\nProof.\n\nWeight.\n\nEnding.",
+    "effectsOnEnter": [
+      {
+        "type": "flag",
+        "key": "final_warlord_hunt_complete",
+        "value": true
+      },
+      {
+        "type": "completeJob",
+        "jobId": "q_final_warlord_hunt"
+      }
+    ],
+    "choices": [
+      {
+        "id": "ending",
+        "label": "View your ending.",
+        "goToAreaId": "ending_resolve"
+      }
+    ]
+  },
+  {
+    "id": "ending_resolve",
+    "title": "Ending Resolve: What the City Remembers",
+    "x": 0,
+    "y": 0,
+    "floorId": "meta",
+    "tileStyle": "ending",
+    "cover": "none",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, city skyline at sunrise, banners repaired, smoke fading, cinematic, no text",
+    "description": "Your choices decide what the city becomes next:\n\n- a brave city,\n- a clever city,\n- a cruel city,\n- or a broken city pretending.\n\n(Use endings_matrix.json to compute your outcome.)",
+    "choices": []
+  }
+]

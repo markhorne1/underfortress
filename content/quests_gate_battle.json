@@ -1,0 +1,94 @@
+[
+  {
+    "id": "q_gate_battle_main",
+    "name": "The Gate Battle: Hold the Battlements",
+    "giverNpcId": "npc_captain_harl",
+    "startAreaId": "g_battlements_wallwalk",
+    "objective": {
+      "type": "setFlag",
+      "key": "gate_battle_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 15,
+      "xp": 65,
+      "items": [
+        {
+          "itemId": "work_contract_token",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_chase_arsonists",
+    "name": "Chase-Down I: Arson in the Streets",
+    "giverNpcId": "npc_guard_serjeant_mara",
+    "startAreaId": "g_inner_gate_yard",
+    "objective": {
+      "type": "setFlag",
+      "key": "arsonists_stopped",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 6,
+      "xp": 28,
+      "items": [
+        {
+          "itemId": "bucket_sand",
+          "qty": 2
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_chase_casualties",
+    "name": "Chase-Down II: Civilian Casualties Reported",
+    "giverNpcId": "npc_guard_serjeant_mara",
+    "startAreaId": "g_market_square_panic",
+    "objective": {
+      "type": "setFlag",
+      "key": "infiltrators_eliminated",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 8,
+      "xp": 36,
+      "items": [
+        {
+          "itemId": "field_ration_pack",
+          "qty": 2
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_drains_breach",
+    "name": "Drains Breach: Seal the Second Mouth",
+    "giverNpcId": "npc_councilor_vayne",
+    "startAreaId": "g_drains_junction",
+    "objective": {
+      "type": "setFlag",
+      "key": "drains_breach_resolved",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 10,
+      "xp": 45,
+      "items": [
+        {
+          "itemId": "ward_damper",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  }
+]

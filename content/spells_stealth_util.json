@@ -1,0 +1,28 @@
+[
+  {
+    "id": "keen_eye",
+    "name": "Keen Eye",
+    "cost": 1,
+    "description": "Briefly sharpens perception. Reveals hidden notes, weak stonework, and fresh tracks.",
+    "effects": [
+      {
+        "type": "flag",
+        "key": "keen_eye_active",
+        "value": true
+      }
+    ]
+  },
+  {
+    "id": "muffle_steps",
+    "name": "Muffle Steps",
+    "cost": 2,
+    "description": "Softens your footfalls for a short time. Better for slipping past patrols than fighting them.",
+    "effects": [
+      {
+        "type": "flag",
+        "key": "muffle_steps_active",
+        "value": true
+      }
+    ]
+  }
+]

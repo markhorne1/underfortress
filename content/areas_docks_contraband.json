@@ -1,0 +1,270 @@
+[
+  {
+    "id": "c_tarpaulin_row",
+    "title": "Tarpaulin Row",
+    "x": 6,
+    "y": 1,
+    "floorId": "city",
+    "tileStyle": "docks",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, dockside tarpaulins over crates, rain, lantern reflections, suspicious figures, cinematic, no text",
+    "description": "Tarps flap over stacked crates. A gull shrieks, and somewhere a chain rattles — too quick to be the tide.\n\nThis is where supplies vanish before they ever reach the walls.",
+    "exits": {
+      "w": "c_docks_ward",
+      "s": "c_quay_steps"
+    },
+    "actionsAvailable": {
+      "investigate": {
+        "text": "You spot a crate brand that doesn’t match any city ledger mark.",
+        "choices": [
+          {
+            "id": "search_with_warrant",
+            "label": "Search the crates using a Council Warrant.",
+            "requirements": [
+              {
+                "type": "hasItem",
+                "itemId": "council_warrant",
+                "qty": 1
+              }
+            ],
+            "effects": [
+              {
+                "type": "flag",
+                "key": "contraband_found",
+                "value": true
+              }
+            ],
+            "goToAreaId": "c_contraband_cache"
+          },
+          {
+            "id": "sneak_and_peek",
+            "label": "Sneak closer and listen.",
+            "effects": [
+              {
+                "type": "flag",
+                "key": "contraband_sneak",
+                "value": true
+              }
+            ],
+            "goToAreaId": "c_quay_steps"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "c_quay_steps",
+    "title": "Quay Steps",
+    "x": 6,
+    "y": 0,
+    "floorId": "city",
+    "tileStyle": "docks",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, stone quay steps descending to dark water, lantern on hook, hidden nook, cinematic, no text",
+    "description": "Stone steps descend to black water. Here the dock noise thins — perfect for whispers.\n\nYou hear it: ‘…move it through the grate. Tonight.’",
+    "exits": {
+      "n": "c_tarpaulin_row",
+      "w": "c_docks_ward",
+      "s": "c_drain_grate"
+    },
+    "choices": [
+      {
+        "id": "set_ambush",
+        "label": "Set an ambush and confront them.",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_smuggler_cell_docks",
+              "enemyGroupId": "sewer_smuggler_cell",
+              "distance": 2,
+              "direction": "n",
+              "speed": 1,
+              "targetAreaId": "c_quay_steps",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "c_docks_standoff"
+      },
+      {
+        "id": "follow_to_grate",
+        "label": "Follow at a distance toward the drain grate.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "followed_to_grate",
+            "value": true
+          }
+        ],
+        "goToAreaId": "c_drain_grate"
+      }
+    ]
+  },
+  {
+    "id": "c_docks_standoff",
+    "title": "Dockside Standoff",
+    "x": 6,
+    "y": -1,
+    "floorId": "city",
+    "tileStyle": "docks",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, tense dock standoff, hooded smugglers, one raising a bow, rain and lanterns, cinematic, no text",
+    "description": "Hooded figures freeze. One’s hand goes to a bow. Another shifts a crate as if it weighs nothing.\n\nThey’re ready to run — or kill.",
+    "choices": [
+      {
+        "id": "shoot",
+        "label": "Open fire with my bow.",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "training_bow",
+            "qty": 1
+          },
+          {
+            "type": "hasAmmo",
+            "ammoType": "arrow",
+            "minCount": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "shootThreat",
+            "threatId": "t_smuggler_cell_docks",
+            "ammoType": "arrow",
+            "ammoToConsume": 1,
+            "damage": {
+              "mode": "roll",
+              "expr": "1d6"
+            }
+          },
+          {
+            "type": "enemyReturnFireIfInRange",
+            "threatId": "t_smuggler_cell_docks"
+          },
+          {
+            "type": "advanceThreat",
+            "threatId": "t_smuggler_cell_docks"
+          }
+        ]
+      },
+      {
+        "id": "flare",
+        "label": "Cast Flare Signal (warn nearby guards).",
+        "requirements": [
+          {
+            "type": "knowsSpell",
+            "spellId": "flare_signal"
+          }
+        ],
+        "effects": [
+          {
+            "type": "castSpell",
+            "spellId": "flare_signal"
+          },
+          {
+            "type": "threatMoraleDelta",
+            "threatId": "t_smuggler_cell_docks",
+            "amount": -2
+          }
+        ]
+      },
+      {
+        "id": "force_fight",
+        "label": "Close in and fight.",
+        "effects": [
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_smuggler_cell_docks"
+          }
+        ]
+      },
+      {
+        "id": "retreat",
+        "label": "Retreat west to the Docks Ward and ready my bow.",
+        "effects": [
+          {
+            "type": "move",
+            "to": "c_docks_ward"
+          },
+          {
+            "type": "threatRetreat",
+            "threatId": "t_smuggler_cell_docks",
+            "distanceDelta": 1
+          },
+          {
+            "type": "flag",
+            "key": "ready_ranged",
+            "value": true
+          }
+        ],
+        "goToAreaId": "c_docks_ward"
+      }
+    ],
+    "exits": {
+      "n": "c_quay_steps",
+      "w": "c_docks_ward"
+    }
+  },
+  {
+    "id": "c_contraband_cache",
+    "title": "Contraband Cache",
+    "x": 7,
+    "y": 1,
+    "floorId": "city",
+    "tileStyle": "warehouse",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, hidden dock warehouse cache, cracked crate revealing rune-metal shards, lantern glow, cinematic, no text",
+    "description": "Inside the crate: rune-metal shards wrapped in oiled cloth. Not food. Not arrows.\n\nWard shards — the kind used to reinforce gate wards.\n\nSomeone is stealing the city’s protection.",
+    "exits": {
+      "w": "c_tarpaulin_row"
+    },
+    "choices": [
+      {
+        "id": "take_shards",
+        "label": "Secure the ward shards and mark the cache.",
+        "effects": [
+          {
+            "type": "addItem",
+            "itemId": "ward_shard",
+            "qty": 3
+          },
+          {
+            "type": "addItem",
+            "itemId": "council_sigil_bronze",
+            "qty": 2
+          },
+          {
+            "type": "addXP",
+            "amount": 22
+          },
+          {
+            "type": "flag",
+            "key": "docks_contraband_disrupted",
+            "value": true
+          },
+          {
+            "type": "completeJob",
+            "jobId": "council_job_docks_raid"
+          }
+        ]
+      },
+      {
+        "id": "follow_trail",
+        "label": "Follow the trail to the drain grate (they moved more than this).",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "sewer_trail_from_docks",
+            "value": true
+          }
+        ],
+        "goToAreaId": "c_drain_grate"
+      }
+    ]
+  }
+]

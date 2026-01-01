@@ -1,0 +1,101 @@
+[
+  {
+    "id": "fuse_ward_stone",
+    "name": "Fuse Ward-Stone",
+    "requiresTool": "oil_lamp",
+    "inputs": [
+      {
+        "itemId": "ward_shard",
+        "qty": 3
+      }
+    ],
+    "outputs": [
+      {
+        "itemId": "ward_stone",
+        "qty": 1
+      }
+    ],
+    "description": "Heat the rune metal and align the glyphs until they lock into one humming focus."
+  },
+  {
+    "id": "trade_bronze_to_silver",
+    "name": "Exchange Bronze Sigils for Silver",
+    "inputs": [
+      {
+        "itemId": "council_sigil_bronze",
+        "qty": 5
+      }
+    ],
+    "outputs": [
+      {
+        "itemId": "council_sigil_silver",
+        "qty": 1
+      }
+    ],
+    "description": "Five bronze sigils exchanged at the council clerk’s desk becomes one silver sigil."
+  },
+  {
+    "id": "issue_council_warrant",
+    "name": "Issue Council Warrant",
+    "inputs": [
+      {
+        "itemId": "council_sigil_silver",
+        "qty": 2
+      }
+    ],
+    "outputs": [
+      {
+        "itemId": "council_warrant",
+        "qty": 1
+      }
+    ],
+    "description": "Two silver sigils and a signature becomes authority — at least on paper."
+  },
+  {
+    "id": "bind_gate_key",
+    "name": "Bind Gate Key",
+    "inputs": [
+      {
+        "itemId": "gate_key_fragment",
+        "qty": 3
+      },
+      {
+        "itemId": "council_sigil_silver",
+        "qty": 1
+      }
+    ],
+    "outputs": [
+      {
+        "itemId": "gatewarden_seal",
+        "qty": 1
+      }
+    ],
+    "description": "Three fragments, one sigil, and a council signature. It becomes less a key and more a command."
+  },
+  {
+    "id": "seal_from_ledger",
+    "name": "Forge Emergency Seal",
+    "requiresTool": "oil_lamp",
+    "inputs": [
+      {
+        "itemId": "ward_stone",
+        "qty": 1
+      },
+      {
+        "itemId": "dock_ledger_page",
+        "qty": 2
+      },
+      {
+        "itemId": "council_sigil_silver",
+        "qty": 1
+      }
+    ],
+    "outputs": [
+      {
+        "itemId": "gatewarden_seal",
+        "qty": 1
+      }
+    ],
+    "description": "Proof of betrayal, proof of magic, proof of authority. Together, they open what should remain shut."
+  }
+]

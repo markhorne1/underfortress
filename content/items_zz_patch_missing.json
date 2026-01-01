@@ -1,0 +1,30 @@
+[
+  {
+    "id": "arrow_bundle",
+    "name": "Bundle of Arrows",
+    "type": "ammo",
+    "stackable": true,
+    "value": 8,
+    "meta": { "ammoType": "arrow", "count": 10 },
+    "description": "Fletched shafts for a hunting bow."
+  },
+  {
+    "id": "training_bow",
+    "name": "Militia Bow",
+    "type": "weapon",
+    "slot": "mainHand",
+    "stackable": false,
+    "value": 30,
+    "meta": { "weaponType": "bow", "range": 3, "damage": "1d6", "requiresAmmo": "arrow" },
+    "description": "A serviceable bow issued to auxiliaries. Light but reliable."
+  },
+  {
+    "id": "spikes_bundle",
+    "name": "Bundle of Spikes",
+    "type": "tool",
+    "stackable": true,
+    "value": 6,
+    "meta": { "hazardKind": "spikes", "uses": 1 },
+    "description": "A tied bundle of iron spikes. Useful for quickly hardening a choke-point."
+  }
+]

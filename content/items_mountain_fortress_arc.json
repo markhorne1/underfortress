@@ -1,0 +1,58 @@
+[
+  {
+    "id": "climbing_spikes_set",
+    "name": "Climbing Spikes Set",
+    "type": "tool",
+    "stackable": false,
+    "value": 18,
+    "description": "Iron spikes with leather straps. Enables safer narrow-path routes and reduces fall risk."
+  },
+  {
+    "id": "rope_coil_war",
+    "name": "War-Rope Coil",
+    "type": "tool",
+    "stackable": false,
+    "value": 12,
+    "description": "A tough rope coil issued to scouts. Useful for bridges, cliffs, and hauling doors shut."
+  },
+  {
+    "id": "frost_salve",
+    "name": "Frost Salve",
+    "type": "consumable",
+    "stackable": true,
+    "value": 8,
+    "description": "Reduces cold penalties and helps steady hands for ranged fire on windy ledges."
+  },
+  {
+    "id": "echo_stone",
+    "name": "Echo-Stone",
+    "type": "tool",
+    "stackable": true,
+    "value": 10,
+    "description": "Thrown into tunnels, it mimics footsteps. Great for distractions."
+  },
+  {
+    "id": "fortress_badge_stolen",
+    "name": "Stolen Fortress Badge",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A stamped badge used by fortress servants and porters. Lets you bluff past some checks."
+  },
+  {
+    "id": "cold_iron_keyring",
+    "name": "Cold-Iron Keyring",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "Keys taken from a quartermaster. Opens inner service doors and an old cistern hatch."
+  },
+  {
+    "id": "ward_nails_bundle",
+    "name": "Ward Nails Bundle",
+    "type": "tool",
+    "stackable": true,
+    "value": 14,
+    "description": "Nails etched with simple ward marks. Used to pin doors, disrupt summoning circles, or brace cracked stone."
+  }
+]

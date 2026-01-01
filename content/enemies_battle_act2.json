@@ -1,0 +1,178 @@
+[
+  {
+    "id": "orc_shocktrooper",
+    "name": "Orc Shocktrooper",
+    "kind": "humanoid",
+    "skill": 9,
+    "stamina": 12,
+    "meta": {
+      "ranged": false
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 2,
+        "max": 10
+      }
+    ],
+    "tags": [
+      "orc",
+      "shock"
+    ]
+  },
+  {
+    "id": "orc_bow",
+    "name": "Orc Bowman",
+    "kind": "humanoid",
+    "skill": 8,
+    "stamina": 9,
+    "meta": {
+      "ranged": true,
+      "range": 3,
+      "damage": "1d6",
+      "ammoType": "arrow"
+    },
+    "loot": [
+      {
+        "itemId": "arrow_bundle",
+        "min": 0,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 1,
+        "max": 8
+      }
+    ],
+    "tags": [
+      "orc",
+      "ranged"
+    ]
+  },
+  {
+    "id": "troll_brute",
+    "name": "Troll Brute",
+    "kind": "monster",
+    "skill": 10,
+    "stamina": 18,
+    "meta": {
+      "special": "regenerate_light"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 3,
+        "max": 15
+      }
+    ],
+    "tags": [
+      "troll",
+      "brute"
+    ]
+  },
+  {
+    "id": "goblin_infiltrator",
+    "name": "Goblin Infiltrator",
+    "kind": "humanoid",
+    "skill": 8,
+    "stamina": 7,
+    "meta": {
+      "ranged": false,
+      "special": "cut_rope"
+    },
+    "loot": [
+      {
+        "itemId": "gate_key_fragment",
+        "min": 0,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 5
+      }
+    ],
+    "tags": [
+      "goblin",
+      "infiltrator"
+    ]
+  },
+  {
+    "id": "orc_assault_wave",
+    "name": "Orc Assault Wave",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "orc_shocktrooper",
+        "count": 2
+      },
+      {
+        "enemyId": "orc_bow",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 9
+      }
+    },
+    "tags": [
+      "orc",
+      "group",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "troll_push",
+    "name": "Troll Push",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "troll_brute",
+        "count": 1
+      },
+      {
+        "enemyId": "orc_shocktrooper",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 10
+      }
+    },
+    "tags": [
+      "troll",
+      "orc",
+      "group",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "infiltrator_cell",
+    "name": "Infiltrator Cell",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "goblin_infiltrator",
+        "count": 3
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 8
+      }
+    },
+    "tags": [
+      "goblin",
+      "group",
+      "pursuit"
+    ]
+  }
+]

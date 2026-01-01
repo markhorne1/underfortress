@@ -1,0 +1,69 @@
+[
+  {
+    "id": "sight_orb_crystal_ball",
+    "name": "The Sight Orb (Crystal Ball)",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A flawless sphere that shows moving lights like armies on a board. It feels warm, like it’s watching you back."
+  },
+  {
+    "id": "reliquary_seal_wax",
+    "name": "Reliquary Seal Wax",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "Hard black wax stamped with a deep reliquary emblem. Useful as proof you were here."
+  },
+  {
+    "id": "ward_sigiled_chain",
+    "name": "Ward-Sigiled Chain",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A chain link etched with ward runes. It hums near trap-lines and mechanism rooms."
+  },
+  {
+    "id": "reliquary_pass_mark",
+    "name": "Reliquary Pass Mark",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A chalk-and-wax mark used by reliquary staff to avoid certain ward traps."
+  },
+  {
+    "id": "glow_chalk",
+    "name": "Glow Chalk",
+    "type": "tool",
+    "stackable": true,
+    "value": 9,
+    "description": "Marks stone surfaces and faintly glows. Good for mapping tunnels or identifying fresh footprints."
+  },
+  {
+    "id": "ward_damper",
+    "name": "Ward Damper",
+    "type": "tool",
+    "stackable": true,
+    "value": 0,
+    "meta": {
+      "trapReduce": 1
+    },
+    "description": "A small rune-clamp that dulls a ward line briefly. Single-use, delicate."
+  },
+  {
+    "id": "commander_signet",
+    "name": "Commander’s Signet",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A brutal signet ring etched with a commander’s mark. It smells of oil and blood."
+  },
+  {
+    "id": "map_scrap_reliquary",
+    "name": "Map Scrap: Reliquary Routes",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A torn sketch showing hidden service routes and a ‘breakwater tunnel’ back into the caves."
+  }
+]

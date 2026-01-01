@@ -1,0 +1,53 @@
+[
+  {
+    "id": "cave_bat_swarm",
+    "name": "Cave Bat Swarm",
+    "kind": "monster",
+    "skill": 9,
+    "stamina": 12,
+    "meta": {
+      "special": "blind_flurry"
+    },
+    "loot": [],
+    "tags": [
+      "cave",
+      "swarm"
+    ]
+  },
+  {
+    "id": "slime_slick",
+    "name": "Slick Slime",
+    "kind": "monster",
+    "skill": 10,
+    "stamina": 14,
+    "meta": {
+      "special": "corrode"
+    },
+    "loot": [],
+    "tags": [
+      "cave",
+      "slime"
+    ]
+  },
+  {
+    "id": "deep_listener",
+    "name": "Deep Listener",
+    "kind": "monster",
+    "skill": 12,
+    "stamina": 18,
+    "meta": {
+      "special": "echo_sense"
+    },
+    "loot": [
+      {
+        "itemId": "shard_of_listening",
+        "min": 0,
+        "max": 1
+      }
+    ],
+    "tags": [
+      "cave",
+      "guardian"
+    ]
+  }
+]

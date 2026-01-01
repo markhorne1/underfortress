@@ -1,0 +1,50 @@
+[
+  {
+    "id": "flare_signal",
+    "name": "Flare Signal",
+    "cost": 2,
+    "description": "A bright flare that warns allies and rattles foes.",
+    "effects": [
+      {
+        "type": "flag",
+        "key": "flare_used_recently",
+        "value": true
+      },
+      {
+        "type": "threatMoraleDelta",
+        "amount": -1
+      }
+    ]
+  },
+  {
+    "id": "stonebind",
+    "name": "Stonebind",
+    "cost": 2,
+    "description": "Stone grips ankles like hands. Slows an approaching threat.",
+    "effects": [
+      {
+        "type": "threatSpeedDelta",
+        "amount": -1,
+        "durationTurns": 2
+      }
+    ]
+  },
+  {
+    "id": "wardseal",
+    "name": "Wardseal",
+    "cost": 3,
+    "description": "Reinforces a ward-stone or barrier for a short time.",
+    "effects": [
+      {
+        "type": "flag",
+        "key": "wardseal_active",
+        "value": true
+      },
+      {
+        "type": "tempArmor",
+        "amount": 1,
+        "durationTurns": 3
+      }
+    ]
+  }
+]

@@ -1,0 +1,25 @@
+[
+  {
+    "id": "q_final_warlord_hunt",
+    "name": "Final Warlord Hunt: Fortress-Heart",
+    "giverNpcId": "npc_kess_final",
+    "startAreaId": "fwh_departure",
+    "objective": {
+      "type": "setFlag",
+      "key": "final_warlord_hunt_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 120,
+      "xp": 220,
+      "items": [
+        {
+          "itemId": "signal_flare_scroll",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  }
+]

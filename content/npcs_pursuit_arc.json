@@ -1,0 +1,66 @@
+[
+  {
+    "id": "npc_scout_kess_pursuit",
+    "name": "Lieutenant Kess",
+    "role": "Scout (Pursuit Lead)",
+    "portraitPrompt": "fantasy character portrait, scout lieutenant in wind, hills behind, tired eyes, painterly, no text",
+    "dialogue": {
+      "greeting": "They’re retreating like wounded wolves. Still dangerous. Still clever.",
+      "nodes": [
+        {
+          "id": "brief",
+          "text": "Trail signs:\n\n- A runner carrying signals to an underground hold.\n- Wargs scouting the flanks.\n- A disciplined captain trying to keep order without the standard.\n\nIf we catch the runner, we choose the next battlefield.\nIf we fail, they vanish into stone.",
+          "choices": [
+            {
+              "label": "Commit to hunting the runner first.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "pursuit_target",
+                  "value": "runner"
+                }
+              ]
+            },
+            {
+              "label": "Commit to breaking the captain’s rearguard first.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "pursuit_target",
+                  "value": "rearguard"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_farmer_marta",
+    "name": "Marta of the Ridge Farms",
+    "role": "Civilian Witness",
+    "portraitPrompt": "fantasy character portrait, farm woman in cloak, windblown hair, bruised but resolute, painterly, no text",
+    "dialogue": {
+      "greeting": "They took my boy to haul timber. Said the ‘stone city’ below would pay for him.",
+      "nodes": [
+        {
+          "id": "clue",
+          "text": "I saw them vanish into a crack in the hills.\n\nNot a cave.\n\nA doorway shaped like old teeth.\n\nIf you go… bring a lantern. The dark down there is greedy.",
+          "choices": [
+            {
+              "label": "Promise to look for captives.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "captives_promised",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

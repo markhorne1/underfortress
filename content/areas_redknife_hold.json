@@ -1,0 +1,965 @@
+[
+  {
+    "id": "r_sinkhole_ravine",
+    "title": "Sinkhole Ravine",
+    "x": 16,
+    "y": -2,
+    "floorId": "overland",
+    "tileStyle": "sinkhole",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, forest ravine with yawning sinkhole, mist rising, broken roots, cinematic, no text",
+    "description": "The ground here has collapsed into a ragged throat.\n\nCold air breathes up from below.\n\nThe tunnel survey map’s charcoal lines match the landscape too well for comfort.",
+    "choices": [
+      {
+        "id": "enter",
+        "label": "Climb down into the sinkhole.",
+        "requirements": [
+          {
+            "type": "flagEquals",
+            "key": "hostage_swap_chain_unlocked",
+            "value": true
+          }
+        ],
+        "effects": [
+          {
+            "type": "addXP",
+            "amount": 6
+          }
+        ],
+        "goToAreaId": "r_chalk_caverns_entrance"
+      },
+      {
+        "id": "mark",
+        "label": "Mark the rim with chalk for your return.",
+        "requirements": [
+          {
+            "type": "hasAnyItem",
+            "itemIds": [
+              "glow_chalk",
+              "chalk_shard"
+            ],
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "flag",
+            "key": "sinkhole_marked",
+            "value": true
+          },
+          {
+            "type": "addXP",
+            "amount": 4
+          }
+        ]
+      }
+    ],
+    "exits": {
+      "w": "o_forest_track"
+    }
+  },
+  {
+    "id": "r_chalk_caverns_entrance",
+    "title": "Chalk Caverns: White Mouth",
+    "x": 16,
+    "y": -3,
+    "floorId": "caves",
+    "tileStyle": "chalk_cave",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, chalk-white cavern walls, dripping water, footprints, torch glow, cinematic, no text",
+    "description": "The cave walls are chalk-white and damp.\n\nFootprints crisscross the powder like scribbles.\n\nSome prints are barefoot—prisoners.",
+    "exits": {
+      "s": "r_sinkhole_ravine",
+      "n": "r_chalk_caverns_fork"
+    },
+    "actionsAvailable": {
+      "investigate": {
+        "text": "Fresh drag marks lead north, toward torchlight flicker.",
+        "choices": [
+          {
+            "id": "keen_eye",
+            "label": "Cast Keen Eye to identify patrol loops.",
+            "requirements": [
+              {
+                "type": "knowsSpell",
+                "spellId": "keen_eye"
+              }
+            ],
+            "effects": [
+              {
+                "type": "castSpell",
+                "spellId": "keen_eye"
+              },
+              {
+                "type": "flag",
+                "key": "chalk_patrols_mapped",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 8
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "r_chalk_caverns_fork",
+    "title": "Chalk Caverns Fork",
+    "x": 16,
+    "y": -4,
+    "floorId": "caves",
+    "tileStyle": "chalk_cave",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, forked chalk cave passage, one side with smoke, one with silence, cinematic, no text",
+    "description": "Two passages split.\n\nLeft: smoke and the smell of cookfires.\nRight: silence, but with scuffed chalk where someone tried to hide their trail.",
+    "exits": {
+      "s": "r_chalk_caverns_entrance",
+      "w": "r_mip_hide",
+      "e": "r_patrol_gallery"
+    }
+  },
+  {
+    "id": "r_mip_hide",
+    "title": "A Whisper in the Chalk",
+    "x": 15,
+    "y": -4,
+    "floorId": "caves",
+    "tileStyle": "chalk_cave",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, small goblin hiding behind chalk pillar, terrified eyes, cinematic, no text",
+    "description": "A small figure trembles behind a chalk pillar.\n\nIt raises both hands in surrender.\n\n\"Mip,\" it whispers. \"I don’t want the Red Knife to win.\"",
+    "actionsAvailable": {
+      "talk": {
+        "text": "Mip glances down the tunnel like it expects death to arrive on schedule.",
+        "choices": [
+          {
+            "id": "mip",
+            "label": "Talk to Mip.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_defector_runner_mip"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "exits": {
+      "e": "r_chalk_caverns_fork"
+    }
+  },
+  {
+    "id": "r_patrol_gallery",
+    "title": "Patrol Gallery",
+    "x": 17,
+    "y": -4,
+    "floorId": "caves",
+    "tileStyle": "chalk_cave",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, cavern gallery with torch patrol, chalk dust in air, cinematic, no text",
+    "description": "Torchlight sweeps over chalk dust.\n\nA patrol moves with practiced boredom.\n\nIf they spot you, the tunnels will fill with whistles.",
+    "choices": [
+      {
+        "id": "muffle",
+        "label": "Cast Muffle Steps and slip past.",
+        "requirements": [
+          {
+            "type": "knowsSpell",
+            "spellId": "muffle_steps"
+          }
+        ],
+        "effects": [
+          {
+            "type": "castSpell",
+            "spellId": "muffle_steps"
+          },
+          {
+            "type": "addXP",
+            "amount": 8
+          }
+        ],
+        "goToAreaId": "r_redknife_outer"
+      },
+      {
+        "id": "patrol_threat",
+        "label": "A patrol turns in—avoid or fight.",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_chalk_patrol_01",
+              "enemyGroupId": "chalk_cavern_patrol",
+              "distance": 3,
+              "direction": "n",
+              "speed": 1,
+              "targetAreaId": "r_patrol_gallery",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "r_patrol_contact"
+      }
+    ],
+    "exits": {
+      "w": "r_chalk_caverns_fork"
+    }
+  },
+  {
+    "id": "r_patrol_contact",
+    "title": "Chalk Patrol Contact",
+    "x": 18,
+    "y": -4,
+    "floorId": "caves",
+    "tileStyle": "chalk_cave",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, goblin patrol with slingmen, lantern catching intruder, cinematic, no text",
+    "description": "A goblin slingman raises a pouch of stones.\n\nA Red Knife goblin grins. \"Lost?\"",
+    "choices": [
+      {
+        "id": "shoot_and_back",
+        "label": "Shoot and retreat one square.",
+        "requirements": [
+          {
+            "type": "hasAnyItem",
+            "itemIds": [
+              "training_bow",
+              "hunting_bow"
+            ],
+            "qty": 1
+          },
+          {
+            "type": "hasAmmo",
+            "ammoType": "arrow",
+            "minCount": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "shootThreat",
+            "threatId": "t_chalk_patrol_01",
+            "ammoType": "arrow",
+            "ammoToConsume": 1,
+            "damage": {
+              "mode": "roll",
+              "expr": "1d6"
+            }
+          },
+          {
+            "type": "advanceThreat",
+            "threatId": "t_chalk_patrol_01"
+          }
+        ],
+        "goToAreaId": "r_chalk_caverns_fork"
+      },
+      {
+        "id": "fight",
+        "label": "Fight.",
+        "effects": [
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_chalk_patrol_01"
+          }
+        ],
+        "goToAreaId": "r_redknife_outer"
+      }
+    ]
+  },
+  {
+    "id": "r_redknife_outer",
+    "title": "Red Knife Outer Works",
+    "x": 17,
+    "y": -5,
+    "floorId": "caves",
+    "tileStyle": "cave_fort",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, crude underground fortifications, red cloth cords, iron wedges, torch smoke, cinematic, no text",
+    "description": "Palisades and wedge-stakes hold the cave like rotten teeth.\n\nRed cords hang from belts and posts.\n\nYou hear a voice barking orders: \"TRANSFER BEFORE DAWN.\"",
+    "exits": {
+      "s": "r_patrol_gallery",
+      "n": "r_transfer_tunnels",
+      "e": "r_second_mouth_choke",
+      "w": "r_hostage_vault"
+    },
+    "actionsAvailable": {
+      "investigate": {
+        "text": "You spot iron wedges hammered into support beams—temporary, rushed construction.",
+        "choices": [
+          {
+            "id": "focus",
+            "label": "If you have a Ward Splinter Focus, locate the weakest supports.",
+            "requirements": [
+              {
+                "type": "hasItem",
+                "itemId": "ward_splinter_focus",
+                "qty": 1
+              }
+            ],
+            "effects": [
+              {
+                "type": "flag",
+                "key": "weak_supports_found",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 10
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "r_hostage_vault",
+    "title": "Hostage Vault",
+    "x": 16,
+    "y": -5,
+    "floorId": "caves",
+    "tileStyle": "vault",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, underground vault cell with noble hostage chained, guarded by handler, cinematic, no text",
+    "description": "A reinforced vault door.\n\nInside: a noblewoman chained to a ringbolt, calm in the way only desperate courage can be.\n\nA handler watches with a ransom token in hand.",
+    "actionsAvailable": {
+      "talk": {
+        "text": "The hostage meets your eyes without flinching.",
+        "choices": [
+          {
+            "id": "princess",
+            "label": "Talk to Lady Seren.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_princess_seren"
+              }
+            ]
+          },
+          {
+            "id": "start_rescue",
+            "label": "Start: Rescue Lady Seren.",
+            "effects": [
+              {
+                "type": "startJob",
+                "jobId": "q_rescue_princess"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "swap_offer",
+        "label": "The handler offers a swap: ‘Leave the second mouth untouched, and she walks.’",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "swap_offer_presented",
+            "value": true
+          }
+        ],
+        "goToAreaId": "r_swap_decision"
+      },
+      {
+        "id": "fight_handler",
+        "label": "Fight the handler now.",
+        "effects": [
+          {
+            "type": "startCombat",
+            "enemyGroup": [
+              {
+                "enemyId": "redknife_handler",
+                "count": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "r_hostage_vault_after"
+      }
+    ],
+    "exits": {
+      "e": "r_redknife_outer"
+    }
+  },
+  {
+    "id": "r_hostage_vault_after",
+    "title": "Chains Loosened",
+    "x": 16,
+    "y": -6,
+    "floorId": "caves",
+    "tileStyle": "vault",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, broken chain, hostage standing, torchlight, cinematic, no text",
+    "description": "The handler falls.\n\nThe key is crude, but the chain gives.\n\nLady Seren exhales once—like she’s been holding her breath for days.",
+    "choices": [
+      {
+        "id": "free",
+        "label": "Free Lady Seren and prepare to move.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "princess_rescued",
+            "value": true
+          },
+          {
+            "type": "completeJob",
+            "jobId": "q_rescue_princess"
+          },
+          {
+            "type": "addItem",
+            "itemId": "princess_locket",
+            "qty": 1
+          },
+          {
+            "type": "addXP",
+            "amount": 14
+          }
+        ],
+        "goToAreaId": "r_escape_choice"
+      }
+    ],
+    "exits": {
+      "e": "r_redknife_outer"
+    }
+  },
+  {
+    "id": "r_swap_decision",
+    "title": "The Swap Decision",
+    "x": 15,
+    "y": -6,
+    "floorId": "caves",
+    "tileStyle": "vault",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, hostage handler holding token, shadows, tense negotiation, cinematic, no text",
+    "description": "A ransom token flips between fingers.\n\n\"Trade,\" the handler whispers. \"No collapse. No fire. No heroics. Take her and go.\"\n\nYou understand the cost: if you accept, the enemy keeps a ‘second mouth’ into the city drains.\n\nIf you refuse, you can stop the infiltration—but she may die in the chaos.",
+    "choices": [
+      {
+        "id": "accept_swap",
+        "label": "Accept the swap: rescue Seren, leave the second mouth intact.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "hostage_swap_accepted",
+            "value": true
+          },
+          {
+            "type": "flag",
+            "key": "enemy_second_mouth_active",
+            "value": true
+          },
+          {
+            "type": "flag",
+            "key": "princess_rescued",
+            "value": true
+          },
+          {
+            "type": "completeJob",
+            "jobId": "q_rescue_princess"
+          },
+          {
+            "type": "addItem",
+            "itemId": "princess_locket",
+            "qty": 1
+          },
+          {
+            "type": "addXP",
+            "amount": 18
+          }
+        ],
+        "goToAreaId": "r_escape_choice"
+      },
+      {
+        "id": "refuse_swap",
+        "label": "Refuse: attempt to collapse the second mouth (high risk).",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "hostage_swap_refused",
+            "value": true
+          },
+          {
+            "type": "flag",
+            "key": "collapse_plan_active",
+            "value": true
+          }
+        ],
+        "goToAreaId": "r_second_mouth_choke"
+      },
+      {
+        "id": "trick_swap",
+        "label": "Attempt a trick: use smoke to grab Seren and run, then collapse behind you (very high risk).",
+        "requirements": [
+          {
+            "type": "hasAnyItem",
+            "itemIds": [
+              "smoke_pellet",
+              "smoke_jar"
+            ],
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "flag",
+            "key": "double_play_attempt",
+            "value": true
+          }
+        ],
+        "goToAreaId": "r_double_play"
+      }
+    ]
+  },
+  {
+    "id": "r_double_play",
+    "title": "Double Play",
+    "x": 15,
+    "y": -7,
+    "floorId": "caves",
+    "tileStyle": "vault",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, smoke filling vault, hostage pulled free, chaotic motion, cinematic, no text",
+    "description": "Smoke blooms.\n\nFor a second, everything is shapes.\n\nYou pull Seren toward the tunnels while footsteps hammer toward you.",
+    "choices": [
+      {
+        "id": "skill_check",
+        "label": "Run the double play (luck check).",
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "luck",
+            "dc": 9,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "princess_rescued",
+                "value": true
+              },
+              {
+                "type": "completeJob",
+                "jobId": "q_rescue_princess"
+              },
+              {
+                "type": "addItem",
+                "itemId": "princess_locket",
+                "qty": 1
+              },
+              {
+                "type": "flag",
+                "key": "collapse_plan_active",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 22
+              }
+            ],
+            "onFail": [
+              {
+                "type": "takeDamage",
+                "amount": 3
+              },
+              {
+                "type": "flag",
+                "key": "princess_injured",
+                "value": true
+              },
+              {
+                "type": "flag",
+                "key": "collapse_plan_active",
+                "value": true
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "r_second_mouth_choke"
+      }
+    ]
+  },
+  {
+    "id": "r_transfer_tunnels",
+    "title": "Transfer Tunnels",
+    "x": 17,
+    "y": -6,
+    "floorId": "caves",
+    "tileStyle": "tunnel",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow tunnel with carts and ropes, torchlight, guards, cinematic, no text",
+    "description": "Carts. Ropes. Drag marks.\n\nThe transfer route is active.\n\nIf you let it run, the enemy gets what it wants—hostages moved beyond reach.",
+    "choices": [
+      {
+        "id": "detail",
+        "label": "A guard detail approaches—avoid or fight.",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_transfer_detail_01",
+              "enemyGroupId": "transfer_guard_detail",
+              "distance": 2,
+              "direction": "n",
+              "speed": 1,
+              "targetAreaId": "r_transfer_tunnels",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "r_transfer_contact"
+      },
+      {
+        "id": "push_to_boss",
+        "label": "Follow the tunnel to the Red Knife captain.",
+        "goToAreaId": "r_captain_den"
+      }
+    ],
+    "exits": {
+      "s": "r_redknife_outer"
+    }
+  },
+  {
+    "id": "r_transfer_contact",
+    "title": "Transfer Contact",
+    "x": 18,
+    "y": -6,
+    "floorId": "caves",
+    "tileStyle": "tunnel",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, orc guard with goblins in tunnel, lantern glare, cinematic, no text",
+    "description": "A lantern flares.\n\nAn orc squints. \"Smell… human.\"",
+    "choices": [
+      {
+        "id": "shoot_retreat",
+        "label": "Shoot and retreat (manage distance).",
+        "requirements": [
+          {
+            "type": "hasAnyItem",
+            "itemIds": [
+              "training_bow",
+              "hunting_bow"
+            ],
+            "qty": 1
+          },
+          {
+            "type": "hasAmmo",
+            "ammoType": "arrow",
+            "minCount": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "shootThreat",
+            "threatId": "t_transfer_detail_01",
+            "ammoType": "arrow",
+            "ammoToConsume": 1,
+            "damage": {
+              "mode": "roll",
+              "expr": "1d6"
+            }
+          },
+          {
+            "type": "advanceThreat",
+            "threatId": "t_transfer_detail_01"
+          }
+        ],
+        "goToAreaId": "r_redknife_outer"
+      },
+      {
+        "id": "fight",
+        "label": "Fight.",
+        "effects": [
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_transfer_detail_01"
+          }
+        ],
+        "goToAreaId": "r_transfer_tunnels"
+      }
+    ]
+  },
+  {
+    "id": "r_captain_den",
+    "title": "Captain’s Den: Red Knife Varg",
+    "x": 18,
+    "y": -7,
+    "floorId": "caves",
+    "tileStyle": "den",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, goblin captain with red cord, crude table with maps and tokens, torch smoke, cinematic, no text",
+    "description": "A goblin captain stands over a map scratched into stone.\n\nA red cord hangs at his throat.\n\n\"You’re late,\" he says. \"Good. Late means desperate.\"",
+    "choices": [
+      {
+        "id": "boss",
+        "label": "Fight Captain Varg.",
+        "effects": [
+          {
+            "type": "startCombat",
+            "enemyGroup": [
+              {
+                "enemyId": "captain_redknife_varg",
+                "count": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "r_captain_loot"
+      },
+      {
+        "id": "parley",
+        "label": "If you have a ransom token, attempt to parley (short window).",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "ransom_token",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "flag",
+            "key": "varg_parley_open",
+            "value": true
+          }
+        ],
+        "goToAreaId": "r_swap_decision"
+      }
+    ],
+    "exits": {
+      "w": "r_transfer_tunnels"
+    }
+  },
+  {
+    "id": "r_captain_loot",
+    "title": "Orders and Cord",
+    "x": 18,
+    "y": -8,
+    "floorId": "caves",
+    "tileStyle": "den",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, fallen goblin captain, red cord and orders on stone table, cinematic, no text",
+    "description": "Varg collapses, still smiling.\n\nYou take the red cord and the transfer orders.\n\nThe orders mention the city drains like a lover’s name.",
+    "effectsOnEnter": [
+      {
+        "type": "addItem",
+        "itemId": "redknife_cord",
+        "qty": 1
+      },
+      {
+        "type": "addItem",
+        "itemId": "redknife_transfer_orders",
+        "qty": 1
+      },
+      {
+        "type": "addXP",
+        "amount": 22
+      }
+    ],
+    "choices": [
+      {
+        "id": "to_second_mouth",
+        "label": "Move to the second mouth choke-point.",
+        "goToAreaId": "r_second_mouth_choke"
+      }
+    ]
+  },
+  {
+    "id": "r_second_mouth_choke",
+    "title": "Second Mouth Choke-Point",
+    "x": 17,
+    "y": -7,
+    "floorId": "caves",
+    "tileStyle": "choke",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow choke tunnel with heavy supports, iron wedges, marked pillars, cinematic, no text",
+    "description": "A narrow choke tunnel held by thick supports.\n\nThree pillars carry the roof—‘breath pillars,’ as Mip called them.\n\nIf this collapses, the enemy loses its second mouth.\n\nBut collapse is never polite.",
+    "actionsAvailable": {
+      "investigate": {
+        "text": "The supports show stress cracks in the chalk dust.",
+        "choices": [
+          {
+            "id": "keen_eye",
+            "label": "Cast Keen Eye to spot the most fragile pillar.",
+            "requirements": [
+              {
+                "type": "knowsSpell",
+                "spellId": "keen_eye"
+              }
+            ],
+            "effects": [
+              {
+                "type": "castSpell",
+                "spellId": "keen_eye"
+              },
+              {
+                "type": "flag",
+                "key": "pillar_targeted",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 10
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "collapse_charge",
+        "label": "Plant a mine charge and collapse the tunnel (stops infiltration).",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "mine_charge",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "removeItem",
+            "itemId": "mine_charge",
+            "qty": 1
+          },
+          {
+            "type": "flag",
+            "key": "second_mouth_collapsed",
+            "value": true
+          },
+          {
+            "type": "flag",
+            "key": "enemy_second_mouth_active",
+            "value": false
+          },
+          {
+            "type": "completeJob",
+            "jobId": "q_collapse_second_mouth"
+          },
+          {
+            "type": "addXP",
+            "amount": 22
+          }
+        ],
+        "goToAreaId": "r_escape_choice"
+      },
+      {
+        "id": "collapse_manual",
+        "label": "Use the ‘breath pillars’ hint to collapse the tunnel (luck check).",
+        "requirements": [
+          {
+            "type": "flagEquals",
+            "key": "breath_pillars_hint",
+            "value": true
+          }
+        ],
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "luck",
+            "dc": 8,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "second_mouth_collapsed",
+                "value": true
+              },
+              {
+                "type": "flag",
+                "key": "enemy_second_mouth_active",
+                "value": false
+              },
+              {
+                "type": "completeJob",
+                "jobId": "q_collapse_second_mouth"
+              },
+              {
+                "type": "addXP",
+                "amount": 20
+              }
+            ],
+            "onFail": [
+              {
+                "type": "takeDamage",
+                "amount": 3
+              },
+              {
+                "type": "flag",
+                "key": "collapse_partial",
+                "value": true
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "r_escape_choice"
+      },
+      {
+        "id": "do_nothing",
+        "label": "Don’t collapse it—leave quietly (enemy keeps the second mouth).",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "enemy_second_mouth_active",
+            "value": true
+          },
+          {
+            "type": "addXP",
+            "amount": 6
+          }
+        ],
+        "goToAreaId": "r_escape_choice"
+      }
+    ],
+    "exits": {
+      "w": "r_redknife_outer",
+      "n": "k_city_drain_return"
+    }
+  },
+  {
+    "id": "r_escape_choice",
+    "title": "Escape: What You Save, What You Lose",
+    "x": 16,
+    "y": -7,
+    "floorId": "caves",
+    "tileStyle": "escape",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, fleeing through chalk tunnel, distant collapse dust, torchlight fading, cinematic, no text",
+    "description": "You move fast, because caves remember footsteps.\n\nIf the second mouth stands, the enemy can slip into the drains later.\n\nIf it fell, the enemy will be furious—and blind in that direction.\n\nEither way: the city must be told.",
+    "choices": [
+      {
+        "id": "return_city",
+        "label": "Return to the city drains and report to the council.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "redknife_hold_complete",
+            "value": true
+          },
+          {
+            "type": "addXP",
+            "amount": 12
+          }
+        ],
+        "goToAreaId": "k_city_drain_return"
+      }
+    ]
+  }
+]

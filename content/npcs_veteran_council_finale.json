@@ -1,0 +1,170 @@
+[
+  {
+    "id": "npc_councilor_vayne_finale",
+    "name": "Councilor Vayne",
+    "role": "War Council (Knife Room)",
+    "portraitPrompt": "fantasy character portrait, tired councilor with sharp eyes, candlelit war room, maps and seals, painterly, no text",
+    "dialogue": {
+      "greeting": "You brought back the war’s hidden organs. Now the city must decide how to use them.",
+      "nodes": [
+        {
+          "id": "opening",
+          "text": "We have three crises:\n\n1) The Warlord is rallying survivors.\n2) Someone inside the city profited from the siege.\n3) The streets still whisper panic.\n\nYou may choose only two actions before dawn.\n\nChoose like a veteran.\n\nChoose like a knife.",
+          "choices": [
+            {
+              "label": "Prioritise the Warlord hunt (military focus).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "council_priority",
+                  "value": "warlord"
+                }
+              ]
+            },
+            {
+              "label": "Prioritise rooting out betrayal (internal stability).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "council_priority",
+                  "value": "traitor"
+                }
+              ]
+            },
+            {
+              "label": "Prioritise calming the city (morale, riots, fires).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "council_priority",
+                  "value": "morale"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_councilor_mirelda",
+    "name": "Councilor Mirelda",
+    "role": "Civic Order (Morale / Curfews)",
+    "portraitPrompt": "fantasy character portrait, stern councilor woman in civic robes, city watch banners, painterly, no text",
+    "dialogue": {
+      "greeting": "Victory is not a feast. It is a duty. And duty requires order.",
+      "nodes": [
+        {
+          "id": "order",
+          "text": "Give me a safe-conduct decree and I can lock the city down without cruelty.\n\nRefuse, and the watch will do it anyway—just with panic and clubs.\n\nWhat do you want the streets to remember?",
+          "choices": [
+            {
+              "label": "Approve humane lockdown (needs council seal).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "city_lockdown_humane",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Refuse (risk unrest, but fewer abuses).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "city_lockdown_refused",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_master_warden_sell",
+    "name": "Master Warden Sell",
+    "role": "Internal Affairs (The Traitor Thread)",
+    "portraitPrompt": "fantasy character portrait, thin master warden with iron chain insignia, shadowed archive behind, painterly, no text",
+    "dialogue": {
+      "greeting": "There is always a second battle after the siege: the battle over truth.",
+      "nodes": [
+        {
+          "id": "ledger",
+          "text": "I can trace sabotage… if you can bring me proof.\n\nA ledger. A seal. A confession.\n\nBut be warned:\nSome truths kill more cleanly than swords.\n\nIf you proceed, you may end up with enemies in silk.",
+          "choices": [
+            {
+              "label": "Commit to hunting the saboteur.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "traitor_hunt_committed",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Keep focus on the Warlord; ignore internal rot for now.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "traitor_hunt_ignored",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_guildmaster_orrow_finale",
+    "name": "Guildmaster Orrow",
+    "role": "Armourers’ Guild (Heirloom Upgrade)",
+    "portraitPrompt": "fantasy character portrait, guildmaster at forge holding gleaming blade fitting, sparks, painterly, no text",
+    "dialogue": {
+      "greeting": "If you’re going after the Warlord, you don’t go with beginner steel.",
+      "nodes": [
+        {
+          "id": "upgrade",
+          "text": "I can upgrade ONE named weapon into an heirloom.\n\nBring:\n- a Sunsteel Blade Fitting,\n- and proof you’ll use it for the city.\n\nWhich weapon do you offer?",
+          "choices": [
+            {
+              "label": "Upgrade Gate-Biter.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "heirloom_upgrade",
+                  "value": "gatebiter"
+                }
+              ]
+            },
+            {
+              "label": "Upgrade Wall-Whisper.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "heirloom_upgrade",
+                  "value": "wallwhisper"
+                }
+              ]
+            },
+            {
+              "label": "Save the fitting for later.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "heirloom_upgrade",
+                  "value": "none"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

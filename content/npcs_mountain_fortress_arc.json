@@ -1,0 +1,76 @@
+[
+  {
+    "id": "npc_kess_mountain",
+    "name": "Lieutenant Kess",
+    "role": "Scout (Mountain Approach)",
+    "portraitPrompt": "fantasy character portrait, scout lieutenant on mountain ridge, cloak snapping in wind, distant fortress silhouette, painterly, no text",
+    "dialogue": {
+      "greeting": "This is where the war learns to breathe again. Don’t let it.",
+      "nodes": [
+        {
+          "id": "routes",
+          "text": "Two ways to the fortress:\n\n1) The Narrow Pass — faster, watched by archers.\n2) The Goat Path — slower, safer if you can climb.\n\nAnd there’s a rumor:\nA waterfall that hides an old smuggler’s throat into the deep.\n\nPick your risk.",
+          "choices": [
+            {
+              "label": "Take the Narrow Pass (combat likely).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "mf_route",
+                  "value": "pass"
+                }
+              ]
+            },
+            {
+              "label": "Take the Goat Path (climb checks).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "mf_route",
+                  "value": "goat"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_porter_jan",
+    "name": "Jan the Porter",
+    "role": "Reluctant Servant (Inside the Fortress)",
+    "portraitPrompt": "fantasy character portrait, frightened porter with bundle of keys on belt, fortress kitchens behind, painterly, no text",
+    "dialogue": {
+      "greeting": "I haul their barrels. I don’t want their war.",
+      "nodes": [
+        {
+          "id": "deal",
+          "text": "If you don’t kill me, I’ll tell you three things:\n\n- The quartermaster keeps cold-iron keys.\n- The cistern hatch leads to older stone.\n- The waterfall cave is real… but it listens.\n\nWill you spare me?",
+          "choices": [
+            {
+              "label": "Spare him (gain info, less alarm).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "jan_spared",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Threaten him for the keyring (risk alarm).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "jan_threatened",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

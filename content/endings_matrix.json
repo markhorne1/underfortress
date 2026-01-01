@@ -1,0 +1,88 @@
+{
+  "endings": [
+    {
+      "id": "ending_sunrise_justice",
+      "title": "Sunrise of Justice",
+      "requires": [
+        {
+          "flag": "final_warlord_hunt_complete",
+          "equals": true
+        },
+        {
+          "flag": "traitor_evidence_found",
+          "equals": true
+        },
+        {
+          "flag": "oracle_freed",
+          "equals": true
+        }
+      ],
+      "text": "The Warlord falls, the traitor is named, and the oracle walks free.\n\nThe city wins without becoming what it fought.\n\nPeople tell the story the way stories should be told:\nwith scars, and pride, and fewer lies."
+    },
+    {
+      "id": "ending_sunrise_power",
+      "title": "Sunrise of Power",
+      "requires": [
+        {
+          "flag": "final_warlord_hunt_complete",
+          "equals": true
+        },
+        {
+          "flag": "city_warsight_gained",
+          "equals": true
+        }
+      ],
+      "text": "The city gains war-sight.\n\nBattles become shorter.\n\nVictories become cheaper.\n\nBut the council begins to speak in probabilities.\n\nAnd people start to wonder what it costs to be safe."
+    },
+    {
+      "id": "ending_sunrise_ashes",
+      "title": "Sunrise in Ashes",
+      "requires": [
+        {
+          "flag": "final_warlord_hunt_complete",
+          "equals": true
+        },
+        {
+          "flag": "city_lockdown_refused",
+          "equals": true
+        },
+        {
+          "flag": "traitor_hunt_ignored",
+          "equals": true
+        }
+      ],
+      "text": "You win the war outside the walls.\n\nInside the walls, rot continues.\n\nPanic becomes habit.\n\nThe city survives—\nbut it never feels safe again.\n\nNot really."
+    },
+    {
+      "id": "ending_sunrise_blind",
+      "title": "Sunrise of the Blind War",
+      "requires": [
+        {
+          "flag": "final_warlord_hunt_complete",
+          "equals": true
+        },
+        {
+          "flag": "oracle_destroyed",
+          "equals": true
+        }
+      ],
+      "text": "You end war-sight.\n\nForever.\n\nThe enemy cannot predict.\n\nNeither can you.\n\nThe next wars will be honest.\n\nAnd honesty is expensive."
+    },
+    {
+      "id": "ending_sunrise_bloodsilk",
+      "title": "Sunrise of Bloodsilk",
+      "requires": [
+        {
+          "flag": "final_warlord_hunt_complete",
+          "equals": true
+        },
+        {
+          "flag": "ledger_stolen",
+          "equals": true
+        }
+      ],
+      "text": "You win.\n\nBut the ledger vanishes.\n\nThe traitor remains.\n\nSomeone in silk smiles behind a curtained window.\n\nThe city will need you again.\n\nSooner than you think."
+    }
+  ],
+  "defaultEndingId": "ending_sunrise_blind"
+}

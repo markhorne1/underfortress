@@ -1,0 +1,50 @@
+[
+  {
+    "id": "bucket_sand",
+    "name": "Bucket of Sand",
+    "type": "tool",
+    "stackable": true,
+    "value": 4,
+    "description": "Thrown onto small fires to smother them quickly."
+  },
+  {
+    "id": "hook_knife",
+    "name": "Hook Knife",
+    "type": "tool",
+    "stackable": false,
+    "value": 16,
+    "description": "A curved blade used to cut ropes and ladder lashings from the battlements."
+  },
+  {
+    "id": "signal_whistle_city",
+    "name": "City Signal Whistle",
+    "type": "tool",
+    "stackable": false,
+    "value": 0,
+    "description": "A sharp whistle issued to trusted runners. Summons guards faster in street chases."
+  },
+  {
+    "id": "burnt_oil_flask",
+    "name": "Burnt Oil Flask",
+    "type": "tool",
+    "stackable": true,
+    "value": 10,
+    "description": "A blackened oil flask. Useful for making surfaces slippery or ruining torches and fuses."
+  },
+  {
+    "id": "arsonist_tinder_pouch",
+    "name": "Arsonist’s Tinder Pouch",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "Greasy tinder, pitch cloth, and small fire-starters. Proof of infiltrator intent."
+  },
+  {
+    "id": "infiltrator_token_black",
+    "name": "Black Infiltrator Token",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A black token used to identify city infiltrators. Worth more than coin to the council."
+  }
+]

@@ -1,0 +1,448 @@
+[
+  {
+    "id": "o_city_gate_outside",
+    "title": "Outside the Walls",
+    "x": 10,
+    "y": 0,
+    "floorId": "overland",
+    "tileStyle": "road_gate",
+    "cover": "none",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, city gate behind, muddy road ahead, distant farms and tree line, cinematic, no text",
+    "description": "The gate closes behind you with a sound like finality.\n\nAhead: farms, timber lines, and the uneasy quiet of a land pretending it isn’t at war.\n\nA militia runner hands you a slate: FOOD and WOOD. \"Bring both. Fast.\"",
+    "choices": [
+      {
+        "id": "to_farms",
+        "label": "Head to the farms for food.",
+        "goToAreaId": "o_farm_lane"
+      },
+      {
+        "id": "to_woodline",
+        "label": "Head to the woodline for timber.",
+        "goToAreaId": "o_woodline_edge"
+      }
+    ]
+  },
+  {
+    "id": "o_farm_lane",
+    "title": "Farm Lane",
+    "x": 11,
+    "y": 0,
+    "floorId": "overland",
+    "tileStyle": "farm",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, farm lane with hedges, distant barn, scarecrow, overcast, cinematic, no text",
+    "description": "Hedges line the lane. A barn sits like a tired animal.\n\nA farmer waves frantically from behind a cart. \"They’ve been skimming our stores at night.\"",
+    "actionsAvailable": {
+      "take": {
+        "text": "You can load grain sacks onto a cart.",
+        "choices": [
+          {
+            "id": "grain",
+            "label": "Take a grain sack.",
+            "effects": [
+              {
+                "type": "addItem",
+                "itemId": "grain_sack",
+                "qty": 1
+              }
+            ]
+          }
+        ]
+      },
+      "talk": {
+        "text": "The farmer points north.",
+        "choices": [
+          {
+            "id": "hint",
+            "label": "Listen.",
+            "effects": [
+              {
+                "type": "flag",
+                "key": "goblin_raids_reported",
+                "value": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "exits": {
+      "w": "o_city_gate_outside",
+      "e": "o_farm_barnyard",
+      "n": "o_hedge_crossing"
+    }
+  },
+  {
+    "id": "o_farm_barnyard",
+    "title": "Barnyard",
+    "x": 12,
+    "y": 0,
+    "floorId": "overland",
+    "tileStyle": "farm",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, barnyard with stacked sacks, chickens scattering, muddy footprints, cinematic, no text",
+    "description": "Sacks are stacked under tarp.\n\nSmall muddy footprints lead away toward the hedge line.\n\nYou hear distant yips — too organized for foxes.",
+    "choices": [
+      {
+        "id": "ambush_trigger",
+        "label": "Investigate the footprints.",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_goblin_raid_01",
+              "enemyGroupId": "goblin_raiding_party",
+              "distance": 3,
+              "direction": "n",
+              "speed": 1,
+              "targetAreaId": "o_farm_barnyard",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "o_goblin_raid_contact"
+      }
+    ],
+    "exits": {
+      "w": "o_farm_lane"
+    }
+  },
+  {
+    "id": "o_woodline_edge",
+    "title": "Woodline Edge",
+    "x": 11,
+    "y": -1,
+    "floorId": "overland",
+    "tileStyle": "forest_edge",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, forest edge with tall trunks, fog, axe stump, cinematic, no text",
+    "description": "Tall trunks and damp fog.\n\nFresh stumps show someone already worked here—recently.\n\nA crow calls once. Then stops.",
+    "actionsAvailable": {
+      "take": {
+        "text": "You can cut and bundle timber.",
+        "choices": [
+          {
+            "id": "timber",
+            "label": "Collect a timber bundle.",
+            "effects": [
+              {
+                "type": "addItem",
+                "itemId": "timber_bundle",
+                "qty": 1
+              },
+              {
+                "type": "addXP",
+                "amount": 6
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "raid_trigger",
+        "label": "You hear yips in the trees… ready yourself.",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_goblin_raid_02",
+              "enemyGroupId": "goblin_raiding_party",
+              "distance": 3,
+              "direction": "e",
+              "speed": 1,
+              "targetAreaId": "o_woodline_edge",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "o_goblin_raid_contact"
+      }
+    ],
+    "exits": {
+      "s": "o_city_gate_outside",
+      "n": "o_forest_track"
+    }
+  },
+  {
+    "id": "o_goblin_raid_contact",
+    "title": "Goblin Raid Approaching",
+    "x": 12,
+    "y": -1,
+    "floorId": "overland",
+    "tileStyle": "open_field",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, goblin raiding party emerging from hedge/trees, spears and bows, cinematic, no text",
+    "description": "A goblin raiding party approaches.\n\nThey’re not charging blindly — they’re spreading, trying to surround.\n\nYou can manage distance if you act fast.",
+    "choices": [
+      {
+        "id": "open_fire",
+        "label": "1. Open fire with my bow.",
+        "requirements": [
+          {
+            "type": "hasAnyItem",
+            "itemIds": [
+              "training_bow",
+              "hunting_bow"
+            ],
+            "qty": 1
+          },
+          {
+            "type": "hasAmmo",
+            "ammoType": "arrow",
+            "minCount": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "shootThreat",
+            "threatId": "t_goblin_raid_01",
+            "ammoType": "arrow",
+            "ammoToConsume": 1,
+            "damage": {
+              "mode": "roll",
+              "expr": "1d6"
+            }
+          },
+          {
+            "type": "advanceThreat",
+            "threatId": "t_goblin_raid_01"
+          }
+        ],
+        "goToAreaId": "o_raid_distance_loop"
+      },
+      {
+        "id": "set_spikes",
+        "label": "2. Set my spikes in front of me.",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "spike_bundle",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "removeItem",
+            "itemId": "spike_bundle",
+            "qty": 1
+          },
+          {
+            "type": "placeHazard",
+            "threatId": "t_goblin_raid_01",
+            "hazard": {
+              "kind": "spikes",
+              "damage": 2,
+              "triggerAtDistance": 1
+            }
+          },
+          {
+            "type": "advanceThreat",
+            "threatId": "t_goblin_raid_01"
+          }
+        ],
+        "goToAreaId": "o_raid_distance_loop"
+      },
+      {
+        "id": "retreat_choice",
+        "label": "3. Retreat (S/W/E) and ready bow.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "raid_retreat_prompt",
+            "value": true
+          }
+        ],
+        "goToAreaId": "o_raid_retreat_menu"
+      },
+      {
+        "id": "fight_now",
+        "label": "4. Stand and fight when they close.",
+        "effects": [
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_goblin_raid_01"
+          }
+        ],
+        "goToAreaId": "o_raid_aftermath"
+      }
+    ]
+  },
+  {
+    "id": "o_raid_retreat_menu",
+    "title": "Choose Retreat Direction",
+    "x": 12,
+    "y": -2,
+    "floorId": "overland",
+    "tileStyle": "open_field",
+    "cover": "none",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, adventurer backing away through muddy field, goblins closing, cinematic, no text",
+    "description": "Retreat buys distance — but not forever.\n\nChoose a direction and keep your weapon ready.",
+    "choices": [
+      {
+        "id": "ret_s",
+        "label": "Retreat South.",
+        "effects": [
+          {
+            "type": "advanceThreat",
+            "threatId": "t_goblin_raid_01"
+          }
+        ],
+        "goToAreaId": "o_city_gate_outside"
+      },
+      {
+        "id": "ret_w",
+        "label": "Retreat West.",
+        "effects": [
+          {
+            "type": "advanceThreat",
+            "threatId": "t_goblin_raid_01"
+          }
+        ],
+        "goToAreaId": "o_farm_lane"
+      },
+      {
+        "id": "ret_e",
+        "label": "Retreat East.",
+        "effects": [
+          {
+            "type": "advanceThreat",
+            "threatId": "t_goblin_raid_01"
+          }
+        ],
+        "goToAreaId": "o_farm_barnyard"
+      }
+    ]
+  },
+  {
+    "id": "o_raid_distance_loop",
+    "title": "Skirmish Distance",
+    "x": 12,
+    "y": -3,
+    "floorId": "overland",
+    "tileStyle": "open_field",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, arrows flying across open ground, goblins weaving, cinematic, no text",
+    "description": "You can keep them at range for a moment longer.\n\nIf you keep backing up and firing, you might break their nerve — or run out of space.",
+    "choices": [
+      {
+        "id": "fire_again",
+        "label": "Fire again, then retreat one square.",
+        "requirements": [
+          {
+            "type": "hasAnyItem",
+            "itemIds": [
+              "training_bow",
+              "hunting_bow"
+            ],
+            "qty": 1
+          },
+          {
+            "type": "hasAmmo",
+            "ammoType": "arrow",
+            "minCount": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "shootThreat",
+            "threatId": "t_goblin_raid_01",
+            "ammoType": "arrow",
+            "ammoToConsume": 1,
+            "damage": {
+              "mode": "roll",
+              "expr": "1d6"
+            }
+          },
+          {
+            "type": "advanceThreat",
+            "threatId": "t_goblin_raid_01"
+          }
+        ],
+        "goToAreaId": "o_raid_retreat_menu"
+      },
+      {
+        "id": "hold_ground",
+        "label": "Hold ground and fight.",
+        "effects": [
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_goblin_raid_01"
+          }
+        ],
+        "goToAreaId": "o_raid_aftermath"
+      }
+    ]
+  },
+  {
+    "id": "o_raid_aftermath",
+    "title": "After the Raid",
+    "x": 12,
+    "y": -4,
+    "floorId": "overland",
+    "tileStyle": "open_field",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, goblin bodies and discarded gear in mud, quiet after fight, cinematic, no text",
+    "description": "The field goes quiet.\n\nIf you survived, you’ve earned something more valuable than timber: confidence.\n\nNow you must carry the supplies back before another party finds you.",
+    "effectsOnEnter": [
+      {
+        "type": "flag",
+        "key": "goblin_raid_defeated",
+        "value": true
+      },
+      {
+        "type": "addXP",
+        "amount": 18
+      }
+    ],
+    "choices": [
+      {
+        "id": "return_city",
+        "label": "Return to the city with supplies.",
+        "goToAreaId": "o_city_gate_outside"
+      },
+      {
+        "id": "push_further",
+        "label": "Press deeper into the countryside (dangerous).",
+        "goToAreaId": "o_forest_track"
+      }
+    ]
+  },
+  {
+    "id": "o_forest_track",
+    "title": "Forest Track",
+    "x": 11,
+    "y": -2,
+    "floorId": "overland",
+    "tileStyle": "forest",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow forest track, fog, broken cart wheel, ominous, cinematic, no text",
+    "description": "A broken cart wheel lies half-buried.\n\nThe track has been used recently — too recently.\n\nSomewhere ahead, you hear metal tapping stone: a signal, not an accident.",
+    "choices": [
+      {
+        "id": "next_stage_tease",
+        "label": "Follow the signal toward the raiders’ field camp (next stage).",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "overland_stage2_unlocked",
+            "value": true
+          }
+        ]
+      }
+    ],
+    "exits": {
+      "s": "o_woodline_edge"
+    }
+  }
+]

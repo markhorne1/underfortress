@@ -1,0 +1,60 @@
+[
+  {
+    "id": "npc_scout_lieut_kess",
+    "name": "Lieutenant Kess",
+    "role": "City Scout (Counterstrike Contact)",
+    "portraitPrompt": "fantasy character portrait, city scout lieutenant in hooded cloak, rain beading on leather, watchfort silhouette behind, painterly, no text",
+    "dialogue": {
+      "greeting": "We don’t have an army for this. We have you.",
+      "nodes": [
+        {
+          "id": "brief",
+          "text": "That watchfort used to be ours. Now it’s a relay hub.\n\nSteal their signal book, free our people, and cut the banner captain out of the chain.\n\nIf you’re seen, the siege line will learn the postern gate exists.",
+          "choices": [
+            {
+              "label": "Accept the raid.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "watchfort_raid_accepted",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_prisoner_sergeant_bram",
+    "name": "Sergeant Bram",
+    "role": "Captured City Soldier",
+    "portraitPrompt": "fantasy character portrait, bruised sergeant in torn tabard behind iron bars, stubborn eyes, torchlit pen, painterly, no text",
+    "dialogue": {
+      "greeting": "If you’re real, cut these bars. If you’re not, stop wasting my breath.",
+      "nodes": [
+        {
+          "id": "intel",
+          "text": "The banner captain lives in the relay tower.\n\nThere’s a hidden sally hatch behind the armory rack—old city workmanship.\n\nAnd there’s a troll on a chain. Don’t fight it in open ground.",
+          "choices": [
+            {
+              "label": "Take the intel.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "bram_intel_taken",
+                  "value": true
+                },
+                {
+                  "type": "addXP",
+                  "amount": 8
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

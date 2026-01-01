@@ -1,0 +1,372 @@
+[
+  {
+    "id": "vcf_war_room",
+    "title": "War Room: Candle Smoke and Cold Decisions",
+    "x": 5,
+    "y": 5,
+    "floorId": "city",
+    "tileStyle": "war_room",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, candlelit war room, maps pinned, exhausted council, rain at windows, cinematic, no text",
+    "description": "The council chamber is not a throne room.\n\nIt is a sickbed for the city.\n\nMaps are pinned like wounds.\n\nPeople argue like surgeons.\n\nYou enter and the room sharpens.",
+    "choices": [
+      {
+        "id": "start",
+        "label": "Begin the Knife Room council session.",
+        "effects": [
+          {
+            "type": "startJob",
+            "jobId": "q_veteran_council_finale"
+          }
+        ],
+        "goToAreaId": "vcf_vayne_hearing"
+      }
+    ]
+  },
+  {
+    "id": "vcf_vayne_hearing",
+    "title": "Vayne’s Hearing: Choose Two Before Dawn",
+    "x": 6,
+    "y": 5,
+    "floorId": "city",
+    "tileStyle": "hearing",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, councilor addressing room, sealed evidence on table, cinematic, no text",
+    "description": "Vayne leans on the table.\n\n\"You can do only two things before dawn.\n\n- Prepare the Warlord Hunt.\n- Root out the traitor.\n- Stabilise the streets.\n\nPick.\n\nAnd live with it.\"",
+    "actionsAvailable": {
+      "talk": {
+        "text": "The council is a battlefield without blood—until there is.",
+        "choices": [
+          {
+            "id": "vayne",
+            "label": "Talk to Councilor Vayne.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_councilor_vayne_finale"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "prepare_hunt",
+        "label": "1) Prepare the Warlord Hunt.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "vcf_action_hunt",
+            "value": true
+          }
+        ],
+        "goToAreaId": "vcf_armoury_choice"
+      },
+      {
+        "id": "traitor",
+        "label": "2) Root out the traitor.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "vcf_action_traitor",
+            "value": true
+          }
+        ],
+        "goToAreaId": "vcf_archive_thread"
+      },
+      {
+        "id": "morale",
+        "label": "3) Stabilise the streets.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "vcf_action_morale",
+            "value": true
+          }
+        ],
+        "goToAreaId": "vcf_street_crisis"
+      }
+    ]
+  },
+  {
+    "id": "vcf_armoury_choice",
+    "title": "Armoury: Heirloom or Supplies",
+    "x": 7,
+    "y": 5,
+    "floorId": "city",
+    "tileStyle": "armoury",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, armoury racks, named weapons on table, guildmaster smith, cinematic, no text",
+    "description": "Orrow offers you a choice:\n\n- Upgrade one named weapon into an heirloom.\n- Or take extra supplies for the hunt.\n\nA veteran knows the difference between strength and endurance.",
+    "actionsAvailable": {
+      "talk": {
+        "text": "Orrow can make a legend out of steel.",
+        "choices": [
+          {
+            "id": "orrow",
+            "label": "Talk to Guildmaster Orrow.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_guildmaster_orrow_finale"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "take_fitting",
+        "label": "Take a Sunsteel Blade Fitting.",
+        "effects": [
+          {
+            "type": "addItem",
+            "itemId": "blade_fitting_sunsteel",
+            "qty": 1
+          },
+          {
+            "type": "addXP",
+            "amount": 10
+          }
+        ],
+        "goToAreaId": "vcf_back_to_hearing"
+      },
+      {
+        "id": "take_supplies",
+        "label": "Take extra requisition writs instead.",
+        "effects": [
+          {
+            "type": "addItem",
+            "itemId": "writ_requisition",
+            "qty": 2
+          },
+          {
+            "type": "addXP",
+            "amount": 8
+          }
+        ],
+        "goToAreaId": "vcf_back_to_hearing"
+      }
+    ]
+  },
+  {
+    "id": "vcf_archive_thread",
+    "title": "Archive Thread: The Smell of Blackwax",
+    "x": 6,
+    "y": 6,
+    "floorId": "city",
+    "tileStyle": "archive",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, shadowy archives with ledgers and seals, master warden, cinematic, no text",
+    "description": "Master Warden Sell pulls down a ledger bound in blackwax.\n\n\"This is where betrayals live,\" he says.\n\n\"They hide in numbers and polite signatures.\"",
+    "actionsAvailable": {
+      "talk": {
+        "text": "Sell offers truth with consequences.",
+        "choices": [
+          {
+            "id": "sell",
+            "label": "Talk to Master Warden Sell.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_master_warden_sell"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "find_ledger",
+        "label": "Investigate the sabotage trail (mind check).",
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "mind",
+            "dc": 11,
+            "onPass": [
+              {
+                "type": "addItem",
+                "itemId": "ledger_blackwax",
+                "qty": 1
+              },
+              {
+                "type": "flag",
+                "key": "traitor_evidence_found",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 18
+              }
+            ],
+            "onFail": [
+              {
+                "type": "flag",
+                "key": "traitor_coverup_deepens",
+                "value": true
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "vcf_assassin_interrupt"
+      }
+    ]
+  },
+  {
+    "id": "vcf_street_crisis",
+    "title": "Street Crisis: Rumours Become Knives",
+    "x": 5,
+    "y": 6,
+    "floorId": "city",
+    "tileStyle": "streets",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, tense city street at night, watch lanterns, frightened crowd, cinematic, no text",
+    "description": "The city hasn’t slept since the siege.\n\nRumours run faster than messengers.\n\nA spark in the wrong district becomes a riot.\n\nMirelda offers a decree.\n\nThe streets wait to see if you’ll be kind—or strong.",
+    "actionsAvailable": {
+      "talk": {
+        "text": "Mirelda wants authority to keep order.",
+        "choices": [
+          {
+            "id": "mirelda",
+            "label": "Talk to Councilor Mirelda.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_councilor_mirelda"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "issue_decree",
+        "label": "Issue a Decree of Safe Conduct (cost: major seal).",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "seal_council_major",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "addItem",
+            "itemId": "scroll_decree_safeconduct",
+            "qty": 1
+          },
+          {
+            "type": "addXP",
+            "amount": 14
+          }
+        ],
+        "goToAreaId": "vcf_back_to_hearing"
+      },
+      {
+        "id": "ignore",
+        "label": "Return to the council without intervening.",
+        "goToAreaId": "vcf_back_to_hearing"
+      }
+    ]
+  },
+  {
+    "id": "vcf_assassin_interrupt",
+    "title": "Assassin Interrupt: Truth Bleeds",
+    "x": 7,
+    "y": 6,
+    "floorId": "city",
+    "tileStyle": "attack",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, assassin lunging among shelves of ledgers, candle flare, cinematic, no text",
+    "description": "As you touch the ledger, the candle snuffs.\n\nA whisper behind you:\n\n\"Put it back.\"",
+    "choices": [
+      {
+        "id": "fight_assassin",
+        "label": "Fight the Silkblade Assassin.",
+        "effects": [
+          {
+            "type": "startCombat",
+            "enemyGroup": [
+              {
+                "enemyId": "silkblade_assassin",
+                "count": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "vcf_back_to_hearing"
+      },
+      {
+        "id": "chase",
+        "label": "Chase the assassin into the streets (risk losing the ledger).",
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "luck",
+            "dc": 11,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "assassin_caught",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 18
+              }
+            ],
+            "onFail": [
+              {
+                "type": "flag",
+                "key": "ledger_stolen",
+                "value": true
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "vcf_back_to_hearing"
+      }
+    ]
+  },
+  {
+    "id": "vcf_back_to_hearing",
+    "title": "Return: Dawn Approaches",
+    "x": 6,
+    "y": 4,
+    "floorId": "city",
+    "tileStyle": "return",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, council doors with dawn light leaking under, cinematic, no text",
+    "description": "You return to the war room.\n\nDawn is not gentle.\n\nIt exposes what you chose—and what you didn’t.",
+    "choices": [
+      {
+        "id": "finalize",
+        "label": "Finalize council decisions (locks outcomes).",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "veteran_council_finale_complete",
+            "value": true
+          },
+          {
+            "type": "completeJob",
+            "jobId": "q_veteran_council_finale"
+          }
+        ],
+        "goToAreaId": "fwh_departure"
+      }
+    ]
+  }
+]

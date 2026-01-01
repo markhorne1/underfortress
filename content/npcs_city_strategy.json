@@ -1,0 +1,196 @@
+[
+  {
+    "id": "npc_councilor_vayne",
+    "name": "Councilor Vayne",
+    "role": "War Council (Cold Strategist)",
+    "portraitPrompt": "fantasy character portrait, councilor in dark robes over armor, candlelit map table, sharp eyes, painterly, no text",
+    "dialogue": {
+      "greeting": "Close the door. Speak fast. The city’s time is measured in breaths now.",
+      "nodes": [
+        {
+          "id": "vayne_report",
+          "text": "Tell me what you found below. Not what you felt. Not what you feared. What you found.",
+          "choices": [
+            {
+              "label": "Report: I seized the Sight Orb.",
+              "requirements": [
+                {
+                  "type": "hasItem",
+                  "itemId": "sight_orb_crystal_ball",
+                  "qty": 1
+                }
+              ],
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "orb_reported_taken",
+                  "value": true
+                },
+                {
+                  "type": "addXP",
+                  "amount": 18
+                }
+              ]
+            },
+            {
+              "label": "Report: I sabotaged the orb cradle / convoy.",
+              "requirements": [
+                {
+                  "type": "flagEquals",
+                  "key": "orb_sabotaged",
+                  "value": true
+                }
+              ],
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "orb_reported_sabotaged",
+                  "value": true
+                },
+                {
+                  "type": "addXP",
+                  "amount": 14
+                }
+              ]
+            },
+            {
+              "label": "Report: I brought proof (seal wax / documents).",
+              "requirements": [
+                {
+                  "type": "hasItem",
+                  "itemId": "reliquary_seal_wax",
+                  "qty": 1
+                }
+              ],
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "orb_reported_proof",
+                  "value": true
+                },
+                {
+                  "type": "addXP",
+                  "amount": 12
+                }
+              ]
+            },
+            {
+              "label": "Present Commander’s Signet.",
+              "requirements": [
+                {
+                  "type": "hasItem",
+                  "itemId": "commander_signet",
+                  "qty": 1
+                }
+              ],
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "kargan_confirmed_dead",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "vayne_next_steps",
+          "text": "Good. Then we buy time. And we spend it like coin: on wood, food, and knives in the dark.\n\nYou are no longer a runner. You are an asset.",
+          "choices": [
+            {
+              "label": "Ask: What do you need first?",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "victory_window_open",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Accept fieldwork orders (outside the walls).",
+              "requirements": [
+                {
+                  "type": "flagEquals",
+                  "key": "victory_window_open",
+                  "value": true
+                }
+              ],
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "chapter_overland_unlocked",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_quartermaster_brevin",
+    "name": "Quartermaster Brevin",
+    "role": "Logistics (Honest Exhaustion)",
+    "portraitPrompt": "fantasy character portrait, tired quartermaster with ink-stained hands, stacks of crates, lantern light, painterly, no text",
+    "dialogue": {
+      "greeting": "If it’s not nailed down, it’s already gone. If it is nailed down, someone is prying.",
+      "nodes": [
+        {
+          "id": "brevin_tasks",
+          "text": "The council wants miracles. I settle for wagons that arrive and arrows that exist.",
+          "choices": [
+            {
+              "label": "Offer help moving supplies to the battlements.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "battlement_runs_available",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Ask for a work-for-gear contract.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "work_for_gear_enabled",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_mage_tower_scribe_orrin",
+    "name": "Scribe Orrin",
+    "role": "Mage Tower Scribe",
+    "portraitPrompt": "fantasy character portrait, young scribe with spectacles and quills, rune-lit desk, scroll racks, painterly, no text",
+    "dialogue": {
+      "greeting": "If you brought blank scrolls, I can make them priceless. If you didn’t, please don’t bleed on my floor.",
+      "nodes": [
+        {
+          "id": "orrin_scrolls",
+          "text": "We’re binding ward-lines faster than we can copy them. Blank stock is life.",
+          "choices": [
+            {
+              "label": "Deliver blank scroll stock.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "scroll_delivery_ready",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

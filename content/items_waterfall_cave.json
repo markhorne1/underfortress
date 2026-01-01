@@ -1,0 +1,26 @@
+[
+  {
+    "id": "waterproof_torch_wrap",
+    "name": "Waterproof Torch Wrap",
+    "type": "tool",
+    "stackable": true,
+    "value": 8,
+    "description": "Keeps a torch lit through spray. Essential for the waterfall cave."
+  },
+  {
+    "id": "cave_rune_chalk",
+    "name": "Cave Rune Chalk",
+    "type": "tool",
+    "stackable": true,
+    "value": 6,
+    "description": "Marks safe footholds and routes. Reduces navigation errors in echoing caves."
+  },
+  {
+    "id": "shard_of_listening",
+    "name": "Shard of Listening",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A crystal fragment that vibrates near hidden doors and ‘listening stone’. Useful against the lair’s secrets."
+  }
+]

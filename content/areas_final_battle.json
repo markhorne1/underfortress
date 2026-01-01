@@ -1,0 +1,628 @@
+[
+  {
+    "id": "fb_prebattle_council",
+    "title": "Pre-Battle Council: The City Holds Its Breath",
+    "x": 2,
+    "y": 1,
+    "floorId": "city",
+    "tileStyle": "council",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, war council before dawn, city map, exhausted faces, cinematic, no text",
+    "description": "You return from the engine yard with mud on your boots and war in your hands.\n\nVayne spreads the map.\n\n\"This is it,\" she says.\n\n\"Choose your lane.\"",
+    "actionsAvailable": {
+      "talk": {
+        "text": "Final orders are spoken like prayers.",
+        "choices": [
+          {
+            "id": "vayne",
+            "label": "Talk to Councilor Vayne.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_warcouncil_vayne_final"
+              }
+            ]
+          },
+          {
+            "id": "start",
+            "label": "Start: Battle at the Gates.",
+            "effects": [
+              {
+                "type": "startJob",
+                "jobId": "q_final_battle"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "to_mara",
+        "label": "Go to the battlements for lane assignment.",
+        "goToAreaId": "fb_lane_assignment"
+      }
+    ]
+  },
+  {
+    "id": "fb_lane_assignment",
+    "title": "Lane Assignment: Wall, Gate, or Streets",
+    "x": 3,
+    "y": 1,
+    "floorId": "city",
+    "tileStyle": "battlements",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, battlement staging area, arrows stacked, smoke, serjeant pointing, cinematic, no text",
+    "description": "Mara shouts over the roar.\n\nThe enemy surges like a tide.\n\nPick where you fight, and accept what you can’t save.",
+    "actionsAvailable": {
+      "talk": {
+        "text": "Mara’s eyes don’t blink.",
+        "choices": [
+          {
+            "id": "mara",
+            "label": "Talk to Serjeant Mara.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_serjeant_mara_final"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "lane_wall",
+        "label": "1) Take the Wall Line.",
+        "effects": [
+          {
+            "type": "addItem",
+            "itemId": "battle_token_wall",
+            "qty": 1
+          },
+          {
+            "type": "flag",
+            "key": "final_lane",
+            "value": "wall"
+          }
+        ],
+        "goToAreaId": "fb_wall_start"
+      },
+      {
+        "id": "lane_gate",
+        "label": "2) Take the Gatehouse.",
+        "effects": [
+          {
+            "type": "addItem",
+            "itemId": "battle_token_gate",
+            "qty": 1
+          },
+          {
+            "type": "flag",
+            "key": "final_lane",
+            "value": "gate"
+          }
+        ],
+        "goToAreaId": "fb_gate_start"
+      },
+      {
+        "id": "lane_streets",
+        "label": "3) Take the Streets (chase-down response).",
+        "effects": [
+          {
+            "type": "addItem",
+            "itemId": "battle_token_streets",
+            "qty": 1
+          },
+          {
+            "type": "flag",
+            "key": "final_lane",
+            "value": "streets"
+          }
+        ],
+        "goToAreaId": "fb_streets_start"
+      }
+    ]
+  },
+  {
+    "id": "fb_wall_start",
+    "title": "Final Battle: Wall Line",
+    "x": 4,
+    "y": 1,
+    "floorId": "city",
+    "tileStyle": "battlements",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, wall line with smoke and ladders, distant siege tower silhouette, cinematic, no text",
+    "description": "The wall shakes with impact.\n\nA troll wallbreaker heaves stone.\n\nIf the tower wheels were sabotaged, the tower arrives late—or breaks.\n\nIf pitch pits were ruined, fewer burning pours reach the parapet.",
+    "choices": [
+      {
+        "id": "apply_engine_effects",
+        "label": "Assess the wall assault (automatic outcomes from sabotage flags).",
+        "effects": [
+          {
+            "type": "conditional",
+            "when": [
+              {
+                "key": "siege_tower_wheels_sabotaged",
+                "op": "==",
+                "value": true
+              }
+            ],
+            "then": [
+              {
+                "type": "flag",
+                "key": "final_wall_tower_delayed",
+                "value": true
+              }
+            ],
+            "else": [
+              {
+                "type": "flag",
+                "key": "final_wall_tower_delayed",
+                "value": false
+              }
+            ]
+          },
+          {
+            "type": "conditional",
+            "when": [
+              {
+                "key": "pitch_cauldron_ruined",
+                "op": "==",
+                "value": true
+              }
+            ],
+            "then": [
+              {
+                "type": "flag",
+                "key": "final_wall_pitch_reduced",
+                "value": true
+              }
+            ],
+            "else": [
+              {
+                "type": "flag",
+                "key": "final_wall_pitch_reduced",
+                "value": false
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "fb_wall_fight"
+      }
+    ]
+  },
+  {
+    "id": "fb_wall_fight",
+    "title": "Wall Clash: Break the Breaker",
+    "x": 5,
+    "y": 1,
+    "floorId": "city",
+    "tileStyle": "battlements",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, troll wallbreaker and laddermen at wall, defenders striking, cinematic, no text",
+    "description": "You can target the troll (stop breaches) or the laddermen (stop boarding).\n\nIf enemy morale is shaken, they hesitate when the troll falls.\n\nChoose.",
+    "choices": [
+      {
+        "id": "target_troll",
+        "label": "1) Target the Troll Wallbreaker first.",
+        "effects": [
+          {
+            "type": "startCombat",
+            "enemyGroup": [
+              {
+                "enemyId": "troll_wallbreaker",
+                "count": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "fb_wall_wave"
+      },
+      {
+        "id": "target_ladders",
+        "label": "2) Drive off the laddermen first.",
+        "effects": [
+          {
+            "type": "startCombat",
+            "enemyGroup": [
+              {
+                "enemyId": "goblin_ladderman",
+                "count": 2
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "fb_wall_wave"
+      }
+    ]
+  },
+  {
+    "id": "fb_wall_wave",
+    "title": "Wall Wave: The Tide",
+    "x": 6,
+    "y": 1,
+    "floorId": "city",
+    "tileStyle": "battlements",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, massive wall melee, ladders, shields, rain, cinematic, no text",
+    "description": "The wave hits.\n\nIf the banner is missing, some enemy fighters glance behind them—looking for courage that isn’t there.\n\nNow is where legends happen.",
+    "choices": [
+      {
+        "id": "fight_wave",
+        "label": "Fight the wall wave.",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_final_wall",
+              "enemyGroupId": "final_wall_wave",
+              "distance": 3,
+              "direction": "n",
+              "speed": 1,
+              "targetAreaId": "fb_wall_wave",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "fb_final_consolidation"
+      }
+    ]
+  },
+  {
+    "id": "fb_gate_start",
+    "title": "Final Battle: Gatehouse",
+    "x": 4,
+    "y": 0,
+    "floorId": "city",
+    "tileStyle": "gatehouse",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, gatehouse under ram assault, chains, splinters, berserkers, cinematic, no text",
+    "description": "The gate trembles.\n\nIf the ram chain was stolen, the ram hits wrong—less force, more rage.\n\nIf not, the gate must survive on courage and wood.",
+    "choices": [
+      {
+        "id": "apply_ram_effect",
+        "label": "Assess the gate assault (automatic outcome from ram sabotage).",
+        "effects": [
+          {
+            "type": "conditional",
+            "when": [
+              {
+                "key": "ram_head_stolen",
+                "op": "==",
+                "value": true
+              }
+            ],
+            "then": [
+              {
+                "type": "flag",
+                "key": "final_gate_ram_weakened",
+                "value": true
+              }
+            ],
+            "else": [
+              {
+                "type": "flag",
+                "key": "final_gate_ram_weakened",
+                "value": false
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "fb_gate_fight"
+      }
+    ]
+  },
+  {
+    "id": "fb_gate_fight",
+    "title": "Gate Clash: Berserker and Sapper",
+    "x": 5,
+    "y": 0,
+    "floorId": "city",
+    "tileStyle": "gatehouse",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, berserker at gate, sapper crouched, sparks, cinematic, no text",
+    "description": "A berserker roars.\n\nA sapper reaches for a charge.\n\nIf the gate falls, the battle becomes street-by-street.\n\nPick a target.",
+    "choices": [
+      {
+        "id": "fight_berserker",
+        "label": "1) Stop the berserker first.",
+        "effects": [
+          {
+            "type": "startCombat",
+            "enemyGroup": [
+              {
+                "enemyId": "orc_berserker",
+                "count": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "fb_gate_wave"
+      },
+      {
+        "id": "fight_sapper",
+        "label": "2) Stop the sapper first.",
+        "effects": [
+          {
+            "type": "startCombat",
+            "enemyGroup": [
+              {
+                "enemyId": "goblin_sapper_team",
+                "count": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "fb_gate_wave"
+      }
+    ]
+  },
+  {
+    "id": "fb_gate_wave",
+    "title": "Gate Wave",
+    "x": 6,
+    "y": 0,
+    "floorId": "city",
+    "tileStyle": "gatehouse",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, gate melee with smoke and splinters, cinematic, no text",
+    "description": "The wave surges.\n\nIf morale is shaken, some enemies hesitate at the threshold.\n\nIf your signals are trusted, allied squads arrive faster.\n\nHold the line.",
+    "choices": [
+      {
+        "id": "fight_wave",
+        "label": "Fight the gate wave.",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_final_gate",
+              "enemyGroupId": "final_gate_wave",
+              "distance": 3,
+              "direction": "n",
+              "speed": 1,
+              "targetAreaId": "fb_gate_wave",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "fb_final_consolidation"
+      }
+    ]
+  },
+  {
+    "id": "fb_streets_start",
+    "title": "Final Battle: Streets (Chase-Down Response)",
+    "x": 3,
+    "y": -1,
+    "floorId": "city",
+    "tileStyle": "streets",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, dark streets with lanterns, citizens running, shadowy infiltrators, cinematic, no text",
+    "description": "Even if the wall holds, the city can burn.\n\nInfiltrators slip through gaps.\n\nArson starts small.\n\nIf too many get away, the council will later say: ‘We won the battle and lost the city.’",
+    "choices": [
+      {
+        "id": "chase_1",
+        "label": "Chase a goblin arson team into the alleys.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "street_chase_active",
+            "value": true
+          }
+        ],
+        "goToAreaId": "fb_alley_chase"
+      },
+      {
+        "id": "panic_control",
+        "label": "Control panic at the market square first (mind check).",
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "mind",
+            "dc": 9,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "panic_reduced",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 10
+              }
+            ],
+            "onFail": [
+              {
+                "type": "startThreat",
+                "threat": {
+                  "threatId": "t_panic_mob_final",
+                  "enemyGroupId": "panic_mob_final",
+                  "distance": 2,
+                  "direction": "n",
+                  "speed": 1,
+                  "targetAreaId": "fb_streets_start",
+                  "hazards": []
+                }
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "fb_streets_resolution"
+      }
+    ]
+  },
+  {
+    "id": "fb_alley_chase",
+    "title": "Alley Chase: Lanterns and Teeth",
+    "x": 2,
+    "y": -2,
+    "floorId": "city",
+    "tileStyle": "alleys",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow alley chase, goblin with tinder pouch, lantern light, cinematic, no text",
+    "description": "Footsteps slap wet stone.\n\nA goblin darts ahead with a tinder pouch.\n\nYou can shoot, set a trap, or sprint to tackle.",
+    "choices": [
+      {
+        "id": "shoot_retreat",
+        "label": "1) Shoot, then advance carefully.",
+        "requirements": [
+          {
+            "type": "hasAnyItem",
+            "itemIds": [
+              "training_bow",
+              "hunting_bow"
+            ],
+            "qty": 1
+          },
+          {
+            "type": "hasAmmo",
+            "ammoType": "arrow",
+            "minCount": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "addXP",
+            "amount": 8
+          }
+        ],
+        "goToAreaId": "fb_streets_resolution"
+      },
+      {
+        "id": "tackle",
+        "label": "2) Sprint and tackle (body check).",
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "body",
+            "dc": 9,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "arson_team_stopped",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 12
+              }
+            ],
+            "onFail": [
+              {
+                "type": "addToCounter",
+                "key": "arson_damage_count",
+                "amount": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "fb_streets_resolution"
+      }
+    ]
+  },
+  {
+    "id": "fb_streets_resolution",
+    "title": "Streets: Fires Contained (or Not)",
+    "x": 3,
+    "y": -2,
+    "floorId": "city",
+    "tileStyle": "streets",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, bucket line fighting fires, guards dragging captives, cinematic, no text",
+    "description": "Buckets pass hand to hand.\n\nIf too many infiltrators slipped by, smoke rises across multiple districts.\n\nReports come in:\n\n- \"Arson incidents!\"\n- \"Civilian casualties!\"\n\nHow bad it gets depends on what you stopped earlier.",
+    "choices": [
+      {
+        "id": "to_consolidation",
+        "label": "Return to final consolidation.",
+        "goToAreaId": "fb_final_consolidation"
+      }
+    ]
+  },
+  {
+    "id": "fb_final_consolidation",
+    "title": "Final Consolidation: Victory’s Price",
+    "x": 4,
+    "y": -1,
+    "floorId": "city",
+    "tileStyle": "civic",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, exhausted defenders at dawn, banner torn, wounded tended, city skyline smoking, cinematic, no text",
+    "description": "Dawn arrives.\n\nNot gentle.\n\nBut real.\n\nThe enemy’s final push breaks or stalls depending on what you sabotaged and what you chose to defend.\n\nNow the war shifts from survival to pursuit: the enemy retreats to deeper holds… and something older stirs beneath them.",
+    "effectsOnEnter": [
+      {
+        "type": "flag",
+        "key": "final_battle_complete",
+        "value": true
+      },
+      {
+        "type": "completeJob",
+        "jobId": "q_final_battle"
+      },
+      {
+        "type": "conditional",
+        "when": [
+          {
+            "key": "siege_engines_total_sabotage",
+            "op": "==",
+            "value": true
+          }
+        ],
+        "then": [
+          {
+            "type": "flag",
+            "key": "enemy_rout_triggered",
+            "value": true
+          },
+          {
+            "type": "addXP",
+            "amount": 30
+          }
+        ],
+        "else": [
+          {
+            "type": "addXP",
+            "amount": 18
+          }
+        ]
+      }
+    ],
+    "choices": [
+      {
+        "id": "epilogue_city",
+        "label": "Proceed to the city epilogue (rewards, politics, promotions).",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "city_epilogue_unlocked",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "pursuit_arc",
+        "label": "Begin the pursuit arc: hunt the enemy to their deeper fortress and end this war.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "pursuit_arc_unlocked",
+            "value": true
+          }
+        ]
+      }
+    ]
+  }
+]

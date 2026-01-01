@@ -1,0 +1,242 @@
+[
+  {
+    "id": "smf_descent",
+    "title": "Descent: Wet Steps, Old Hate",
+    "x": 0,
+    "y": -3,
+    "floorId": "sewer",
+    "tileStyle": "sewer",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, descending sewer stairs, black water below, rune marks, cinematic, no text",
+    "description": "The city’s stone sweats above you.\n\nThe deeper tunnels feel… shaped.\n\nAs if a throat was carved into the earth.",
+    "choices": [
+      {
+        "id": "pack",
+        "label": "Shadows move—something hunts these tunnels.",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_smf_pack",
+              "enemyGroupId": "smf_pack",
+              "distance": 2,
+              "direction": "n",
+              "speed": 1,
+              "targetAreaId": "smf_descent",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "smf_tunnel_clash"
+      }
+    ]
+  },
+  {
+    "id": "smf_tunnel_clash",
+    "title": "Tunnel Clash: Teeth in the Drip",
+    "x": 0,
+    "y": -4,
+    "floorId": "sewer",
+    "tileStyle": "sewer",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, tight sewer fight, clawed creature on wall, lantern glare, cinematic, no text",
+    "description": "A crawler clings to the wall like a spider.\n\nA fanatic laughs behind it.\n\nIf you’re here, you finish this—no more half measures.",
+    "choices": [
+      {
+        "id": "fight",
+        "label": "Fight.",
+        "effects": [
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_smf_pack"
+          }
+        ],
+        "goToAreaId": "smf_mouth_chamber"
+      }
+    ]
+  },
+  {
+    "id": "smf_mouth_chamber",
+    "title": "The Second Mouth: Chamber of Breathing Stone",
+    "x": 0,
+    "y": -5,
+    "floorId": "sewer",
+    "tileStyle": "mouth",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, grotesque sewer chamber like a carved throat, water swirling, cult candles, cinematic, no text",
+    "description": "Stone curves like ribs.\n\nWater spirals into a dark throat.\n\nA priest stands at the edge, chanting.\n\nThis is where the city gets stabbed from within.",
+    "choices": [
+      {
+        "id": "boss",
+        "label": "Fight the Maw Priest.",
+        "effects": [
+          {
+            "type": "startCombat",
+            "enemyGroup": [
+              {
+                "enemyId": "maw_priest",
+                "count": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "smf_choice"
+      }
+    ]
+  },
+  {
+    "id": "smf_choice",
+    "title": "End It: Collapse or Sanctify",
+    "x": 0,
+    "y": -6,
+    "floorId": "sewer",
+    "tileStyle": "mouth",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, cracked stone throat with ward lines glowing, player holding chalk and tools, cinematic, no text",
+    "description": "The mouth shudders without the priest’s chant.\n\nYou can collapse it with brute force.\n\nOr sanctify it with wardwork so it cannot be reopened.\n\nBoth are risky. Both are final.",
+    "choices": [
+      {
+        "id": "collapse",
+        "label": "1) Collapse the mouth (strength check).",
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "body",
+            "dc": 10,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "second_mouth_collapsed",
+                "value": true
+              },
+              {
+                "type": "flag",
+                "key": "drains_threat_persistent",
+                "value": false
+              },
+              {
+                "type": "flag",
+                "key": "enemy_second_mouth_active",
+                "value": false
+              },
+              {
+                "type": "addXP",
+                "amount": 22
+              }
+            ],
+            "onFail": [
+              {
+                "type": "takeDamage",
+                "amount": 2
+              },
+              {
+                "type": "flag",
+                "key": "second_mouth_collapse_partial",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 10
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "smf_return"
+      },
+      {
+        "id": "sanctify",
+        "label": "2) Sanctify the mouth with chalk wards (mind check).",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "mage_ward_chalk",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "removeItem",
+            "itemId": "mage_ward_chalk",
+            "qty": 1
+          },
+          {
+            "type": "skillCheck",
+            "skill": "mind",
+            "dc": 10,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "second_mouth_collapsed",
+                "value": true
+              },
+              {
+                "type": "flag",
+                "key": "drains_threat_persistent",
+                "value": false
+              },
+              {
+                "type": "flag",
+                "key": "enemy_second_mouth_active",
+                "value": false
+              },
+              {
+                "type": "flag",
+                "key": "wards_strengthened",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 24
+              }
+            ],
+            "onFail": [
+              {
+                "type": "takeDamage",
+                "amount": 1
+              },
+              {
+                "type": "flag",
+                "key": "wards_flicker",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 10
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "smf_return"
+      }
+    ]
+  },
+  {
+    "id": "smf_return",
+    "title": "Return: The City’s Veins Quiet",
+    "x": 0,
+    "y": -2,
+    "floorId": "sewer",
+    "tileStyle": "sewer",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, ascending sewer steps toward lantern light, water calmer, cinematic, no text",
+    "description": "The water runs differently now.\n\nLess like breath.\n\nMore like water.\n\nIf you sealed the mouth, the city is safer from inside.\n\nNow the war becomes simpler: walls, gates, and open steel.",
+    "choices": [
+      {
+        "id": "back_to_city",
+        "label": "Return to the surface and prepare the next counterstrike.",
+        "effects": [
+          {
+            "type": "addXP",
+            "amount": 12
+          }
+        ],
+        "goToAreaId": "ga_end"
+      }
+    ]
+  }
+]

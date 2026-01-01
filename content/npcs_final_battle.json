@@ -1,0 +1,76 @@
+[
+  {
+    "id": "npc_warcouncil_vayne_final",
+    "name": "Councilor Vayne",
+    "role": "War Council (Final Orders)",
+    "portraitPrompt": "fantasy character portrait, councilor with battle map, ink stains, hard eyes, painterly, no text",
+    "dialogue": {
+      "greeting": "This is the day the city becomes a story—or a warning.",
+      "nodes": [
+        {
+          "id": "summary",
+          "text": "Your actions changed the board:\n\n- If wheels were sabotaged: the siege tower arrives late or breaks.\n- If pitch was ruined: fewer burning pours on the wall.\n- If the ram chain was taken: the gate holds longer.\n- If the second mouth is sealed: fewer knives inside.\n\nNow choose where *you* stand.",
+          "choices": [
+            {
+              "label": "Request the Signal Master’s whistle.",
+              "effects": [
+                {
+                  "type": "addItem",
+                  "itemId": "signal_master_whistle",
+                  "qty": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_serjeant_mara_final",
+    "name": "Serjeant Mara",
+    "role": "Frontline Coordinator",
+    "portraitPrompt": "fantasy character portrait, serjeant in rain and soot, spear tip nicked, painterly, no text",
+    "dialogue": {
+      "greeting": "Pick a lane and commit. Heroes die when they try to be everywhere.",
+      "nodes": [
+        {
+          "id": "lanes",
+          "text": "Three lanes:\n\n1) Wall line.\n2) Gatehouse.\n3) Streets (chase-down response and fires).\n\nIf you leave the streets unattended, the city burns from within even if the wall holds.",
+          "choices": [
+            {
+              "label": "I’ll take the wall.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "final_lane",
+                  "value": "wall"
+                }
+              ]
+            },
+            {
+              "label": "I’ll take the gate.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "final_lane",
+                  "value": "gate"
+                }
+              ]
+            },
+            {
+              "label": "I’ll take the streets.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "final_lane",
+                  "value": "streets"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

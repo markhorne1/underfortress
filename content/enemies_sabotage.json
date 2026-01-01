@@ -1,0 +1,114 @@
+[
+  {
+    "id": "city_saboteur",
+    "name": "City Saboteur",
+    "kind": "humanoid",
+    "skill": 8,
+    "stamina": 7,
+    "meta": {
+      "ranged": false,
+      "special": "ignite_fuse"
+    },
+    "loot": [
+      {
+        "itemId": "fuse_coil",
+        "min": 1,
+        "max": 2
+      },
+      {
+        "itemId": "dock_ledger_page",
+        "min": 0,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 1,
+        "max": 8
+      }
+    ],
+    "tags": [
+      "human",
+      "saboteur"
+    ]
+  },
+  {
+    "id": "goblin_sapper",
+    "name": "Goblin Sapper",
+    "kind": "humanoid",
+    "skill": 7,
+    "stamina": 8,
+    "meta": {
+      "special": "bomb"
+    },
+    "loot": [
+      {
+        "itemId": "fuse_coil",
+        "min": 0,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 6
+      }
+    ],
+    "tags": [
+      "goblin",
+      "sapper"
+    ]
+  },
+  {
+    "id": "goblin_sapper_team",
+    "name": "Sapper Team",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "goblin_sapper",
+        "count": 1
+      },
+      {
+        "enemyId": "goblin_scout",
+        "count": 2
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 8
+      }
+    },
+    "tags": [
+      "goblin",
+      "group",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "gate_breach_probe",
+    "name": "Breach Probe",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "goblin_raider",
+        "count": 3
+      },
+      {
+        "enemyId": "goblin_bowman",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 8
+      }
+    },
+    "tags": [
+      "goblin",
+      "group",
+      "pursuit"
+    ]
+  }
+]

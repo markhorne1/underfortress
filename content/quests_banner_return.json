@@ -1,0 +1,48 @@
+[
+  {
+    "id": "q_banner_return",
+    "name": "Return with the War Standard",
+    "giverNpcId": "npc_captain_harl",
+    "startAreaId": "br_postern_arrival",
+    "objective": {
+      "type": "setFlag",
+      "key": "banner_return_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 8,
+      "xp": 24,
+      "items": [
+        {
+          "itemId": "banner_cloth_strip",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_banner_choice",
+    "name": "Banner Policy: Hope or Knife",
+    "giverNpcId": "npc_councilor_vayne",
+    "startAreaId": "br_council_banner",
+    "objective": {
+      "type": "setFlag",
+      "key": "banner_policy_set",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 18,
+      "items": [
+        {
+          "itemId": "civic_medal_ironleaf",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  }
+]

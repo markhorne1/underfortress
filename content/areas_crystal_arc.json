@@ -1,0 +1,566 @@
+[
+  {
+    "id": "c_sewer_gate_descent",
+    "title": "Sewer Gate: Below the City’s Breath",
+    "x": 1,
+    "y": -1,
+    "floorId": "sewer",
+    "tileStyle": "sewer_gate",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, iron sewer gate opened into darkness, lantern glow, damp stone, cinematic, no text",
+    "description": "The air changes at the sewer gate.\n\nAbove: smoke, sweat, and war.\n\nBelow: wet stone and older secrets.",
+    "choices": [
+      {
+        "id": "start_descent",
+        "label": "Begin the descent into the underways.",
+        "effects": [
+          {
+            "type": "startJob",
+            "jobId": "q_crystal_descent"
+          }
+        ],
+        "goToAreaId": "c_sewer_junction"
+      }
+    ]
+  },
+  {
+    "id": "c_sewer_junction",
+    "title": "Sewer Junction: Three Flows",
+    "x": 2,
+    "y": -1,
+    "floorId": "sewer",
+    "tileStyle": "sewer",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, sewer junction with three channels, drifting debris, lantern reflections, cinematic, no text",
+    "description": "Three channels diverge.\n\nOne smells of rot.\n\nOne smells of mushrooms.\n\nOne smells… clean. Too clean.",
+    "choices": [
+      {
+        "id": "rats",
+        "label": "Follow the rot channel (rats and swarms).",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_sewer_pack_01",
+              "enemyGroupId": "sewer_pack",
+              "distance": 3,
+              "direction": "n",
+              "speed": 1,
+              "targetAreaId": "c_sewer_junction",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "c_sewer_swarm_run"
+      },
+      {
+        "id": "meet_pella",
+        "label": "Follow the ‘too clean’ channel (someone lives down here).",
+        "goToAreaId": "c_pella_nook"
+      }
+    ]
+  },
+  {
+    "id": "c_sewer_swarm_run",
+    "title": "Sewer Run: Teeth in the Dark",
+    "x": 2,
+    "y": -2,
+    "floorId": "sewer",
+    "tileStyle": "sewer",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, rats swarming across wet stones, lantern light, boots splashing, cinematic, no text",
+    "description": "Rats pour from cracks.\n\nYou can run, fight, or climb to a maintenance ledge.",
+    "choices": [
+      {
+        "id": "fight",
+        "label": "Fight.",
+        "effects": [
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_sewer_pack_01"
+          }
+        ],
+        "goToAreaId": "c_pella_nook"
+      },
+      {
+        "id": "run",
+        "label": "Run hard and lose them (take 1 damage).",
+        "effects": [
+          {
+            "type": "takeDamage",
+            "amount": 1
+          }
+        ],
+        "goToAreaId": "c_pella_nook"
+      }
+    ]
+  },
+  {
+    "id": "c_pella_nook",
+    "title": "Ratcatcher Nook",
+    "x": 3,
+    "y": -1,
+    "floorId": "sewer",
+    "tileStyle": "nook",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, small sewer nook with dry platform, rat traps, lantern, a figure waiting, cinematic, no text",
+    "description": "A dry platform. Traps. A lantern that doesn’t flicker.\n\nPella watches you like you’re the danger.\n\n\"You want the old underways? Then talk.\"",
+    "actionsAvailable": {
+      "talk": {
+        "text": "Pella taps a hooked pole on stone.",
+        "choices": [
+          {
+            "id": "pella",
+            "label": "Talk to Pella.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_ratcatcher_pella"
+              }
+            ]
+          },
+          {
+            "id": "start_key",
+            "label": "Start: Gather the Lumen Key.",
+            "effects": [
+              {
+                "type": "startJob",
+                "jobId": "q_lumen_key"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "to_underways",
+        "label": "Proceed to the old underways threshold.",
+        "effects": [
+          {
+            "type": "addXP",
+            "amount": 8
+          }
+        ],
+        "goToAreaId": "c_underway_threshold"
+      }
+    ]
+  },
+  {
+    "id": "c_underway_threshold",
+    "title": "Underway Threshold: Old Stone, Older Wards",
+    "x": 4,
+    "y": -1,
+    "floorId": "underways",
+    "tileStyle": "underway",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, ancient stone archway under city, faint glowing ward lines, cinematic, no text",
+    "description": "An archway cut with precise stonework.\n\nFaint ward-lines shimmer when your lantern passes.\n\nPella whispers: \"Don’t step on the bright lines.\"",
+    "choices": [
+      {
+        "id": "use_salt",
+        "label": "Use ward salt to reveal safe steps (reduces risk).",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "ward_salt_pouch",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "removeItem",
+            "itemId": "ward_salt_pouch",
+            "qty": 1
+          },
+          {
+            "type": "flag",
+            "key": "underways_safe_steps",
+            "value": true
+          },
+          {
+            "type": "addXP",
+            "amount": 10
+          }
+        ],
+        "goToAreaId": "c_echo_caves"
+      },
+      {
+        "id": "risk_it",
+        "label": "Proceed without ward salt (risk a ward sting).",
+        "effects": [
+          {
+            "type": "takeDamage",
+            "amount": 1
+          }
+        ],
+        "goToAreaId": "c_echo_caves"
+      }
+    ]
+  },
+  {
+    "id": "c_echo_caves",
+    "title": "Echo Caves: The Sound of Footsteps",
+    "x": 5,
+    "y": -1,
+    "floorId": "caves",
+    "tileStyle": "echo",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, cavern where every drip echoes, chalky stone, distant shapes, cinematic, no text",
+    "description": "Every step echoes too long.\n\nSomething hears you.\n\nSomething moves where echoes don’t reach.",
+    "choices": [
+      {
+        "id": "spore_pack",
+        "label": "Shadows resolve into thralls—avoid or fight.",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_spore_pack_01",
+              "enemyGroupId": "cave_spore_pack",
+              "distance": 2,
+              "direction": "n",
+              "speed": 1,
+              "targetAreaId": "c_echo_caves",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "c_fungal_grove"
+      }
+    ]
+  },
+  {
+    "id": "c_fungal_grove",
+    "title": "Fungal Grove: Breath Held",
+    "x": 6,
+    "y": -1,
+    "floorId": "caves",
+    "tileStyle": "fungal",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, glowing fungi grove, spores in air like dust motes, eerie beauty, cinematic, no text",
+    "description": "Glowing fungi like lanterns that hate you.\n\nSpores drift.\n\nPella’s advice returns: hold your breath.",
+    "choices": [
+      {
+        "id": "fight",
+        "label": "Fight through the thralls.",
+        "effects": [
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_spore_pack_01"
+          }
+        ],
+        "goToAreaId": "c_fragment_shrine"
+      },
+      {
+        "id": "tonic",
+        "label": "Drink fungal tonic (if you have one) to resist spores.",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "fungal_tonic",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "removeItem",
+            "itemId": "fungal_tonic",
+            "qty": 1
+          },
+          {
+            "type": "flag",
+            "key": "spore_resist",
+            "value": true
+          }
+        ],
+        "goToAreaId": "c_fragment_shrine"
+      }
+    ]
+  },
+  {
+    "id": "c_fragment_shrine",
+    "title": "Ward Shrine: Lumen Fragment",
+    "x": 7,
+    "y": -1,
+    "floorId": "underways",
+    "tileStyle": "shrine",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, small shrine with glowing crystal fragment embedded, old ward carvings, cinematic, no text",
+    "description": "A small shrine. Wards carved like handwriting.\n\nA crystal fragment sits in the center—part of a key.\n\nTaking it may wake the shrine’s guardians.",
+    "choices": [
+      {
+        "id": "take_fragment",
+        "label": "Take the Lumen Key Fragment.",
+        "effects": [
+          {
+            "type": "addItem",
+            "itemId": "lumen_key_fragment",
+            "qty": 1
+          },
+          {
+            "type": "addToCounter",
+            "key": "lumen_key_fragments",
+            "amount": 1
+          },
+          {
+            "type": "addXP",
+            "amount": 12
+          }
+        ],
+        "goToAreaId": "c_underfortress_steps"
+      }
+    ]
+  },
+  {
+    "id": "c_underfortress_steps",
+    "title": "Basalt Steps: Under-Fortress Descent",
+    "x": 8,
+    "y": -1,
+    "floorId": "underfortress",
+    "tileStyle": "basalt",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, descending basalt stairs into ancient fortress, cold blue light, cinematic, no text",
+    "description": "Basalt steps descend into a place built for war long before your city existed.\n\nBelow: warders.\n\nBelow: a vault door that remembers being closed.",
+    "choices": [
+      {
+        "id": "warder",
+        "label": "A warder blocks the way—fight.",
+        "effects": [
+          {
+            "type": "startCombat",
+            "enemyGroup": [
+              {
+                "enemyId": "underway_cult_warder",
+                "count": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "c_second_fragment_chamber"
+      }
+    ]
+  },
+  {
+    "id": "c_second_fragment_chamber",
+    "title": "Chamber of Seals: Second Fragment",
+    "x": 9,
+    "y": -1,
+    "floorId": "underfortress",
+    "tileStyle": "seal_room",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, sealed chamber with crystal fragment in ironwork, ward glyphs, cinematic, no text",
+    "description": "The chamber is all seals and silence.\n\nA second key fragment is mounted in ironwork.\n\nA faint hum resonates in your teeth.",
+    "choices": [
+      {
+        "id": "take",
+        "label": "Take the second fragment.",
+        "effects": [
+          {
+            "type": "addItem",
+            "itemId": "lumen_key_fragment",
+            "qty": 1
+          },
+          {
+            "type": "addToCounter",
+            "key": "lumen_key_fragments",
+            "amount": 1
+          },
+          {
+            "type": "addXP",
+            "amount": 12
+          }
+        ],
+        "goToAreaId": "c_shaman_gallery"
+      }
+    ]
+  },
+  {
+    "id": "c_shaman_gallery",
+    "title": "Gallery: The Glass Eye",
+    "x": 10,
+    "y": -1,
+    "floorId": "underfortress",
+    "tileStyle": "gallery",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, fortress gallery with hanging charms and bones, shaman silhouette, crystal glint, cinematic, no text",
+    "description": "Charms sway without wind.\n\nA shaman’s eye glints like glass.\n\n\"You come for the city’s sight,\" it says.\n\n\"Then pay in fear.\"",
+    "choices": [
+      {
+        "id": "boss",
+        "label": "Fight the Shaman of the Glass Eye.",
+        "effects": [
+          {
+            "type": "startCombat",
+            "enemyGroup": [
+              {
+                "enemyId": "glass_eye_shaman",
+                "count": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "c_shaman_loot"
+      }
+    ]
+  },
+  {
+    "id": "c_shaman_loot",
+    "title": "Shaman’s Relics: Third Fragment and Shard",
+    "x": 11,
+    "y": -1,
+    "floorId": "underfortress",
+    "tileStyle": "gallery",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, fallen shaman, crystal shard and key fragment on cloth, eerie blue glow, cinematic, no text",
+    "description": "The shaman’s charms fall silent.\n\nYou take the third fragment.\n\nYou also take a shard of scrying crystal—proof the vault holds the real prize.",
+    "effectsOnEnter": [
+      {
+        "type": "addItem",
+        "itemId": "lumen_key_fragment",
+        "qty": 1
+      },
+      {
+        "type": "addToCounter",
+        "key": "lumen_key_fragments",
+        "amount": 1
+      },
+      {
+        "type": "addItem",
+        "itemId": "crystal_ball_shard",
+        "qty": 1
+      },
+      {
+        "type": "addXP",
+        "amount": 18
+      }
+    ],
+    "choices": [
+      {
+        "id": "to_vault",
+        "label": "Go to the Lumen Vault Door.",
+        "effects": [
+          {
+            "type": "startJob",
+            "jobId": "q_lumen_vault"
+          }
+        ],
+        "goToAreaId": "c_lumen_vault_door"
+      }
+    ]
+  },
+  {
+    "id": "c_lumen_vault_door",
+    "title": "The Lumen Vault Door",
+    "x": 12,
+    "y": -1,
+    "floorId": "underfortress",
+    "tileStyle": "vault_door",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, massive vault door with crystal keyholes, faint ward glow, cinematic, no text",
+    "description": "A door built to outlast kings.\n\nThree key sockets wait.\n\nIf you have the fragments, the door will remember how to open.",
+    "choices": [
+      {
+        "id": "unlock",
+        "label": "Insert the 3 fragments and unlock the vault.",
+        "requirements": [
+          {
+            "type": "counterAtLeast",
+            "key": "lumen_key_fragments",
+            "value": 3
+          }
+        ],
+        "effects": [
+          {
+            "type": "addXP",
+            "amount": 14
+          }
+        ],
+        "goToAreaId": "c_lumen_vault_core"
+      },
+      {
+        "id": "not_ready",
+        "label": "You lack fragments—retreat and search for more.",
+        "goToAreaId": "c_underway_threshold"
+      }
+    ]
+  },
+  {
+    "id": "c_lumen_vault_core",
+    "title": "Lumen Vault: The City’s Sight",
+    "x": 13,
+    "y": -1,
+    "floorId": "underfortress",
+    "tileStyle": "vault",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, glowing crystal vault chamber, crystal ball on pedestal, ward light swirling, cinematic, no text",
+    "description": "The crystal ball sits on a pedestal like a calm moon.\n\nWhen you touch it, you feel the city above—like a heartbeat through stone.\n\nThis will change the war.",
+    "choices": [
+      {
+        "id": "take_ball",
+        "label": "Take the Crystal Ball of Lumen.",
+        "effects": [
+          {
+            "type": "addItem",
+            "itemId": "lumen_vault_crystal_ball",
+            "qty": 1
+          },
+          {
+            "type": "flag",
+            "key": "crystal_ball_recovered",
+            "value": true
+          },
+          {
+            "type": "completeJob",
+            "jobId": "q_lumen_vault"
+          },
+          {
+            "type": "addXP",
+            "amount": 26
+          }
+        ],
+        "goToAreaId": "c_escape_run"
+      }
+    ]
+  },
+  {
+    "id": "c_escape_run",
+    "title": "Escape Run: Upward to War",
+    "x": 14,
+    "y": -1,
+    "floorId": "underways",
+    "tileStyle": "escape",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, running through underways with crystal glow in pack, shadows chasing, cinematic, no text",
+    "description": "The underways feel narrower on the way back.\n\nAs if the fortress resents you.\n\nAbove, the city will need this sight before the next assault.",
+    "choices": [
+      {
+        "id": "return_mage",
+        "label": "Return to the Mage Tower with the crystal ball.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "crystal_ball_delivered_ready",
+            "value": true
+          }
+        ],
+        "goToAreaId": "f_mage_tower_brief"
+      }
+    ]
+  }
+]

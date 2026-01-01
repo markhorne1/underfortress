@@ -1,0 +1,232 @@
+[
+  {
+    "id": "npc_captain_harl",
+    "name": "Captain Harl",
+    "portraitPrompt": "fantasy character portrait, battle-worn guard captain in lamellar armor, torchlit gatehouse, rain droplets, painterly, no text"
+  },
+  {
+    "id": "npc_councilor_vayne",
+    "name": "Councilor Vayne",
+    "portraitPrompt": "fantasy character portrait, stern councilor with wax seals and maps, crystal glow, painterly, no text"
+  },
+  {
+    "id": "npc_archivist_salenne",
+    "name": "Archivist Salenne",
+    "portraitPrompt": "fantasy character portrait, mage archivist with crystal ball light, chalk runes, painterly, no text"
+  },
+  {
+    "id": "npc_guildmaster_orrow",
+    "name": "Guildmaster Orrow",
+    "portraitPrompt": "fantasy character portrait, stern guildmaster smith with leather apron, glowing forge behind, guild seals on wall, painterly, no text"
+  },
+  {
+    "id": "npc_scribe_prefect_luvara",
+    "name": "Prefect Luvara",
+    "portraitPrompt": "fantasy character portrait, scribe prefect in tall hat, ink-stained fingers, scroll racks, candle glow, painterly, no text"
+  },
+  {
+    "id": "npc_councilor_vayne_epilogue",
+    "name": "Councilor Vayne",
+    "portraitPrompt": "fantasy character portrait, councilor in dawn light, city skyline smoking behind window, painterly, no text"
+  },
+  {
+    "id": "npc_captain_harl_epilogue",
+    "name": "Captain Harl",
+    "portraitPrompt": "fantasy character portrait, guard captain exhausted, soot on cheek, helmet under arm, painterly, no text"
+  },
+  {
+    "id": "npc_quartermaster_brevin",
+    "name": "Quartermaster Brevin",
+    "portraitPrompt": "fantasy character portrait, tired quartermaster with ink-stained hands, stacks of crates, lantern light, painterly, no text"
+  },
+  {
+    "id": "npc_mage_tower_scribe_orrin",
+    "name": "Scribe Orrin",
+    "portraitPrompt": "fantasy character portrait, young scribe with spectacles and quills, rune-lit desk, scroll racks, painterly, no text"
+  },
+  {
+    "id": "npc_council_clerk_elm",
+    "name": "Clerk Elm",
+    "portraitPrompt": "fantasy character portrait, city clerk in plain robes, sharp eyes, wax seals and ledgers, painterly, no text"
+  },
+  {
+    "id": "npc_smith_harrow",
+    "name": "Harrow the Smith",
+    "portraitPrompt": "fantasy character portrait, blacksmith with soot and sparks, heavy apron, stern eyes, painterly, no text"
+  },
+  {
+    "id": "npc_apothecary_moss",
+    "name": "Moss the Apothecary",
+    "portraitPrompt": "fantasy character portrait, apothecary with herb-stained hands, shelves of bottles, watchful gaze, painterly, no text"
+  },
+  {
+    "id": "npc_fletcher_ren",
+    "name": "Ren the Fletcher",
+    "portraitPrompt": "fantasy character portrait, fletcher artisan with feathers and wax, calm focus, painterly, no text"
+  },
+  {
+    "id": "npc_ratcatcher_pella",
+    "name": "Pella",
+    "portraitPrompt": "fantasy character portrait, streetwise ratcatcher with lantern and hooked pole, sewer backdrop, sharp grin, painterly, no text"
+  },
+  {
+    "id": "npc_mage_archivist_salenne",
+    "name": "Archivist Salenne",
+    "portraitPrompt": "fantasy character portrait, mage archivist with ink and chalk on fingers, scrolls and lanterns, tired sharp eyes, painterly, no text"
+  },
+  {
+    "id": "npc_warcouncil_vayne_final",
+    "name": "Councilor Vayne",
+    "portraitPrompt": "fantasy character portrait, councilor with battle map, ink stains, hard eyes, painterly, no text"
+  },
+  {
+    "id": "npc_serjeant_mara_final",
+    "name": "Serjeant Mara",
+    "portraitPrompt": "fantasy character portrait, serjeant in rain and soot, spear tip nicked, painterly, no text"
+  },
+  {
+    "id": "npc_kess_final",
+    "name": "Lieutenant Kess",
+    "portraitPrompt": "fantasy character portrait, scout lieutenant grim, snowfall, torchlight on armor, painterly, no text"
+  },
+  {
+    "id": "npc_guard_serjeant_mara",
+    "name": "Serjeant Mara",
+    "portraitPrompt": "fantasy character portrait, city guard serjeant with spear and lantern, narrow alley, determined face, painterly, no text"
+  },
+  {
+    "id": "npc_gatewarden_holt",
+    "name": "Gatewarden Holt",
+    "portraitPrompt": "fantasy character portrait, weathered gatewarden with keys and iron gauntlet, torchlight, grim but steady, painterly, no text"
+  },
+  {
+    "id": "npc_dock_factor_merris",
+    "name": "Factor Merris",
+    "portraitPrompt": "fantasy character portrait, well-dressed dock factor with ledger, polite smile, cold eyes, rainy dock lanterns, painterly, no text"
+  },
+  {
+    "id": "npc_captain_roth",
+    "name": "Captain Roth",
+    "portraitPrompt": "fantasy character portrait, battle-worn city captain with rain cloak and scar, tense jaw, banners behind, painterly, no text"
+  },
+  {
+    "id": "npc_kess_mountain",
+    "name": "Lieutenant Kess",
+    "portraitPrompt": "fantasy character portrait, scout lieutenant on mountain ridge, cloak snapping in wind, distant fortress silhouette, painterly, no text"
+  },
+  {
+    "id": "npc_porter_jan",
+    "name": "Jan the Porter",
+    "portraitPrompt": "fantasy character portrait, frightened porter with bundle of keys on belt, fortress kitchens behind, painterly, no text"
+  },
+  {
+    "id": "npc_captive_farmer_rill",
+    "name": "Rill Dane",
+    "portraitPrompt": "fantasy character portrait, exhausted farmer in torn shirt with rope burns, dirt-streaked face, defiant eyes, torchlit cage, painterly, no text"
+  },
+  {
+    "id": "npc_scout_kess_pursuit",
+    "name": "Lieutenant Kess",
+    "portraitPrompt": "fantasy character portrait, scout lieutenant in wind, hills behind, tired eyes, painterly, no text"
+  },
+  {
+    "id": "npc_farmer_marta",
+    "name": "Marta of the Ridge Farms",
+    "portraitPrompt": "fantasy character portrait, farm woman in cloak, windblown hair, bruised but resolute, painterly, no text"
+  },
+  {
+    "id": "npc_princess_seren",
+    "name": "Lady Seren Arclight",
+    "portraitPrompt": "fantasy character portrait, young noblewoman with dirt-streaked face, hair pinned back, chain marks on wrists, determined eyes, torchlit cavern, painterly, no text"
+  },
+  {
+    "id": "npc_defector_runner_mip",
+    "name": "Mip",
+    "portraitPrompt": "fantasy character portrait, small goblin with torn hood, wide fearful eyes, holding a cracked token, cavern shadows, painterly, no text"
+  },
+  {
+    "id": "npc_master_of_stores_rell",
+    "name": "Master of Stores Rell",
+    "portraitPrompt": "fantasy character portrait, quartermaster in ledger room, keys at belt, wary expression, lantern light, painterly, no text"
+  },
+  {
+    "id": "npc_lieut_kess",
+    "name": "Lieutenant Kess",
+    "portraitPrompt": "fantasy character portrait, scout lieutenant in mud-stained cloak, campfires behind, tense whisper, painterly, no text"
+  },
+  {
+    "id": "npc_scout_kess",
+    "name": "Lieutenant Kess",
+    "portraitPrompt": "fantasy character portrait, scout lieutenant muddy cloak, eyes reflecting campfire, tense, painterly, no text"
+  },
+  {
+    "id": "npc_cage_prisoner_elin",
+    "name": "Elin of the Far Farms",
+    "portraitPrompt": "fantasy character portrait, exhausted carpenter prisoner behind bars, splinters in hands, determined eyes, painterly, no text"
+  },
+  {
+    "id": "npc_vip_prisoner_liora",
+    "name": "Liora Vale",
+    "portraitPrompt": "fantasy character portrait, noble courier woman with torn cloak, stubborn gaze, bruised but unbroken, torchlit dungeon, painterly, no text"
+  },
+  {
+    "id": "npc_prisoner_old_scribe",
+    "name": "Old Scribe",
+    "portraitPrompt": "fantasy character portrait, elderly scribe in rags, ink-stained fingers, haunted eyes, dungeon bars, painterly, no text"
+  },
+  {
+    "id": "npc_captive_mage_apprentice",
+    "name": "Tess of the Tower",
+    "portraitPrompt": "fantasy character portrait, young mage apprentice in torn robe, glowing runes on wrists, determined eyes, reliquary cell, painterly, no text"
+  },
+  {
+    "id": "npc_ward_adept_defector",
+    "name": "Adept Sorn",
+    "portraitPrompt": "fantasy character portrait, nervous ward adept with inked fingers, cracked ward charm, guilty eyes, torchlight, painterly, no text"
+  },
+  {
+    "id": "npc_bound_oracle",
+    "name": "The Bound Oracle",
+    "portraitPrompt": "fantasy character portrait, chained oracle figure fused with crystal and stone, pale glow, sorrowful eyes, runes on chains, painterly, no text"
+  },
+  {
+    "id": "npc_councilor_vayne_finale",
+    "name": "Councilor Vayne",
+    "portraitPrompt": "fantasy character portrait, tired councilor with sharp eyes, candlelit war room, maps and seals, painterly, no text"
+  },
+  {
+    "id": "npc_councilor_mirelda",
+    "name": "Councilor Mirelda",
+    "portraitPrompt": "fantasy character portrait, stern councilor woman in civic robes, city watch banners, painterly, no text"
+  },
+  {
+    "id": "npc_master_warden_sell",
+    "name": "Master Warden Sell",
+    "portraitPrompt": "fantasy character portrait, thin master warden with iron chain insignia, shadowed archive behind, painterly, no text"
+  },
+  {
+    "id": "npc_guildmaster_orrow_finale",
+    "name": "Guildmaster Orrow",
+    "portraitPrompt": "fantasy character portrait, guildmaster at forge holding gleaming blade fitting, sparks, painterly, no text"
+  },
+  {
+    "id": "npc_medic_sister_elin",
+    "name": "Sister Elin",
+    "portraitPrompt": "fantasy character portrait, weary healer in simple robes with bloodstained sleeves, infirmary lanterns, compassionate eyes, painterly, no text"
+  },
+  {
+    "id": "npc_inquisitor_dran",
+    "name": "Inquisitor Dran",
+    "portraitPrompt": "fantasy character portrait, hooded inquisitor with ink-stained gloves, small cell doorway, cold lantern light, painterly, no text"
+  },
+  {
+    "id": "npc_scout_lieut_kess",
+    "name": "Lieutenant Kess",
+    "portraitPrompt": "fantasy character portrait, city scout lieutenant in hooded cloak, rain beading on leather, watchfort silhouette behind, painterly, no text"
+  },
+  {
+    "id": "npc_prisoner_sergeant_bram",
+    "name": "Sergeant Bram",
+    "portraitPrompt": "fantasy character portrait, bruised sergeant in torn tabard behind iron bars, stubborn eyes, torchlit pen, painterly, no text"
+  }
+]

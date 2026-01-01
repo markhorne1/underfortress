@@ -1,0 +1,42 @@
+[
+  {
+    "id": "lumen_key_fragment",
+    "name": "Lumen Key Fragment",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A shard of carved crystal key. Three fragments will unlock the Lumen Vault."
+  },
+  {
+    "id": "crystal_ball_shard",
+    "name": "Crystal Ball Shard",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A shard of scrying crystal. Warm to the touch when near old wardwork."
+  },
+  {
+    "id": "ward_salt_pouch",
+    "name": "Ward Salt Pouch",
+    "type": "tool",
+    "stackable": true,
+    "value": 6,
+    "description": "Salt mixed with ash and silver filings. Reveals faint ward-lines and weak glamours."
+  },
+  {
+    "id": "fungal_tonic",
+    "name": "Fungal Tonic",
+    "type": "consumable",
+    "stackable": true,
+    "value": 8,
+    "description": "Bitter tonic brewed from cave fungi. Helps resist spores and reduces fatigue for a short time."
+  },
+  {
+    "id": "lumen_vault_crystal_ball",
+    "name": "The Crystal Ball of Lumen",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A flawless sphere of scrying crystal. With it, the city can see enemy movements before they strike."
+  }
+]

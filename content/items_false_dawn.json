@@ -1,0 +1,34 @@
+[
+  {
+    "id": "counter_signal_slip",
+    "name": "Counter-Signal Slip",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A copied sequence of horn and lantern codes. Lets you fake orders briefly during a siege."
+  },
+  {
+    "id": "dawn_lantern_shutter",
+    "name": "Lantern Shutter",
+    "type": "tool",
+    "stackable": false,
+    "value": 8,
+    "description": "A metal shutter that changes lantern patterns quickly. Used in signal towers."
+  },
+  {
+    "id": "sapper_fuse_bundle",
+    "name": "Sapper Fuse Bundle",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "Short fuses and crude blasting caps. Proof of an upcoming wall-breach attempt."
+  },
+  {
+    "id": "barricade_spike_crate",
+    "name": "Barricade Spike Crate",
+    "type": "tool",
+    "stackable": false,
+    "value": 10,
+    "description": "A crate of spikes for street barricades. Improves city defense if installed before the next push."
+  }
+]

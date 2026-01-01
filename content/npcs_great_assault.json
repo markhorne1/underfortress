@@ -1,0 +1,49 @@
+[
+  {
+    "id": "npc_guard_serjeant_mara",
+    "name": "Serjeant Mara",
+    "role": "Wall Serjeant (Hands-On Defense)",
+    "portraitPrompt": "fantasy character portrait, gritty serjeant with scarred face and spear, battlements behind, rain and smoke, painterly, no text",
+    "dialogue": {
+      "greeting": "Pick a front. If you try to fight everywhere, you die everywhere.",
+      "nodes": [
+        {
+          "id": "fronts",
+          "text": "Three threats:\n\n- Siege tower at the main wall.\n- Ram at the gate.\n- Drains surge (if the mouth still lives).\n\nTell me where you go first.",
+          "choices": [
+            {
+              "label": "Main wall (siege tower).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "ga_choice",
+                  "value": "wall"
+                }
+              ]
+            },
+            {
+              "label": "Gate (ram).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "ga_choice",
+                  "value": "gate"
+                }
+              ]
+            },
+            {
+              "label": "Drains (inner knife).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "ga_choice",
+                  "value": "drains"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

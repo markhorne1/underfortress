@@ -1,0 +1,148 @@
+[
+  {
+    "id": "goblin_oiler",
+    "name": "Goblin Oiler",
+    "kind": "humanoid",
+    "skill": 8,
+    "stamina": 8,
+    "meta": {
+      "special": "slick_throw"
+    },
+    "loot": [
+      {
+        "itemId": "oily_rag_bundle",
+        "min": 0,
+        "max": 1
+      }
+    ],
+    "tags": [
+      "camp",
+      "engine",
+      "utility"
+    ]
+  },
+  {
+    "id": "orc_engine_guard",
+    "name": "Orc Engine Guard",
+    "kind": "humanoid",
+    "skill": 12,
+    "stamina": 18,
+    "meta": {
+      "special": "brace_and_shove"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 2,
+        "max": 14
+      }
+    ],
+    "tags": [
+      "orc",
+      "engine",
+      "elite"
+    ]
+  },
+  {
+    "id": "hobgoblin_foreman",
+    "name": "Hobgoblin Foreman",
+    "kind": "humanoid",
+    "skill": 12,
+    "stamina": 16,
+    "meta": {
+      "special": "whistle_alarm"
+    },
+    "loot": [
+      {
+        "itemId": "engine_yard_key",
+        "min": 1,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 4,
+        "max": 18
+      }
+    ],
+    "tags": [
+      "boss",
+      "engine",
+      "foreman"
+    ]
+  },
+  {
+    "id": "pitch_pit_torchman",
+    "name": "Pitch Pit Torchman",
+    "kind": "humanoid",
+    "skill": 10,
+    "stamina": 12,
+    "meta": {
+      "special": "ignite_pitch"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 1,
+        "max": 10
+      }
+    ],
+    "tags": [
+      "engine",
+      "pitch"
+    ]
+  },
+  {
+    "id": "engine_yard_patrol",
+    "name": "Engine Yard Patrol",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "orc_engine_guard",
+        "count": 1
+      },
+      {
+        "enemyId": "goblin_oiler",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 10
+      }
+    },
+    "tags": [
+      "group",
+      "engine",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "pitch_pit_team",
+    "name": "Pitch Pit Team",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "pitch_pit_torchman",
+        "count": 1
+      },
+      {
+        "enemyId": "goblin_oiler",
+        "count": 2
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 9
+      }
+    },
+    "tags": [
+      "group",
+      "engine",
+      "pitch"
+    ]
+  }
+]

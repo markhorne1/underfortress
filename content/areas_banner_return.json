@@ -1,0 +1,225 @@
+[
+  {
+    "id": "br_postern_arrival",
+    "title": "Postern Gate: Banner Under Cloak",
+    "x": 0,
+    "y": -1,
+    "floorId": "city",
+    "tileStyle": "postern",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, returning through postern gate with bundled banner, lantern code flash, rain, cinematic, no text",
+    "description": "The banner is heavier than cloth should be.\n\nThe guards stare as if you carried a piece of tomorrow.\n\nCaptain Harl arrives, breathless.",
+    "choices": [
+      {
+        "id": "start_return",
+        "label": "Report the banner return.",
+        "effects": [
+          {
+            "type": "startJob",
+            "jobId": "q_banner_return"
+          },
+          {
+            "type": "flag",
+            "key": "banner_return_complete",
+            "value": true
+          },
+          {
+            "type": "completeJob",
+            "jobId": "q_banner_return"
+          },
+          {
+            "type": "flag",
+            "key": "banner_in_city",
+            "value": true
+          }
+        ],
+        "goToAreaId": "br_barracks_react"
+      }
+    ]
+  },
+  {
+    "id": "br_barracks_react",
+    "title": "Barracks: The City Hears a Rumour",
+    "x": 1,
+    "y": -1,
+    "floorId": "city",
+    "tileStyle": "barracks",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, barracks with soldiers whispering, bundled banner on table, captain gesturing, cinematic, no text",
+    "description": "Word spreads faster than arrows.\n\nSome beg you to show it.\n\nSome beg you to hide it.\n\nHarl watches your face for the decision.",
+    "actionsAvailable": {
+      "talk": {
+        "text": "Harl is blunt: the people are brittle right now.",
+        "choices": [
+          {
+            "id": "harl",
+            "label": "Talk to Captain Harl.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_captain_harl"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "to_council",
+        "label": "Bring the matter to the council immediately.",
+        "goToAreaId": "br_council_banner"
+      }
+    ]
+  },
+  {
+    "id": "br_council_banner",
+    "title": "Council Chamber: Banner Policy",
+    "x": 1,
+    "y": 0,
+    "floorId": "city",
+    "tileStyle": "council",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, council chamber with black banner bundle on map table, officials arguing, cinematic, no text",
+    "description": "Vayne’s eyes flick to the banner.\n\n\"Symbols are weapons,\" she says.\n\n\"Decide how we wield this one.\"",
+    "choices": [
+      {
+        "id": "set_policy",
+        "label": "Set banner policy now.",
+        "effects": [
+          {
+            "type": "startJob",
+            "jobId": "q_banner_choice"
+          },
+          {
+            "type": "flag",
+            "key": "banner_policy_set",
+            "value": true
+          },
+          {
+            "type": "completeJob",
+            "jobId": "q_banner_choice"
+          },
+          {
+            "type": "conditional",
+            "when": [
+              {
+                "key": "banner_revealed_publicly",
+                "op": "==",
+                "value": true
+              }
+            ],
+            "then": [
+              {
+                "type": "flag",
+                "key": "city_morale_boosted",
+                "value": true
+              },
+              {
+                "type": "flag",
+                "key": "enemy_adapts_to_missing_banner",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 10
+              }
+            ],
+            "else": []
+          },
+          {
+            "type": "conditional",
+            "when": [
+              {
+                "key": "banner_kept_secret",
+                "op": "==",
+                "value": true
+              }
+            ],
+            "then": [
+              {
+                "type": "flag",
+                "key": "city_morale_boosted",
+                "value": false
+              },
+              {
+                "type": "flag",
+                "key": "enemy_adapts_to_missing_banner",
+                "value": false
+              },
+              {
+                "type": "addXP",
+                "amount": 8
+              }
+            ],
+            "else": []
+          }
+        ],
+        "goToAreaId": "br_mage_warning"
+      }
+    ],
+    "actionsAvailable": {
+      "talk": {
+        "text": "Vayne will issue emergency authority either way.",
+        "choices": [
+          {
+            "id": "vayne",
+            "label": "Talk to Councilor Vayne.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_councilor_vayne"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "br_mage_warning",
+    "title": "Mage Tower: The Great Assault Foretold",
+    "x": 2,
+    "y": 0,
+    "floorId": "city",
+    "tileStyle": "tower",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, mage tower chamber, crystal ball showing siege tower and ram, anxious scribes, cinematic, no text",
+    "description": "Salenne turns the crystal ball.\n\nImages rotate: a siege tower, a ram, water churning under streets.\n\n\"Within the day,\" she says. \"Their biggest push.\"",
+    "actionsAvailable": {
+      "talk": {
+        "text": "Salenne offers you one clear advantage: foreknowledge.",
+        "choices": [
+          {
+            "id": "salenne",
+            "label": "Talk to Archivist Salenne.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_archivist_salenne"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "to_assault",
+        "label": "Go to the battlements: the Great Assault begins.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "great_assault_unlocked",
+            "value": true
+          }
+        ],
+        "goToAreaId": "ga_battlements_start"
+      }
+    ]
+  }
+]

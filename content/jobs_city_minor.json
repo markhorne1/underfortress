@@ -1,0 +1,62 @@
+[
+  {
+    "id": "job_smith_nails",
+    "name": "Blacksmith Shift: Sort Nails for Barricades",
+    "giverNpcId": "npc_smith_harrow",
+    "startAreaId": "c_blacksmith",
+    "objective": {
+      "type": "simpleTask"
+    },
+    "rewards": {
+      "gold": 4,
+      "xp": 10,
+      "items": [
+        {
+          "itemId": "council_sigil_bronze",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 35
+  },
+  {
+    "id": "job_apoth_sort",
+    "name": "Apothecary Shift: Sort Infirmary Herbs",
+    "giverNpcId": "npc_apothecary_moss",
+    "startAreaId": "c_apothecary",
+    "objective": {
+      "type": "simpleTask"
+    },
+    "rewards": {
+      "gold": 3,
+      "xp": 12,
+      "items": [
+        {
+          "itemId": "ration_pack",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 40
+  },
+  {
+    "id": "job_fletcher_string",
+    "name": "Fletcher Shift: Wax and Twist Bowstrings",
+    "giverNpcId": "npc_fletcher_ren",
+    "startAreaId": "c_fletcher",
+    "objective": {
+      "type": "simpleTask"
+    },
+    "rewards": {
+      "gold": 3,
+      "xp": 10,
+      "items": [
+        {
+          "itemId": "arrow_bundle",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 35
+  }
+]

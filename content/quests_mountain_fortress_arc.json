@@ -1,0 +1,29 @@
+[
+  {
+    "id": "q_mountain_fortress_arc",
+    "name": "Mountain Fortress: Cut Off the Retreat",
+    "giverNpcId": "npc_kess_mountain",
+    "startAreaId": "mf_ridge_overlook",
+    "objective": {
+      "type": "setFlag",
+      "key": "mountain_fortress_arc_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 26,
+      "xp": 110,
+      "items": [
+        {
+          "itemId": "climbing_spikes_set",
+          "qty": 1
+        },
+        {
+          "itemId": "ward_nails_bundle",
+          "qty": 2
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  }
+]

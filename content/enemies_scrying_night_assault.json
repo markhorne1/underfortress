@@ -1,0 +1,163 @@
+[
+  {
+    "id": "goblin_fireteam",
+    "name": "Goblin Fireteam",
+    "kind": "humanoid",
+    "skill": 9,
+    "stamina": 10,
+    "meta": {
+      "special": "ignite_bundle"
+    },
+    "loot": [
+      {
+        "itemId": "arsonist_tinder_pouch",
+        "min": 1,
+        "max": 2
+      }
+    ],
+    "tags": [
+      "goblin",
+      "arson",
+      "night"
+    ]
+  },
+  {
+    "id": "orc_postern_breaker",
+    "name": "Orc Postern Breaker",
+    "kind": "humanoid",
+    "skill": 11,
+    "stamina": 16,
+    "meta": {
+      "special": "door_breach"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 2,
+        "max": 14
+      }
+    ],
+    "tags": [
+      "orc",
+      "breach",
+      "night"
+    ]
+  },
+  {
+    "id": "drains_knifer_veteran",
+    "name": "Veteran Drains Knifer",
+    "kind": "humanoid",
+    "skill": 10,
+    "stamina": 11,
+    "meta": {
+      "special": "backstab"
+    },
+    "loot": [
+      {
+        "itemId": "infiltrator_token_black",
+        "min": 1,
+        "max": 1
+      }
+    ],
+    "tags": [
+      "infiltrator",
+      "drains",
+      "night"
+    ]
+  },
+  {
+    "id": "traitor_bodyguard",
+    "name": "Traitor’s Bodyguard",
+    "kind": "humanoid",
+    "skill": 11,
+    "stamina": 14,
+    "meta": {
+      "special": "shield_intercept"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 3,
+        "max": 12
+      }
+    ],
+    "tags": [
+      "city",
+      "traitor",
+      "elite"
+    ]
+  },
+  {
+    "id": "night_assault_granary",
+    "name": "Night Assault: Granary Fire",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "goblin_fireteam",
+        "count": 2
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 9
+      }
+    },
+    "tags": [
+      "group",
+      "night",
+      "arson"
+    ]
+  },
+  {
+    "id": "night_assault_postern",
+    "name": "Night Assault: Postern Breach",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "orc_postern_breaker",
+        "count": 1
+      },
+      {
+        "enemyId": "goblin_fireteam",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 10
+      }
+    },
+    "tags": [
+      "group",
+      "night",
+      "breach"
+    ]
+  },
+  {
+    "id": "night_assault_drains",
+    "name": "Night Assault: Drains Knifers",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "drains_knifer_veteran",
+        "count": 2
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 8
+      }
+    },
+    "tags": [
+      "group",
+      "night",
+      "drains"
+    ]
+  }
+]

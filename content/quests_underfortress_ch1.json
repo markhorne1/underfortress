@@ -1,0 +1,76 @@
+[
+  {
+    "id": "q_underfortress_ch1_main",
+    "name": "Under-Fortress: Cut the Supply Vein",
+    "giverNpcId": "npc_councilor_vayne",
+    "startAreaId": "i_underfortress_entry",
+    "objective": {
+      "type": "setFlag",
+      "key": "underfortress_ch1_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 40,
+      "items": [
+        {
+          "itemId": "council_sigil_silver",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_rescue_vip",
+    "name": "Rescue the VIP Captive",
+    "giverNpcId": "npc_vip_prisoner_liora",
+    "startAreaId": "u_prison_cells",
+    "objective": {
+      "type": "setFlag",
+      "key": "vip_rescued",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 35,
+      "items": [
+        {
+          "itemId": "vip_signet_half",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_crystal_ball_rumor",
+    "name": "Trace the ‘Sight Orb’ Orders",
+    "giverNpcId": "npc_vip_prisoner_liora",
+    "startAreaId": "u_prison_cells",
+    "objective": {
+      "type": "deliverItems",
+      "items": [
+        {
+          "itemId": "crystal_ball_clue_page",
+          "qty": 1
+        }
+      ],
+      "toAreaId": "i_underfortress_entry"
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 22,
+      "items": [
+        {
+          "itemId": "ward_core_splinter",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  }
+]

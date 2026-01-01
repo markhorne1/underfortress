@@ -1,0 +1,1030 @@
+[
+  {
+    "id": "c_autowire_hub",
+    "title": "Campaign Wiring Hub",
+    "text": "Developer hub: start/complete quests for wiring and testing.",
+    "imagePrompt": "A small wooden table with maps, tokens, and a ledger of quest hooks.",
+    "choices": [
+      {
+        "id": "start_q_banner_return",
+        "text": "Start q_banner_return",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_banner_return"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_banner_return",
+        "text": "Complete q_banner_return",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_banner_return"
+          }
+        ]
+      },
+      {
+        "id": "start_q_banner_choice",
+        "text": "Start q_banner_choice",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_banner_choice"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_banner_choice",
+        "text": "Complete q_banner_choice",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_banner_choice"
+          }
+        ]
+      },
+      {
+        "id": "start_q_city_epilogue",
+        "text": "Start q_city_epilogue",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_city_epilogue"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_city_epilogue",
+        "text": "Complete q_city_epilogue",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_city_epilogue"
+          }
+        ]
+      },
+      {
+        "id": "start_q_pursuit_orders",
+        "text": "Start q_pursuit_orders",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_pursuit_orders"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_pursuit_orders",
+        "text": "Complete q_pursuit_orders",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_pursuit_orders"
+          }
+        ]
+      },
+      {
+        "id": "start_q_city_victory_report",
+        "text": "Start q_city_victory_report",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_city_victory_report"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_city_victory_report",
+        "text": "Complete q_city_victory_report",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_city_victory_report"
+          }
+        ]
+      },
+      {
+        "id": "start_q_city_battlement_runs",
+        "text": "Start q_city_battlement_runs",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_city_battlement_runs"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_city_battlement_runs",
+        "text": "Complete q_city_battlement_runs",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_city_battlement_runs"
+          }
+        ]
+      },
+      {
+        "id": "start_q_city_scroll_delivery",
+        "text": "Start q_city_scroll_delivery",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_city_scroll_delivery"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_city_scroll_delivery",
+        "text": "Complete q_city_scroll_delivery",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_city_scroll_delivery"
+          }
+        ]
+      },
+      {
+        "id": "start_q_city_armoury_sewing",
+        "text": "Start q_city_armoury_sewing",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_city_armoury_sewing"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_city_armoury_sewing",
+        "text": "Complete q_city_armoury_sewing",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_city_armoury_sewing"
+          }
+        ]
+      },
+      {
+        "id": "start_q_city_work_for_gear_trade",
+        "text": "Start q_city_work_for_gear_trade",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_city_work_for_gear_trade"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_city_work_for_gear_trade",
+        "text": "Complete q_city_work_for_gear_trade",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_city_work_for_gear_trade"
+          }
+        ]
+      },
+      {
+        "id": "start_q_overland_orders",
+        "text": "Start q_overland_orders",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_overland_orders"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_overland_orders",
+        "text": "Complete q_overland_orders",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_overland_orders"
+          }
+        ]
+      },
+      {
+        "id": "start_q_crystal_descent",
+        "text": "Start q_crystal_descent",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_crystal_descent"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_crystal_descent",
+        "text": "Complete q_crystal_descent",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_crystal_descent"
+          }
+        ]
+      },
+      {
+        "id": "start_q_lumen_key",
+        "text": "Start q_lumen_key",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_lumen_key"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_lumen_key",
+        "text": "Complete q_lumen_key",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_lumen_key"
+          }
+        ]
+      },
+      {
+        "id": "start_q_lumen_vault",
+        "text": "Start q_lumen_vault",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_lumen_vault"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_lumen_vault",
+        "text": "Complete q_lumen_vault",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_lumen_vault"
+          }
+        ]
+      },
+      {
+        "id": "start_q_watchfort_return_debrief",
+        "text": "Start q_watchfort_return_debrief",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_watchfort_return_debrief"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_watchfort_return_debrief",
+        "text": "Complete q_watchfort_return_debrief",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_watchfort_return_debrief"
+          }
+        ]
+      },
+      {
+        "id": "start_q_false_dawn",
+        "text": "Start q_false_dawn",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_false_dawn"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_false_dawn",
+        "text": "Complete q_false_dawn",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_false_dawn"
+          }
+        ]
+      },
+      {
+        "id": "start_q_false_dawn_drains",
+        "text": "Start q_false_dawn_drains",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_false_dawn_drains"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_false_dawn_drains",
+        "text": "Complete q_false_dawn_drains",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_false_dawn_drains"
+          }
+        ]
+      },
+      {
+        "id": "start_q_crystal_arc_start",
+        "text": "Start q_crystal_arc_start",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_crystal_arc_start"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_crystal_arc_start",
+        "text": "Complete q_crystal_arc_start",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_crystal_arc_start"
+          }
+        ]
+      },
+      {
+        "id": "start_q_final_battle",
+        "text": "Start q_final_battle",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_final_battle"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_final_battle",
+        "text": "Complete q_final_battle",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_final_battle"
+          }
+        ]
+      },
+      {
+        "id": "start_q_final_warlord_hunt",
+        "text": "Start q_final_warlord_hunt",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_final_warlord_hunt"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_final_warlord_hunt",
+        "text": "Complete q_final_warlord_hunt",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_final_warlord_hunt"
+          }
+        ]
+      },
+      {
+        "id": "start_q_gate_battle_main",
+        "text": "Start q_gate_battle_main",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_gate_battle_main"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_gate_battle_main",
+        "text": "Complete q_gate_battle_main",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_gate_battle_main"
+          }
+        ]
+      },
+      {
+        "id": "start_q_chase_arsonists",
+        "text": "Start q_chase_arsonists",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_chase_arsonists"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_chase_arsonists",
+        "text": "Complete q_chase_arsonists",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_chase_arsonists"
+          }
+        ]
+      },
+      {
+        "id": "start_q_chase_casualties",
+        "text": "Start q_chase_casualties",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_chase_casualties"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_chase_casualties",
+        "text": "Complete q_chase_casualties",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_chase_casualties"
+          }
+        ]
+      },
+      {
+        "id": "start_q_drains_breach",
+        "text": "Start q_drains_breach",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_drains_breach"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_drains_breach",
+        "text": "Complete q_drains_breach",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_drains_breach"
+          }
+        ]
+      },
+      {
+        "id": "start_q_great_assault",
+        "text": "Start q_great_assault",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_great_assault"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_great_assault",
+        "text": "Complete q_great_assault",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_great_assault"
+          }
+        ]
+      },
+      {
+        "id": "start_q_mountain_fortress_arc",
+        "text": "Start q_mountain_fortress_arc",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_mountain_fortress_arc"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_mountain_fortress_arc",
+        "text": "Complete q_mountain_fortress_arc",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_mountain_fortress_arc"
+          }
+        ]
+      },
+      {
+        "id": "start_q_overland_act2_field_camp",
+        "text": "Start q_overland_act2_field_camp",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_overland_act2_field_camp"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_overland_act2_field_camp",
+        "text": "Complete q_overland_act2_field_camp",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_overland_act2_field_camp"
+          }
+        ]
+      },
+      {
+        "id": "start_q_free_farmers",
+        "text": "Start q_free_farmers",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_free_farmers"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_free_farmers",
+        "text": "Complete q_free_farmers",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_free_farmers"
+          }
+        ]
+      },
+      {
+        "id": "start_q_siege_lines_recon",
+        "text": "Start q_siege_lines_recon",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_siege_lines_recon"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_siege_lines_recon",
+        "text": "Complete q_siege_lines_recon",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_siege_lines_recon"
+          }
+        ]
+      },
+      {
+        "id": "start_q_pursuit_arc",
+        "text": "Start q_pursuit_arc",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_pursuit_arc"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_pursuit_arc",
+        "text": "Complete q_pursuit_arc",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_pursuit_arc"
+          }
+        ]
+      },
+      {
+        "id": "start_q_redknife_hold_main",
+        "text": "Start q_redknife_hold_main",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_redknife_hold_main"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_redknife_hold_main",
+        "text": "Complete q_redknife_hold_main",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_redknife_hold_main"
+          }
+        ]
+      },
+      {
+        "id": "start_q_rescue_princess",
+        "text": "Start q_rescue_princess",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_rescue_princess"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_rescue_princess",
+        "text": "Complete q_rescue_princess",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_rescue_princess"
+          }
+        ]
+      },
+      {
+        "id": "start_q_collapse_second_mouth",
+        "text": "Start q_collapse_second_mouth",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_collapse_second_mouth"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_collapse_second_mouth",
+        "text": "Complete q_collapse_second_mouth",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_collapse_second_mouth"
+          }
+        ]
+      },
+      {
+        "id": "start_q_crystal_delivery_scry",
+        "text": "Start q_crystal_delivery_scry",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_crystal_delivery_scry"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_crystal_delivery_scry",
+        "text": "Complete q_crystal_delivery_scry",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_crystal_delivery_scry"
+          }
+        ]
+      },
+      {
+        "id": "start_q_night_assault",
+        "text": "Start q_night_assault",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_night_assault"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_night_assault",
+        "text": "Complete q_night_assault",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_night_assault"
+          }
+        ]
+      },
+      {
+        "id": "start_q_traitor_hunt",
+        "text": "Start q_traitor_hunt",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_traitor_hunt"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_traitor_hunt",
+        "text": "Complete q_traitor_hunt",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_traitor_hunt"
+          }
+        ]
+      },
+      {
+        "id": "start_q_siege_camp_raid",
+        "text": "Start q_siege_camp_raid",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_siege_camp_raid"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_siege_camp_raid",
+        "text": "Complete q_siege_camp_raid",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_siege_camp_raid"
+          }
+        ]
+      },
+      {
+        "id": "start_q_siege_engines_arc",
+        "text": "Start q_siege_engines_arc",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_siege_engines_arc"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_siege_engines_arc",
+        "text": "Complete q_siege_engines_arc",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_siege_engines_arc"
+          }
+        ]
+      },
+      {
+        "id": "start_q_underfortress_ch1_main",
+        "text": "Start q_underfortress_ch1_main",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_underfortress_ch1_main"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_underfortress_ch1_main",
+        "text": "Complete q_underfortress_ch1_main",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_underfortress_ch1_main"
+          }
+        ]
+      },
+      {
+        "id": "start_q_rescue_vip",
+        "text": "Start q_rescue_vip",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_rescue_vip"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_rescue_vip",
+        "text": "Complete q_rescue_vip",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_rescue_vip"
+          }
+        ]
+      },
+      {
+        "id": "start_q_crystal_ball_rumor",
+        "text": "Start q_crystal_ball_rumor",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_crystal_ball_rumor"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_crystal_ball_rumor",
+        "text": "Complete q_crystal_ball_rumor",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_crystal_ball_rumor"
+          }
+        ]
+      },
+      {
+        "id": "start_q_underfortress_ch2_orb",
+        "text": "Start q_underfortress_ch2_orb",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_underfortress_ch2_orb"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_underfortress_ch2_orb",
+        "text": "Complete q_underfortress_ch2_orb",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_underfortress_ch2_orb"
+          }
+        ]
+      },
+      {
+        "id": "start_q_free_tess",
+        "text": "Start q_free_tess",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_free_tess"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_free_tess",
+        "text": "Complete q_free_tess",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_free_tess"
+          }
+        ]
+      },
+      {
+        "id": "start_q_underground_lair_finale",
+        "text": "Start q_underground_lair_finale",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_underground_lair_finale"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_underground_lair_finale",
+        "text": "Complete q_underground_lair_finale",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_underground_lair_finale"
+          }
+        ]
+      },
+      {
+        "id": "start_q_veteran_council_finale",
+        "text": "Start q_veteran_council_finale",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_veteran_council_finale"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_veteran_council_finale",
+        "text": "Complete q_veteran_council_finale",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_veteran_council_finale"
+          }
+        ]
+      },
+      {
+        "id": "start_q_council_debrief",
+        "text": "Start q_council_debrief",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_council_debrief"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_council_debrief",
+        "text": "Complete q_council_debrief",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_council_debrief"
+          }
+        ]
+      },
+      {
+        "id": "start_q_triage_hotspots",
+        "text": "Start q_triage_hotspots",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_triage_hotspots"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_triage_hotspots",
+        "text": "Complete q_triage_hotspots",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_triage_hotspots"
+          }
+        ]
+      },
+      {
+        "id": "start_q_interrogate_token_carrier",
+        "text": "Start q_interrogate_token_carrier",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_interrogate_token_carrier"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_interrogate_token_carrier",
+        "text": "Complete q_interrogate_token_carrier",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_interrogate_token_carrier"
+          }
+        ]
+      },
+      {
+        "id": "start_q_guard_memorial",
+        "text": "Start q_guard_memorial",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_guard_memorial"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_guard_memorial",
+        "text": "Complete q_guard_memorial",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_guard_memorial"
+          }
+        ]
+      },
+      {
+        "id": "start_q_watchfort_raid",
+        "text": "Start q_watchfort_raid",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_watchfort_raid"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_watchfort_raid",
+        "text": "Complete q_watchfort_raid",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_watchfort_raid"
+          }
+        ]
+      },
+      {
+        "id": "start_q_watchfort_free_prisoners",
+        "text": "Start q_watchfort_free_prisoners",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_watchfort_free_prisoners"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_watchfort_free_prisoners",
+        "text": "Complete q_watchfort_free_prisoners",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_watchfort_free_prisoners"
+          }
+        ]
+      },
+      {
+        "id": "start_q_watchfort_steal_signals",
+        "text": "Start q_watchfort_steal_signals",
+        "effects": [
+          {
+            "type": "startQuest",
+            "questId": "q_watchfort_steal_signals"
+          }
+        ]
+      },
+      {
+        "id": "complete_q_watchfort_steal_signals",
+        "text": "Complete q_watchfort_steal_signals",
+        "effects": [
+          {
+            "type": "completeQuest",
+            "questId": "q_watchfort_steal_signals"
+          }
+        ]
+      }
+    ]
+  }
+]

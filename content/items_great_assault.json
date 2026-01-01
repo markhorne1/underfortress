@@ -1,0 +1,26 @@
+[
+  {
+    "id": "assault_priority_token",
+    "name": "Assault Priority Token",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A council-marked token declaring your chosen priority during the Great Assault."
+  },
+  {
+    "id": "signal_script_braid",
+    "name": "Signal Script Braid",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A braided cord with knots representing a signal sequence. Lowers the difficulty of one counter-signal check."
+  },
+  {
+    "id": "gate_chain_hook",
+    "name": "Gate Chain Hook",
+    "type": "tool",
+    "stackable": false,
+    "value": 10,
+    "description": "A heavy hook used to drag a ram off-line or snag ladders. Useful in wall defense."
+  }
+]

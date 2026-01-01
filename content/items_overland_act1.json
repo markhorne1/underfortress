@@ -1,0 +1,39 @@
+[
+  {
+    "id": "timber_bundle",
+    "name": "Timber Bundle",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "Fresh-cut timber for barricades and repairs."
+  },
+  {
+    "id": "grain_sack",
+    "name": "Grain Sack",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A heavy sack of grain. Worth its weight in time."
+  },
+  {
+    "id": "spike_bundle",
+    "name": "Field Spikes",
+    "type": "tool",
+    "stackable": true,
+    "value": 18,
+    "description": "Deployable spikes for slowing pursuers at chokepoints."
+  },
+  {
+    "id": "hunting_bow",
+    "name": "Hunting Bow",
+    "type": "weapon",
+    "stackable": false,
+    "value": 35,
+    "meta": {
+      "damage": "1d6",
+      "range": 3,
+      "ammoType": "arrow"
+    },
+    "description": "A sturdier bow suited for field work and ambushes."
+  }
+]

@@ -1,0 +1,702 @@
+[
+  {
+    "id": "w_no_mans_land",
+    "title": "No-Man’s Land: Low Fog and Old Stakes",
+    "x": 10,
+    "y": -1,
+    "floorId": "overland",
+    "tileStyle": "fog_field",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, foggy field with broken stakes and distant watchfort silhouette, moonlight, cinematic, no text",
+    "description": "Fog turns distance into lies.\n\nAhead: the captured watchfort, a black tooth against the sky.\n\nA city scout waits in the grass.",
+    "actionsAvailable": {
+      "talk": {
+        "text": "Lieutenant Kess keeps their voice low.",
+        "choices": [
+          {
+            "id": "kess",
+            "label": "Talk to Lieutenant Kess.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_scout_lieut_kess"
+              }
+            ]
+          },
+          {
+            "id": "start",
+            "label": "Start: The Watchfort Raid.",
+            "effects": [
+              {
+                "type": "startJob",
+                "jobId": "q_watchfort_raid"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "approach",
+        "label": "Approach the watchfort through the fog.",
+        "effects": [
+          {
+            "type": "addXP",
+            "amount": 6
+          }
+        ],
+        "goToAreaId": "w_watchfort_approach"
+      }
+    ],
+    "exits": {
+      "w": "v_postern_gate"
+    }
+  },
+  {
+    "id": "w_watchfort_approach",
+    "title": "Watchfort Approach: Ditch and Wall",
+    "x": 11,
+    "y": -1,
+    "floorId": "overland",
+    "tileStyle": "watchfort_outer",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, stone watchfort with ditch, crude banners, sentries with lanterns, cinematic, no text",
+    "description": "A shallow ditch circles the fort.\n\nSentries pace the parapet.\n\nYou can try a quiet climb, or bait patrols away.",
+    "choices": [
+      {
+        "id": "grapnel",
+        "label": "Use rope & grapnel to reach a blind section of wall.",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "rope_grapnel",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "addXP",
+            "amount": 8
+          }
+        ],
+        "goToAreaId": "w_outer_wall_top"
+      },
+      {
+        "id": "patrol",
+        "label": "A patrol turns—avoid or fight.",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_outer_patrol_01",
+              "enemyGroupId": "outer_patrol",
+              "distance": 3,
+              "direction": "n",
+              "speed": 1,
+              "targetAreaId": "w_watchfort_approach",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "w_patrol_contact"
+      }
+    ]
+  },
+  {
+    "id": "w_patrol_contact",
+    "title": "Outer Patrol Contact",
+    "x": 12,
+    "y": -1,
+    "floorId": "overland",
+    "tileStyle": "watchfort_outer",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, patrol lanterns flaring in fog, orc sentinel and goblin scouts, cinematic, no text",
+    "description": "Lantern light snaps toward you.\n\nAn orc sentinel snorts and reaches for a horn.\n\nYou have one clean moment.",
+    "choices": [
+      {
+        "id": "shoot",
+        "label": "Shoot the horn-bearer, then retreat into cover.",
+        "requirements": [
+          {
+            "type": "hasAnyItem",
+            "itemIds": [
+              "training_bow",
+              "hunting_bow"
+            ],
+            "qty": 1
+          },
+          {
+            "type": "hasAmmo",
+            "ammoType": "arrow",
+            "minCount": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "shootThreat",
+            "threatId": "t_outer_patrol_01",
+            "ammoType": "arrow",
+            "ammoToConsume": 1,
+            "damage": {
+              "mode": "roll",
+              "expr": "1d6"
+            }
+          },
+          {
+            "type": "advanceThreat",
+            "threatId": "t_outer_patrol_01"
+          }
+        ],
+        "goToAreaId": "w_watchfort_approach"
+      },
+      {
+        "id": "fight",
+        "label": "Fight.",
+        "effects": [
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_outer_patrol_01"
+          }
+        ],
+        "goToAreaId": "w_outer_gatehouse"
+      }
+    ]
+  },
+  {
+    "id": "w_outer_wall_top",
+    "title": "Outer Wall Top",
+    "x": 11,
+    "y": -2,
+    "floorId": "watchfort",
+    "tileStyle": "wallwalk",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, wallwalk above ditch, wet stone, crude banners, moonlit, cinematic, no text",
+    "description": "You pull yourself onto wet stone.\n\nBelow: the courtyard.\n\nAhead: the relay tower, a thinner silhouette against the sky.",
+    "choices": [
+      {
+        "id": "to_gatehouse",
+        "label": "Move along the wall to the gatehouse.",
+        "goToAreaId": "w_outer_gatehouse"
+      },
+      {
+        "id": "drop_courtyard",
+        "label": "Drop into the courtyard (risk noise).",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "watchfort_noise_made",
+            "value": true
+          }
+        ],
+        "goToAreaId": "w_courtyard"
+      }
+    ]
+  },
+  {
+    "id": "w_outer_gatehouse",
+    "title": "Gatehouse: Broken Portcullis",
+    "x": 12,
+    "y": -2,
+    "floorId": "watchfort",
+    "tileStyle": "gatehouse",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, gatehouse interior, broken portcullis, guard benches, torchlight, cinematic, no text",
+    "description": "The portcullis is half-lowered—jammed.\n\nA good place to open from within.\n\nA bad place to be discovered.",
+    "choices": [
+      {
+        "id": "inner_patrol",
+        "label": "An inner patrol approaches.",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_inner_patrol_01",
+              "enemyGroupId": "inner_patrol",
+              "distance": 2,
+              "direction": "e",
+              "speed": 1,
+              "targetAreaId": "w_outer_gatehouse",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "w_gatehouse_contact"
+      },
+      {
+        "id": "to_courtyard",
+        "label": "Slip into the courtyard.",
+        "goToAreaId": "w_courtyard"
+      }
+    ]
+  },
+  {
+    "id": "w_gatehouse_contact",
+    "title": "Gatehouse Contact",
+    "x": 13,
+    "y": -2,
+    "floorId": "watchfort",
+    "tileStyle": "gatehouse",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, two orc sentinels entering gatehouse, lantern glare, cinematic, no text",
+    "description": "Two orcs step in.\n\nOne sniffs the air.\n\nIf they shout, the whole fort wakes.",
+    "choices": [
+      {
+        "id": "fight",
+        "label": "Fight.",
+        "effects": [
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_inner_patrol_01"
+          }
+        ],
+        "goToAreaId": "w_courtyard"
+      }
+    ]
+  },
+  {
+    "id": "w_courtyard",
+    "title": "Courtyard: Mud and Orders",
+    "x": 12,
+    "y": -3,
+    "floorId": "watchfort",
+    "tileStyle": "courtyard",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, muddy courtyard, stacked crates, prisoners' pen visible, relay tower looming, cinematic, no text",
+    "description": "Crates stamped with siege marks.\n\nA prisoners’ pen sits under a torch.\n\nThe relay tower rises above it all—where signals become slaughter.",
+    "choices": [
+      {
+        "id": "to_prison",
+        "label": "Go to the prisoners’ pen.",
+        "goToAreaId": "w_prison_pen"
+      },
+      {
+        "id": "to_armory",
+        "label": "Slip into the armory.",
+        "goToAreaId": "w_armory"
+      },
+      {
+        "id": "to_tower",
+        "label": "Approach the relay tower.",
+        "goToAreaId": "w_relay_tower_base"
+      }
+    ],
+    "actionsAvailable": {
+      "investigate": {
+        "text": "A slate map lies under a weight-stone.",
+        "choices": [
+          {
+            "id": "take_map",
+            "label": "Take the watchfort map slate.",
+            "effects": [
+              {
+                "type": "addItem",
+                "itemId": "watchfort_map_slate",
+                "qty": 1
+              },
+              {
+                "type": "addXP",
+                "amount": 10
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "w_prison_pen",
+    "title": "Prisoners’ Pen: Chain and Breath",
+    "x": 11,
+    "y": -3,
+    "floorId": "watchfort",
+    "tileStyle": "prison",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, prisoners behind bars, huge chained troll guarding, torch smoke, cinematic, no text",
+    "description": "A troll on a chain.\n\nIt doesn’t look smart.\n\nIt looks patient.\n\nBehind it: prisoners—alive, barely.",
+    "actionsAvailable": {
+      "talk": {
+        "text": "A sergeant grips the bars.",
+        "choices": [
+          {
+            "id": "bram",
+            "label": "Talk to Sergeant Bram.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_prisoner_sergeant_bram"
+              }
+            ]
+          },
+          {
+            "id": "start",
+            "label": "Start: Free the Prisoners.",
+            "effects": [
+              {
+                "type": "startJob",
+                "jobId": "q_watchfort_free_prisoners"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "bait_troll",
+        "label": "Bait the troll into the corner, then slip the lock (luck check).",
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "luck",
+            "dc": 9,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "watchfort_prisoners_freed",
+                "value": true
+              },
+              {
+                "type": "completeJob",
+                "jobId": "q_watchfort_free_prisoners"
+              },
+              {
+                "type": "addItem",
+                "itemId": "watchfort_gate_key",
+                "qty": 1
+              },
+              {
+                "type": "addXP",
+                "amount": 18
+              }
+            ],
+            "onFail": [
+              {
+                "type": "startCombat",
+                "enemyGroup": [
+                  {
+                    "enemyId": "troll_chain_guard",
+                    "count": 1
+                  }
+                ]
+              },
+              {
+                "type": "flag",
+                "key": "watchfort_noise_made",
+                "value": true
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "w_courtyard"
+      },
+      {
+        "id": "fight_troll",
+        "label": "Fight the chained troll (dangerous).",
+        "effects": [
+          {
+            "type": "startCombat",
+            "enemyGroup": [
+              {
+                "enemyId": "troll_chain_guard",
+                "count": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "w_prison_after"
+      }
+    ]
+  },
+  {
+    "id": "w_prison_after",
+    "title": "Pen Aftermath",
+    "x": 11,
+    "y": -4,
+    "floorId": "watchfort",
+    "tileStyle": "prison",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, fallen troll chain slack, prisoners stepping out, cinematic, no text",
+    "description": "The chain slackens.\n\nThe prisoners move like people remembering how to be alive.\n\nBram nods once. \"Now hit their tower.\"",
+    "effectsOnEnter": [
+      {
+        "type": "flag",
+        "key": "watchfort_prisoners_freed",
+        "value": true
+      },
+      {
+        "type": "completeJob",
+        "jobId": "q_watchfort_free_prisoners"
+      },
+      {
+        "type": "addItem",
+        "itemId": "watchfort_gate_key",
+        "qty": 1
+      },
+      {
+        "type": "addXP",
+        "amount": 16
+      }
+    ],
+    "choices": [
+      {
+        "id": "to_tower",
+        "label": "Go to the relay tower.",
+        "goToAreaId": "w_relay_tower_base"
+      }
+    ]
+  },
+  {
+    "id": "w_armory",
+    "title": "Armory: Old City Workmanship",
+    "x": 13,
+    "y": -3,
+    "floorId": "watchfort",
+    "tileStyle": "armory",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, cramped armory with racks, city-made hinges, hidden hatch outline, cinematic, no text",
+    "description": "Racks of mixed gear.\n\nCity-made hinges—old quality.\n\nBehind a rack, you see it: an outline of a sally hatch.",
+    "choices": [
+      {
+        "id": "open_hatch",
+        "label": "Open the hidden sally hatch (escape route).",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "watchfort_escape_route_found",
+            "value": true
+          },
+          {
+            "type": "addXP",
+            "amount": 10
+          }
+        ],
+        "goToAreaId": "w_escape_tunnel"
+      },
+      {
+        "id": "back",
+        "label": "Return to the courtyard.",
+        "goToAreaId": "w_courtyard"
+      }
+    ]
+  },
+  {
+    "id": "w_relay_tower_base",
+    "title": "Relay Tower Base",
+    "x": 12,
+    "y": -4,
+    "floorId": "watchfort",
+    "tileStyle": "tower_base",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, stone tower stairwell, horn racks, lantern hooks, ominous climb, cinematic, no text",
+    "description": "Horn racks on the wall.\n\nLantern hooks at measured intervals.\n\nThis is where signals become orders.",
+    "choices": [
+      {
+        "id": "start",
+        "label": "Start: Steal the Signal Codebook.",
+        "effects": [
+          {
+            "type": "startJob",
+            "jobId": "q_watchfort_steal_signals"
+          }
+        ],
+        "goToAreaId": "w_relay_tower_top"
+      },
+      {
+        "id": "climb",
+        "label": "Climb to the top.",
+        "goToAreaId": "w_relay_tower_top"
+      }
+    ]
+  },
+  {
+    "id": "w_relay_tower_top",
+    "title": "Relay Tower Top: The Banner Captain",
+    "x": 12,
+    "y": -5,
+    "floorId": "watchfort",
+    "tileStyle": "tower_top",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, tower top with signal lanterns, horn, banner captain poised, storm sky, cinematic, no text",
+    "description": "Lanterns. Horns. A banner captain.\n\nTheir hands are steady.\n\nIf they sound the wrong pattern, the next dawn at your city wall will be worse.",
+    "choices": [
+      {
+        "id": "fight_boss",
+        "label": "Fight the Banner Captain.",
+        "effects": [
+          {
+            "type": "startCombat",
+            "enemyGroup": [
+              {
+                "enemyId": "hobgoblin_banner_captain",
+                "count": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "w_tower_loot"
+      },
+      {
+        "id": "silent_take",
+        "label": "Attempt to steal the codebook without a full fight (mind check).",
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "mind",
+            "dc": 10,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "signal_codebook_taken",
+                "value": true
+              },
+              {
+                "type": "completeJob",
+                "jobId": "q_watchfort_steal_signals"
+              },
+              {
+                "type": "addItem",
+                "itemId": "siege_signal_codebook",
+                "qty": 1
+              },
+              {
+                "type": "addXP",
+                "amount": 22
+              }
+            ],
+            "onFail": [
+              {
+                "type": "flag",
+                "key": "watchfort_alerted",
+                "value": true
+              },
+              {
+                "type": "startCombat",
+                "enemyGroup": [
+                  {
+                    "enemyId": "hobgoblin_banner_captain",
+                    "count": 1
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "w_tower_loot"
+      }
+    ]
+  },
+  {
+    "id": "w_tower_loot",
+    "title": "Signals Broken",
+    "x": 12,
+    "y": -6,
+    "floorId": "watchfort",
+    "tileStyle": "tower_top",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, fallen banner captain, codebook in hand, lanterns dimmed, cinematic, no text",
+    "description": "The tower feels quieter.\n\nNot peaceful—just less coordinated.\n\nYou take the codebook. You take the future away from their hands.",
+    "effectsOnEnter": [
+      {
+        "type": "flag",
+        "key": "signal_codebook_taken",
+        "value": true
+      },
+      {
+        "type": "completeJob",
+        "jobId": "q_watchfort_steal_signals"
+      },
+      {
+        "type": "addItem",
+        "itemId": "siege_signal_codebook",
+        "qty": 1
+      },
+      {
+        "type": "addXP",
+        "amount": 20
+      }
+    ],
+    "choices": [
+      {
+        "id": "escape",
+        "label": "Escape the watchfort (use the hidden hatch if found).",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "watchfort_raid_complete",
+            "value": true
+          },
+          {
+            "type": "completeJob",
+            "jobId": "q_watchfort_raid"
+          }
+        ],
+        "goToAreaId": "w_escape_tunnel"
+      },
+      {
+        "id": "escape_open",
+        "label": "Escape through the courtyard (risk pursuit).",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "watchfort_raid_complete",
+            "value": true
+          },
+          {
+            "type": "completeJob",
+            "jobId": "q_watchfort_raid"
+          },
+          {
+            "type": "flag",
+            "key": "watchfort_pursuit_active",
+            "value": true
+          }
+        ],
+        "goToAreaId": "w_watchfort_approach"
+      }
+    ]
+  },
+  {
+    "id": "w_escape_tunnel",
+    "title": "Escape Tunnel: Cold Air, Fast Feet",
+    "x": 11,
+    "y": -6,
+    "floorId": "watchfort",
+    "tileStyle": "tunnel",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow escape tunnel, distant torchlight behind, breath fog, cinematic, no text",
+    "description": "A thin tunnel leading back toward the fog field.\n\nIf you’re quick, you vanish.\n\nIf you’re slow, you become a lesson.",
+    "choices": [
+      {
+        "id": "return_city",
+        "label": "Return to the postern gate with prisoners and codebook.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "watchfort_returned",
+            "value": true
+          },
+          {
+            "type": "addXP",
+            "amount": 14
+          }
+        ],
+        "goToAreaId": "v_postern_gate"
+      }
+    ]
+  }
+]

@@ -1,0 +1,107 @@
+[
+  {
+    "id": "npc_mage_archivist_salenne",
+    "name": "Archivist Salenne",
+    "role": "Mage Tower Liaison (War Scrying)",
+    "portraitPrompt": "fantasy character portrait, mage archivist with crystal ball glow on face, scrolls and candle smoke, painterly, no text",
+    "dialogue": {
+      "greeting": "If you brought the city its sight, then listen carefully—because sight is useless without action.",
+      "nodes": [
+        {
+          "id": "vision",
+          "text": "The ball shows three threats:\n\n1) Fire at the granary.\n2) Breach attempt at the postern.\n3) Knifers in the drains.\n\nAnd one more thing: a city hand delivering wax-sealed orders to the enemy.\n\nA ring. Black wax. A courier’s seal used from inside our walls.",
+          "choices": [
+            {
+              "label": "Ask for a transcript.",
+              "effects": [
+                {
+                  "type": "addItem",
+                  "itemId": "scrying_transcript",
+                  "qty": 1
+                }
+              ]
+            },
+            {
+              "label": "Ask for ward chalk.",
+              "effects": [
+                {
+                  "type": "addItem",
+                  "itemId": "mage_ward_chalk",
+                  "qty": 2
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_councilor_vayne",
+    "name": "Councilor Vayne",
+    "role": "War Council (Cold Strategist)",
+    "portraitPrompt": "fantasy character portrait, councilor with tired eyes, crystal glow reflected in ringed fingers, painterly, no text",
+    "dialogue": {
+      "greeting": "Choose what we save. Choose what we lose. That is leadership.",
+      "nodes": [
+        {
+          "id": "triage_choice",
+          "text": "We cannot stop all three strikes.\n\nPick your priority:\n- Granary (food and winter).\n- Postern (a door into the city).\n- Command tent (cut the head, risk the body).\n\nAnd while you do… find the traitor.",
+          "choices": [
+            {
+              "label": "Take a curfew pass.",
+              "effects": [
+                {
+                  "type": "addItem",
+                  "itemId": "warden_pass",
+                  "qty": 1
+                }
+              ]
+            },
+            {
+              "label": "Request a smoke mask.",
+              "effects": [
+                {
+                  "type": "addItem",
+                  "itemId": "smoke_mask",
+                  "qty": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_master_of_stores_rell",
+    "name": "Master of Stores Rell",
+    "role": "Quartermaster (Possible Traitor)",
+    "portraitPrompt": "fantasy character portrait, quartermaster in ledger room, keys at belt, wary expression, lantern light, painterly, no text",
+    "dialogue": {
+      "greeting": "If you need supplies, file a request like everyone else—oh, you don’t have time. No one does.",
+      "nodes": [
+        {
+          "id": "rell_probe",
+          "text": "Requisitions? Wax seals? I stamp what the council authorizes.\n\nUnless… someone has a seal they shouldn’t.",
+          "choices": [
+            {
+              "label": "Investigate his ledgers.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "rell_ledgers_checked",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Leave him for now.",
+              "effects": []
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

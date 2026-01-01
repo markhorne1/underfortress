@@ -1,0 +1,161 @@
+[
+  {
+    "id": "flare_signal",
+    "name": "Flare Signal",
+    "cost": 2,
+    "description": "A bright flare that warns allies and rattles foes.",
+    "effects": [
+      {
+        "type": "flag",
+        "key": "flare_used_recently",
+        "value": true
+      },
+      {
+        "type": "threatMoraleDelta",
+        "amount": -1
+      }
+    ]
+  },
+  {
+    "id": "stonebind",
+    "name": "Stonebind",
+    "cost": 2,
+    "description": "Stone grips ankles like hands. Slows an approaching threat.",
+    "effects": [
+      {
+        "type": "threatSpeedDelta",
+        "amount": -1,
+        "durationTurns": 2
+      }
+    ]
+  },
+  {
+    "id": "wardseal",
+    "name": "Wardseal",
+    "cost": 3,
+    "description": "Reinforces a ward-stone or barrier for a short time.",
+    "effects": [
+      {
+        "type": "flag",
+        "key": "wardseal_active",
+        "value": true
+      },
+      {
+        "type": "tempArmor",
+        "amount": 1,
+        "durationTurns": 3
+      }
+    ]
+  },
+  {
+    "id": "keen_eye",
+    "name": "Keen Eye",
+    "cost": 1,
+    "description": "Briefly sharpens perception. Reveals hidden notes, weak stonework, and fresh tracks.",
+    "effects": [
+      {
+        "type": "flag",
+        "key": "keen_eye_active",
+        "value": true
+      }
+    ]
+  },
+  {
+    "id": "muffle_steps",
+    "name": "Muffle Steps",
+    "cost": 2,
+    "description": "Softens your footfalls for a short time. Better for slipping past patrols than fighting them.",
+    "effects": [
+      {
+        "type": "flag",
+        "key": "muffle_steps_active",
+        "value": true
+      }
+    ]
+  },
+  {
+    "id": "spell_tier2_lanternflare",
+    "name": "Lanternflare",
+    "tier": 2,
+    "school": "Light",
+    "cost": {
+      "mana": 2
+    },
+    "description": "A burst of light that disrupts stealth and weakens ambushes. Best used before entering unknown areas.",
+    "effects": [
+      {
+        "type": "flag",
+        "key": "stealth_enemies_revealed_next_area",
+        "value": true
+      }
+    ]
+  },
+  {
+    "id": "spell_tier2_ironlung",
+    "name": "Ironlung",
+    "tier": 2,
+    "school": "Body",
+    "cost": {
+      "mana": 2
+    },
+    "description": "Resist smoke and choking fumes. Strong in pitch pits, fires, and sewer encounters.",
+    "effects": [
+      {
+        "type": "flag",
+        "key": "smoke_resistance_active",
+        "value": true
+      }
+    ]
+  },
+  {
+    "id": "spell_tier3_chainbind",
+    "name": "Chainbind",
+    "tier": 3,
+    "school": "Force",
+    "cost": {
+      "mana": 3
+    },
+    "description": "Briefly binds an enemy or disables a mechanism. Can be used to interrupt a special action (ram swing, ladder set, plant charge).",
+    "effects": [
+      {
+        "type": "flag",
+        "key": "interrupt_next_enemy_special",
+        "value": true
+      }
+    ]
+  },
+  {
+    "id": "spell_tier3_wardline",
+    "name": "Wardline",
+    "tier": 3,
+    "school": "Ward",
+    "cost": {
+      "mana": 3
+    },
+    "description": "Draws a defensive line that reduces incoming damage in the next combat.",
+    "effects": [
+      {
+        "type": "flag",
+        "key": "combat_damage_reduction_next",
+        "value": true
+      }
+    ]
+  },
+  {
+    "id": "spell_tier4_dawnshard",
+    "name": "Dawnshard",
+    "tier": 4,
+    "school": "Radiance",
+    "cost": {
+      "mana": 4
+    },
+    "description": "A focused radiance strike. Strong against trolls, cultists, and ‘boss belief’ enemies.",
+    "effects": [
+      {
+        "type": "flag",
+        "key": "bonus_damage_vs_boss_next",
+        "value": true
+      }
+    ]
+  }
+]

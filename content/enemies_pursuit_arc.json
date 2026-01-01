@@ -1,0 +1,136 @@
+[
+  {
+    "id": "orc_rearguard",
+    "name": "Orc Rearguard",
+    "kind": "humanoid",
+    "skill": 12,
+    "stamina": 16,
+    "meta": {
+      "special": "hold_the_line"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 3,
+        "max": 16
+      }
+    ],
+    "tags": [
+      "orc",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "goblin_runner",
+    "name": "Goblin Runner",
+    "kind": "humanoid",
+    "skill": 9,
+    "stamina": 9,
+    "meta": {
+      "special": "flee_and_signal"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 8
+      }
+    ],
+    "tags": [
+      "goblin",
+      "pursuit",
+      "runner"
+    ]
+  },
+  {
+    "id": "warg_scout",
+    "name": "Warg Scout",
+    "kind": "monster",
+    "skill": 11,
+    "stamina": 14,
+    "meta": {
+      "special": "pounce"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 1,
+        "max": 8
+      }
+    ],
+    "tags": [
+      "warg",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "hobgoblin_bannerless_captain",
+    "name": "Hobgoblin Captain (Bannerless)",
+    "kind": "humanoid",
+    "skill": 13,
+    "stamina": 20,
+    "meta": {
+      "special": "discipline_break"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 6,
+        "max": 22
+      }
+    ],
+    "tags": [
+      "boss",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "pa_road_rearguard_group",
+    "name": "Retreat Road Rearguard",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "orc_rearguard",
+        "count": 1
+      },
+      {
+        "enemyId": "goblin_runner",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 10
+      }
+    },
+    "tags": [
+      "group",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "pa_warg_pack",
+    "name": "Warg Pack",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "warg_scout",
+        "count": 2
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 9
+      }
+    },
+    "tags": [
+      "group",
+      "pursuit",
+      "warg"
+    ]
+  }
+]

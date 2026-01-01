@@ -1,0 +1,182 @@
+[
+  {
+    "id": "npc_gatewarden_holt",
+    "name": "Gatewarden Holt",
+    "role": "Gate Mechanisms & Keys",
+    "portraitPrompt": "fantasy character portrait, weathered gatewarden with keys and iron gauntlet, torchlight, grim but steady, painterly, no text",
+    "dialogue": {
+      "greeting": "The gate doesn’t care who you are. It cares what you can prove.",
+      "nodes": [
+        {
+          "id": "gatewarden_main",
+          "text": "If something’s wrong, it’ll be wrong at the worst moment. That’s how gates work.",
+          "choices": [
+            {
+              "label": "Show the Gatewarden’s Seal.",
+              "requirements": [
+                {
+                  "type": "hasItem",
+                  "itemId": "gatewarden_seal",
+                  "qty": 1
+                }
+              ],
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "gatewarden_access",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Request access to the inner mechanisms (emergency).",
+              "requirements": [
+                {
+                  "type": "flagEquals",
+                  "key": "gatewarden_access",
+                  "value": true
+                }
+              ],
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "inner_mechanism_access",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_dock_factor_merris",
+    "name": "Factor Merris",
+    "role": "Dock Factor (Respectable, Dangerous)",
+    "portraitPrompt": "fantasy character portrait, well-dressed dock factor with ledger, polite smile, cold eyes, rainy dock lanterns, painterly, no text",
+    "dialogue": {
+      "greeting": "Supplies are complex. Rumours are simple. Which do you trade in?",
+      "nodes": [
+        {
+          "id": "factor_deflect",
+          "text": "The docks are chaos. Losses happen. Accusations happen too. Usually from fools.",
+          "choices": [
+            {
+              "label": "Present a Council Warrant and demand the ledger.",
+              "requirements": [
+                {
+                  "type": "hasItem",
+                  "itemId": "council_warrant",
+                  "qty": 1
+                }
+              ],
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "factor_confronted",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "If he resists, arrest him (guards will be called).",
+              "requirements": [
+                {
+                  "type": "flagEquals",
+                  "key": "factor_confronted",
+                  "value": true
+                }
+              ],
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "factor_arrested",
+                  "value": true
+                },
+                {
+                  "type": "addItem",
+                  "itemId": "dock_ledger_page",
+                  "qty": 2
+                },
+                {
+                  "type": "addXP",
+                  "amount": 24
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_captain_roth",
+    "name": "Captain Roth",
+    "role": "Gate Yard Captain",
+    "portraitPrompt": "fantasy character portrait, battle-worn city captain with rain cloak and scar, tense jaw, banners behind, painterly, no text",
+    "dialogue": {
+      "greeting": "If you’re here, you’re either brave, useful, or lost. Pick one fast.",
+      "nodes": [
+        {
+          "id": "roth_ready",
+          "text": "We’re minutes from a bad day. Tell me what you’ve fixed.",
+          "choices": [
+            {
+              "label": "Report the contraband disruption and sabotage evidence.",
+              "requirements": [
+                {
+                  "type": "flagEquals",
+                  "key": "docks_contraband_disrupted",
+                  "value": true
+                }
+              ],
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "roth_informed_contraband",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Report the docks factor arrest.",
+              "requirements": [
+                {
+                  "type": "flagEquals",
+                  "key": "factor_arrested",
+                  "value": true
+                }
+              ],
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "roth_informed_factor",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Begin the battle sequence (if the city is battle-ready).",
+              "requirements": [
+                {
+                  "type": "flagEquals",
+                  "key": "city_battle_ready",
+                  "value": true
+                }
+              ],
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "battle_act1_started",
+                  "value": true
+                }
+              ],
+              "goToAreaId": "e_battle_horns"
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

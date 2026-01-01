@@ -1,0 +1,25 @@
+[
+  {
+    "id": "q_underground_lair_finale",
+    "name": "Underground Lair: End the Enemy’s War-Sight",
+    "giverNpcId": "npc_kess_mountain",
+    "startAreaId": "ul_threshold",
+    "objective": {
+      "type": "setFlag",
+      "key": "underground_lair_finale_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 50,
+      "xp": 160,
+      "items": [
+        {
+          "itemId": "amulet_clearsight",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  }
+]

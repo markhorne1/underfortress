@@ -1,0 +1,159 @@
+[
+  {
+    "id": "q_city_victory_report",
+    "name": "Report to the War Council",
+    "giverNpcId": "npc_councilor_vayne",
+    "startAreaId": "k_city_drain_return",
+    "objective": {
+      "type": "setFlag",
+      "key": "victory_window_open",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 5,
+      "xp": 18,
+      "items": [
+        {
+          "itemId": "field_ration_pack",
+          "qty": 2
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_city_battlement_runs",
+    "name": "Battlement Runs: Bolts and Bandages",
+    "giverNpcId": "npc_quartermaster_brevin",
+    "startAreaId": "c_quartermaster_depot",
+    "objective": {
+      "type": "setFlag",
+      "key": "battlement_runs_completed",
+      "value": true
+    },
+    "grantsOnStart": [
+      {
+        "itemId": "field_ration_pack",
+        "qty": 1
+      }
+    ],
+    "rewards": {
+      "gold": 8,
+      "xp": 22,
+      "items": [
+        {
+          "itemId": "work_contract_token",
+          "qty": 1
+        },
+        {
+          "itemId": "arrow_bundle",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_city_scroll_delivery",
+    "name": "Mage Tower: Blank Scroll Delivery",
+    "giverNpcId": "npc_mage_tower_scribe_orrin",
+    "startAreaId": "c_mage_tower_scribes",
+    "objective": {
+      "type": "deliverItems",
+      "items": [
+        {
+          "itemId": "blank_scroll_bundle",
+          "qty": 1
+        }
+      ],
+      "toAreaId": "c_mage_tower_scribes"
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 6,
+      "xp": 20,
+      "items": [
+        {
+          "itemId": "work_contract_token",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_city_armoury_sewing",
+    "name": "Armoury: Sew Leather Panels",
+    "giverNpcId": "npc_quartermaster_brevin",
+    "startAreaId": "c_armoury_workroom",
+    "objective": {
+      "type": "setFlag",
+      "key": "armoury_sewing_done",
+      "value": true
+    },
+    "grantsOnStart": [
+      {
+        "itemId": "leather_panels",
+        "qty": 1
+      }
+    ],
+    "rewards": {
+      "gold": 4,
+      "xp": 18,
+      "items": [
+        {
+          "itemId": "work_contract_token",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_city_work_for_gear_trade",
+    "name": "Work-for-Gear: Trade Contract Tokens",
+    "giverNpcId": "npc_quartermaster_brevin",
+    "startAreaId": "c_quartermaster_depot",
+    "objective": {
+      "type": "setFlag",
+      "key": "work_for_gear_trade_open",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 8,
+      "items": []
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_overland_orders",
+    "name": "Outside the Walls: Food and Timber",
+    "giverNpcId": "npc_councilor_vayne",
+    "startAreaId": "c_council_hall",
+    "objective": {
+      "type": "setFlag",
+      "key": "overland_orders_active",
+      "value": true
+    },
+    "grantsOnStart": [
+      {
+        "itemId": "field_ration_pack",
+        "qty": 2
+      }
+    ],
+    "rewards": {
+      "gold": 0,
+      "xp": 25,
+      "items": [
+        {
+          "itemId": "work_contract_token",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  }
+]

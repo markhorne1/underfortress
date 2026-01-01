@@ -1,0 +1,198 @@
+[
+  {
+    "id": "b_gate_approach",
+    "title": "Gate Approach Road",
+    "x": 0,
+    "y": -4,
+    "floorId": "outside",
+    "tileStyle": "road",
+    "cover": "none",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, road facing the city gate from outside, muddy ruts, distant barricades, storm clouds, cinematic, no text",
+    "description": "The road outside the walls is a wound in the earth. From here, you can see the gate’s outline — and imagine it broken.\n\nMovement flickers at the far field line.",
+    "exits": {
+      "n": "a_outer_gate",
+      "s": "b_farm_road_edge"
+    },
+    "choices": [
+      {
+        "id": "start_probe",
+        "label": "Advance cautiously toward the field line.",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_goblin_probe_01",
+              "enemyGroupId": "goblin_probe_group",
+              "distance": 3,
+              "direction": "s",
+              "speed": 1,
+              "targetAreaId": "b_gate_approach",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "b_probe_contact"
+      }
+    ]
+  },
+  {
+    "id": "b_probe_contact",
+    "title": "Field Line: Goblin Probe",
+    "x": 0,
+    "y": -5,
+    "floorId": "outside",
+    "tileStyle": "field",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, field line with goblin silhouettes and bows, tension, rain, cinematic, no text",
+    "description": "A goblin probe spreads out like stains in the grass. One raises a horn — another nocks an arrow.\n\nIf this is only a probe, the real wave is close behind.",
+    "exits": {
+      "n": "b_gate_approach",
+      "w": "b_ditch_path",
+      "e": "b_timber_track"
+    },
+    "choices": [
+      {
+        "id": "shoot",
+        "label": "Open fire with my bow.",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "training_bow",
+            "qty": 1
+          },
+          {
+            "type": "hasAmmo",
+            "ammoType": "arrow",
+            "minCount": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "shootThreat",
+            "threatId": "t_goblin_probe_01",
+            "ammoType": "arrow",
+            "ammoToConsume": 1,
+            "damage": {
+              "mode": "roll",
+              "expr": "1d6"
+            }
+          },
+          {
+            "type": "enemyReturnFireIfInRange",
+            "threatId": "t_goblin_probe_01"
+          },
+          {
+            "type": "advanceThreat",
+            "threatId": "t_goblin_probe_01"
+          }
+        ]
+      },
+      {
+        "id": "spikes",
+        "label": "Set my spikes in front of me.",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "spike_bundle",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "removeItem",
+            "itemId": "spike_bundle",
+            "qty": 1
+          },
+          {
+            "type": "placeHazard",
+            "threatId": "t_goblin_probe_01",
+            "hazard": {
+              "kind": "spikes",
+              "damage": 3,
+              "triggerAtDistance": 1
+            }
+          },
+          {
+            "type": "advanceThreat",
+            "threatId": "t_goblin_probe_01"
+          }
+        ]
+      },
+      {
+        "id": "stonebind",
+        "label": "Cast Stonebind to slow them.",
+        "requirements": [
+          {
+            "type": "knowsSpell",
+            "spellId": "stonebind"
+          }
+        ],
+        "effects": [
+          {
+            "type": "castSpell",
+            "spellId": "stonebind",
+            "threatId": "t_goblin_probe_01"
+          },
+          {
+            "type": "advanceThreat",
+            "threatId": "t_goblin_probe_01"
+          }
+        ]
+      },
+      {
+        "id": "retreat_north",
+        "label": "Retreat north toward the gate and ready bow.",
+        "effects": [
+          {
+            "type": "move",
+            "to": "b_gate_approach"
+          },
+          {
+            "type": "threatRetreat",
+            "threatId": "t_goblin_probe_01",
+            "distanceDelta": 1
+          },
+          {
+            "type": "flag",
+            "key": "ready_ranged",
+            "value": true
+          }
+        ],
+        "goToAreaId": "b_gate_approach"
+      },
+      {
+        "id": "retreat_west",
+        "label": "Retreat west into the ditch for cover.",
+        "effects": [
+          {
+            "type": "move",
+            "to": "b_ditch_path"
+          },
+          {
+            "type": "threatRetreat",
+            "threatId": "t_goblin_probe_01",
+            "distanceDelta": 1
+          },
+          {
+            "type": "flag",
+            "key": "ready_ranged",
+            "value": true
+          }
+        ],
+        "goToAreaId": "b_ditch_path"
+      },
+      {
+        "id": "force_fight",
+        "label": "Stand my ground and fight.",
+        "effects": [
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_goblin_probe_01"
+          }
+        ]
+      }
+    ]
+  }
+]

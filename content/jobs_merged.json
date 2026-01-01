@@ -1,0 +1,416 @@
+[
+  {
+    "id": "job_crate_to_walk",
+    "name": "Crate Transport",
+    "summary": "Deliver crates between locations.",
+    "rewards": {
+      "xp": 10,
+      "gold": 2
+    }
+  },
+  {
+    "id": "job_armour_to_tower",
+    "name": "Armour to Tower",
+    "summary": "Move armour bundles to the mage tower.",
+    "rewards": {
+      "xp": 15,
+      "gold": 3
+    }
+  },
+  {
+    "id": "job_sew_bracers",
+    "name": "Sew Bracers",
+    "summary": "Sew leather bracers for the militia.",
+    "rewards": {
+      "xp": 12,
+      "gold": 1
+    }
+  },
+  {
+    "id": "job_scrolls_to_scribes",
+    "name": "Scrolls to Scribes",
+    "summary": "Deliver scrolls to scribes.",
+    "rewards": {
+      "xp": 8,
+      "gold": 2
+    }
+  },
+  {
+    "id": "job_messenger_run",
+    "name": "Messenger Run",
+    "summary": "Carry messages across town.",
+    "rewards": {
+      "xp": 5,
+      "gold": 1
+    }
+  },
+  {
+    "id": "q_overland_orders",
+    "name": "Outside Orders (job)",
+    "summary": "Run supplies to nearby farms and timber camps.",
+    "rewards": {
+      "xp": 20,
+      "gold": 2
+    }
+  },
+  {
+    "id": "q_free_farmers",
+    "name": "Free the Farmers (job)",
+    "summary": "Free captive farmers from raiders.",
+    "rewards": {
+      "xp": 40,
+      "gold": 5
+    }
+  },
+  {
+    "id": "q_drains_breach",
+    "name": "Drains Breach (job)",
+    "summary": "Close breaches in the drains.",
+    "rewards": {
+      "xp": 80,
+      "gold": 10
+    }
+  },
+  {
+    "id": "q_watchfort_raid",
+    "name": "Watchfort Raid (job)",
+    "summary": "Raid the watchfort to recover codes and prisoners.",
+    "rewards": {
+      "xp": 120,
+      "gold": 25
+    }
+  },
+  {
+    "id": "q_watchfort_steal_signals",
+    "name": "Steal Signals (job)",
+    "summary": "Steal the relay signal codebook.",
+    "rewards": {
+      "xp": 60,
+      "gold": 10
+    }
+  },
+  {
+    "id": "q_crystal_arc_start",
+    "name": "Crystal Arc (job)",
+    "summary": "Begin the Crystal Ball thread.",
+    "rewards": {
+      "xp": 10,
+      "gold": 0
+    }
+  },
+  {
+    "id": "q_gate_battle_main",
+    "name": "Gate Battle (job)",
+    "summary": "Defend the gates in the final battle.",
+    "rewards": {
+      "xp": 800,
+      "gold": 100
+    }
+  },
+  {
+    "id": "job_smith_nails",
+    "name": "Blacksmith Shift: Sort Nails for Barricades",
+    "giverNpcId": "npc_smith_harrow",
+    "startAreaId": "c_blacksmith",
+    "objective": {
+      "type": "simpleTask"
+    },
+    "rewards": {
+      "gold": 4,
+      "xp": 10,
+      "items": [
+        {
+          "itemId": "council_sigil_bronze",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 35
+  },
+  {
+    "id": "job_apoth_sort",
+    "name": "Apothecary Shift: Sort Infirmary Herbs",
+    "giverNpcId": "npc_apothecary_moss",
+    "startAreaId": "c_apothecary",
+    "objective": {
+      "type": "simpleTask"
+    },
+    "rewards": {
+      "gold": 3,
+      "xp": 12,
+      "items": [
+        {
+          "itemId": "ration_pack",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 40
+  },
+  {
+    "id": "job_fletcher_string",
+    "name": "Fletcher Shift: Wax and Twist Bowstrings",
+    "giverNpcId": "npc_fletcher_ren",
+    "startAreaId": "c_fletcher",
+    "objective": {
+      "type": "simpleTask"
+    },
+    "rewards": {
+      "gold": 3,
+      "xp": 10,
+      "items": [
+        {
+          "itemId": "arrow_bundle",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 35
+  },
+  {
+    "id": "job_ba2_gate_breach",
+    "name": "Press the Gate Breach",
+    "startAreaId": "ba2_battle_approach",
+    "objective": {
+      "type": "setFlag",
+      "key": "gate_breach_pressed",
+      "value": true
+    },
+    "rewards": {
+      "gold": 12,
+      "xp": 40,
+      "items": [
+        {
+          "itemId": "iron_fortress_key",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "job_ba2_sweep_sewers",
+    "name": "Sweep the Sewers",
+    "startAreaId": "ba2_battle_approach",
+    "objective": {
+      "type": "setFlag",
+      "key": "sewers_swept",
+      "value": true
+    },
+    "rewards": {
+      "gold": 8,
+      "xp": 28
+    },
+    "cooldownMinutes": 180
+  },
+  {
+    "id": "job_ba2_explore_caves",
+    "name": "Explore the Caves",
+    "startAreaId": "ba2_gate_breach",
+    "objective": {
+      "type": "setFlag",
+      "key": "caves_explored",
+      "value": true
+    },
+    "rewards": {
+      "gold": 10,
+      "xp": 30
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "job_ba2_underfortress_probe",
+    "name": "Probe the Underfortress",
+    "startAreaId": "ba2_cave_anteroom",
+    "objective": {
+      "type": "setFlag",
+      "key": "underfortress_probed",
+      "value": true
+    },
+    "rewards": {
+      "gold": 20,
+      "xp": 60
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "job_pb_clear_tunnel",
+    "name": "Clear the Tunnel",
+    "startAreaId": "pb_sewer_tunnel",
+    "objective": {
+      "type": "setFlag",
+      "key": "tunnel_cleared",
+      "value": true
+    },
+    "rewards": {
+      "gold": 5,
+      "xp": 18
+    },
+    "cooldownMinutes": 60
+  },
+  {
+    "id": "job_pb_retrieve_key",
+    "name": "Retrieve the Inner Key",
+    "startAreaId": "pb_sewer_tunnel",
+    "objective": {
+      "type": "deliverItems",
+      "items": [
+        {
+          "itemId": "iron_fortress_key",
+          "qty": 1
+        }
+      ],
+      "toAreaId": "pb_underfort_gate"
+    },
+    "rewards": {
+      "gold": 12,
+      "xp": 36,
+      "items": [
+        {
+          "itemId": "iron_fortress_key",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "job_pb_secure_gallery",
+    "name": "Secure the Collapsed Gallery",
+    "startAreaId": "pb_collapsed_gallery",
+    "objective": {
+      "type": "setFlag",
+      "key": "gallery_cleared",
+      "value": true
+    },
+    "rewards": {
+      "gold": 9,
+      "xp": 30
+    },
+    "cooldownMinutes": 180
+  },
+  {
+    "id": "job_pb_enter_underfortress",
+    "name": "Enter the Underfortress",
+    "startAreaId": "pb_underfort_gate",
+    "objective": {
+      "type": "setFlag",
+      "key": "inside_underfortress",
+      "value": true
+    },
+    "rewards": {
+      "gold": 20,
+      "xp": 60
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "job_pb_retrieve_artifact",
+    "name": "Seize the Reliquary Artifact",
+    "startAreaId": "pb_reliquary_approach",
+    "objective": {
+      "type": "setFlag",
+      "key": "artifact_taken",
+      "value": true
+    },
+    "rewards": {
+      "gold": 0,
+      "xp": 80,
+      "items": [
+        {
+          "itemId": "ward_stone",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "job_uf_search_chamber",
+    "name": "Search the Reliquary Chamber",
+    "startAreaId": "uf_reliquary_chamber",
+    "objective": {
+      "type": "setFlag",
+      "key": "uf_reliquary_searched",
+      "value": true
+    },
+    "rewards": {
+      "gold": 15,
+      "xp": 45,
+      "items": [
+        {
+          "itemId": "sight_orb",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "job_uf_relay_signal",
+    "name": "Relay the Reliquary Signal",
+    "startAreaId": "uf_reliquary_chamber",
+    "objective": {
+      "type": "setFlag",
+      "key": "reliquary_signal_relayed",
+      "value": true
+    },
+    "rewards": {
+      "gold": 0,
+      "xp": 60,
+      "items": [
+        {
+          "itemId": "ward_stone",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "job_uf_confront_archon",
+    "name": "Confront the Warding Archon",
+    "startAreaId": "uf_archon_vault",
+    "objective": {
+      "type": "setFlag",
+      "key": "archon_defeated",
+      "value": true
+    },
+    "rewards": {
+      "gold": 30,
+      "xp": 120,
+      "items": [
+        {
+          "itemId": "iron_fortress_key",
+          "qty": 1
+        },
+        {
+          "itemId": "minor_charm_ironluck",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "job_uf_destroy_bindings",
+    "name": "Destroy the Reliquary Bindings",
+    "startAreaId": "uf_throne_reliquary",
+    "objective": {
+      "type": "setFlag",
+      "key": "bindings_destroyed",
+      "value": true
+    },
+    "rewards": {
+      "gold": 0,
+      "xp": 100,
+      "items": [
+        {
+          "itemId": "ring_quickstep",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  }
+]

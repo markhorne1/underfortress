@@ -1,0 +1,739 @@
+[
+  {
+    "id": "u_entry_corridor",
+    "title": "Under-Fortress: Entry Corridor",
+    "x": 5,
+    "y": -9,
+    "floorId": "underfortress",
+    "tileStyle": "fortress",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, underground fortress corridor, iron sconces, damp stone, distant marching, cinematic, no text",
+    "description": "The corridor is built for marching, not living.\n\nTorch soot stains the ceiling. The stonework is older than the current war — and it remembers other wars.\n\nAhead: a junction and a prison bell.",
+    "exits": {
+      "n": "u_guard_junction",
+      "s": "i_underfortress_entry"
+    },
+    "actionsAvailable": {
+      "investigate": {
+        "text": "Boot scuffs show a heavy traffic pattern. Something important moves through here on schedule.",
+        "choices": [
+          {
+            "id": "keen_eye",
+            "label": "Cast Keen Eye to read the traffic pattern.",
+            "requirements": [
+              {
+                "type": "knowsSpell",
+                "spellId": "keen_eye"
+              }
+            ],
+            "effects": [
+              {
+                "type": "castSpell",
+                "spellId": "keen_eye"
+              },
+              {
+                "type": "flag",
+                "key": "underfortress_patrol_timing",
+                "value": true
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "u_guard_junction",
+    "title": "Junction of Iron Sconces",
+    "x": 5,
+    "y": -10,
+    "floorId": "underfortress",
+    "tileStyle": "fortress",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, underground junction with two paths, torch sconces, shadows, cinematic, no text",
+    "description": "Two corridors split.\n\nLeft: louder — voices, keys, the stink of prisoners.\nRight: quieter — a drip, a cistern echo, and the smell of damp rope.",
+    "exits": {
+      "s": "u_entry_corridor",
+      "w": "u_prison_antechamber",
+      "e": "u_cistern_run"
+    },
+    "choices": [
+      {
+        "id": "stealth_pass",
+        "label": "If Muffle Steps is active, slip past the nearest patrol shadow.",
+        "requirements": [
+          {
+            "type": "flagEquals",
+            "key": "muffle_steps_active",
+            "value": true
+          }
+        ],
+        "effects": [
+          {
+            "type": "addXP",
+            "amount": 8
+          }
+        ]
+      },
+      {
+        "id": "start_patrol",
+        "label": "A patrol turns the corner—prepare for trouble.",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_prison_patrol_01",
+              "enemyGroupId": "prison_patrol",
+              "distance": 2,
+              "direction": "n",
+              "speed": 1,
+              "targetAreaId": "u_guard_junction",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "u_patrol_contact"
+      }
+    ]
+  },
+  {
+    "id": "u_patrol_contact",
+    "title": "Patrol Contact",
+    "x": 5,
+    "y": -11,
+    "floorId": "underfortress",
+    "tileStyle": "fortress",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, orc guard and goblin runner patrol, lantern, tense moment, cinematic, no text",
+    "description": "An orc guard and two goblin runners swing a lantern toward you.\n\nOne goblin opens its mouth to shout.",
+    "choices": [
+      {
+        "id": "shoot_runner",
+        "label": "Shoot the goblin runner before it raises the alarm.",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "training_bow",
+            "qty": 1
+          },
+          {
+            "type": "hasAmmo",
+            "ammoType": "arrow",
+            "minCount": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "shootThreat",
+            "threatId": "t_prison_patrol_01",
+            "ammoType": "arrow",
+            "ammoToConsume": 1,
+            "damage": {
+              "mode": "roll",
+              "expr": "1d6"
+            }
+          },
+          {
+            "type": "advanceThreat",
+            "threatId": "t_prison_patrol_01"
+          }
+        ]
+      },
+      {
+        "id": "smoke",
+        "label": "Use a smoke pellet and slip into the prison antechamber.",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "smoke_pellet",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "removeItem",
+            "itemId": "smoke_pellet",
+            "qty": 1
+          },
+          {
+            "type": "breakLOS",
+            "durationTurns": 2
+          }
+        ],
+        "goToAreaId": "u_prison_antechamber"
+      },
+      {
+        "id": "fight",
+        "label": "Fight.",
+        "effects": [
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_prison_patrol_01"
+          }
+        ],
+        "goToAreaId": "u_guard_junction"
+      }
+    ]
+  },
+  {
+    "id": "u_prison_antechamber",
+    "title": "Prison Antechamber",
+    "x": 4,
+    "y": -10,
+    "floorId": "underfortress",
+    "tileStyle": "prison",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, prison antechamber with key hooks, barred door, dripping stone, cinematic, no text",
+    "description": "Hooks on the wall where keys should hang.\n\nA barred door ahead. A ledger desk to the side.\n\nInk stains and a faint wax seal imprint — recent.",
+    "exits": {
+      "e": "u_guard_junction",
+      "w": "u_prison_cells",
+      "n": "u_jailer_gallery"
+    },
+    "actionsAvailable": {
+      "investigate": {
+        "text": "The desk ledger lists prisoners by number, not name. One entry is circled twice: ‘VALE — transfer pending.’",
+        "choices": [
+          {
+            "id": "take_clue",
+            "label": "Take the transfer order page.",
+            "effects": [
+              {
+                "type": "addItem",
+                "itemId": "crystal_ball_clue_page",
+                "qty": 1
+              },
+              {
+                "type": "addXP",
+                "amount": 10
+              }
+            ]
+          }
+        ]
+      },
+      "open": {
+        "text": "The barred door to the cell block is locked.",
+        "choices": [
+          {
+            "id": "use_picks",
+            "label": "Pick the lock.",
+            "requirements": [
+              {
+                "type": "hasItem",
+                "itemId": "lockpick_bundle",
+                "qty": 1
+              }
+            ],
+            "effects": [
+              {
+                "type": "removeItem",
+                "itemId": "lockpick_bundle",
+                "qty": 1
+              },
+              {
+                "type": "addXP",
+                "amount": 8
+              }
+            ],
+            "goToAreaId": "u_prison_cells"
+          },
+          {
+            "id": "use_key",
+            "label": "Use an iron fortress key.",
+            "requirements": [
+              {
+                "type": "hasItem",
+                "itemId": "fortress_key_iron",
+                "qty": 1
+              }
+            ],
+            "goToAreaId": "u_prison_cells"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "u_prison_cells",
+    "title": "Prison Cells",
+    "x": 3,
+    "y": -10,
+    "floorId": "underfortress",
+    "tileStyle": "prison",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, dungeon cell corridor, barred cells, prisoners in shadow, torchlight, cinematic, no text",
+    "description": "Barred doors line the corridor.\n\nA woman’s voice cuts through the dark: \"Don’t rattle the bars. Listen first.\"",
+    "exits": {
+      "e": "u_prison_antechamber",
+      "w": "u_cell_end"
+    },
+    "actionsAvailable": {
+      "talk": {
+        "text": "You find the speaker: a noble courier with torn cloak and steady eyes.",
+        "choices": [
+          {
+            "id": "talk_vip",
+            "label": "Talk to Liora Vale.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_vip_prisoner_liora"
+              }
+            ]
+          },
+          {
+            "id": "start_rescue",
+            "label": "Start the rescue quest.",
+            "effects": [
+              {
+                "type": "startJob",
+                "jobId": "q_rescue_vip"
+              }
+            ]
+          }
+        ]
+      },
+      "open": {
+        "text": "Liora’s cell is locked.",
+        "choices": [
+          {
+            "id": "pick",
+            "label": "Pick the lock quietly.",
+            "requirements": [
+              {
+                "type": "hasItem",
+                "itemId": "lockpick_bundle",
+                "qty": 1
+              }
+            ],
+            "effects": [
+              {
+                "type": "removeItem",
+                "itemId": "lockpick_bundle",
+                "qty": 1
+              },
+              {
+                "type": "flag",
+                "key": "vip_cell_open",
+                "value": true
+              }
+            ]
+          },
+          {
+            "id": "key",
+            "label": "Use an iron fortress key.",
+            "requirements": [
+              {
+                "type": "hasItem",
+                "itemId": "fortress_key_iron",
+                "qty": 1
+              }
+            ],
+            "effects": [
+              {
+                "type": "flag",
+                "key": "vip_cell_open",
+                "value": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "free_vip",
+        "label": "If her cell is open, free Liora and move.",
+        "requirements": [
+          {
+            "type": "flagEquals",
+            "key": "vip_cell_open",
+            "value": true
+          }
+        ],
+        "effects": [
+          {
+            "type": "flag",
+            "key": "vip_rescued",
+            "value": true
+          },
+          {
+            "type": "completeJob",
+            "jobId": "q_rescue_vip"
+          },
+          {
+            "type": "addItem",
+            "itemId": "vip_signet_half",
+            "qty": 1
+          },
+          {
+            "type": "addXP",
+            "amount": 18
+          }
+        ],
+        "goToAreaId": "u_escape_route_choice"
+      }
+    ]
+  },
+  {
+    "id": "u_cell_end",
+    "title": "Cell Block End",
+    "x": 2,
+    "y": -10,
+    "floorId": "underfortress",
+    "tileStyle": "prison",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, end of prison corridor, cracked stone, old drain slit, cinematic, no text",
+    "description": "The corridor ends in cracked stone and an old drain slit.\n\nIt’s narrow — but it goes somewhere.\n\nYou hear drums deeper in the fortress. Not here. Not yet.",
+    "exits": {
+      "e": "u_prison_cells",
+      "w": "u_drain_slit"
+    }
+  },
+  {
+    "id": "u_drain_slit",
+    "title": "Drain Slit",
+    "x": 1,
+    "y": -10,
+    "floorId": "underfortress",
+    "tileStyle": "tunnel",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow maintenance slit behind cistern, squeezing through stone gap, cinematic, no text",
+    "description": "You squeeze sideways through stone.\n\nCold water runs over your boots.\n\nBeyond: a maintenance passage that smells of rope and iron.",
+    "exits": {
+      "e": "u_cell_end",
+      "w": "u_chain_gallery"
+    }
+  },
+  {
+    "id": "u_chain_gallery",
+    "title": "Chain Gallery",
+    "x": 0,
+    "y": -10,
+    "floorId": "underfortress",
+    "tileStyle": "mechanism",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, underground chain gallery with pulleys, massive chains, dripping water, cinematic, no text",
+    "description": "Massive chains run through pulleys.\n\nA chalk mark: ‘TRANSFER ROUTE →’ and a crude skull.\n\nThis is infrastructure — and infrastructure is always guarded.",
+    "exits": {
+      "e": "u_drain_slit",
+      "n": "u_jailer_gallery",
+      "w": "u_supply_lift"
+    },
+    "choices": [
+      {
+        "id": "muffle",
+        "label": "Cast Muffle Steps to cross the chain gallery quietly.",
+        "requirements": [
+          {
+            "type": "knowsSpell",
+            "spellId": "muffle_steps"
+          }
+        ],
+        "effects": [
+          {
+            "type": "castSpell",
+            "spellId": "muffle_steps"
+          },
+          {
+            "type": "addXP",
+            "amount": 8
+          }
+        ]
+      },
+      {
+        "id": "hound_risk",
+        "label": "A troll-hound sniffs the air…",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_hound_team_01",
+              "enemyGroupId": "hound_team",
+              "distance": 2,
+              "direction": "w",
+              "speed": 1,
+              "targetAreaId": "u_chain_gallery",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "u_hound_contact"
+      }
+    ]
+  },
+  {
+    "id": "u_hound_contact",
+    "title": "Hound Contact",
+    "x": -1,
+    "y": -10,
+    "floorId": "underfortress",
+    "tileStyle": "mechanism",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, troll-hound baring teeth, goblin handler, chain shadows, cinematic, no text",
+    "description": "A troll-hound lowers its head and growls.\n\nA goblin handler grins. \"SMELL HUMAN.\"",
+    "choices": [
+      {
+        "id": "oil_distraction",
+        "label": "Spill oil and throw it to distract the hound.",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "oil_flask",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "removeItem",
+            "itemId": "oil_flask",
+            "qty": 1
+          },
+          {
+            "type": "addXP",
+            "amount": 10
+          }
+        ],
+        "goToAreaId": "u_supply_lift"
+      },
+      {
+        "id": "fight",
+        "label": "Fight.",
+        "effects": [
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_hound_team_01"
+          }
+        ],
+        "goToAreaId": "u_supply_lift"
+      }
+    ]
+  },
+  {
+    "id": "u_jailer_gallery",
+    "title": "Jailer’s Gallery",
+    "x": 4,
+    "y": -11,
+    "floorId": "underfortress",
+    "tileStyle": "prison",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, jailer station with keyrings and whip, prisoner ledger, torchlight, cinematic, no text",
+    "description": "Keyrings hang like trophies.\n\nA heavy orc in a stained apron turns slowly.\n\n\"Lost?\" the jailer rumbles. \"Everyone’s lost down here. It’s why we keep them.\"",
+    "exits": {
+      "s": "u_prison_antechamber",
+      "w": "u_chain_gallery"
+    },
+    "choices": [
+      {
+        "id": "boss",
+        "label": "Fight the Orc Jailer.",
+        "effects": [
+          {
+            "type": "startCombat",
+            "enemyGroup": [
+              {
+                "enemyId": "orc_jailer",
+                "count": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "u_jailer_loot"
+      },
+      {
+        "id": "bribe",
+        "label": "Offer a Prison Ring Token for passage (if you have one).",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "prison_ring_token",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "removeItem",
+            "itemId": "prison_ring_token",
+            "qty": 1
+          },
+          {
+            "type": "flag",
+            "key": "jailer_bribed",
+            "value": true
+          }
+        ],
+        "goToAreaId": "u_supply_lift"
+      }
+    ]
+  },
+  {
+    "id": "u_jailer_loot",
+    "title": "Keyring Taken",
+    "x": 4,
+    "y": -12,
+    "floorId": "underfortress",
+    "tileStyle": "prison",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, fallen jailer, keys spilled, torchlight, cinematic, no text",
+    "description": "The jailer drops like a sack of iron.\n\nYou take the key — and a small black-stone splinter humming with ward energy.\n\nSomewhere deeper, a horn answers another horn.",
+    "effectsOnEnter": [
+      {
+        "type": "addItem",
+        "itemId": "fortress_key_iron",
+        "qty": 1
+      },
+      {
+        "type": "addItem",
+        "itemId": "ward_core_splinter",
+        "qty": 1
+      },
+      {
+        "type": "addXP",
+        "amount": 24
+      }
+    ],
+    "exits": {
+      "n": "u_supply_lift",
+      "s": "u_prison_antechamber"
+    }
+  },
+  {
+    "id": "u_supply_lift",
+    "title": "Supply Lift Platform",
+    "x": -1,
+    "y": -11,
+    "floorId": "underfortress",
+    "tileStyle": "lift",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, creaking lift platform over dark shaft, chains, torchlight, cinematic, no text",
+    "description": "A lift platform hangs over a black shaft.\n\nCrates are marked with crude runes: FOOD. IRON. PRISON.\n\nOne mark is newer: RELIQUARY.",
+    "exits": {
+      "e": "u_chain_gallery",
+      "n": "u_reliquary_stairs"
+    },
+    "actionsAvailable": {
+      "take": {
+        "text": "A crate lid is loose.",
+        "choices": [
+          {
+            "id": "take_meat",
+            "label": "Take salted meat.",
+            "effects": [
+              {
+                "type": "addItem",
+                "itemId": "salted_meat",
+                "qty": 2
+              }
+            ]
+          },
+          {
+            "id": "take_picks",
+            "label": "Take lockpicks.",
+            "effects": [
+              {
+                "type": "addItem",
+                "itemId": "lockpick_bundle",
+                "qty": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "u_escape_route_choice",
+    "title": "Escape Route Choice",
+    "x": 2,
+    "y": -11,
+    "floorId": "underfortress",
+    "tileStyle": "fortress",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, two routes in underground corridor, one lit by torches, one narrow and dark, cinematic, no text",
+    "description": "With the VIP freed, every corridor feels louder.\n\nYou must choose: speed, or stealth.",
+    "choices": [
+      {
+        "id": "fast",
+        "label": "Take the faster torch-lit route (risk patrols).",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_sentry_pair_02",
+              "enemyGroupId": "sentry_pair",
+              "distance": 2,
+              "direction": "n",
+              "speed": 1,
+              "targetAreaId": "u_escape_route_choice",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "u_guard_junction"
+      },
+      {
+        "id": "quiet",
+        "label": "Slip via the drain slit and chain gallery (safer, slower).",
+        "goToAreaId": "u_drain_slit"
+      }
+    ]
+  },
+  {
+    "id": "u_reliquary_stairs",
+    "title": "Reliquary Stairs",
+    "x": -1,
+    "y": -12,
+    "floorId": "underfortress",
+    "tileStyle": "fortress",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, descending stairs with old carvings, relic motifs, torch soot, cinematic, no text",
+    "description": "Stairs descend into older stone.\n\nCarvings show a sphere held over a battlefield — armies moving like pieces.\n\nThe ‘sight orb’ isn’t a rumor. It’s a weapon.",
+    "choices": [
+      {
+        "id": "seed_rumor",
+        "label": "Study the carvings (learn more).",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "crystal_orb_confirmed",
+            "value": true
+          },
+          {
+            "type": "addXP",
+            "amount": 10
+          }
+        ]
+      },
+      {
+        "id": "next_chapter",
+        "label": "Proceed into Under-Fortress Scenario II: The Deep Reliquary.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "chapter_underfortress_2_unlocked",
+            "value": true
+          },
+          {
+            "type": "flag",
+            "key": "underfortress_ch1_complete",
+            "value": true
+          }
+        ]
+      }
+    ]
+  }
+]

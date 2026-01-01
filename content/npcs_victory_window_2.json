@@ -1,0 +1,103 @@
+[
+  {
+    "id": "npc_councilor_vayne",
+    "name": "Councilor Vayne",
+    "role": "War Council (Cold Strategist)",
+    "portraitPrompt": "fantasy character portrait, stern city councilor in dark robes, candlelit council chamber, battle maps on table, painterly, no text",
+    "dialogue": {
+      "greeting": "You did not die. Excellent. Tell me what you changed.",
+      "nodes": [
+        {
+          "id": "debrief",
+          "text": "We measure victories in hours, not songs.\n\nIf you cut ladders, poisoned rations, burned supplies—we felt it.\n\nIf infiltrators slipped through, we feel that too.",
+          "choices": [
+            {
+              "label": "Report everything honestly.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "debrief_honest",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Emphasize successes, omit failures.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "debrief_spun",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_medic_sister_elin",
+    "name": "Sister Elin",
+    "role": "Field Medic (Triage Lead)",
+    "portraitPrompt": "fantasy character portrait, weary healer in simple robes with bloodstained sleeves, infirmary lanterns, compassionate eyes, painterly, no text",
+    "dialogue": {
+      "greeting": "If you can stand, you can carry water or bandages.",
+      "nodes": [
+        {
+          "id": "triage",
+          "text": "We’re keeping people alive by inches.\n\nIf arson spreads, smoke kills faster than steel.\n\nIf knives are loose in the streets, the wounded never reach us.",
+          "choices": [
+            {
+              "label": "Offer help immediately.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "triage_volunteer",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_inquisitor_dran",
+    "name": "Inquisitor Dran",
+    "role": "Interrogator (Truth at Any Cost)",
+    "portraitPrompt": "fantasy character portrait, hooded inquisitor with ink-stained gloves, small cell doorway, cold lantern light, painterly, no text",
+    "dialogue": {
+      "greeting": "They lie. You decide how quickly they stop.",
+      "nodes": [
+        {
+          "id": "interrogate",
+          "text": "We caught a token carrier. Not a fighter—an errand goblin.\n\nOffer mercy, offer fear, offer cleverness. Choose your method.",
+          "choices": [
+            {
+              "label": "Promise leniency (if it talks).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "interrogation_mercy",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Threaten consequences (hard line).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "interrogation_hardline",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

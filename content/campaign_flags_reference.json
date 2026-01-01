@@ -1,0 +1,72 @@
+{
+  "flags": [
+    {
+      "key": "uf_rescued_many",
+      "meaning": "Freed many captives; grants ally support and morale benefits."
+    },
+    {
+      "key": "uf_rescued_princess",
+      "meaning": "Rescued high-value prisoner; grants political mandate and elite escort potential."
+    },
+    {
+      "key": "uf_nexus_claimed",
+      "meaning": "Claimed nexus; personal power, higher magic volatility."
+    },
+    {
+      "key": "uf_nexus_shattered",
+      "meaning": "Destroyed nexus; denies enemy and city. Honest war."
+    },
+    {
+      "key": "uf_nexus_retuned",
+      "meaning": "Retuned nexus; enables cleaner city_warsight outcome later."
+    },
+    {
+      "key": "oracle_destroyed",
+      "meaning": "Destroyed war-sight engine; denies advantage permanently."
+    },
+    {
+      "key": "oracle_freed",
+      "meaning": "Freed oracle; possible future ally, moral high ground."
+    },
+    {
+      "key": "oracle_rebound_for_city",
+      "meaning": "Bound oracle for city; strong advantage, moral cost."
+    },
+    {
+      "key": "city_warsight_gained",
+      "meaning": "City gains war-sight; improves ritual interrupts and strategy."
+    },
+    {
+      "key": "enemy_warsight_denied",
+      "meaning": "Enemy war-sight denied; enemy tactics degrade in later content."
+    },
+    {
+      "key": "traitor_evidence_found",
+      "meaning": "You secured proof of internal sabotage."
+    },
+    {
+      "key": "ledger_stolen",
+      "meaning": "The ledger was lost; traitor thread unresolved."
+    },
+    {
+      "key": "city_lockdown_humane",
+      "meaning": "Order restored with minimal abuse."
+    },
+    {
+      "key": "city_lockdown_refused",
+      "meaning": "No decree; unrest risk, fewer official abuses."
+    },
+    {
+      "key": "allies_from_captives",
+      "meaning": "Allies arrive if called in final approach."
+    },
+    {
+      "key": "political_mandate_strong",
+      "meaning": "Elite escort may arrive if called in final approach."
+    },
+    {
+      "key": "final_warlord_hunt_complete",
+      "meaning": "Campaign climax finished."
+    }
+  ]
+}

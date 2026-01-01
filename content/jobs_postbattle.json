@@ -1,0 +1,42 @@
+[
+  {
+    "id": "job_pb_clear_tunnel",
+    "name": "Clear the Tunnel",
+    "startAreaId": "pb_sewer_tunnel",
+    "objective": { "type": "setFlag", "key": "tunnel_cleared", "value": true },
+    "rewards": { "gold": 5, "xp": 18 },
+    "cooldownMinutes": 60
+  },
+  {
+    "id": "job_pb_retrieve_key",
+    "name": "Retrieve the Inner Key",
+    "startAreaId": "pb_sewer_tunnel",
+    "objective": { "type": "deliverItems", "items": [{ "itemId": "iron_fortress_key", "qty": 1 }], "toAreaId": "pb_underfort_gate" },
+    "rewards": { "gold": 12, "xp": 36, "items": [{ "itemId": "iron_fortress_key", "qty": 1 }] },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "job_pb_secure_gallery",
+    "name": "Secure the Collapsed Gallery",
+    "startAreaId": "pb_collapsed_gallery",
+    "objective": { "type": "setFlag", "key": "gallery_cleared", "value": true },
+    "rewards": { "gold": 9, "xp": 30 },
+    "cooldownMinutes": 180
+  },
+  {
+    "id": "job_pb_enter_underfortress",
+    "name": "Enter the Underfortress",
+    "startAreaId": "pb_underfort_gate",
+    "objective": { "type": "setFlag", "key": "inside_underfortress", "value": true },
+    "rewards": { "gold": 20, "xp": 60 },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "job_pb_retrieve_artifact",
+    "name": "Seize the Reliquary Artifact",
+    "startAreaId": "pb_reliquary_approach",
+    "objective": { "type": "setFlag", "key": "artifact_taken", "value": true },
+    "rewards": { "gold": 0, "xp": 80, "items": [{ "itemId": "ward_stone", "qty": 1 }] },
+    "cooldownMinutes": 99999
+  }
+]

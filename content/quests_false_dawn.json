@@ -1,0 +1,89 @@
+[
+  {
+    "id": "q_watchfort_return_debrief",
+    "name": "Return Debrief: Codebook and Prisoners",
+    "giverNpcId": "npc_councilor_vayne",
+    "startAreaId": "f_postern_return",
+    "objective": {
+      "type": "setFlag",
+      "key": "watchfort_debrief_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 10,
+      "xp": 26,
+      "items": [
+        {
+          "itemId": "counter_signal_slip",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_false_dawn",
+    "name": "False Dawn: Break the Coordinated Push",
+    "giverNpcId": "npc_captain_harl",
+    "startAreaId": "f_signal_tower",
+    "objective": {
+      "type": "setFlag",
+      "key": "false_dawn_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 12,
+      "xp": 55,
+      "items": [
+        {
+          "itemId": "barricade_spike_crate",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_false_dawn_drains",
+    "name": "False Dawn Complication: Drains Knifers",
+    "giverNpcId": "npc_guard_serjeant_mara",
+    "startAreaId": "f_inner_yard_dawn",
+    "objective": {
+      "type": "setFlag",
+      "key": "false_dawn_drains_resolved",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 6,
+      "xp": 24,
+      "items": [
+        {
+          "itemId": "triage_bandage_roll",
+          "qty": 2
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_crystal_arc_start",
+    "name": "The Crystal Ball: A War-Turning Sight",
+    "giverNpcId": "npc_mage_archivist_salenne",
+    "startAreaId": "f_mage_tower_brief",
+    "objective": {
+      "type": "setFlag",
+      "key": "crystal_arc_started",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 18,
+      "items": []
+    },
+    "cooldownMinutes": 99999
+  }
+]

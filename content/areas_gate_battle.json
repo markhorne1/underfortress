@@ -1,0 +1,1034 @@
+[
+  {
+    "id": "g_battlements_wallwalk",
+    "title": "Battlements: Wallwalk",
+    "x": 2,
+    "y": 2,
+    "floorId": "city",
+    "tileStyle": "battlements",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, rain-slick battlements, archers, ladders below, siege fires beyond, cinematic, no text",
+    "description": "Rain slicks the stones.\n\nBelow, ladders shift into place like the legs of insects.\n\nCaptain Harl’s voice cuts through the wind: \"Hold. The. Wall.\"",
+    "actionsAvailable": {
+      "talk": {
+        "text": "Harl points to the parapet edge.",
+        "choices": [
+          {
+            "id": "harl",
+            "label": "Talk to Captain Harl.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_captain_harl"
+              }
+            ]
+          },
+          {
+            "id": "start_main",
+            "label": "Start: The Gate Battle.",
+            "effects": [
+              {
+                "type": "startJob",
+                "jobId": "q_gate_battle_main"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "begin_wave_1",
+        "label": "The first ladders bite the stone…",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "gate_wave_index",
+            "value": 1
+          },
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_gate_wave_1",
+              "enemyGroupId": "wave_gate_1",
+              "distance": 3,
+              "direction": "n",
+              "speed": 1,
+              "targetAreaId": "g_battlements_wallwalk",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "g_gate_wave_loop"
+      }
+    ],
+    "exits": {
+      "s": "g_inner_gate_yard"
+    }
+  },
+  {
+    "id": "g_gate_wave_loop",
+    "title": "Wall Defense: Ladder Clash",
+    "x": 2,
+    "y": 3,
+    "floorId": "city",
+    "tileStyle": "battlements",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, melee on battlements, ladder tops, goblins scrambling, orc brute climbing, cinematic, no text",
+    "description": "Steel on stone. Breath on rain.\n\nYou can thin them at range, cut ladders, or let them climb and fight them on the wall.\n\nBut if you focus only here, some smaller shapes may slip below into the city.",
+    "choices": [
+      {
+        "id": "shoot_then_hold",
+        "label": "1. Fire from the parapet, then hold position.",
+        "requirements": [
+          {
+            "type": "hasAnyItem",
+            "itemIds": [
+              "training_bow",
+              "hunting_bow"
+            ],
+            "qty": 1
+          },
+          {
+            "type": "hasAmmo",
+            "ammoType": "arrow",
+            "minCount": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "shootThreat",
+            "threatId": "t_gate_wave_1",
+            "ammoType": "arrow",
+            "ammoToConsume": 1,
+            "damage": {
+              "mode": "roll",
+              "expr": "1d6"
+            }
+          },
+          {
+            "type": "advanceThreat",
+            "threatId": "t_gate_wave_1"
+          }
+        ],
+        "goToAreaId": "g_gate_wave_loop"
+      },
+      {
+        "id": "cut_ladder",
+        "label": "2. Cut a ladder rope (reduces future wave strength).",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "hook_knife",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "flag",
+            "key": "ladders_cut_count",
+            "value": 1
+          },
+          {
+            "type": "addXP",
+            "amount": 8
+          },
+          {
+            "type": "advanceThreat",
+            "threatId": "t_gate_wave_1"
+          }
+        ],
+        "goToAreaId": "g_gate_wave_loop"
+      },
+      {
+        "id": "fight_now",
+        "label": "3. Fight them on the wall.",
+        "effects": [
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_gate_wave_1"
+          }
+        ],
+        "goToAreaId": "g_between_waves"
+      },
+      {
+        "id": "pursue_slips",
+        "label": "4. Break from the wall and chase infiltrators below (risk the battlements).",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "infiltrators_slipped",
+            "value": true
+          },
+          {
+            "type": "addToCounter",
+            "key": "infiltrators_slipped_count",
+            "amount": 1
+          }
+        ],
+        "goToAreaId": "g_inner_gate_yard"
+      }
+    ]
+  },
+  {
+    "id": "g_between_waves",
+    "title": "Between Waves",
+    "x": 2,
+    "y": 4,
+    "floorId": "city",
+    "tileStyle": "battlements",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, brief lull on battlements, bodies cleared, distant horns, cinematic, no text",
+    "description": "A lull—only a lull.\n\nThe next horn will come.\n\nA runner shouts from below: \"Small ones slipped through!\"",
+    "choices": [
+      {
+        "id": "wave_2",
+        "label": "Hold the wall for Wave II.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "gate_wave_index",
+            "value": 2
+          },
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_gate_wave_2",
+              "enemyGroupId": "wave_gate_2",
+              "distance": 3,
+              "direction": "n",
+              "speed": 1,
+              "targetAreaId": "g_battlements_wallwalk",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "g_gate_wave_2_loop"
+      },
+      {
+        "id": "chase_now",
+        "label": "Go after the infiltrators now (street chase).",
+        "effects": [
+          {
+            "type": "addToCounter",
+            "key": "infiltrators_slipped_count",
+            "amount": 1
+          }
+        ],
+        "goToAreaId": "g_inner_gate_yard"
+      }
+    ]
+  },
+  {
+    "id": "g_gate_wave_2_loop",
+    "title": "Wall Defense: Brute Push",
+    "x": 2,
+    "y": 5,
+    "floorId": "city",
+    "tileStyle": "battlements",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, orc brutes cresting ladders, shields up, goblins behind, cinematic, no text",
+    "description": "Wave II hits harder.\n\nBrutes crest the ladder tops with shields raised.\n\nYou can keep them off—if you don’t split your attention too far.",
+    "choices": [
+      {
+        "id": "fight",
+        "label": "Fight.",
+        "effects": [
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_gate_wave_2"
+          }
+        ],
+        "goToAreaId": "g_pre_final_wave"
+      },
+      {
+        "id": "hold_but_slip",
+        "label": "Hold the wall—accept that some goblins slip below.",
+        "effects": [
+          {
+            "type": "addToCounter",
+            "key": "infiltrators_slipped_count",
+            "amount": 1
+          },
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_gate_wave_2"
+          }
+        ],
+        "goToAreaId": "g_pre_final_wave"
+      }
+    ]
+  },
+  {
+    "id": "g_pre_final_wave",
+    "title": "The Sergeant Push",
+    "x": 2,
+    "y": 6,
+    "floorId": "city",
+    "tileStyle": "battlements",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, orc sergeant with banner roaring, final push at the ladders, cinematic, no text",
+    "description": "A heavier horn.\n\nA banner rises—orc sergeant at its heart.\n\nIf that banner reaches the wall, the line breaks.",
+    "choices": [
+      {
+        "id": "start_wave_3",
+        "label": "Meet the sergeant push head-on.",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_gate_wave_3",
+              "enemyGroupId": "wave_gate_3",
+              "distance": 2,
+              "direction": "n",
+              "speed": 1,
+              "targetAreaId": "g_battlements_wallwalk",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "g_final_wave_loop"
+      }
+    ]
+  },
+  {
+    "id": "g_final_wave_loop",
+    "title": "Final Wave: Banner on the Stones",
+    "x": 2,
+    "y": 7,
+    "floorId": "city",
+    "tileStyle": "battlements",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, elite orc sergeant fighting on battlements, banner whipping in rain, cinematic, no text",
+    "description": "This one matters.\n\nIf you win, the wall holds.\n\nIf you lose, the fight moves into streets and fire.",
+    "choices": [
+      {
+        "id": "fight",
+        "label": "Fight the sergeant push.",
+        "effects": [
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_gate_wave_3"
+          }
+        ],
+        "goToAreaId": "g_gate_battle_resolution"
+      }
+    ]
+  },
+  {
+    "id": "g_gate_battle_resolution",
+    "title": "Wall Held (For Now)",
+    "x": 2,
+    "y": 8,
+    "floorId": "city",
+    "tileStyle": "battlements",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, dawn light over battered battlements, exhausted defenders, smoke in distance, cinematic, no text",
+    "description": "The horn fades.\n\nThe wall still stands.\n\nBut the city is not safe yet.\n\nIf infiltrators slipped through, the damage will already be starting.",
+    "effectsOnEnter": [
+      {
+        "type": "completeJob",
+        "jobId": "q_gate_battle_main"
+      },
+      {
+        "type": "flag",
+        "key": "gate_battle_complete",
+        "value": true
+      }
+    ],
+    "choices": [
+      {
+        "id": "check_infiltration",
+        "label": "Descend into the city to deal with infiltrators.",
+        "goToAreaId": "g_inner_gate_yard"
+      }
+    ],
+    "exits": {
+      "s": "g_inner_gate_yard"
+    }
+  },
+  {
+    "id": "g_inner_gate_yard",
+    "title": "Inner Gate Yard",
+    "x": 2,
+    "y": 1,
+    "floorId": "city",
+    "tileStyle": "yard",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, inner gate yard with panicked runners, lanterns, smoke plume, cinematic, no text",
+    "description": "Runners collide in the yard.\n\nA guard points into the streets: \"They’re in the alleys!\"\n\nAnother shouts: \"Smoke by the granary!\"\n\nIf too many slipped through, tonight becomes fire… and then screams.",
+    "actionsAvailable": {
+      "talk": {
+        "text": "Serjeant Mara is rallying patrols.",
+        "choices": [
+          {
+            "id": "mara",
+            "label": "Talk to Serjeant Mara.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_guard_serjeant_mara"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "spawn_infiltrators",
+        "label": "Track the infiltrators (start a chase).",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_infiltrators_01",
+              "enemyGroupId": "infiltrator_pack_small",
+              "distance": 3,
+              "direction": "e",
+              "speed": 1,
+              "targetAreaId": "g_back_alley_fork",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "g_back_alley_fork"
+      },
+      {
+        "id": "evaluate_consequences",
+        "label": "Assess the damage reports.",
+        "effects": [
+          {
+            "type": "conditional",
+            "when": [
+              {
+                "key": "infiltrators_slipped_count",
+                "op": ">=",
+                "value": 2
+              }
+            ],
+            "then": [
+              {
+                "type": "flag",
+                "key": "arson_reports_active",
+                "value": true
+              }
+            ],
+            "else": [
+              {
+                "type": "flag",
+                "key": "arson_reports_active",
+                "value": false
+              }
+            ]
+          },
+          {
+            "type": "conditional",
+            "when": [
+              {
+                "key": "infiltrators_slipped_count",
+                "op": ">=",
+                "value": 4
+              }
+            ],
+            "then": [
+              {
+                "type": "flag",
+                "key": "civilian_casualties_active",
+                "value": true
+              }
+            ],
+            "else": [
+              {
+                "type": "flag",
+                "key": "civilian_casualties_active",
+                "value": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "drains_branch",
+        "label": "If the enemy has a second mouth, respond to the drains breach.",
+        "requirements": [
+          {
+            "type": "flagEquals",
+            "key": "enemy_second_mouth_active",
+            "value": true
+          }
+        ],
+        "effects": [
+          {
+            "type": "startJob",
+            "jobId": "q_drains_breach"
+          }
+        ],
+        "goToAreaId": "g_drains_junction"
+      }
+    ],
+    "exits": {
+      "n": "g_battlements_wallwalk",
+      "e": "g_market_square_panic"
+    }
+  },
+  {
+    "id": "g_back_alley_fork",
+    "title": "Back Alley Fork",
+    "x": 3,
+    "y": 1,
+    "floorId": "city",
+    "tileStyle": "alley",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow wet alley splitting left and right, lantern swinging, footprints, cinematic, no text",
+    "description": "Wet stones. Tight walls.\n\nYou hear a match-scratch somewhere ahead.\n\nThis is where chase work is done — fast choices, dirty corners.",
+    "choices": [
+      {
+        "id": "open_fire",
+        "label": "1. Open fire with my bow, then advance carefully.",
+        "requirements": [
+          {
+            "type": "hasAnyItem",
+            "itemIds": [
+              "training_bow",
+              "hunting_bow"
+            ],
+            "qty": 1
+          },
+          {
+            "type": "hasAmmo",
+            "ammoType": "arrow",
+            "minCount": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "shootThreat",
+            "threatId": "t_infiltrators_01",
+            "ammoType": "arrow",
+            "ammoToConsume": 1,
+            "damage": {
+              "mode": "roll",
+              "expr": "1d6"
+            }
+          },
+          {
+            "type": "advanceThreat",
+            "threatId": "t_infiltrators_01"
+          }
+        ],
+        "goToAreaId": "g_chase_distance_loop"
+      },
+      {
+        "id": "set_spikes",
+        "label": "2. Set spikes at the fork to slow them.",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "spike_bundle",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "removeItem",
+            "itemId": "spike_bundle",
+            "qty": 1
+          },
+          {
+            "type": "placeHazard",
+            "threatId": "t_infiltrators_01",
+            "hazard": {
+              "kind": "spikes",
+              "damage": 2,
+              "triggerAtDistance": 1
+            }
+          },
+          {
+            "type": "advanceThreat",
+            "threatId": "t_infiltrators_01"
+          }
+        ],
+        "goToAreaId": "g_chase_distance_loop"
+      },
+      {
+        "id": "retreat",
+        "label": "3. Retreat and call guards (whistle).",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "signal_whistle_city",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "flag",
+            "key": "guards_join_chase",
+            "value": true
+          },
+          {
+            "type": "addXP",
+            "amount": 6
+          }
+        ],
+        "goToAreaId": "g_chase_distance_loop"
+      },
+      {
+        "id": "fight",
+        "label": "4. Fight when they close.",
+        "effects": [
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_infiltrators_01"
+          }
+        ],
+        "goToAreaId": "g_chase_aftermath"
+      }
+    ],
+    "exits": {
+      "w": "g_inner_gate_yard",
+      "e": "g_chase_distance_loop"
+    }
+  },
+  {
+    "id": "g_chase_distance_loop",
+    "title": "Chase Distance",
+    "x": 4,
+    "y": 1,
+    "floorId": "city",
+    "tileStyle": "alley",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, goblins sprinting between alleys, lantern streaks, arrows flying, cinematic, no text",
+    "description": "You manage distance in bursts: corner to corner.\n\nIf you lose them, the city pays.\n\nIf you press too hard, you run into a knife waiting in the dark.",
+    "choices": [
+      {
+        "id": "fire_and_push",
+        "label": "Fire again, then push forward.",
+        "requirements": [
+          {
+            "type": "hasAnyItem",
+            "itemIds": [
+              "training_bow",
+              "hunting_bow"
+            ],
+            "qty": 1
+          },
+          {
+            "type": "hasAmmo",
+            "ammoType": "arrow",
+            "minCount": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "shootThreat",
+            "threatId": "t_infiltrators_01",
+            "ammoType": "arrow",
+            "ammoToConsume": 1,
+            "damage": {
+              "mode": "roll",
+              "expr": "1d6"
+            }
+          },
+          {
+            "type": "advanceThreat",
+            "threatId": "t_infiltrators_01"
+          }
+        ],
+        "goToAreaId": "g_chase_fire_scene"
+      },
+      {
+        "id": "fight_now",
+        "label": "Close and fight.",
+        "effects": [
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_infiltrators_01"
+          }
+        ],
+        "goToAreaId": "g_chase_aftermath"
+      },
+      {
+        "id": "lose_them",
+        "label": "You hesitate… and they slip away into the dark.",
+        "effects": [
+          {
+            "type": "addToCounter",
+            "key": "infiltrators_slipped_count",
+            "amount": 1
+          },
+          {
+            "type": "flag",
+            "key": "infiltrators_got_away",
+            "value": true
+          }
+        ],
+        "goToAreaId": "g_escalation_reports"
+      }
+    ]
+  },
+  {
+    "id": "g_chase_fire_scene",
+    "title": "Smoke by the Granary",
+    "x": 5,
+    "y": 1,
+    "floorId": "city",
+    "tileStyle": "street",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, granary street with smoke and small flames, goblin firebug fleeing, civilians shouting, cinematic, no text",
+    "description": "A firebug bolts past a granary door.\n\nSmoke curls from fresh pitch.\n\nThis is the first warning. If you fail here, the next warning is bodies.",
+    "choices": [
+      {
+        "id": "extinguish",
+        "label": "Smother the fire quickly (bucket of sand).",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "bucket_sand",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "removeItem",
+            "itemId": "bucket_sand",
+            "qty": 1
+          },
+          {
+            "type": "flag",
+            "key": "arson_prevented",
+            "value": true
+          },
+          {
+            "type": "addXP",
+            "amount": 10
+          }
+        ],
+        "goToAreaId": "g_chase_aftermath"
+      },
+      {
+        "id": "pursue_firebug",
+        "label": "Ignore the flames and pursue the firebug.",
+        "effects": [
+          {
+            "type": "addToCounter",
+            "key": "arson_damage_count",
+            "amount": 1
+          },
+          {
+            "type": "flag",
+            "key": "arson_started",
+            "value": true
+          }
+        ],
+        "goToAreaId": "g_chase_aftermath"
+      }
+    ]
+  },
+  {
+    "id": "g_chase_aftermath",
+    "title": "Infiltrators Dealt With",
+    "x": 6,
+    "y": 1,
+    "floorId": "city",
+    "tileStyle": "street",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, alley aftermath, dropped tinder pouch, guard lanterns arriving, cinematic, no text",
+    "description": "The chase ends in wet stone and hard breathing.\n\nYou gather proof: tinder pouches and black tokens.\n\nSerjeant Mara arrives with lanterns. \"Good. Now—how many got away?\"",
+    "effectsOnEnter": [
+      {
+        "type": "flag",
+        "key": "arsonists_stopped",
+        "value": true
+      },
+      {
+        "type": "completeJob",
+        "jobId": "q_chase_arsonists"
+      },
+      {
+        "type": "addXP",
+        "amount": 14
+      }
+    ],
+    "choices": [
+      {
+        "id": "reports",
+        "label": "Hear the latest reports.",
+        "goToAreaId": "g_escalation_reports"
+      },
+      {
+        "id": "back",
+        "label": "Return to the Inner Gate Yard.",
+        "goToAreaId": "g_inner_gate_yard"
+      }
+    ]
+  },
+  {
+    "id": "g_escalation_reports",
+    "title": "Escalating Reports",
+    "x": 7,
+    "y": 1,
+    "floorId": "city",
+    "tileStyle": "civic",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, guard runner delivering report in rainy street, worried faces, cinematic, no text",
+    "description": "A runner arrives soaked.\n\nIf you let infiltrators slip by, the city’s pain spreads in stages.\n\nFirst fire. Then blood.",
+    "choices": [
+      {
+        "id": "arson_stage",
+        "label": "If slip count is high, arson reports escalate.",
+        "effects": [
+          {
+            "type": "conditional",
+            "when": [
+              {
+                "key": "infiltrators_slipped_count",
+                "op": ">=",
+                "value": 2
+              }
+            ],
+            "then": [
+              {
+                "type": "flag",
+                "key": "arson_reports_active",
+                "value": true
+              },
+              {
+                "type": "startJob",
+                "jobId": "q_chase_arsonists"
+              }
+            ],
+            "else": [
+              {
+                "type": "flag",
+                "key": "arson_reports_active",
+                "value": false
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "g_market_square_panic"
+      },
+      {
+        "id": "casualties_stage",
+        "label": "If slip count is very high, civilian casualties are reported.",
+        "effects": [
+          {
+            "type": "conditional",
+            "when": [
+              {
+                "key": "infiltrators_slipped_count",
+                "op": ">=",
+                "value": 4
+              }
+            ],
+            "then": [
+              {
+                "type": "flag",
+                "key": "civilian_casualties_active",
+                "value": true
+              },
+              {
+                "type": "startJob",
+                "jobId": "q_chase_casualties"
+              }
+            ],
+            "else": [
+              {
+                "type": "flag",
+                "key": "civilian_casualties_active",
+                "value": false
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "g_market_square_panic"
+      }
+    ],
+    "exits": {
+      "w": "g_inner_gate_yard"
+    }
+  },
+  {
+    "id": "g_market_square_panic",
+    "title": "Market Square: Panic and Smoke",
+    "x": 3,
+    "y": 0,
+    "floorId": "city",
+    "tileStyle": "market",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, market square at night with smoke, civilians running, guards shouting, cinematic, no text",
+    "description": "The market is chaos.\n\nIf fires started, merchants scream about burning stalls.\n\nIf casualties began, guards carry bodies under cloaks.\n\n\"Seek out the infiltrators with due haste!\"",
+    "choices": [
+      {
+        "id": "hunt_more",
+        "label": "Hunt another infiltrator pack through the alleys (harder).",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_infiltrators_02",
+              "enemyGroupId": "infiltrator_pack_large",
+              "distance": 2,
+              "direction": "n",
+              "speed": 1,
+              "targetAreaId": "g_tenements_lane",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "g_tenements_lane"
+      },
+      {
+        "id": "resolve",
+        "label": "If you’ve stopped enough packs, declare the streets secured.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "infiltrators_eliminated",
+            "value": true
+          },
+          {
+            "type": "completeJob",
+            "jobId": "q_chase_casualties"
+          },
+          {
+            "type": "addXP",
+            "amount": 10
+          }
+        ],
+        "goToAreaId": "g_inner_gate_yard"
+      }
+    ],
+    "exits": {
+      "w": "g_inner_gate_yard"
+    }
+  },
+  {
+    "id": "g_tenements_lane",
+    "title": "Tenements Lane",
+    "x": 3,
+    "y": -1,
+    "floorId": "city",
+    "tileStyle": "tenements",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, cramped tenement street, shuttered windows, blood on cobbles, lantern light, cinematic, no text",
+    "description": "Shutters slam.\n\nA child cries somewhere above.\n\nA goblin laughs—then stops when it hears your boots.",
+    "choices": [
+      {
+        "id": "fight",
+        "label": "Fight the infiltrators here.",
+        "effects": [
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_infiltrators_02"
+          }
+        ],
+        "goToAreaId": "g_infiltrator_cleanup"
+      }
+    ],
+    "exits": {
+      "s": "g_market_square_panic"
+    }
+  },
+  {
+    "id": "g_infiltrator_cleanup",
+    "title": "Street Secured",
+    "x": 3,
+    "y": -2,
+    "floorId": "city",
+    "tileStyle": "civic",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, guards arriving, lanterns, captured goblin token, weary civilians, cinematic, no text",
+    "description": "Guards arrive in numbers.\n\nThe immediate threat is gone.\n\nThe consequences remain—but you kept them from becoming worse.",
+    "effectsOnEnter": [
+      {
+        "type": "addXP",
+        "amount": 18
+      },
+      {
+        "type": "flag",
+        "key": "infiltrators_eliminated",
+        "value": true
+      },
+      {
+        "type": "completeJob",
+        "jobId": "q_chase_casualties"
+      }
+    ],
+    "choices": [
+      {
+        "id": "back",
+        "label": "Return to report in the Inner Gate Yard.",
+        "goToAreaId": "g_inner_gate_yard"
+      }
+    ]
+  },
+  {
+    "id": "g_drains_junction",
+    "title": "Drains Junction: Wet Stone and Whispering",
+    "x": 1,
+    "y": 0,
+    "floorId": "sewer",
+    "tileStyle": "sewer",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, sewer junction with rushing water, lantern reflections, shadowy figures, cinematic, no text",
+    "description": "If the enemy kept a ‘second mouth,’ this is where it bites.\n\nYou hear splashing that isn’t water.\n\nSomething is moving upstream.",
+    "choices": [
+      {
+        "id": "resolve_breach",
+        "label": "Seal the breach (fight in the drains).",
+        "effects": [
+          {
+            "type": "startCombat",
+            "enemyGroup": [
+              {
+                "enemyId": "goblin_alley_cutthroat",
+                "count": 2
+              },
+              {
+                "enemyId": "goblin_firebug",
+                "count": 1
+              }
+            ]
+          },
+          {
+            "type": "flag",
+            "key": "drains_breach_resolved",
+            "value": true
+          },
+          {
+            "type": "completeJob",
+            "jobId": "q_drains_breach"
+          },
+          {
+            "type": "addXP",
+            "amount": 20
+          }
+        ],
+        "goToAreaId": "g_inner_gate_yard"
+      }
+    ],
+    "exits": {
+      "n": "k_city_drain_return"
+    }
+  }
+]

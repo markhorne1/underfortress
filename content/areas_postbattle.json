@@ -1,0 +1,52 @@
+[
+  {
+    "id": "pb_sewer_tunnel",
+    "title": "Sewer Tunnel",
+    "text": "The passage tightens; boots splash through knee-deep filth while iron rails and cracked masonry cut dim shapes in torchlight.",
+    "imagePrompt": "A narrow, wet stone sewer tunnel lit by torches: slick walls, shallow running water, discarded tools and dripping stone.",
+    "choices": [
+      { "id": "pb_tunnel_clear", "text": "Clear the tunnel of debris", "effects": [{ "type": "startJob", "jobId": "job_pb_clear_tunnel" }] },
+      { "id": "pb_tunnel_skip", "text": "Push on deeper", "effects": [{ "type": "startJob", "jobId": "job_pb_retrieve_key" }] }
+    ]
+  },
+  {
+    "id": "pb_flooded_chamber",
+    "title": "Flooded Chamber",
+    "text": "A low chamber yawns, half-drowned in oily water. Something moves under the surface — a shadow or a machine — and the air feels wrong.",
+    "imagePrompt": "A half-submerged stone chamber with oily water, scattered wreckage and a faint glint of metal beneath the surface.",
+    "choices": [
+      { "id": "pb_search_wreck", "text": "Search the wreckage for salvage", "effects": [{ "type": "completeJob", "jobId": "job_pb_clear_tunnel" }, { "type": "startJob", "jobId": "job_pb_secure_gallery" }] },
+      { "id": "pb_return_surface", "text": "Return and report to the captain", "effects": [{ "type": "advanceQuest", "questId": "q_gate_battle_main" }] }
+    ]
+  },
+  {
+    "id": "pb_collapsed_gallery",
+    "title": "Collapsed Gallery",
+    "text": "Rubble chokes the passage; rune-carved lintels pulse with a faint light as the draft finds its way through the cracks.",
+    "imagePrompt": "A collapsed stone gallery with rune-etched lintels, dust-filled air and timber braces half-buried in debris.",
+    "choices": [
+      { "id": "pb_breach_rubble", "text": "Remove the rubble and force a way", "effects": [{ "type": "startJob", "jobId": "job_pb_secure_gallery" }] },
+      { "id": "pb_hold", "text": "Hold position and prepare defenses", "effects": [{ "type": "setFlag", "key": "gallery_secured", "value": true }] }
+    ]
+  },
+  {
+    "id": "pb_underfort_gate",
+    "title": "Underfortress Gate",
+    "text": "An inner gate bars the way — iron long corroded, its frame carved with warding sigils. Beyond, darkness promises secrets and danger.",
+    "imagePrompt": "A heavy inner gate with rusted iron and glowing sigils, the small gap beyond swallowed by shadow.",
+    "choices": [
+      { "id": "pb_try_key", "text": "Try the recovered key on the lock", "effects": [{ "type": "completeJob", "jobId": "job_pb_retrieve_key" }, { "type": "startJob", "jobId": "job_pb_enter_underfortress" }] },
+      { "id": "pb_force_gate", "text": "Force the gate open with tools", "effects": [{ "type": "startJob", "jobId": "job_pb_secure_gallery" }] }
+    ]
+  },
+  {
+    "id": "pb_reliquary_approach",
+    "title": "Reliquary Approach",
+    "text": "Past the gate the reliquary corridor hums, braided runes glowing beneath scuffed feet; the air thrums with a distant, patient power.",
+    "imagePrompt": "A long reliquary corridor lit by dim braziers, arcane symbols glowing faintly on the stone floor and dust motes drifting in the light.",
+    "choices": [
+      { "id": "pb_approach_open", "text": "Approach the reliquary", "effects": [{ "type": "setFlag", "key": "reliquary_approached", "value": true }, { "type": "completeJob", "jobId": "job_pb_enter_underfortress" }] },
+      { "id": "pb_steal_artifact", "text": "Attempt to seize an artifact", "effects": [{ "type": "startJob", "jobId": "job_pb_retrieve_artifact" }] }
+    ]
+  }
+]

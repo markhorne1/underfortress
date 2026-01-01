@@ -1,0 +1,532 @@
+[
+  {
+    "id": "s_mage_scrying_chamber",
+    "title": "Mage Tower: Scrying Chamber",
+    "x": 2,
+    "y": 2,
+    "floorId": "city",
+    "tileStyle": "tower",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, crystal ball on pedestal in mage chamber, light swirling, anxious scribes, cinematic, no text",
+    "description": "The crystal ball hums like a held breath.\n\nSalenne steadies it with both hands.\n\nImages appear: smoke, a door, water… and a ring stamping black wax on stolen orders.",
+    "choices": [
+      {
+        "id": "start_scry",
+        "label": "Begin the scrying (learn the night assault and traitor clue).",
+        "effects": [
+          {
+            "type": "startJob",
+            "jobId": "q_crystal_delivery_scry"
+          },
+          {
+            "type": "flag",
+            "key": "scrying_complete",
+            "value": true
+          },
+          {
+            "type": "completeJob",
+            "jobId": "q_crystal_delivery_scry"
+          },
+          {
+            "type": "flag",
+            "key": "night_assault_known",
+            "value": true
+          },
+          {
+            "type": "flag",
+            "key": "traitor_clue_blackwax_ring",
+            "value": true
+          }
+        ],
+        "goToAreaId": "s_council_emergency"
+      }
+    ]
+  },
+  {
+    "id": "s_council_emergency",
+    "title": "Council Emergency: Three Knives at Once",
+    "x": 1,
+    "y": 2,
+    "floorId": "city",
+    "tileStyle": "council",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, emergency council meeting, maps with three marked targets, lantern light, cinematic, no text",
+    "description": "The council marks three points on the city map:\n\n- Granary quarter.\n- Postern gate.\n- Drains junction.\n\n\"They hit all three at once,\" Vayne says.\n\n\"And someone inside stamped the orders.\"",
+    "actionsAvailable": {
+      "talk": {
+        "text": "Vayne’s finger rests on the map like a blade.",
+        "choices": [
+          {
+            "id": "vayne",
+            "label": "Talk to Councilor Vayne.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_councilor_vayne"
+              }
+            ]
+          },
+          {
+            "id": "start_assault",
+            "label": "Start: Night Assault.",
+            "effects": [
+              {
+                "type": "startJob",
+                "jobId": "q_night_assault"
+              }
+            ]
+          },
+          {
+            "id": "start_traitor",
+            "label": "Start: Traitor Hunt.",
+            "effects": [
+              {
+                "type": "startJob",
+                "jobId": "q_traitor_hunt"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "choice_granary",
+        "label": "1. Save the Granary (food and winter).",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "night_choice",
+            "value": "granary"
+          }
+        ],
+        "goToAreaId": "s_granary_quarter"
+      },
+      {
+        "id": "choice_postern",
+        "label": "2. Reinforce the Postern (stop a breach).",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "night_choice",
+            "value": "postern"
+          }
+        ],
+        "goToAreaId": "s_postern_night"
+      },
+      {
+        "id": "choice_ambush",
+        "label": "3. Ambush the Siege Command Tent (cut the head).",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "night_choice",
+            "value": "ambush"
+          }
+        ],
+        "goToAreaId": "s_postern_to_field"
+      },
+      {
+        "id": "investigate_quartermaster",
+        "label": "Investigate the quartermaster’s ledgers for blackwax seals.",
+        "goToAreaId": "s_stores_ledger_room"
+      }
+    ]
+  },
+  {
+    "id": "s_stores_ledger_room",
+    "title": "Stores Ledger Room: Wax and Numbers",
+    "x": 0,
+    "y": 2,
+    "floorId": "city",
+    "tileStyle": "ledger",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, ledger room with keys, wax seals, shelves of supplies, tense mood, cinematic, no text",
+    "description": "Ledgers. Keys. Wax.\n\nMaster of Stores Rell watches you like you’re the thief.\n\nBut the scrying showed a ring… and a seal no honest hand should hold.",
+    "actionsAvailable": {
+      "talk": {
+        "text": "Rell’s mouth is polite; his eyes are not.",
+        "choices": [
+          {
+            "id": "rell",
+            "label": "Talk to Rell.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_master_of_stores_rell"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "search_ledgers",
+        "label": "Search for suspicious requisitions (mind check).",
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "mind",
+            "dc": 9,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "traitor_identified",
+                "value": "rell"
+              },
+              {
+                "type": "addXP",
+                "amount": 12
+              }
+            ],
+            "onFail": [
+              {
+                "type": "flag",
+                "key": "traitor_identified",
+                "value": "unknown"
+              },
+              {
+                "type": "addXP",
+                "amount": 6
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "s_traitor_confrontation"
+      },
+      {
+        "id": "leave",
+        "label": "Leave and focus on the night assault.",
+        "goToAreaId": "s_council_emergency"
+      }
+    ]
+  },
+  {
+    "id": "s_traitor_confrontation",
+    "title": "Confrontation: Blackwax in Hand",
+    "x": 0,
+    "y": 1,
+    "floorId": "city",
+    "tileStyle": "civic",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, tense confrontation in ledger room doorway, guard lanterns, a ring glint, cinematic, no text",
+    "description": "The ring glints.\n\nA bodyguard shifts closer.\n\nRell’s voice stays calm: \"You’re exhausted. You’re seeing enemies everywhere.\"\n\nBut you can smell pitch on the wax—fresh.",
+    "choices": [
+      {
+        "id": "arrest",
+        "label": "1. Call guards and attempt an arrest.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "traitor_arrest_attempted",
+            "value": true
+          },
+          {
+            "type": "startCombat",
+            "enemyGroup": [
+              {
+                "enemyId": "traitor_bodyguard",
+                "count": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "s_traitor_resolved"
+      },
+      {
+        "id": "talk_down",
+        "label": "2. Talk him down (mind check).",
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "mind",
+            "dc": 10,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "traitor_confessed",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 14
+              }
+            ],
+            "onFail": [
+              {
+                "type": "startCombat",
+                "enemyGroup": [
+                  {
+                    "enemyId": "traitor_bodyguard",
+                    "count": 1
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "s_traitor_resolved"
+      }
+    ]
+  },
+  {
+    "id": "s_traitor_resolved",
+    "title": "Traitor Resolved",
+    "x": 0,
+    "y": 0,
+    "floorId": "city",
+    "tileStyle": "civic",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, guards seizing a ring and wax seal, lanterns, grim faces, cinematic, no text",
+    "description": "The ring is taken.\n\nBlack wax crumbles under a guard’s thumb.\n\nWhether confession or force, the city has one less knife behind its back.",
+    "effectsOnEnter": [
+      {
+        "type": "flag",
+        "key": "traitor_resolved",
+        "value": true
+      },
+      {
+        "type": "completeJob",
+        "jobId": "q_traitor_hunt"
+      },
+      {
+        "type": "addItem",
+        "itemId": "traitor_ring_blackwax",
+        "qty": 1
+      },
+      {
+        "type": "addXP",
+        "amount": 16
+      },
+      {
+        "type": "flag",
+        "key": "night_assault_enemy_coordination_reduced",
+        "value": true
+      }
+    ],
+    "choices": [
+      {
+        "id": "back",
+        "label": "Return to the council’s triage choice.",
+        "goToAreaId": "s_council_emergency"
+      }
+    ]
+  },
+  {
+    "id": "s_granary_quarter",
+    "title": "Granary Quarter: Smoke Before Screams",
+    "x": 2,
+    "y": 1,
+    "floorId": "city",
+    "tileStyle": "market",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, granary street at night, smoke pouring from door seams, goblins with tinder, cinematic, no text",
+    "description": "The scrying was right.\n\nSmoke leaks from seams.\n\nIf the granary burns, winter becomes an enemy too.",
+    "choices": [
+      {
+        "id": "start_granary_threat",
+        "label": "Fight the fireteam before they ignite the stores.",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_night_granary",
+              "enemyGroupId": "night_assault_granary",
+              "distance": 3,
+              "direction": "n",
+              "speed": 1,
+              "targetAreaId": "s_granary_quarter",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "s_granary_fight"
+      }
+    ]
+  },
+  {
+    "id": "s_granary_fight",
+    "title": "Granary: Fire in the Doorframe",
+    "x": 3,
+    "y": 1,
+    "floorId": "city",
+    "tileStyle": "market",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, close fight at granary door, flames starting, goblins fleeing, cinematic, no text",
+    "description": "You can fight them—or smother the flames first.\n\nIf you spend time on one, the other worsens.",
+    "choices": [
+      {
+        "id": "fight",
+        "label": "Fight.",
+        "effects": [
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_night_granary"
+          }
+        ],
+        "goToAreaId": "s_night_resolution"
+      },
+      {
+        "id": "smother",
+        "label": "Smother flames with ward chalk + water (luck check).",
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "luck",
+            "dc": 9,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "granary_saved",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 10
+              }
+            ],
+            "onFail": [
+              {
+                "type": "flag",
+                "key": "granary_damaged",
+                "value": true
+              },
+              {
+                "type": "addToCounter",
+                "key": "arson_damage_count",
+                "amount": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "s_night_resolution"
+      }
+    ]
+  },
+  {
+    "id": "s_postern_night",
+    "title": "Postern Gate: Breach at Midnight",
+    "x": 1,
+    "y": 0,
+    "floorId": "city",
+    "tileStyle": "postern",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, postern gate at night, orc with ram and tools, torches, cinematic, no text",
+    "description": "The small gate shudders.\n\nAn orc breaker works like a craftsman of destruction.\n\nIf this door opens, the city’s back becomes its throat.",
+    "choices": [
+      {
+        "id": "start_postern_threat",
+        "label": "Stop the postern breach.",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_night_postern",
+              "enemyGroupId": "night_assault_postern",
+              "distance": 3,
+              "direction": "w",
+              "speed": 1,
+              "targetAreaId": "s_postern_night",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "s_postern_fight"
+      }
+    ]
+  },
+  {
+    "id": "s_postern_fight",
+    "title": "Postern: Iron on Wood",
+    "x": 1,
+    "y": -1,
+    "floorId": "city",
+    "tileStyle": "postern",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, clash at narrow gate, orc breaker snarling, sparks, cinematic, no text",
+    "description": "The breaker is close.\n\nIf you have barricades installed, the angle is tighter and the ram hits poorly.\n\nIf you fail, the breach becomes a flood.",
+    "choices": [
+      {
+        "id": "fight",
+        "label": "Fight.",
+        "effects": [
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_night_postern"
+          }
+        ],
+        "goToAreaId": "s_night_resolution"
+      }
+    ]
+  },
+  {
+    "id": "s_postern_to_field",
+    "title": "Postern Exit: Into the Dark Field",
+    "x": 0,
+    "y": -2,
+    "floorId": "overland",
+    "tileStyle": "fog_field",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, slipping out a small gate into fog field, distant camp lights, cinematic, no text",
+    "description": "You slip outside the walls.\n\nCamp lights flicker beyond the fog.\n\nIf you strike the command tent, you may save the city by confusing the head.\n\nOr die alone in grass.",
+    "choices": [
+      {
+        "id": "to_camp_arc",
+        "label": "Approach the enemy siege camp.",
+        "goToAreaId": "p_siege_camp_approach"
+      }
+    ]
+  },
+  {
+    "id": "s_night_resolution",
+    "title": "Night Assault Ends",
+    "x": 2,
+    "y": 0,
+    "floorId": "city",
+    "tileStyle": "civic",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, exhausted guards at dawn edge, smoke thinning, lanterns dying, cinematic, no text",
+    "description": "The night assault fades.\n\nWhatever you saved stands.\n\nWhatever you failed to save will hurt later.\n\nAnd now the question becomes: do you keep reacting… or do you take the war to them?",
+    "effectsOnEnter": [
+      {
+        "type": "flag",
+        "key": "night_assault_complete",
+        "value": true
+      },
+      {
+        "type": "completeJob",
+        "jobId": "q_night_assault"
+      }
+    ],
+    "choices": [
+      {
+        "id": "unlock_camp_arc",
+        "label": "Begin a counterstrike: infiltrate the siege camp and steal their war standard.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "siege_camp_arc_unlocked",
+            "value": true
+          },
+          {
+            "type": "addXP",
+            "amount": 10
+          }
+        ],
+        "goToAreaId": "p_siege_camp_approach"
+      }
+    ]
+  }
+]

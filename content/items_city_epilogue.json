@@ -1,0 +1,42 @@
+[
+  {
+    "id": "title_ironleaf_warden",
+    "name": "Title: Ironleaf Warden",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A civic title granting you authority during emergency actions, discounts in some guild shops, and access to war-issue equipment."
+  },
+  {
+    "id": "warden_cloak_ironleaf",
+    "name": "Ironleaf Warden’s Cloak",
+    "type": "armor_cloak",
+    "stackable": false,
+    "value": 0,
+    "description": "A heavy cloak stitched with ironleaf thread. It’s not magic—yet. But it carries weight."
+  },
+  {
+    "id": "council_signet_temp",
+    "name": "Temporary Council Signet",
+    "type": "tool",
+    "stackable": false,
+    "value": 0,
+    "description": "Lets you bypass minor bureaucracy and request limited aid (once per chapter)."
+  },
+  {
+    "id": "guild_credit_chit",
+    "name": "Guild Credit Chit",
+    "type": "currency",
+    "stackable": true,
+    "value": 0,
+    "description": "A chit accepted by specific city guilds. Used to claim services or parts you can’t afford outright."
+  },
+  {
+    "id": "order_to_pursue",
+    "name": "Order to Pursue",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A sealed order authorizing you to pursue the retreating enemy beyond the walls."
+  }
+]

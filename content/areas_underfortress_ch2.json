@@ -1,0 +1,759 @@
+[
+  {
+    "id": "u_reliquary_antechamber",
+    "title": "Deep Reliquary: Antechamber",
+    "x": -1,
+    "y": -13,
+    "floorId": "underfortress",
+    "tileStyle": "fortress",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, ancient reliquary antechamber, carved sphere motifs, ward lines glowing faintly, cinematic, no text",
+    "description": "The stone here is older and cleaner. Carvings show a sphere hovering over battle lines.\n\nThin ward lines thread the walls like veins.\n\nA plaque in rough script: ‘SIGHT MAKES KINGS.’",
+    "exits": {
+      "s": "u_reliquary_stairs",
+      "n": "u_ward_hall",
+      "e": "u_reliquary_cells",
+      "w": "u_service_sluice"
+    },
+    "actionsAvailable": {
+      "investigate": {
+        "text": "Some ward lines are scuffed, as if boots intentionally avoided them.",
+        "choices": [
+          {
+            "id": "keen_eye",
+            "label": "Cast Keen Eye to identify the safe path.",
+            "requirements": [
+              {
+                "type": "knowsSpell",
+                "spellId": "keen_eye"
+              }
+            ],
+            "effects": [
+              {
+                "type": "castSpell",
+                "spellId": "keen_eye"
+              },
+              {
+                "type": "flag",
+                "key": "reliquary_safe_path_seen",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 8
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "u_ward_hall",
+    "title": "Ward Hall: Threaded Stone",
+    "x": -1,
+    "y": -14,
+    "floorId": "underfortress",
+    "tileStyle": "ward_site",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, corridor with glowing ward threads on floor, skull carvings, tense, cinematic, no text",
+    "description": "Ward threads cross the floor like a net.\n\nStep wrong and the net tightens.",
+    "exits": {
+      "s": "u_reliquary_antechamber",
+      "n": "u_orb_cradle_room"
+    },
+    "choices": [
+      {
+        "id": "safe_mark",
+        "label": "If you have a Reliquary Pass Mark, follow the marked safe route.",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "reliquary_pass_mark",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "addXP",
+            "amount": 8
+          },
+          {
+            "type": "flag",
+            "key": "ward_hall_passed",
+            "value": true
+          }
+        ],
+        "goToAreaId": "u_orb_cradle_room"
+      },
+      {
+        "id": "careful",
+        "label": "Proceed carefully (risk a ward trap).",
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "luck",
+            "dc": 8,
+            "onFail": [
+              {
+                "type": "takeDamage",
+                "amount": 2
+              }
+            ],
+            "onPass": [
+              {
+                "type": "addXP",
+                "amount": 6
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "u_orb_cradle_room"
+      },
+      {
+        "id": "use_damper",
+        "label": "Use a Ward Damper to dull the trap lines.",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "ward_damper",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "removeItem",
+            "itemId": "ward_damper",
+            "qty": 1
+          },
+          {
+            "type": "flag",
+            "key": "ward_hall_damped",
+            "value": true
+          },
+          {
+            "type": "addXP",
+            "amount": 10
+          }
+        ],
+        "goToAreaId": "u_orb_cradle_room"
+      }
+    ]
+  },
+  {
+    "id": "u_reliquary_cells",
+    "title": "Reliquary Cells",
+    "x": 0,
+    "y": -13,
+    "floorId": "underfortress",
+    "tileStyle": "prison",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, small cells near reliquary, runes on bars, mage in chains, cinematic, no text",
+    "description": "Smaller cells, newer bars, better locks.\n\nA young mage apprentice looks up. Runes glow on her wrists like shackles made of light.",
+    "exits": {
+      "w": "u_reliquary_antechamber"
+    },
+    "actionsAvailable": {
+      "talk": {
+        "text": "The apprentice’s eyes flash with stubborn clarity.",
+        "choices": [
+          {
+            "id": "dialogue",
+            "label": "Talk to Tess of the Tower.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_captive_mage_apprentice"
+              }
+            ]
+          },
+          {
+            "id": "start_quest",
+            "label": "Start: Free the Tower Apprentice.",
+            "effects": [
+              {
+                "type": "startJob",
+                "jobId": "q_free_tess"
+              }
+            ]
+          }
+        ]
+      },
+      "open": {
+        "text": "Her cell lock is intricate.",
+        "choices": [
+          {
+            "id": "pick",
+            "label": "Pick the lock (quietly).",
+            "requirements": [
+              {
+                "type": "hasItem",
+                "itemId": "lockpick_bundle",
+                "qty": 1
+              }
+            ],
+            "effects": [
+              {
+                "type": "removeItem",
+                "itemId": "lockpick_bundle",
+                "qty": 1
+              },
+              {
+                "type": "flag",
+                "key": "tess_freed",
+                "value": true
+              },
+              {
+                "type": "completeJob",
+                "jobId": "q_free_tess"
+              },
+              {
+                "type": "addXP",
+                "amount": 12
+              }
+            ]
+          },
+          {
+            "id": "key",
+            "label": "Use an iron fortress key.",
+            "requirements": [
+              {
+                "type": "hasItem",
+                "itemId": "fortress_key_iron",
+                "qty": 1
+              }
+            ],
+            "effects": [
+              {
+                "type": "flag",
+                "key": "tess_freed",
+                "value": true
+              },
+              {
+                "type": "completeJob",
+                "jobId": "q_free_tess"
+              },
+              {
+                "type": "addXP",
+                "amount": 10
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "u_service_sluice",
+    "title": "Service Sluice",
+    "x": -2,
+    "y": -13,
+    "floorId": "underfortress",
+    "tileStyle": "sewer",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, hidden sluice tunnel with trickling water, narrow ledge, maintenance hooks, cinematic, no text",
+    "description": "A narrow maintenance sluice runs beside trickling water.\n\nIt bypasses the ward hall — but it’s cramped and loud if you slip.",
+    "exits": {
+      "e": "u_reliquary_antechamber",
+      "n": "u_orb_convoy_intercept"
+    },
+    "choices": [
+      {
+        "id": "muffle",
+        "label": "Cast Muffle Steps before climbing the ledge.",
+        "requirements": [
+          {
+            "type": "knowsSpell",
+            "spellId": "muffle_steps"
+          }
+        ],
+        "effects": [
+          {
+            "type": "castSpell",
+            "spellId": "muffle_steps"
+          },
+          {
+            "type": "addXP",
+            "amount": 6
+          }
+        ]
+      },
+      {
+        "id": "cross",
+        "label": "Cross the ledge carefully.",
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "skill",
+            "dc": 7,
+            "onFail": [
+              {
+                "type": "takeDamage",
+                "amount": 1
+              }
+            ],
+            "onPass": [
+              {
+                "type": "addXP",
+                "amount": 5
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "u_orb_convoy_intercept"
+      }
+    ]
+  },
+  {
+    "id": "u_orb_cradle_room",
+    "title": "Orb Cradle Room",
+    "x": -1,
+    "y": -15,
+    "floorId": "underfortress",
+    "tileStyle": "reliquary",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, reliquary chamber with orb cradle pedestal, rune rings, guards, eerie glow, cinematic, no text",
+    "description": "A pedestal holds an empty cradle — ringed by runes.\n\nThe orb was here. Recently.\n\nA wax smear on the rim suggests it was sealed for transport.",
+    "exits": {
+      "s": "u_ward_hall",
+      "e": "u_orb_convoy_intercept"
+    },
+    "actionsAvailable": {
+      "investigate": {
+        "text": "The cradle’s ring is cracked in one spot—intentional weak point, like a hinge for removal.",
+        "choices": [
+          {
+            "id": "take_wax",
+            "label": "Take a chunk of reliquary seal wax as proof.",
+            "effects": [
+              {
+                "type": "addItem",
+                "itemId": "reliquary_seal_wax",
+                "qty": 1
+              },
+              {
+                "type": "addXP",
+                "amount": 6
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "u_orb_convoy_intercept",
+    "title": "Convoy Intercept Gallery",
+    "x": 0,
+    "y": -14,
+    "floorId": "underfortress",
+    "tileStyle": "fortress",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, corridor where convoy passes, crate on cart, guards, ward adept, cinematic, no text",
+    "description": "Boots. Wheels. A murmured chant.\n\nThe convoy approaches: a cart under canvas, guards tight, a ward adept watching the shadows.\n\nIf the orb is on that cart, this is your moment.",
+    "choices": [
+      {
+        "id": "start_convoy",
+        "label": "Ambush the convoy.",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_orb_convoy_01",
+              "enemyGroupId": "orb_convoy",
+              "distance": 3,
+              "direction": "n",
+              "speed": 1,
+              "targetAreaId": "u_orb_convoy_intercept",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "u_convoy_choices"
+      },
+      {
+        "id": "shadow_wait",
+        "label": "Wait in shadow and look for a defecting adept.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "defector_chance",
+            "value": true
+          }
+        ],
+        "goToAreaId": "u_defector_meet"
+      }
+    ]
+  },
+  {
+    "id": "u_defector_meet",
+    "title": "Adept in the Dark",
+    "x": 1,
+    "y": -14,
+    "floorId": "underfortress",
+    "tileStyle": "fortress",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, nervous adept stepping from shadow, ward charm cracking, cinematic, no text",
+    "description": "A hooded figure steps from a recess.\n\n\"If you’re going to strike,\" he whispers, \"do it clean. They’ll kill me when it’s moved.\"",
+    "actionsAvailable": {
+      "talk": {
+        "text": "He glances both ways, shaking.",
+        "choices": [
+          {
+            "id": "dialogue",
+            "label": "Talk to Adept Sorn.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_ward_adept_defector"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "back",
+        "label": "Return to intercept position.",
+        "goToAreaId": "u_orb_convoy_intercept"
+      }
+    ]
+  },
+  {
+    "id": "u_convoy_choices",
+    "title": "Canvas and Candlelight",
+    "x": 0,
+    "y": -15,
+    "floorId": "underfortress",
+    "tileStyle": "fortress",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, ambush moment, canvas-covered cart, guard lantern swinging, cinematic, no text",
+    "description": "The cart is within reach.\n\nThe ward adept’s eyes flick to the floor, counting steps. The guards’ grips tighten.\n\nYou can take the orb… or make sure nobody uses it soon.",
+    "choices": [
+      {
+        "id": "shoot_adept",
+        "label": "Shoot the ward adept first.",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "training_bow",
+            "qty": 1
+          },
+          {
+            "type": "hasAmmo",
+            "ammoType": "arrow",
+            "minCount": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "shootThreat",
+            "threatId": "t_orb_convoy_01",
+            "ammoType": "arrow",
+            "ammoToConsume": 1,
+            "damage": {
+              "mode": "roll",
+              "expr": "1d6"
+            }
+          },
+          {
+            "type": "advanceThreat",
+            "threatId": "t_orb_convoy_01"
+          }
+        ]
+      },
+      {
+        "id": "fight",
+        "label": "Fight and seize the cart.",
+        "effects": [
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_orb_convoy_01"
+          }
+        ],
+        "goToAreaId": "u_convoy_after"
+      },
+      {
+        "id": "sabotage_cradle",
+        "label": "If you learned the cradle weakness, sabotage the cart cradle and flee (orb delayed).",
+        "requirements": [
+          {
+            "type": "flagEquals",
+            "key": "orb_cradle_hint",
+            "value": true
+          }
+        ],
+        "effects": [
+          {
+            "type": "flag",
+            "key": "orb_sabotaged",
+            "value": true
+          },
+          {
+            "type": "addXP",
+            "amount": 18
+          }
+        ],
+        "goToAreaId": "u_escape_breakwater"
+      }
+    ]
+  },
+  {
+    "id": "u_convoy_after",
+    "title": "The Orb Revealed",
+    "x": 0,
+    "y": -16,
+    "floorId": "underfortress",
+    "tileStyle": "reliquary",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, canvas pulled back revealing crystal orb glowing, reflections like armies, cinematic, no text",
+    "description": "Under the canvas: the crystal orb.\n\nInside it, lights move like troops on a map.\n\nYou feel the urge to look longer — and the fear that it’s looking back.",
+    "choices": [
+      {
+        "id": "take_orb",
+        "label": "Take the Sight Orb.",
+        "effects": [
+          {
+            "type": "addItem",
+            "itemId": "sight_orb_crystal_ball",
+            "qty": 1
+          },
+          {
+            "type": "flag",
+            "key": "orb_taken",
+            "value": true
+          },
+          {
+            "type": "addXP",
+            "amount": 22
+          }
+        ],
+        "goToAreaId": "u_commander_chamber"
+      },
+      {
+        "id": "leave_and_mark",
+        "label": "Don’t carry it—take proof and flee (orb remains, but you have evidence).",
+        "effects": [
+          {
+            "type": "addItem",
+            "itemId": "reliquary_seal_wax",
+            "qty": 1
+          },
+          {
+            "type": "flag",
+            "key": "orb_not_taken_proof_only",
+            "value": true
+          },
+          {
+            "type": "addXP",
+            "amount": 14
+          }
+        ],
+        "goToAreaId": "u_escape_breakwater"
+      }
+    ]
+  },
+  {
+    "id": "u_commander_chamber",
+    "title": "Commander’s Chamber",
+    "x": 1,
+    "y": -16,
+    "floorId": "underfortress",
+    "tileStyle": "fortress",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, command chamber with crude map table, torches, orc commander turning, cinematic, no text",
+    "description": "A heavy door opens onto a command space.\n\nAn orc commander turns from a map table.\n\n\"Thief,\" he says calmly. \"Good. I wanted to see the one who thought they could.\"",
+    "choices": [
+      {
+        "id": "boss",
+        "label": "Fight Commander Kargan.",
+        "effects": [
+          {
+            "type": "startCombat",
+            "enemyGroup": [
+              {
+                "enemyId": "orc_commander_kargan",
+                "count": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "u_commander_loot"
+      },
+      {
+        "id": "escape_now",
+        "label": "If you have smoke, escape instead of fighting.",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "smoke_pellet",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "removeItem",
+            "itemId": "smoke_pellet",
+            "qty": 1
+          },
+          {
+            "type": "flag",
+            "key": "escaped_commander",
+            "value": true
+          }
+        ],
+        "goToAreaId": "u_escape_breakwater"
+      }
+    ]
+  },
+  {
+    "id": "u_commander_loot",
+    "title": "Signet and Routes",
+    "x": 1,
+    "y": -17,
+    "floorId": "underfortress",
+    "tileStyle": "fortress",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, fallen commander, signet ring gleaming, torn route map, cinematic, no text",
+    "description": "Kargan falls hard.\n\nYou take his signet and a torn route sketch.\n\nOne scribble stands out: ‘BREAKWATER TUNNEL → CAVES → CITY DRAINS.’\n\nA way out.",
+    "effectsOnEnter": [
+      {
+        "type": "addItem",
+        "itemId": "commander_signet",
+        "qty": 1
+      },
+      {
+        "type": "addItem",
+        "itemId": "map_scrap_reliquary",
+        "qty": 1
+      },
+      {
+        "type": "addXP",
+        "amount": 26
+      }
+    ],
+    "choices": [
+      {
+        "id": "escape",
+        "label": "Use the breakwater tunnel route.",
+        "goToAreaId": "u_escape_breakwater"
+      }
+    ]
+  },
+  {
+    "id": "u_escape_breakwater",
+    "title": "Breakwater Tunnel",
+    "x": -3,
+    "y": -14,
+    "floorId": "underfortress",
+    "tileStyle": "tunnel",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, rushing underground water tunnel, narrow ledges, torchlight fading, cinematic, no text",
+    "description": "A water tunnel roars like an animal.\n\nThe ledge is narrow. The air tastes like wet stone.\n\nIf you’re carrying the orb, every step feels louder.",
+    "choices": [
+      {
+        "id": "mark_route",
+        "label": "Use glow chalk to mark your route for the return.",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "glow_chalk",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "removeItem",
+            "itemId": "glow_chalk",
+            "qty": 1
+          },
+          {
+            "type": "flag",
+            "key": "route_marked",
+            "value": true
+          },
+          {
+            "type": "addXP",
+            "amount": 8
+          }
+        ]
+      },
+      {
+        "id": "to_caves",
+        "label": "Follow the tunnel back into the limestone caves.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "underfortress_ch2_complete",
+            "value": true
+          }
+        ],
+        "goToAreaId": "j_caves_return_1"
+      }
+    ]
+  },
+  {
+    "id": "j_caves_return_1",
+    "title": "Caves Return: Cold Air, New Weight",
+    "x": 5,
+    "y": -9,
+    "floorId": "caves",
+    "tileStyle": "cave",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, cave mouth with fresher air, distant city glow, exhausted adventurer, cinematic, no text",
+    "description": "You emerge into caves again.\n\nSomewhere far above: a city clinging to its walls.\n\nIf the orb is with you, you’re carrying the future. If not, you’re carrying proof and a plan.",
+    "choices": [
+      {
+        "id": "return_city",
+        "label": "Return toward the city drains to report to the council.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "chapter_underfortress_2_complete",
+            "value": true
+          }
+        ],
+        "goToAreaId": "k_city_drain_return"
+      }
+    ]
+  },
+  {
+    "id": "k_city_drain_return",
+    "title": "City Drain Return",
+    "x": 5,
+    "y": -2,
+    "floorId": "sewer",
+    "tileStyle": "sewer_entry",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, sewer arch leading to hidden city hatch, lantern glow, rain sounds above, cinematic, no text",
+    "description": "The hatch above is a promise: back to streets, back to politics, back to the war.\n\nAnd now you have something the enemy wanted badly enough to hide underground.",
+    "choices": [
+      {
+        "id": "report",
+        "label": "Report to Councilor Vayne (next chapter: planning the counterstroke).",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "council_report_ready_orb",
+            "value": true
+          }
+        ]
+      }
+    ]
+  }
+]

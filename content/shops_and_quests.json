@@ -1,0 +1,102 @@
+{
+  "shops": [
+    {
+      "id": "shop_blacksmith",
+      "name": "Harrow & Tongs Blacksmith",
+      "areaId": "c_blacksmith",
+      "imagePrompt": "fantasy illustration, inked linework + painterly color, busy blacksmith shop, sparks, weapon racks, stern smith, cinematic, no text",
+      "inventory": [
+        { "itemId": "short_sword", "priceGold": 55 },
+        { "itemId": "arrow_bundle", "priceGold": 10 },
+        { "itemId": "wooden_shield", "priceGold": 30 }
+      ],
+      "workForGoods": [
+        {
+          "id": "q_smith_quench_oil",
+          "title": "Quench Oil Shortage",
+          "description": "Carry lamp oil from the docks ward to the smithy without spilling it.",
+          "requirements": [{ "type": "notFlag", "key": "q_smith_quench_oil_done" }],
+          "objective": { "type": "deliverFlag", "flagKey": "oil_crate", "toAreaId": "c_blacksmith" },
+          "onAccept": [{ "type": "flag", "key": "oil_crate", "value": true }],
+          "rewards": [
+            { "type": "addItem", "itemId": "wooden_shield", "qty": 1 },
+            { "type": "addXP", "amount": 14 },
+            { "type": "flag", "key": "q_smith_quench_oil_done", "value": true }
+          ]
+        },
+        {
+          "id": "q_smith_horseshoe_nails",
+          "title": "Nails for Barricades",
+          "description": "Sort and bundle nails for barricade teams. It’s mindless work, but vital.",
+          "requirements": [{ "type": "cooldownReady", "jobId": "job_smith_nails" }],
+          "objective": { "type": "simpleTask" },
+          "rewards": [
+            { "type": "addItem", "itemId": "arrow_bundle", "qty": 1 },
+            { "type": "addGold", "amount": 4 },
+            { "type": "addXP", "amount": 10 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "shop_apothecary",
+      "name": "Moss & Mortar Apothecary",
+      "areaId": "c_apothecary",
+      "imagePrompt": "fantasy illustration, inked linework + painterly color, apothecary with herbs, bottles, mortar and pestle, greenish light, cinematic, no text",
+      "inventory": [
+        { "itemId": "ration_pack", "priceGold": 6 },
+        { "itemId": "wax_cake", "priceGold": 5 },
+        { "itemId": "ink_vial", "priceGold": 4 }
+      ],
+      "workForGoods": [
+        {
+          "id": "q_apoth_sort_herbs",
+          "title": "Sort the Drying Herbs",
+          "description": "Help sort and hang herbs for the infirmary shipments.",
+          "requirements": [{ "type": "cooldownReady", "jobId": "job_apoth_sort" }],
+          "objective": { "type": "simpleTask" },
+          "rewards": [
+            { "type": "addItem", "itemId": "ration_pack", "qty": 2 },
+            { "type": "addXP", "amount": 12 }
+          ]
+        },
+        {
+          "id": "q_apoth_rat_cellar",
+          "title": "Rats in the Cellar",
+          "description": "Clear the cellar vermin before they chew through the stores.",
+          "requirements": [{ "type": "notFlag", "key": "q_apoth_rat_cellar_done" }],
+          "objective": { "type": "winCombat", "enemyGroup": [{ "enemyId": "sewer_rat", "count": 3 }] },
+          "rewards": [
+            { "type": "addItem", "itemId": "wax_cake", "qty": 2 },
+            { "type": "addItem", "itemId": "spike_bundle", "qty": 1 },
+            { "type": "addXP", "amount": 18 },
+            { "type": "flag", "key": "q_apoth_rat_cellar_done", "value": true }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "shop_fletcher",
+      "name": "Feather & Shaft Fletcher",
+      "areaId": "c_fletcher",
+      "imagePrompt": "fantasy illustration, inked linework + painterly color, fletcher shop with feathers, arrow racks, bowstrings, artisan at bench, cinematic, no text",
+      "inventory": [
+        { "itemId": "arrow_bundle", "priceGold": 9 },
+        { "itemId": "spike_bundle", "priceGold": 14 }
+      ],
+      "workForGoods": [
+        {
+          "id": "q_fletcher_string",
+          "title": "Stringing Duty",
+          "description": "Twist and wax bowstrings for the battlements.",
+          "requirements": [{ "type": "cooldownReady", "jobId": "job_fletcher_string" }],
+          "objective": { "type": "simpleTask" },
+          "rewards": [
+            { "type": "addItem", "itemId": "arrow_bundle", "qty": 1 },
+            { "type": "addXP", "amount": 10 }
+          ]
+        }
+      ]
+    }
+  ]
+}

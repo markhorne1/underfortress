@@ -1,0 +1,34 @@
+[
+  {
+    "id": "job_uf_search_chamber",
+    "name": "Search the Reliquary Chamber",
+    "startAreaId": "uf_reliquary_chamber",
+    "objective": { "type": "setFlag", "key": "uf_reliquary_searched", "value": true },
+    "rewards": { "gold": 15, "xp": 45, "items": [{ "itemId": "sight_orb", "qty": 1 }] },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "job_uf_relay_signal",
+    "name": "Relay the Reliquary Signal",
+    "startAreaId": "uf_reliquary_chamber",
+    "objective": { "type": "setFlag", "key": "reliquary_signal_relayed", "value": true },
+    "rewards": { "gold": 0, "xp": 60, "items": [{ "itemId": "ward_stone", "qty": 1 }] },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "job_uf_confront_archon",
+    "name": "Confront the Warding Archon",
+    "startAreaId": "uf_archon_vault",
+    "objective": { "type": "setFlag", "key": "archon_defeated", "value": true },
+    "rewards": { "gold": 30, "xp": 120, "items": [{ "itemId": "iron_fortress_key", "qty": 1 }, { "itemId": "minor_charm_ironluck", "qty": 1 }] },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "job_uf_destroy_bindings",
+    "name": "Destroy the Reliquary Bindings",
+    "startAreaId": "uf_throne_reliquary",
+    "objective": { "type": "setFlag", "key": "bindings_destroyed", "value": true },
+    "rewards": { "gold": 0, "xp": 100, "items": [{ "itemId": "ring_quickstep", "qty": 1 }] },
+    "cooldownMinutes": 99999
+  }
+]

@@ -1,0 +1,5 @@
+[
+  { "id": "enemy_ward_construct", "name": "Ward Construct", "hp": 20, "attack": 6, "defense": 3 },
+  { "id": "enemy_iron_archon", "name": "Iron Archon", "hp": 36, "attack": 9, "defense": 5 },
+  { "id": "enemy_reliquary_wisp", "name": "Reliquary Wisp", "hp": 6, "attack": 3, "defense": 0 }
+]

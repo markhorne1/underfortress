@@ -1,0 +1,252 @@
+[
+  {
+    "id": "pa_outside_gate",
+    "title": "Outside the Gate: The Retreat Trail",
+    "x": 10,
+    "y": -10,
+    "floorId": "overland",
+    "tileStyle": "road",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, city gate behind, muddy road ahead with retreat tracks, dawn haze, cinematic, no text",
+    "description": "The enemy retreats.\n\nNot fleeing.\n\nRetreating.\n\nThere’s discipline in the tracks—until there isn’t.\n\nKess kneels, reading mud like scripture.",
+    "actionsAvailable": {
+      "talk": {
+        "text": "Kess offers two immediate priorities.",
+        "choices": [
+          {
+            "id": "kess",
+            "label": "Talk to Lieutenant Kess.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_scout_kess_pursuit"
+              }
+            ]
+          },
+          {
+            "id": "start",
+            "label": "Start: Pursuit.",
+            "effects": [
+              {
+                "type": "startJob",
+                "jobId": "q_pursuit_arc"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "to_farms",
+        "label": "Head toward the ridge farms for witnesses.",
+        "goToAreaId": "pa_ridge_farms"
+      },
+      {
+        "id": "to_roadfight",
+        "label": "Press the trail immediately.",
+        "goToAreaId": "pa_rearguard_contact"
+      }
+    ]
+  },
+  {
+    "id": "pa_ridge_farms",
+    "title": "Ridge Farms: Smoke from Small Fires",
+    "x": 11,
+    "y": -11,
+    "floorId": "overland",
+    "tileStyle": "farms",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, farmstead with broken fence, smoke from barn corner, frightened villagers, cinematic, no text",
+    "description": "The farms look raided, not destroyed.\n\nLike the enemy took what it needed and left fear behind.\n\nA woman steps forward, jaw clenched.",
+    "actionsAvailable": {
+      "talk": {
+        "text": "Marta knows what she saw.",
+        "choices": [
+          {
+            "id": "marta",
+            "label": "Talk to Marta.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_farmer_marta"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "to_contact",
+        "label": "Follow the trail toward the rearguard.",
+        "goToAreaId": "pa_rearguard_contact"
+      }
+    ]
+  },
+  {
+    "id": "pa_rearguard_contact",
+    "title": "Retreat Road: Rearguard Contact",
+    "x": 12,
+    "y": -10,
+    "floorId": "overland",
+    "tileStyle": "road",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, road ambush with broken carts, orc rearguard blocking path, goblin runner ready to bolt, cinematic, no text",
+    "description": "A rearguard blocks the road.\n\nA goblin runner watches the hills.\n\nIf the runner escapes, the enemy disappears into stone.\n\nIf the rearguard holds, you lose time and blood.",
+    "choices": [
+      {
+        "id": "shoot_runner",
+        "label": "1) Focus fire on the runner (ranged option).",
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "skill",
+            "dc": 9,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "runner_stopped",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 14
+              }
+            ],
+            "onFail": [
+              {
+                "type": "flag",
+                "key": "runner_escaped",
+                "value": true
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "pa_road_fight"
+      },
+      {
+        "id": "fight_group",
+        "label": "2) Fight through the rearguard.",
+        "goToAreaId": "pa_road_fight"
+      }
+    ]
+  },
+  {
+    "id": "pa_road_fight",
+    "title": "Road Fight: Break the Block",
+    "x": 13,
+    "y": -10,
+    "floorId": "overland",
+    "tileStyle": "road",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, melee on muddy road, runner darting, cinematic, no text",
+    "description": "Steel on mud.\n\nBreath on cold air.\n\nIf morale is still shaken from the stolen standard, their discipline frays faster.",
+    "choices": [
+      {
+        "id": "fight",
+        "label": "Fight the rearguard group.",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_pa_rearguard",
+              "enemyGroupId": "pa_road_rearguard_group",
+              "distance": 3,
+              "direction": "n",
+              "speed": 1,
+              "targetAreaId": "pa_road_fight",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "pa_hills_flank"
+      }
+    ]
+  },
+  {
+    "id": "pa_hills_flank",
+    "title": "Hills Flank: Wargs in the Mist",
+    "x": 14,
+    "y": -11,
+    "floorId": "overland",
+    "tileStyle": "hills",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, misty hills, warg eyes glowing, sparse trees, cinematic, no text",
+    "description": "The trail bends into hills.\n\nYou hear breathing that isn’t yours.\n\nWargs scout the flank—testing you.",
+    "choices": [
+      {
+        "id": "fight_wargs",
+        "label": "Fight the warg pack.",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_pa_wargs",
+              "enemyGroupId": "pa_warg_pack",
+              "distance": 2,
+              "direction": "n",
+              "speed": 1,
+              "targetAreaId": "pa_hills_flank",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "pa_crack_in_hills"
+      },
+      {
+        "id": "sneak_past",
+        "label": "Slip past quietly (luck check).",
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "luck",
+            "dc": 10,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "wargs_avoided",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 12
+              }
+            ],
+            "onFail": [
+              {
+                "type": "takeDamage",
+                "amount": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "pa_crack_in_hills"
+      }
+    ]
+  },
+  {
+    "id": "pa_crack_in_hills",
+    "title": "Crack in the Hills: The Stone Doorway",
+    "x": 15,
+    "y": -12,
+    "floorId": "overland",
+    "tileStyle": "cliff",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow rock crack shaped like a doorway, old carvings like teeth, lantern glow, cinematic, no text",
+    "description": "The hills split.\n\nA doorway shaped like old teeth waits in shadow.\n\nIf the runner escaped, you hear distant horns below.\n\nIf not, the under-fortress is unaware… for now.",
+    "choices": [
+      {
+        "id": "enter",
+        "label": "Enter the under-fortress approach tunnels.",
+        "goToAreaId": "uf_approach_entry"
+      }
+    ]
+  }
+]

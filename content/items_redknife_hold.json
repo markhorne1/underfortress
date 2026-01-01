@@ -1,0 +1,66 @@
+[
+  {
+    "id": "redknife_transfer_orders",
+    "name": "Red Knife Transfer Orders",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "Bark-paper orders stamped with a jagged red blade: ‘MOVE PRIZE BEFORE DAWN. NO WITNESSES.’"
+  },
+  {
+    "id": "princess_locket",
+    "name": "Silver Locket (Royal Crest)",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A silver locket bearing a royal crest. Proof for the council—and leverage for alliances."
+  },
+  {
+    "id": "redknife_cord",
+    "name": "Red Knife Cord",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A crimson cord worn by Red Knife captains. Guards hesitate when they see it."
+  },
+  {
+    "id": "mine_charge",
+    "name": "Mine Charge",
+    "type": "tool",
+    "stackable": true,
+    "value": 0,
+    "description": "A wrapped bundle of blasting powder with a crude fuse. Loud, dangerous, effective."
+  },
+  {
+    "id": "chalk_shard",
+    "name": "Chalk Shard",
+    "type": "tool",
+    "stackable": true,
+    "value": 4,
+    "description": "Bright chalk that marks stone. Useful for navigating the caverns and tracking patrol routes."
+  },
+  {
+    "id": "gag_cloth",
+    "name": "Gag Cloth",
+    "type": "tool",
+    "stackable": true,
+    "value": 2,
+    "description": "A strip of cloth. Useful to keep a freed captive from shouting at the wrong moment."
+  },
+  {
+    "id": "ransom_token",
+    "name": "Ransom Token",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A stamped token used in hostage exchanges. Whoever holds it can claim ‘terms’—for a moment."
+  },
+  {
+    "id": "ward_splinter_focus",
+    "name": "Ward Splinter Focus",
+    "type": "tool",
+    "stackable": false,
+    "value": 0,
+    "description": "A refined ward-core splinter mounted in wire. It vibrates near weak supports and hidden runes."
+  }
+]

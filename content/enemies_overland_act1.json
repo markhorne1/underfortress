@@ -1,0 +1,79 @@
+[
+  {
+    "id": "goblin_raider",
+    "name": "Goblin Raider",
+    "kind": "humanoid",
+    "skill": 7,
+    "stamina": 7,
+    "meta": {
+      "ranged": false
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 6
+      }
+    ],
+    "tags": [
+      "goblin",
+      "raider"
+    ]
+  },
+  {
+    "id": "goblin_bowman",
+    "name": "Goblin Bowman",
+    "kind": "humanoid",
+    "skill": 7,
+    "stamina": 6,
+    "meta": {
+      "ranged": true,
+      "range": 3,
+      "damage": "1d6",
+      "ammoType": "arrow"
+    },
+    "loot": [
+      {
+        "itemId": "arrow_bundle",
+        "min": 0,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 5
+      }
+    ],
+    "tags": [
+      "goblin",
+      "ranged"
+    ]
+  },
+  {
+    "id": "goblin_raiding_party",
+    "name": "Goblin Raiding Party",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "goblin_raider",
+        "count": 3
+      },
+      {
+        "enemyId": "goblin_bowman",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 8
+      }
+    },
+    "tags": [
+      "goblin",
+      "group",
+      "pursuit"
+    ]
+  }
+]

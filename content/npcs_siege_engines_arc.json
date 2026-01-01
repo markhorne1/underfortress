@@ -1,0 +1,56 @@
+[
+  {
+    "id": "npc_scout_kess",
+    "name": "Lieutenant Kess",
+    "role": "Scout (Enemy Camp Sabotage)",
+    "portraitPrompt": "fantasy character portrait, scout lieutenant muddy cloak, eyes reflecting campfire, tense, painterly, no text",
+    "dialogue": {
+      "greeting": "They rebuild confidence with wood and iron. Break the machines and you break their courage.",
+      "nodes": [
+        {
+          "id": "options",
+          "text": "Three targets. You can’t guarantee all three.\n\n1) Siege tower wheels.\n2) Gate ram head.\n3) Pitch cauldrons.\n\nIf you kept the banner secret, they won’t be looking for you.\nIf you revealed it publicly, expect tighter patrols.",
+          "choices": [
+            {
+              "label": "Accept the sabotage mission.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "siege_engines_mission_accepted",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_cage_prisoner_elin",
+    "name": "Elin of the Far Farms",
+    "role": "Captive Carpenter (Knows the Wheelhouse)",
+    "portraitPrompt": "fantasy character portrait, exhausted carpenter prisoner behind bars, splinters in hands, determined eyes, painterly, no text",
+    "dialogue": {
+      "greeting": "If you’re here to kill us, do it quick. If you’re here to help… listen.",
+      "nodes": [
+        {
+          "id": "intel",
+          "text": "The wheelhouse hub has a soft join—hammer a wedge there and the tower limps.\n\nThe ram head chain is kept by the foreman.\n\nAnd the pitch pits… sand ruins it better than water.",
+          "choices": [
+            {
+              "label": "Promise to free the cages if possible.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "promised_free_cages",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

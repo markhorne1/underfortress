@@ -1,0 +1,42 @@
+[
+  {
+    "id": "undercoin_bonewhite",
+    "name": "Bonewhite Undercoin",
+    "type": "currency",
+    "stackable": true,
+    "value": 0,
+    "description": "A pale coin used in goblin markets beneath the hills. Some doors open to it faster than to steel."
+  },
+  {
+    "id": "lockcharm_shiverkey",
+    "name": "Shiver-Key Charm",
+    "type": "tool",
+    "stackable": false,
+    "value": 0,
+    "description": "A charm that chills a lock’s mechanism. Improves opening checks in the under-fortress."
+  },
+  {
+    "id": "crystal_map_shard",
+    "name": "Crystal Map Shard",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A shard that glows near true routes. Collect enough and you can ‘solve’ the under-fortress layout."
+  },
+  {
+    "id": "prisoner_token",
+    "name": "Prisoner Token",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A stamped token taken from guards. Proof for negotiating releases… or forging access."
+  },
+  {
+    "id": "crystal_nexus_key",
+    "name": "Crystal Nexus Key",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A resonant key used to open the sealed chamber where the enemy’s war-sight is kept."
+  }
+]

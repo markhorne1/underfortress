@@ -1,0 +1,1619 @@
+[
+  {
+    "id": "npc_captain_harl",
+    "name": "Captain Harl",
+    "role": "Battlements Captain",
+    "portraitPrompt": "fantasy character portrait, battle-worn city captain on battlements, rain on armor, stern eyes, torchlight, painterly, no text",
+    "dialogue": {
+      "greeting": "No speeches. No prayers. Hold the wall.",
+      "nodes": [
+        {
+          "id": "harl_orders",
+          "text": "If goblins slip past, they’ll set the city alight. Chase them if you must—just don’t lose the gate for it.",
+          "choices": [
+            {
+              "label": "Ask for tools.",
+              "effects": [
+                {
+                  "type": "addItem",
+                  "itemId": "hook_knife",
+                  "qty": 1
+                }
+              ]
+            },
+            {
+              "label": "Request a city whistle for chases.",
+              "effects": [
+                {
+                  "type": "addItem",
+                  "itemId": "signal_whistle_city",
+                  "qty": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_councilor_vayne",
+    "name": "Councilor Vayne",
+    "role": "War Council (Cold Strategist)",
+    "portraitPrompt": "fantasy character portrait, stern city councilor in dark robes, candlelit council chamber, battle maps on table, painterly, no text",
+    "dialogue": {
+      "greeting": "You did not die. Excellent. Tell me what you changed.",
+      "nodes": [
+        {
+          "id": "debrief",
+          "text": "We measure victories in hours, not songs.\n\nIf you cut ladders, poisoned rations, burned supplies—we felt it.\n\nIf infiltrators slipped through, we feel that too.",
+          "choices": [
+            {
+              "label": "Report everything honestly.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "debrief_honest",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Emphasize successes, omit failures.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "debrief_spun",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_archivist_salenne",
+    "name": "Archivist Salenne",
+    "role": "Mage Tower Scrying Lead",
+    "portraitPrompt": "fantasy character portrait, mage archivist with crystal ball light, chalk runes, painterly, no text",
+    "dialogue": {
+      "greeting": "The ball shows a single, clean truth: the next assault is their biggest.",
+      "nodes": [
+        {
+          "id": "warning",
+          "text": "They will push three fronts:\n\n1) A siege tower at the main wall.\n2) A ram at the gate.\n3) A drains surge—if the ‘second mouth’ still lives.\n\nIf you choose correctly, thousands live.\n\nIf not, the city becomes a corridor.",
+          "choices": [
+            {
+              "label": "Ask how to counter-signal under pressure.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "salenne_signal_coaching",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Ask how to blunt the drains surge.",
+              "effects": [
+                {
+                  "type": "addItem",
+                  "itemId": "holy_pitch_vial",
+                  "qty": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_guildmaster_orrow",
+    "name": "Guildmaster Orrow",
+    "role": "Armourers’ Guild (Craft Access)",
+    "portraitPrompt": "fantasy character portrait, stern guildmaster smith with leather apron, glowing forge behind, guild seals on wall, painterly, no text",
+    "dialogue": {
+      "greeting": "You fought like a veteran. Now you’ll be equipped like one—if you pay in sweat and sense.",
+      "nodes": [
+        {
+          "id": "craft_access",
+          "text": "The guild will back you.\n\nBring components and I’ll grant you one of these:\n\n- Warded leather reinforcements.\n- A named blade fitting.\n- A shield boss etched for enchantment.\n\nOr a credit chit, if you’re broke and useful.",
+          "choices": [
+            {
+              "label": "Request a Guild Credit Chit.",
+              "effects": [
+                {
+                  "type": "addItem",
+                  "itemId": "guild_credit_chit",
+                  "qty": 1
+                }
+              ]
+            },
+            {
+              "label": "Unlock advanced crafting access.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "advanced_crafting_unlocked",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_scribe_prefect_luvara",
+    "name": "Prefect Luvara",
+    "role": "Scribes’ Conclave (Spell Access)",
+    "portraitPrompt": "fantasy character portrait, scribe prefect in tall hat, ink-stained fingers, scroll racks, candle glow, painterly, no text",
+    "dialogue": {
+      "greeting": "Ink is slower than steel, but it wins wars that steel cannot.",
+      "nodes": [
+        {
+          "id": "scroll_access",
+          "text": "We can issue you sanctioned spellwork—if you keep the city’s interests first.\n\nBring blank scrolls, rare inks, or proofs of enemy movements.\n\nAnd mind this: reckless magic gets people hanged, not celebrated.",
+          "choices": [
+            {
+              "label": "Unlock veteran spell tiers.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "veteran_spells_unlocked",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Request one emergency scroll (single use).",
+              "effects": [
+                {
+                  "type": "addItem",
+                  "itemId": "scroll_emergency_ward",
+                  "qty": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_councilor_vayne_epilogue",
+    "name": "Councilor Vayne",
+    "role": "War Council (Politics / Promotions)",
+    "portraitPrompt": "fantasy character portrait, councilor in dawn light, city skyline smoking behind window, painterly, no text",
+    "dialogue": {
+      "greeting": "We survived. That’s not a victory. It’s permission to continue.",
+      "nodes": [
+        {
+          "id": "promotion",
+          "text": "You will be named Ironleaf Warden.\n\nYou will receive authority.\n\nAnd you will receive enemies—inside the council and beyond the walls.\n\nNow tell me: do you pursue the retreating host, or stay and rebuild?",
+          "choices": [
+            {
+              "label": "Accept the title and authority.",
+              "effects": [
+                {
+                  "type": "addItem",
+                  "itemId": "title_ironleaf_warden",
+                  "qty": 1
+                },
+                {
+                  "type": "addItem",
+                  "itemId": "council_signet_temp",
+                  "qty": 1
+                }
+              ]
+            },
+            {
+              "label": "Choose pursuit as the next chapter.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "pursuit_arc_confirmed",
+                  "value": true
+                },
+                {
+                  "type": "addItem",
+                  "itemId": "order_to_pursue",
+                  "qty": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_captain_harl_epilogue",
+    "name": "Captain Harl",
+    "role": "Guard Captain (Street Consequences)",
+    "portraitPrompt": "fantasy character portrait, guard captain exhausted, soot on cheek, helmet under arm, painterly, no text",
+    "dialogue": {
+      "greeting": "We held the wall. The streets… depended on you more than you know.",
+      "nodes": [
+        {
+          "id": "consequences",
+          "text": "Reports:\n\n- If arson damage is high: districts burned and panic lingers.\n- If you stopped infiltrators: civilians are shaken but alive.\n\nEither way, the enemy retreated.\n\nQuestion is: do we let them regroup?",
+          "choices": [
+            {
+              "label": "Ask for a small squad escort (one use).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "escort_token_available",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Take the Ironleaf cloak.",
+              "effects": [
+                {
+                  "type": "addItem",
+                  "itemId": "warden_cloak_ironleaf",
+                  "qty": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_quartermaster_brevin",
+    "name": "Quartermaster Brevin",
+    "role": "Logistics (Honest Exhaustion)",
+    "portraitPrompt": "fantasy character portrait, tired quartermaster with ink-stained hands, stacks of crates, lantern light, painterly, no text",
+    "dialogue": {
+      "greeting": "If it’s not nailed down, it’s already gone. If it is nailed down, someone is prying.",
+      "nodes": [
+        {
+          "id": "brevin_tasks",
+          "text": "The council wants miracles. I settle for wagons that arrive and arrows that exist.",
+          "choices": [
+            {
+              "label": "Offer help moving supplies to the battlements.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "battlement_runs_available",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Ask for a work-for-gear contract.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "work_for_gear_enabled",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_mage_tower_scribe_orrin",
+    "name": "Scribe Orrin",
+    "role": "Mage Tower Scribe",
+    "portraitPrompt": "fantasy character portrait, young scribe with spectacles and quills, rune-lit desk, scroll racks, painterly, no text",
+    "dialogue": {
+      "greeting": "If you brought blank scrolls, I can make them priceless. If you didn’t, please don’t bleed on my floor.",
+      "nodes": [
+        {
+          "id": "orrin_scrolls",
+          "text": "We’re binding ward-lines faster than we can copy them. Blank stock is life.",
+          "choices": [
+            {
+              "label": "Deliver blank scroll stock.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "scroll_delivery_ready",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_council_clerk_elm",
+    "name": "Clerk Elm",
+    "role": "Council Clerk",
+    "portraitPrompt": "fantasy character portrait, city clerk in plain robes, sharp eyes, wax seals and ledgers, painterly, no text",
+    "dialogue": {
+      "greeting": "Speak clearly. The city has no patience left for confusion.",
+      "nodes": [
+        {
+          "id": "clerks_desk",
+          "text": "We issue writs, warrants, and consequences.",
+          "choices": [
+            {
+              "label": "Exchange 5 Bronze Sigils for 1 Silver Sigil.",
+              "requirements": [
+                {
+                  "type": "hasItem",
+                  "itemId": "council_sigil_bronze",
+                  "qty": 5
+                }
+              ],
+              "effects": [
+                {
+                  "type": "craft",
+                  "recipeId": "trade_bronze_to_silver"
+                }
+              ]
+            },
+            {
+              "label": "Issue a Council Warrant (costs 2 Silver Sigils).",
+              "requirements": [
+                {
+                  "type": "hasItem",
+                  "itemId": "council_sigil_silver",
+                  "qty": 2
+                }
+              ],
+              "effects": [
+                {
+                  "type": "craft",
+                  "recipeId": "issue_council_warrant"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_smith_harrow",
+    "name": "Harrow the Smith",
+    "role": "Blacksmith",
+    "portraitPrompt": "fantasy character portrait, blacksmith with soot and sparks, heavy apron, stern eyes, painterly, no text",
+    "dialogue": {
+      "greeting": "If you can’t pay, you can sweat."
+    }
+  },
+  {
+    "id": "npc_apothecary_moss",
+    "name": "Moss the Apothecary",
+    "role": "Apothecary",
+    "portraitPrompt": "fantasy character portrait, apothecary with herb-stained hands, shelves of bottles, watchful gaze, painterly, no text",
+    "dialogue": {
+      "greeting": "Everything heals or harms — sometimes both."
+    }
+  },
+  {
+    "id": "npc_fletcher_ren",
+    "name": "Ren the Fletcher",
+    "role": "Fletcher",
+    "portraitPrompt": "fantasy character portrait, fletcher artisan with feathers and wax, calm focus, painterly, no text",
+    "dialogue": {
+      "greeting": "Keep your bow dry. Keep your hands steady."
+    }
+  },
+  {
+    "id": "npc_ratcatcher_pella",
+    "name": "Pella",
+    "role": "Ratcatcher Guide (Knows the Underways)",
+    "portraitPrompt": "fantasy character portrait, streetwise ratcatcher with lantern and hooked pole, sewer backdrop, sharp grin, painterly, no text",
+    "dialogue": {
+      "greeting": "Down there? It’s not ‘dark’. It’s hungry.",
+      "nodes": [
+        {
+          "id": "deal",
+          "text": "I’ll guide you to the old underways.\n\nBut you pay in safety: don’t kick doors, don’t shout names, and if you smell mushrooms—hold your breath.",
+          "choices": [
+            {
+              "label": "Accept Pella’s guidance.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "pella_guiding",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_mage_archivist_salenne",
+    "name": "Archivist Salenne",
+    "role": "Mage Tower Liaison (War Scrying)",
+    "portraitPrompt": "fantasy character portrait, mage archivist with crystal ball glow on face, scrolls and candle smoke, painterly, no text",
+    "dialogue": {
+      "greeting": "If you brought the city its sight, then listen carefully—because sight is useless without action.",
+      "nodes": [
+        {
+          "id": "vision",
+          "text": "The ball shows three threats:\n\n1) Fire at the granary.\n2) Breach attempt at the postern.\n3) Knifers in the drains.\n\nAnd one more thing: a city hand delivering wax-sealed orders to the enemy.\n\nA ring. Black wax. A courier’s seal used from inside our walls.",
+          "choices": [
+            {
+              "label": "Ask for a transcript.",
+              "effects": [
+                {
+                  "type": "addItem",
+                  "itemId": "scrying_transcript",
+                  "qty": 1
+                }
+              ]
+            },
+            {
+              "label": "Ask for ward chalk.",
+              "effects": [
+                {
+                  "type": "addItem",
+                  "itemId": "mage_ward_chalk",
+                  "qty": 2
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_warcouncil_vayne_final",
+    "name": "Councilor Vayne",
+    "role": "War Council (Final Orders)",
+    "portraitPrompt": "fantasy character portrait, councilor with battle map, ink stains, hard eyes, painterly, no text",
+    "dialogue": {
+      "greeting": "This is the day the city becomes a story—or a warning.",
+      "nodes": [
+        {
+          "id": "summary",
+          "text": "Your actions changed the board:\n\n- If wheels were sabotaged: the siege tower arrives late or breaks.\n- If pitch was ruined: fewer burning pours on the wall.\n- If the ram chain was taken: the gate holds longer.\n- If the second mouth is sealed: fewer knives inside.\n\nNow choose where *you* stand.",
+          "choices": [
+            {
+              "label": "Request the Signal Master’s whistle.",
+              "effects": [
+                {
+                  "type": "addItem",
+                  "itemId": "signal_master_whistle",
+                  "qty": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_serjeant_mara_final",
+    "name": "Serjeant Mara",
+    "role": "Frontline Coordinator",
+    "portraitPrompt": "fantasy character portrait, serjeant in rain and soot, spear tip nicked, painterly, no text",
+    "dialogue": {
+      "greeting": "Pick a lane and commit. Heroes die when they try to be everywhere.",
+      "nodes": [
+        {
+          "id": "lanes",
+          "text": "Three lanes:\n\n1) Wall line.\n2) Gatehouse.\n3) Streets (chase-down response and fires).\n\nIf you leave the streets unattended, the city burns from within even if the wall holds.",
+          "choices": [
+            {
+              "label": "I’ll take the wall.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "final_lane",
+                  "value": "wall"
+                }
+              ]
+            },
+            {
+              "label": "I’ll take the gate.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "final_lane",
+                  "value": "gate"
+                }
+              ]
+            },
+            {
+              "label": "I’ll take the streets.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "final_lane",
+                  "value": "streets"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_kess_final",
+    "name": "Lieutenant Kess",
+    "role": "Hunt Lead (Final)",
+    "portraitPrompt": "fantasy character portrait, scout lieutenant grim, snowfall, torchlight on armor, painterly, no text",
+    "dialogue": {
+      "greeting": "We end this now, or we end it later with more graves.",
+      "nodes": [
+        {
+          "id": "prep",
+          "text": "The Warlord’s survivors are rallying at the fortress-heart.\n\nExpect:\n- chokepoints,\n- skirmish lines,\n- and a ritual meant to turn desperation into power.\n\nIf you carry the war-map tablet, we’ll avoid the worst traps.\n\nIf you have the oracle’s advantage, we’ll see ambushes before they breathe.\n\nIf you destroyed it… we fight honest.\n\nReady?",
+          "choices": [
+            {
+              "label": "Ready.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "fwh_ready",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_guard_serjeant_mara",
+    "name": "Serjeant Mara",
+    "role": "Wall Serjeant (Hands-On Defense)",
+    "portraitPrompt": "fantasy character portrait, gritty serjeant with scarred face and spear, battlements behind, rain and smoke, painterly, no text",
+    "dialogue": {
+      "greeting": "Pick a front. If you try to fight everywhere, you die everywhere.",
+      "nodes": [
+        {
+          "id": "fronts",
+          "text": "Three threats:\n\n- Siege tower at the main wall.\n- Ram at the gate.\n- Drains surge (if the mouth still lives).\n\nTell me where you go first.",
+          "choices": [
+            {
+              "label": "Main wall (siege tower).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "ga_choice",
+                  "value": "wall"
+                }
+              ]
+            },
+            {
+              "label": "Gate (ram).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "ga_choice",
+                  "value": "gate"
+                }
+              ]
+            },
+            {
+              "label": "Drains (inner knife).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "ga_choice",
+                  "value": "drains"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_gatewarden_holt",
+    "name": "Gatewarden Holt",
+    "role": "Gate Mechanisms & Keys",
+    "portraitPrompt": "fantasy character portrait, weathered gatewarden with keys and iron gauntlet, torchlight, grim but steady, painterly, no text",
+    "dialogue": {
+      "greeting": "The gate doesn’t care who you are. It cares what you can prove.",
+      "nodes": [
+        {
+          "id": "gatewarden_main",
+          "text": "If something’s wrong, it’ll be wrong at the worst moment. That’s how gates work.",
+          "choices": [
+            {
+              "label": "Show the Gatewarden’s Seal.",
+              "requirements": [
+                {
+                  "type": "hasItem",
+                  "itemId": "gatewarden_seal",
+                  "qty": 1
+                }
+              ],
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "gatewarden_access",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Request access to the inner mechanisms (emergency).",
+              "requirements": [
+                {
+                  "type": "flagEquals",
+                  "key": "gatewarden_access",
+                  "value": true
+                }
+              ],
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "inner_mechanism_access",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_dock_factor_merris",
+    "name": "Factor Merris",
+    "role": "Dock Factor (Respectable, Dangerous)",
+    "portraitPrompt": "fantasy character portrait, well-dressed dock factor with ledger, polite smile, cold eyes, rainy dock lanterns, painterly, no text",
+    "dialogue": {
+      "greeting": "Supplies are complex. Rumours are simple. Which do you trade in?",
+      "nodes": [
+        {
+          "id": "factor_deflect",
+          "text": "The docks are chaos. Losses happen. Accusations happen too. Usually from fools.",
+          "choices": [
+            {
+              "label": "Present a Council Warrant and demand the ledger.",
+              "requirements": [
+                {
+                  "type": "hasItem",
+                  "itemId": "council_warrant",
+                  "qty": 1
+                }
+              ],
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "factor_confronted",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "If he resists, arrest him (guards will be called).",
+              "requirements": [
+                {
+                  "type": "flagEquals",
+                  "key": "factor_confronted",
+                  "value": true
+                }
+              ],
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "factor_arrested",
+                  "value": true
+                },
+                {
+                  "type": "addItem",
+                  "itemId": "dock_ledger_page",
+                  "qty": 2
+                },
+                {
+                  "type": "addXP",
+                  "amount": 24
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_captain_roth",
+    "name": "Captain Roth",
+    "role": "Gate Yard Captain",
+    "portraitPrompt": "fantasy character portrait, battle-worn city captain with rain cloak and scar, tense jaw, banners behind, painterly, no text",
+    "dialogue": {
+      "greeting": "If you’re here, you’re either brave, useful, or lost. Pick one fast.",
+      "nodes": [
+        {
+          "id": "roth_ready",
+          "text": "We’re minutes from a bad day. Tell me what you’ve fixed.",
+          "choices": [
+            {
+              "label": "Report the contraband disruption and sabotage evidence.",
+              "requirements": [
+                {
+                  "type": "flagEquals",
+                  "key": "docks_contraband_disrupted",
+                  "value": true
+                }
+              ],
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "roth_informed_contraband",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Report the docks factor arrest.",
+              "requirements": [
+                {
+                  "type": "flagEquals",
+                  "key": "factor_arrested",
+                  "value": true
+                }
+              ],
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "roth_informed_factor",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Begin the battle sequence (if the city is battle-ready).",
+              "requirements": [
+                {
+                  "type": "flagEquals",
+                  "key": "city_battle_ready",
+                  "value": true
+                }
+              ],
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "battle_act1_started",
+                  "value": true
+                }
+              ],
+              "goToAreaId": "e_battle_horns"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_kess_mountain",
+    "name": "Lieutenant Kess",
+    "role": "Scout (Mountain Approach)",
+    "portraitPrompt": "fantasy character portrait, scout lieutenant on mountain ridge, cloak snapping in wind, distant fortress silhouette, painterly, no text",
+    "dialogue": {
+      "greeting": "This is where the war learns to breathe again. Don’t let it.",
+      "nodes": [
+        {
+          "id": "routes",
+          "text": "Two ways to the fortress:\n\n1) The Narrow Pass — faster, watched by archers.\n2) The Goat Path — slower, safer if you can climb.\n\nAnd there’s a rumor:\nA waterfall that hides an old smuggler’s throat into the deep.\n\nPick your risk.",
+          "choices": [
+            {
+              "label": "Take the Narrow Pass (combat likely).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "mf_route",
+                  "value": "pass"
+                }
+              ]
+            },
+            {
+              "label": "Take the Goat Path (climb checks).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "mf_route",
+                  "value": "goat"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_porter_jan",
+    "name": "Jan the Porter",
+    "role": "Reluctant Servant (Inside the Fortress)",
+    "portraitPrompt": "fantasy character portrait, frightened porter with bundle of keys on belt, fortress kitchens behind, painterly, no text",
+    "dialogue": {
+      "greeting": "I haul their barrels. I don’t want their war.",
+      "nodes": [
+        {
+          "id": "deal",
+          "text": "If you don’t kill me, I’ll tell you three things:\n\n- The quartermaster keeps cold-iron keys.\n- The cistern hatch leads to older stone.\n- The waterfall cave is real… but it listens.\n\nWill you spare me?",
+          "choices": [
+            {
+              "label": "Spare him (gain info, less alarm).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "jan_spared",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Threaten him for the keyring (risk alarm).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "jan_threatened",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_captive_farmer_rill",
+    "name": "Rill Dane",
+    "role": "Captive Farmer (Knows Back Roads)",
+    "portraitPrompt": "fantasy character portrait, exhausted farmer in torn shirt with rope burns, dirt-streaked face, defiant eyes, torchlit cage, painterly, no text",
+    "dialogue": {
+      "greeting": "Don’t talk loud. They like it when we beg.",
+      "nodes": [
+        {
+          "id": "rill_info",
+          "text": "They’re feeding the siege with our grain. And they’re moving a ‘prize’ through the old sinkholes—deeper than these woods. Red Knife Hold. That name keeps coming up.",
+          "choices": [
+            {
+              "label": "Ask about the sinkholes route.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "sinkhole_route_hint",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Promise to free the captives.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "farmers_rescue_promised",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_scout_kess_pursuit",
+    "name": "Lieutenant Kess",
+    "role": "Scout (Pursuit Lead)",
+    "portraitPrompt": "fantasy character portrait, scout lieutenant in wind, hills behind, tired eyes, painterly, no text",
+    "dialogue": {
+      "greeting": "They’re retreating like wounded wolves. Still dangerous. Still clever.",
+      "nodes": [
+        {
+          "id": "brief",
+          "text": "Trail signs:\n\n- A runner carrying signals to an underground hold.\n- Wargs scouting the flanks.\n- A disciplined captain trying to keep order without the standard.\n\nIf we catch the runner, we choose the next battlefield.\nIf we fail, they vanish into stone.",
+          "choices": [
+            {
+              "label": "Commit to hunting the runner first.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "pursuit_target",
+                  "value": "runner"
+                }
+              ]
+            },
+            {
+              "label": "Commit to breaking the captain’s rearguard first.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "pursuit_target",
+                  "value": "rearguard"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_farmer_marta",
+    "name": "Marta of the Ridge Farms",
+    "role": "Civilian Witness",
+    "portraitPrompt": "fantasy character portrait, farm woman in cloak, windblown hair, bruised but resolute, painterly, no text",
+    "dialogue": {
+      "greeting": "They took my boy to haul timber. Said the ‘stone city’ below would pay for him.",
+      "nodes": [
+        {
+          "id": "clue",
+          "text": "I saw them vanish into a crack in the hills.\n\nNot a cave.\n\nA doorway shaped like old teeth.\n\nIf you go… bring a lantern. The dark down there is greedy.",
+          "choices": [
+            {
+              "label": "Promise to look for captives.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "captives_promised",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_princess_seren",
+    "name": "Lady Seren Arclight",
+    "role": "Royal Hostage (Princess Thread)",
+    "portraitPrompt": "fantasy character portrait, young noblewoman with dirt-streaked face, hair pinned back, chain marks on wrists, determined eyes, torchlit cavern, painterly, no text",
+    "dialogue": {
+      "greeting": "If you’re here to trade, don’t. If you’re here to fight, do it fast.",
+      "nodes": [
+        {
+          "id": "seren_truth",
+          "text": "They aren’t holding me for ransom alone. They want the gate opened from within. There’s a ‘second mouth’ into the drains—mapped, measured, ready.",
+          "choices": [
+            {
+              "label": "Ask about the ‘second mouth’.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "second_mouth_confirmed",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Promise: I’ll get you out alive.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "princess_rescue_promised",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_defector_runner_mip",
+    "name": "Mip",
+    "role": "Terrified Goblin Runner (Wants Amends)",
+    "portraitPrompt": "fantasy character portrait, small goblin with torn hood, wide fearful eyes, holding a cracked token, cavern shadows, painterly, no text",
+    "dialogue": {
+      "greeting": "Don’t kill me! I know where they keep the iron wedges. I know where the roof is weak.",
+      "nodes": [
+        {
+          "id": "mip_deal",
+          "text": "Captain Varg will trade. He loves trades. But he cheats. Always.\n\nIf you want to collapse the tunnel, the ‘breath pillars’ are the key. Three of them.",
+          "choices": [
+            {
+              "label": "Accept the info (mark weak supports).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "breath_pillars_hint",
+                  "value": true
+                },
+                {
+                  "type": "addItem",
+                  "itemId": "chalk_shard",
+                  "qty": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_master_of_stores_rell",
+    "name": "Master of Stores Rell",
+    "role": "Quartermaster (Possible Traitor)",
+    "portraitPrompt": "fantasy character portrait, quartermaster in ledger room, keys at belt, wary expression, lantern light, painterly, no text",
+    "dialogue": {
+      "greeting": "If you need supplies, file a request like everyone else—oh, you don’t have time. No one does.",
+      "nodes": [
+        {
+          "id": "rell_probe",
+          "text": "Requisitions? Wax seals? I stamp what the council authorizes.\n\nUnless… someone has a seal they shouldn’t.",
+          "choices": [
+            {
+              "label": "Investigate his ledgers.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "rell_ledgers_checked",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Leave him for now.",
+              "effects": []
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_lieut_kess",
+    "name": "Lieutenant Kess",
+    "role": "Scout (Camp Infiltration Contact)",
+    "portraitPrompt": "fantasy character portrait, scout lieutenant in mud-stained cloak, campfires behind, tense whisper, painterly, no text",
+    "dialogue": {
+      "greeting": "That camp runs on fear and a banner. Take the banner, and fear turns sideways.",
+      "nodes": [
+        {
+          "id": "brief",
+          "text": "Their standard is kept below the command trench.\n\nThey call it a ‘vault’—it’s more like a buried shrine.\n\nIf you have the codebook, you can fake a horn pattern to pull guards away—once.",
+          "choices": [
+            {
+              "label": "Accept the plan.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "camp_raid_accepted",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_scout_kess",
+    "name": "Lieutenant Kess",
+    "role": "Scout (Enemy Camp Sabotage)",
+    "portraitPrompt": "fantasy character portrait, scout lieutenant muddy cloak, eyes reflecting campfire, tense, painterly, no text",
+    "dialogue": {
+      "greeting": "They rebuild confidence with wood and iron. Break the machines and you break their courage.",
+      "nodes": [
+        {
+          "id": "options",
+          "text": "Three targets. You can’t guarantee all three.\n\n1) Siege tower wheels.\n2) Gate ram head.\n3) Pitch cauldrons.\n\nIf you kept the banner secret, they won’t be looking for you.\nIf you revealed it publicly, expect tighter patrols.",
+          "choices": [
+            {
+              "label": "Accept the sabotage mission.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "siege_engines_mission_accepted",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_cage_prisoner_elin",
+    "name": "Elin of the Far Farms",
+    "role": "Captive Carpenter (Knows the Wheelhouse)",
+    "portraitPrompt": "fantasy character portrait, exhausted carpenter prisoner behind bars, splinters in hands, determined eyes, painterly, no text",
+    "dialogue": {
+      "greeting": "If you’re here to kill us, do it quick. If you’re here to help… listen.",
+      "nodes": [
+        {
+          "id": "intel",
+          "text": "The wheelhouse hub has a soft join—hammer a wedge there and the tower limps.\n\nThe ram head chain is kept by the foreman.\n\nAnd the pitch pits… sand ruins it better than water.",
+          "choices": [
+            {
+              "label": "Promise to free the cages if possible.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "promised_free_cages",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_vip_prisoner_liora",
+    "name": "Liora Vale",
+    "role": "VIP Captive (Noble Courier)",
+    "portraitPrompt": "fantasy character portrait, noble courier woman with torn cloak, stubborn gaze, bruised but unbroken, torchlit dungeon, painterly, no text",
+    "dialogue": {
+      "greeting": "If you’ve come to bargain, I have nothing. If you’ve come to rescue, be quiet.",
+      "nodes": [
+        {
+          "id": "liora_info",
+          "text": "They took me for what I carried — not who I am. Their officers speak of a ‘sight orb’ being moved deeper. And they’re terrified of losing it.",
+          "choices": [
+            {
+              "label": "Ask: What is the ‘sight orb’?",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "crystal_orb_rumor_heard",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Promise: I’ll get you out.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "vip_rescue_promised",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_prisoner_old_scribe",
+    "name": "Old Scribe",
+    "role": "Broken Scribe (Knows Layout)",
+    "portraitPrompt": "fantasy character portrait, elderly scribe in rags, ink-stained fingers, haunted eyes, dungeon bars, painterly, no text",
+    "dialogue": {
+      "greeting": "Walls have ears. Floors have teeth.",
+      "nodes": [
+        {
+          "id": "scribe_layout",
+          "text": "There’s a maintenance slit behind the cistern. Leads to the chain gallery. Don’t go where the drums echo.",
+          "choices": [
+            {
+              "label": "Thank him and ask about keys.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "hint_chain_gallery",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_captive_mage_apprentice",
+    "name": "Tess of the Tower",
+    "role": "Caged Mage Apprentice",
+    "portraitPrompt": "fantasy character portrait, young mage apprentice in torn robe, glowing runes on wrists, determined eyes, reliquary cell, painterly, no text",
+    "dialogue": {
+      "greeting": "Don’t touch the runes. They bite.",
+      "nodes": [
+        {
+          "id": "tess_help",
+          "text": "The orb isn’t just seeing. It’s steering. It ‘nudges’ troop movement—like a hand on a chess piece. Break its cradle and it loses focus for days.",
+          "choices": [
+            {
+              "label": "Ask how to break the cradle.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "orb_cradle_hint",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Free Tess (if possible).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "tess_freed",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_ward_adept_defector",
+    "name": "Adept Sorn",
+    "role": "Defector (Wants Out)",
+    "portraitPrompt": "fantasy character portrait, nervous ward adept with inked fingers, cracked ward charm, guilty eyes, torchlight, painterly, no text",
+    "dialogue": {
+      "greeting": "You shouldn’t be here. Neither should I.",
+      "nodes": [
+        {
+          "id": "sorn_deal",
+          "text": "Give me a way out and I’ll mark the safe path through the ward lines. They’ll kill me when the orb is moved.",
+          "choices": [
+            {
+              "label": "Accept: mark me a safe route.",
+              "effects": [
+                {
+                  "type": "addItem",
+                  "itemId": "reliquary_pass_mark",
+                  "qty": 1
+                },
+                {
+                  "type": "flag",
+                  "key": "reliquary_safe_marked",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_bound_oracle",
+    "name": "The Bound Oracle",
+    "role": "War-Sight Engine (Not Quite a Person)",
+    "portraitPrompt": "fantasy character portrait, chained oracle figure fused with crystal and stone, pale glow, sorrowful eyes, runes on chains, painterly, no text",
+    "dialogue": {
+      "greeting": "I am the map they bleed through.",
+      "nodes": [
+        {
+          "id": "truth",
+          "text": "They chained me to predict.\n\nTo choose.\n\nTo win.\n\nIf you free me, I may flee… or I may repay.\n\nIf you bind me for the city, you make the city dangerous.\n\nIf you destroy me, you end the advantage—forever.\n\nChoose with clean hands, if you can.",
+          "choices": [
+            {
+              "label": "Ask how to break the Heartspike safely.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "oracle_heartspike_hint",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Ask how to rebind it for the city without cruelty.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "oracle_rebind_hint",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_councilor_vayne_finale",
+    "name": "Councilor Vayne",
+    "role": "War Council (Knife Room)",
+    "portraitPrompt": "fantasy character portrait, tired councilor with sharp eyes, candlelit war room, maps and seals, painterly, no text",
+    "dialogue": {
+      "greeting": "You brought back the war’s hidden organs. Now the city must decide how to use them.",
+      "nodes": [
+        {
+          "id": "opening",
+          "text": "We have three crises:\n\n1) The Warlord is rallying survivors.\n2) Someone inside the city profited from the siege.\n3) The streets still whisper panic.\n\nYou may choose only two actions before dawn.\n\nChoose like a veteran.\n\nChoose like a knife.",
+          "choices": [
+            {
+              "label": "Prioritise the Warlord hunt (military focus).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "council_priority",
+                  "value": "warlord"
+                }
+              ]
+            },
+            {
+              "label": "Prioritise rooting out betrayal (internal stability).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "council_priority",
+                  "value": "traitor"
+                }
+              ]
+            },
+            {
+              "label": "Prioritise calming the city (morale, riots, fires).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "council_priority",
+                  "value": "morale"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_councilor_mirelda",
+    "name": "Councilor Mirelda",
+    "role": "Civic Order (Morale / Curfews)",
+    "portraitPrompt": "fantasy character portrait, stern councilor woman in civic robes, city watch banners, painterly, no text",
+    "dialogue": {
+      "greeting": "Victory is not a feast. It is a duty. And duty requires order.",
+      "nodes": [
+        {
+          "id": "order",
+          "text": "Give me a safe-conduct decree and I can lock the city down without cruelty.\n\nRefuse, and the watch will do it anyway—just with panic and clubs.\n\nWhat do you want the streets to remember?",
+          "choices": [
+            {
+              "label": "Approve humane lockdown (needs council seal).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "city_lockdown_humane",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Refuse (risk unrest, but fewer abuses).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "city_lockdown_refused",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_master_warden_sell",
+    "name": "Master Warden Sell",
+    "role": "Internal Affairs (The Traitor Thread)",
+    "portraitPrompt": "fantasy character portrait, thin master warden with iron chain insignia, shadowed archive behind, painterly, no text",
+    "dialogue": {
+      "greeting": "There is always a second battle after the siege: the battle over truth.",
+      "nodes": [
+        {
+          "id": "ledger",
+          "text": "I can trace sabotage… if you can bring me proof.\n\nA ledger. A seal. A confession.\n\nBut be warned:\nSome truths kill more cleanly than swords.\n\nIf you proceed, you may end up with enemies in silk.",
+          "choices": [
+            {
+              "label": "Commit to hunting the saboteur.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "traitor_hunt_committed",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Keep focus on the Warlord; ignore internal rot for now.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "traitor_hunt_ignored",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_guildmaster_orrow_finale",
+    "name": "Guildmaster Orrow",
+    "role": "Armourers’ Guild (Heirloom Upgrade)",
+    "portraitPrompt": "fantasy character portrait, guildmaster at forge holding gleaming blade fitting, sparks, painterly, no text",
+    "dialogue": {
+      "greeting": "If you’re going after the Warlord, you don’t go with beginner steel.",
+      "nodes": [
+        {
+          "id": "upgrade",
+          "text": "I can upgrade ONE named weapon into an heirloom.\n\nBring:\n- a Sunsteel Blade Fitting,\n- and proof you’ll use it for the city.\n\nWhich weapon do you offer?",
+          "choices": [
+            {
+              "label": "Upgrade Gate-Biter.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "heirloom_upgrade",
+                  "value": "gatebiter"
+                }
+              ]
+            },
+            {
+              "label": "Upgrade Wall-Whisper.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "heirloom_upgrade",
+                  "value": "wallwhisper"
+                }
+              ]
+            },
+            {
+              "label": "Save the fitting for later.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "heirloom_upgrade",
+                  "value": "none"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_medic_sister_elin",
+    "name": "Sister Elin",
+    "role": "Field Medic (Triage Lead)",
+    "portraitPrompt": "fantasy character portrait, weary healer in simple robes with bloodstained sleeves, infirmary lanterns, compassionate eyes, painterly, no text",
+    "dialogue": {
+      "greeting": "If you can stand, you can carry water or bandages.",
+      "nodes": [
+        {
+          "id": "triage",
+          "text": "We’re keeping people alive by inches.\n\nIf arson spreads, smoke kills faster than steel.\n\nIf knives are loose in the streets, the wounded never reach us.",
+          "choices": [
+            {
+              "label": "Offer help immediately.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "triage_volunteer",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_inquisitor_dran",
+    "name": "Inquisitor Dran",
+    "role": "Interrogator (Truth at Any Cost)",
+    "portraitPrompt": "fantasy character portrait, hooded inquisitor with ink-stained gloves, small cell doorway, cold lantern light, painterly, no text",
+    "dialogue": {
+      "greeting": "They lie. You decide how quickly they stop.",
+      "nodes": [
+        {
+          "id": "interrogate",
+          "text": "We caught a token carrier. Not a fighter—an errand goblin.\n\nOffer mercy, offer fear, offer cleverness. Choose your method.",
+          "choices": [
+            {
+              "label": "Promise leniency (if it talks).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "interrogation_mercy",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Threaten consequences (hard line).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "interrogation_hardline",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_scout_lieut_kess",
+    "name": "Lieutenant Kess",
+    "role": "City Scout (Counterstrike Contact)",
+    "portraitPrompt": "fantasy character portrait, city scout lieutenant in hooded cloak, rain beading on leather, watchfort silhouette behind, painterly, no text",
+    "dialogue": {
+      "greeting": "We don’t have an army for this. We have you.",
+      "nodes": [
+        {
+          "id": "brief",
+          "text": "That watchfort used to be ours. Now it’s a relay hub.\n\nSteal their signal book, free our people, and cut the banner captain out of the chain.\n\nIf you’re seen, the siege line will learn the postern gate exists.",
+          "choices": [
+            {
+              "label": "Accept the raid.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "watchfort_raid_accepted",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_prisoner_sergeant_bram",
+    "name": "Sergeant Bram",
+    "role": "Captured City Soldier",
+    "portraitPrompt": "fantasy character portrait, bruised sergeant in torn tabard behind iron bars, stubborn eyes, torchlit pen, painterly, no text",
+    "dialogue": {
+      "greeting": "If you’re real, cut these bars. If you’re not, stop wasting my breath.",
+      "nodes": [
+        {
+          "id": "intel",
+          "text": "The banner captain lives in the relay tower.\n\nThere’s a hidden sally hatch behind the armory rack—old city workmanship.\n\nAnd there’s a troll on a chain. Don’t fight it in open ground.",
+          "choices": [
+            {
+              "label": "Take the intel.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "bram_intel_taken",
+                  "value": true
+                },
+                {
+                  "type": "addXP",
+                  "amount": 8
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

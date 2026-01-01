@@ -1,0 +1,25 @@
+[
+  {
+    "id": "q_siege_camp_raid",
+    "name": "Counterstrike: Steal the War Standard",
+    "giverNpcId": "npc_lieut_kess",
+    "startAreaId": "p_siege_camp_approach",
+    "objective": {
+      "type": "setFlag",
+      "key": "war_standard_taken",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 18,
+      "xp": 75,
+      "items": [
+        {
+          "itemId": "war_standard_black",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  }
+]

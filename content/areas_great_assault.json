@@ -1,0 +1,509 @@
+[
+  {
+    "id": "ga_battlements_start",
+    "title": "Battlements: The Biggest Push",
+    "x": 3,
+    "y": 2,
+    "floorId": "city",
+    "tileStyle": "battlements",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, massive siege lines, siege tower rolling, ram at gate, arrows, smoke, cinematic, no text",
+    "description": "It begins.\n\nSiege tower wheels forward.\n\nA ram pounds the gate.\n\nSomewhere below, water churns under streets.\n\nYou can’t stop everything. Choose.",
+    "actionsAvailable": {
+      "talk": {
+        "text": "Serjeant Mara grips your shoulder.",
+        "choices": [
+          {
+            "id": "mara",
+            "label": "Talk to Serjeant Mara.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_guard_serjeant_mara"
+              }
+            ]
+          },
+          {
+            "id": "start",
+            "label": "Start: The Great Assault.",
+            "effects": [
+              {
+                "type": "startJob",
+                "jobId": "q_great_assault"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "prep_signal",
+        "label": "If you have shutters, prep a counter-signal (one free advantage).",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "tower_signal_shutter_set",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "addItem",
+            "itemId": "signal_script_braid",
+            "qty": 1
+          }
+        ],
+        "goToAreaId": "ga_choice_page"
+      },
+      {
+        "id": "no_prep",
+        "label": "No time—choose a front now.",
+        "goToAreaId": "ga_choice_page"
+      }
+    ]
+  },
+  {
+    "id": "ga_choice_page",
+    "title": "Choice: Where You Stand Matters",
+    "x": 3,
+    "y": 3,
+    "floorId": "city",
+    "tileStyle": "civic",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, war map on battlement table with three marked fronts, hands pointing, cinematic, no text",
+    "description": "The city is a body.\n\nThe wall is its ribs.\n\nThe gate is its throat.\n\nThe drains are its veins.\n\nChoose where you fight first.",
+    "choices": [
+      {
+        "id": "go_wall",
+        "label": "1) Main Wall: stop the siege tower and ladders.",
+        "effects": [
+          {
+            "type": "addItem",
+            "itemId": "assault_priority_token",
+            "qty": 1
+          },
+          {
+            "type": "flag",
+            "key": "ga_choice",
+            "value": "wall"
+          }
+        ],
+        "goToAreaId": "ga_main_wall"
+      },
+      {
+        "id": "go_gate",
+        "label": "2) Gate: stop the ram.",
+        "effects": [
+          {
+            "type": "addItem",
+            "itemId": "assault_priority_token",
+            "qty": 1
+          },
+          {
+            "type": "flag",
+            "key": "ga_choice",
+            "value": "gate"
+          }
+        ],
+        "goToAreaId": "ga_gatehouse"
+      },
+      {
+        "id": "go_drains",
+        "label": "3) Drains: stop an inner surge (only if the mouth still lives).",
+        "requirements": [
+          {
+            "type": "flagEquals",
+            "key": "drains_threat_persistent",
+            "value": true
+          }
+        ],
+        "effects": [
+          {
+            "type": "addItem",
+            "itemId": "assault_priority_token",
+            "qty": 1
+          },
+          {
+            "type": "flag",
+            "key": "ga_choice",
+            "value": "drains"
+          }
+        ],
+        "goToAreaId": "ga_drains_entry"
+      }
+    ]
+  },
+  {
+    "id": "ga_main_wall",
+    "title": "Main Wall: Tower and Ladders",
+    "x": 4,
+    "y": 3,
+    "floorId": "city",
+    "tileStyle": "battlements",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, siege tower nearing wall, ladders rising, defenders shouting, cinematic, no text",
+    "description": "Ladders bite the stone.\n\nThe siege tower rolls like an oncoming house.\n\nIf the enemy lacks their standard, their courage wavers—if you push them hard enough.",
+    "choices": [
+      {
+        "id": "counter_signal_wall",
+        "label": "Counter-signal: confuse ladder timings (mind check).",
+        "requirements": [
+          {
+            "type": "flagEquals",
+            "key": "counter_signal_unlocked",
+            "value": true
+          }
+        ],
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "mind",
+            "dc": 10,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "ga_wall_confused",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 12
+              }
+            ],
+            "onFail": [
+              {
+                "type": "flag",
+                "key": "enemy_suspicious_signals",
+                "value": true
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "ga_wall_fight"
+      },
+      {
+        "id": "fight_wall",
+        "label": "Fight the wall wave.",
+        "goToAreaId": "ga_wall_fight"
+      }
+    ]
+  },
+  {
+    "id": "ga_wall_fight",
+    "title": "Wall Clash",
+    "x": 5,
+    "y": 3,
+    "floorId": "city",
+    "tileStyle": "battlements",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, close combat on wall, ladders, arrows, rain, cinematic, no text",
+    "description": "A ladderman climbs.\n\nA vanguard shoves.\n\nWin here and the tower stalls.\n\nLose here and the city bleeds.",
+    "choices": [
+      {
+        "id": "start_wall_threat",
+        "label": "Fight the wave.",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_ga_wall",
+              "enemyGroupId": "ga_wall_wave",
+              "distance": 3,
+              "direction": "n",
+              "speed": 1,
+              "targetAreaId": "ga_wall_fight",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "ga_wall_resolution"
+      }
+    ]
+  },
+  {
+    "id": "ga_wall_resolution",
+    "title": "Wall Resolution: Morale Break",
+    "x": 6,
+    "y": 3,
+    "floorId": "city",
+    "tileStyle": "battlements",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, enemies faltering, ladder slipping, defenders pushing back, cinematic, no text",
+    "description": "Without their banner, some hesitate.\n\nHesitation is how armies die.\n\nIf you press, they may break.",
+    "choices": [
+      {
+        "id": "press_morale",
+        "label": "Press the morale break (luck check).",
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "luck",
+            "dc": 9,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "ga_wall_enemy_retreat",
+                "value": true
+              },
+              {
+                "type": "flag",
+                "key": "enemy_morale_shaken",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 14
+              }
+            ],
+            "onFail": [
+              {
+                "type": "flag",
+                "key": "ga_wall_enemy_retreat",
+                "value": false
+              },
+              {
+                "type": "addXP",
+                "amount": 6
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "ga_end"
+      },
+      {
+        "id": "move_on",
+        "label": "Leave the wall and run to another front.",
+        "goToAreaId": "ga_end"
+      }
+    ]
+  },
+  {
+    "id": "ga_gatehouse",
+    "title": "Gatehouse: The Ram",
+    "x": 4,
+    "y": 2,
+    "floorId": "city",
+    "tileStyle": "gatehouse",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, gatehouse shaking under ram hits, splinters flying, defenders bracing, cinematic, no text",
+    "description": "The ram strikes like a drum calling death.\n\nIf you installed barricades, the approach is tighter.\n\nIf you brought a chain hook, you might pull the ram off-line.",
+    "choices": [
+      {
+        "id": "hook",
+        "label": "Use gate chain hook to drag the ram sideways (luck check).",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "gate_chain_hook",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "luck",
+            "dc": 9,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "ga_gate_ram_offline",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 12
+              }
+            ],
+            "onFail": [
+              {
+                "type": "takeDamage",
+                "amount": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "ga_gate_fight"
+      },
+      {
+        "id": "fight_gate",
+        "label": "Fight the gate wave.",
+        "goToAreaId": "ga_gate_fight"
+      }
+    ]
+  },
+  {
+    "id": "ga_gate_fight",
+    "title": "Gate Clash",
+    "x": 5,
+    "y": 2,
+    "floorId": "city",
+    "tileStyle": "gatehouse",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, melee at gate, orc ram crew roaring, sparks and smoke, cinematic, no text",
+    "description": "The ram crew fights like they’ve been promised glory.\n\nWithout the banner, that promise rings hollow.\n\nMake it ring.",
+    "choices": [
+      {
+        "id": "start_gate_threat",
+        "label": "Fight the wave.",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_ga_gate",
+              "enemyGroupId": "ga_gate_wave",
+              "distance": 3,
+              "direction": "n",
+              "speed": 1,
+              "targetAreaId": "ga_gate_fight",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "ga_gate_resolution"
+      }
+    ]
+  },
+  {
+    "id": "ga_gate_resolution",
+    "title": "Gate Resolution: The Door Holds",
+    "x": 6,
+    "y": 2,
+    "floorId": "city",
+    "tileStyle": "gatehouse",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, gate still standing, broken ram pieces, exhausted defenders, cinematic, no text",
+    "description": "If the gate holds, the city keeps its spine.\n\nIf it fails, the streets become a slaughterhouse.\n\nThe assault still rages elsewhere—run if you must.",
+    "choices": [
+      {
+        "id": "to_end",
+        "label": "Sprint to the final consolidation.",
+        "goToAreaId": "ga_end"
+      }
+    ]
+  },
+  {
+    "id": "ga_drains_entry",
+    "title": "Drains Entry: The Inner Surge",
+    "x": 3,
+    "y": 1,
+    "floorId": "sewer",
+    "tileStyle": "sewer",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, sewer entry with churning water and shadows, lantern reflection, cinematic, no text",
+    "description": "Water churns like something breathing.\n\nIf the ‘second mouth’ still lives, it can vomit enemies into the city.\n\nStop them now—or stop the mouth forever later.",
+    "choices": [
+      {
+        "id": "seal_with_pitch",
+        "label": "Use holy pitch to choke the crawlspace (luck check).",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "holy_pitch_vial",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "removeItem",
+            "itemId": "holy_pitch_vial",
+            "qty": 1
+          },
+          {
+            "type": "skillCheck",
+            "skill": "luck",
+            "dc": 9,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "ga_drains_delayed",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 12
+              }
+            ],
+            "onFail": [
+              {
+                "type": "takeDamage",
+                "amount": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "ga_end"
+      },
+      {
+        "id": "commit_fix",
+        "label": "Commit to the permanent fix: hunt the second mouth after the assault.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "second_mouth_fix_unlocked",
+            "value": true
+          }
+        ],
+        "goToAreaId": "ga_end"
+      }
+    ]
+  },
+  {
+    "id": "ga_end",
+    "title": "Great Assault: Consolidation",
+    "x": 3,
+    "y": 4,
+    "floorId": "city",
+    "tileStyle": "civic",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, defenders regrouping, wounded treated, smoke thinning, dawn light, cinematic, no text",
+    "description": "Hours later, the city still stands.\n\nNot whole. Not safe.\n\nBut standing.\n\nNow you decide what ends this war faster:\n\n- Keep striking the enemy’s command.\n- Or seal the drains route forever.",
+    "effectsOnEnter": [
+      {
+        "type": "flag",
+        "key": "great_assault_complete",
+        "value": true
+      },
+      {
+        "type": "completeJob",
+        "jobId": "q_great_assault"
+      }
+    ],
+    "choices": [
+      {
+        "id": "to_second_mouth_fix",
+        "label": "If drains threat persists, pursue the permanent fix beneath the city.",
+        "requirements": [
+          {
+            "type": "flagEquals",
+            "key": "drains_threat_persistent",
+            "value": true
+          }
+        ],
+        "goToAreaId": "smf_descent"
+      },
+      {
+        "id": "to_next_war",
+        "label": "Prepare the next counterstrike (future arc): break their siege engines for good.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "siege_engines_arc_unlocked",
+            "value": true
+          }
+        ],
+        "goToAreaId": "br_mage_warning"
+      }
+    ]
+  }
+]

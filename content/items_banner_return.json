@@ -1,0 +1,42 @@
+[
+  {
+    "id": "banner_cloth_strip",
+    "name": "Strip of Black Banner Cloth",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A strip cut from the stolen war standard. Proof for skeptics, leverage for allies."
+  },
+  {
+    "id": "civic_medal_ironleaf",
+    "name": "Ironleaf Civic Medal",
+    "type": "trinket",
+    "stackable": false,
+    "value": 0,
+    "description": "A simple iron medal awarded by the city. Adds authority in civic encounters."
+  },
+  {
+    "id": "sealed_orders_packet",
+    "name": "Sealed Orders Packet",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "Council orders granting you emergency authority during the Great Assault."
+  },
+  {
+    "id": "tower_signal_shutter_set",
+    "name": "Signal Shutter Set",
+    "type": "tool",
+    "stackable": false,
+    "value": 14,
+    "description": "A kit of shutters and lenses for rapid lantern patterns. Improves counter-signal checks."
+  },
+  {
+    "id": "holy_pitch_vial",
+    "name": "Holy Pitch Vial",
+    "type": "tool",
+    "stackable": true,
+    "value": 10,
+    "description": "Blessed pitch used to seal cracks and choke crawlspaces. Useful against drains routes."
+  }
+]

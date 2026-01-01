@@ -1,0 +1,50 @@
+[
+  {
+    "id": "badge_ironleaf_full",
+    "name": "Ironleaf Warden Badge (Full)",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "Your full authority. Opens armories, lets you requisition limited gear, and forces minor officials to stop wasting your time."
+  },
+  {
+    "id": "writ_requisition",
+    "name": "Requisition Writ",
+    "type": "tool",
+    "stackable": true,
+    "value": 0,
+    "description": "A sealed writ allowing you to claim supplies or specialist services once per chapter."
+  },
+  {
+    "id": "seal_council_major",
+    "name": "Major Council Seal",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "Proof of council backing. Improves diplomacy outcomes and deters some guards from ‘mistakes’."
+  },
+  {
+    "id": "ledger_blackwax",
+    "name": "Blackwax Ledger",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A ledger of bribes, sabotage, and quiet betrayals. Dangerous to hold. More dangerous to ignore."
+  },
+  {
+    "id": "blade_fitting_sunsteel",
+    "name": "Sunsteel Blade Fitting",
+    "type": "craft_component",
+    "stackable": false,
+    "value": 0,
+    "description": "A rare fitting used to upgrade a named weapon into a veteran-tier heirloom."
+  },
+  {
+    "id": "scroll_decree_safeconduct",
+    "name": "Decree of Safe Conduct",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A decree that lets you move through the city during lockdown and bring a small escort."
+  }
+]

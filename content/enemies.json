@@ -1,0 +1,3240 @@
+[
+  {
+    "id": "city_rioter",
+    "name": "Panicked Rioter",
+    "kind": "humanoid",
+    "skill": 7,
+    "stamina": 7,
+    "meta": {
+      "special": "panic_shove"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 2
+      }
+    ],
+    "tags": [
+      "city",
+      "panic"
+    ]
+  },
+  {
+    "id": "enemy_scout_sniper",
+    "name": "Enemy Scout Sniper",
+    "kind": "humanoid",
+    "skill": 10,
+    "stamina": 9,
+    "meta": {
+      "ranged": true,
+      "range": 3,
+      "damage": "1d6",
+      "ammoType": "arrow"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 1,
+        "max": 10
+      }
+    ],
+    "tags": [
+      "enemy",
+      "scout",
+      "ranged"
+    ]
+  },
+  {
+    "id": "orc_shocktrooper",
+    "name": "Orc Shocktrooper",
+    "kind": "humanoid",
+    "skill": 9,
+    "stamina": 12,
+    "meta": {
+      "ranged": false
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 2,
+        "max": 10
+      }
+    ],
+    "tags": [
+      "orc",
+      "shock"
+    ]
+  },
+  {
+    "id": "orc_bow",
+    "name": "Orc Bowman",
+    "kind": "humanoid",
+    "skill": 8,
+    "stamina": 9,
+    "meta": {
+      "ranged": true,
+      "range": 3,
+      "damage": "1d6",
+      "ammoType": "arrow"
+    },
+    "loot": [
+      {
+        "itemId": "arrow_bundle",
+        "min": 0,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 1,
+        "max": 8
+      }
+    ],
+    "tags": [
+      "orc",
+      "ranged"
+    ]
+  },
+  {
+    "id": "troll_brute",
+    "name": "Troll Brute",
+    "kind": "monster",
+    "skill": 10,
+    "stamina": 18,
+    "meta": {
+      "special": "regenerate_light"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 3,
+        "max": 15
+      }
+    ],
+    "tags": [
+      "troll",
+      "brute"
+    ]
+  },
+  {
+    "id": "goblin_infiltrator",
+    "name": "Goblin Infiltrator",
+    "kind": "humanoid",
+    "skill": 8,
+    "stamina": 7,
+    "meta": {
+      "ranged": false,
+      "special": "cut_rope"
+    },
+    "loot": [
+      {
+        "itemId": "gate_key_fragment",
+        "min": 0,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 5
+      }
+    ],
+    "tags": [
+      "goblin",
+      "infiltrator"
+    ]
+  },
+  {
+    "id": "orc_assault_wave",
+    "name": "Orc Assault Wave",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "orc_shocktrooper",
+        "count": 2
+      },
+      {
+        "enemyId": "orc_bow",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 9
+      }
+    },
+    "tags": [
+      "orc",
+      "group",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "troll_push",
+    "name": "Troll Push",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "troll_brute",
+        "count": 1
+      },
+      {
+        "enemyId": "orc_shocktrooper",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 10
+      }
+    },
+    "tags": [
+      "troll",
+      "orc",
+      "group",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "infiltrator_cell",
+    "name": "Infiltrator Cell",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "goblin_infiltrator",
+        "count": 3
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 8
+      }
+    },
+    "tags": [
+      "goblin",
+      "group",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "rat_king_swarm",
+    "name": "Rat Swarm",
+    "kind": "monster",
+    "skill": 7,
+    "stamina": 7,
+    "meta": {
+      "special": "swarm_bite"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 2
+      }
+    ],
+    "tags": [
+      "sewer",
+      "swarm"
+    ]
+  },
+  {
+    "id": "spore_thrall",
+    "name": "Spore Thrall",
+    "kind": "humanoid",
+    "skill": 9,
+    "stamina": 10,
+    "meta": {
+      "special": "spore_burst"
+    },
+    "loot": [
+      {
+        "itemId": "fungal_tonic",
+        "min": 0,
+        "max": 1
+      }
+    ],
+    "tags": [
+      "cave",
+      "spore"
+    ]
+  },
+  {
+    "id": "underway_cult_warder",
+    "name": "Underway Warder",
+    "kind": "humanoid",
+    "skill": 10,
+    "stamina": 12,
+    "meta": {
+      "special": "ward_strike"
+    },
+    "loot": [
+      {
+        "itemId": "lumen_key_fragment",
+        "min": 1,
+        "max": 1
+      }
+    ],
+    "tags": [
+      "underfortress",
+      "warder"
+    ]
+  },
+  {
+    "id": "glass_eye_shaman",
+    "name": "Shaman of the Glass Eye",
+    "kind": "humanoid",
+    "skill": 12,
+    "stamina": 17,
+    "meta": {
+      "special": "hex_glare"
+    },
+    "loot": [
+      {
+        "itemId": "lumen_key_fragment",
+        "min": 1,
+        "max": 1
+      },
+      {
+        "itemId": "crystal_ball_shard",
+        "min": 1,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 6,
+        "max": 18
+      }
+    ],
+    "tags": [
+      "boss",
+      "shaman",
+      "underfortress"
+    ]
+  },
+  {
+    "id": "sewer_pack",
+    "name": "Sewer Pack",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "rat_king_swarm",
+        "count": 2
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 7
+      }
+    },
+    "tags": [
+      "group",
+      "sewer"
+    ]
+  },
+  {
+    "id": "cave_spore_pack",
+    "name": "Spore Pack",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "spore_thrall",
+        "count": 2
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 8
+      }
+    },
+    "tags": [
+      "group",
+      "cave"
+    ]
+  },
+  {
+    "id": "goblin_signalman",
+    "name": "Goblin Signalman",
+    "kind": "humanoid",
+    "skill": 8,
+    "stamina": 8,
+    "meta": {
+      "ranged": false,
+      "special": "signal_horn"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 6
+      }
+    ],
+    "tags": [
+      "goblin",
+      "siege",
+      "signal"
+    ]
+  },
+  {
+    "id": "orc_sapper",
+    "name": "Orc Sapper",
+    "kind": "humanoid",
+    "skill": 10,
+    "stamina": 14,
+    "meta": {
+      "ranged": false,
+      "special": "plant_charge"
+    },
+    "loot": [
+      {
+        "itemId": "sapper_fuse_bundle",
+        "min": 1,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 2,
+        "max": 12
+      }
+    ],
+    "tags": [
+      "orc",
+      "siege",
+      "sapper"
+    ]
+  },
+  {
+    "id": "warg_rider",
+    "name": "Warg Rider",
+    "kind": "humanoid",
+    "skill": 11,
+    "stamina": 13,
+    "meta": {
+      "ranged": false,
+      "special": "charge"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 2,
+        "max": 14
+      }
+    ],
+    "tags": [
+      "goblin",
+      "cavalry",
+      "siege"
+    ]
+  },
+  {
+    "id": "drain_knifer",
+    "name": "Drain Knifer",
+    "kind": "humanoid",
+    "skill": 9,
+    "stamina": 9,
+    "meta": {
+      "ranged": false,
+      "special": "backstab"
+    },
+    "loot": [
+      {
+        "itemId": "infiltrator_token_black",
+        "min": 1,
+        "max": 1
+      }
+    ],
+    "tags": [
+      "infiltrator",
+      "drains"
+    ]
+  },
+  {
+    "id": "false_dawn_wave",
+    "name": "False Dawn Push (Signals & Sappers)",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "goblin_signalman",
+        "count": 2
+      },
+      {
+        "enemyId": "orc_sapper",
+        "count": 1
+      },
+      {
+        "enemyId": "warg_rider",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 10
+      }
+    },
+    "tags": [
+      "wave",
+      "siege",
+      "group"
+    ]
+  },
+  {
+    "id": "drains_breach_pack",
+    "name": "Drains Breach Pack",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "drain_knifer",
+        "count": 2
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 8
+      }
+    },
+    "tags": [
+      "group",
+      "drains",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "orc_berserker",
+    "name": "Orc Berserker",
+    "kind": "humanoid",
+    "skill": 13,
+    "stamina": 20,
+    "meta": {
+      "special": "frenzy"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 4,
+        "max": 20
+      }
+    ],
+    "tags": [
+      "orc",
+      "final"
+    ]
+  },
+  {
+    "id": "goblin_sapper_team",
+    "name": "Sapper Team",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "goblin_sapper",
+        "count": 1
+      },
+      {
+        "enemyId": "goblin_scout",
+        "count": 2
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 8
+      }
+    },
+    "tags": [
+      "goblin",
+      "group",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "troll_wallbreaker",
+    "name": "Troll Wallbreaker",
+    "kind": "monster",
+    "skill": 12,
+    "stamina": 26,
+    "meta": {
+      "special": "stone_heave"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 6,
+        "max": 24
+      }
+    ],
+    "tags": [
+      "troll",
+      "final"
+    ]
+  },
+  {
+    "id": "panic_mob_final",
+    "name": "Panic Mob (Final Assault)",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "city_rioter",
+        "count": 4
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 5
+      }
+    },
+    "tags": [
+      "city",
+      "panic",
+      "group",
+      "final"
+    ]
+  },
+  {
+    "id": "final_wall_wave",
+    "name": "Final Assault: Wall Wave",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "troll_wallbreaker",
+        "count": 1
+      },
+      {
+        "enemyId": "goblin_ladderman",
+        "count": 2
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 11
+      }
+    },
+    "tags": [
+      "group",
+      "final",
+      "wall"
+    ]
+  },
+  {
+    "id": "final_gate_wave",
+    "name": "Final Assault: Gate Wave",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "orc_berserker",
+        "count": 1
+      },
+      {
+        "enemyId": "goblin_sapper_team",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 11
+      }
+    },
+    "tags": [
+      "group",
+      "final",
+      "gate"
+    ]
+  },
+  {
+    "id": "orc_warlord",
+    "name": "Orc Warlord of the Broken Host",
+    "kind": "humanoid",
+    "skill": 16,
+    "stamina": 30,
+    "meta": {
+      "special": "rage_bannerless"
+    },
+    "loot": [
+      {
+        "itemId": "warlord_trophy_helm",
+        "min": 1,
+        "max": 1
+      }
+    ],
+    "tags": [
+      "boss",
+      "warlord"
+    ]
+  },
+  {
+    "id": "warlord_guard",
+    "name": "Warlord’s Guard",
+    "kind": "humanoid",
+    "skill": 14,
+    "stamina": 18,
+    "meta": {
+      "special": "intercept"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 6,
+        "max": 22
+      }
+    ],
+    "tags": [
+      "elite"
+    ]
+  },
+  {
+    "id": "goblin_firebrand",
+    "name": "Goblin Firebrand",
+    "kind": "humanoid",
+    "skill": 12,
+    "stamina": 12,
+    "meta": {
+      "special": "pitch_bomb"
+    },
+    "loot": [],
+    "tags": [
+      "goblin",
+      "fire"
+    ]
+  },
+  {
+    "id": "fwh_skirmish_line",
+    "name": "Fortress-Heart Skirmish Line",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "warlord_guard",
+        "count": 2
+      },
+      {
+        "enemyId": "goblin_firebrand",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 13
+      }
+    },
+    "tags": [
+      "group",
+      "final"
+    ]
+  },
+  {
+    "id": "orc_ladder_brute",
+    "name": "Orc Ladder Brute",
+    "kind": "humanoid",
+    "skill": 10,
+    "stamina": 14,
+    "meta": {
+      "ranged": false,
+      "special": "shove_off_wall"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 1,
+        "max": 10
+      }
+    ],
+    "tags": [
+      "orc",
+      "siege"
+    ]
+  },
+  {
+    "id": "goblin_ladder_runner",
+    "name": "Goblin Ladder Runner",
+    "kind": "humanoid",
+    "skill": 8,
+    "stamina": 7,
+    "meta": {
+      "ranged": false,
+      "special": "scurry"
+    },
+    "loot": [
+      {
+        "itemId": "infiltrator_token_black",
+        "min": 0,
+        "max": 1
+      }
+    ],
+    "tags": [
+      "goblin",
+      "siege"
+    ]
+  },
+  {
+    "id": "goblin_firebug",
+    "name": "Goblin Firebug",
+    "kind": "humanoid",
+    "skill": 8,
+    "stamina": 8,
+    "meta": {
+      "ranged": false,
+      "special": "ignite"
+    },
+    "loot": [
+      {
+        "itemId": "arsonist_tinder_pouch",
+        "min": 1,
+        "max": 2
+      }
+    ],
+    "tags": [
+      "goblin",
+      "infiltrator",
+      "arson"
+    ]
+  },
+  {
+    "id": "goblin_alley_cutthroat",
+    "name": "Goblin Alley Cutthroat",
+    "kind": "humanoid",
+    "skill": 9,
+    "stamina": 9,
+    "meta": {
+      "ranged": false,
+      "special": "dirty_stab"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 8
+      },
+      {
+        "itemId": "infiltrator_token_black",
+        "min": 1,
+        "max": 1
+      }
+    ],
+    "tags": [
+      "goblin",
+      "infiltrator"
+    ]
+  },
+  {
+    "id": "orc_breach_sergeant",
+    "name": "Orc Breach Sergeant",
+    "kind": "humanoid",
+    "skill": 11,
+    "stamina": 16,
+    "meta": {
+      "ranged": false,
+      "special": "banner_bellow"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 4,
+        "max": 16
+      }
+    ],
+    "tags": [
+      "orc",
+      "siege",
+      "elite"
+    ]
+  },
+  {
+    "id": "wave_gate_1",
+    "name": "Gate Wave I (Ladders)",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "goblin_ladder_runner",
+        "count": 3
+      },
+      {
+        "enemyId": "orc_ladder_brute",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 8
+      }
+    },
+    "tags": [
+      "wave",
+      "siege",
+      "group"
+    ]
+  },
+  {
+    "id": "wave_gate_2",
+    "name": "Gate Wave II (Brutes)",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "orc_ladder_brute",
+        "count": 2
+      },
+      {
+        "enemyId": "goblin_ladder_runner",
+        "count": 2
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 9
+      }
+    },
+    "tags": [
+      "wave",
+      "siege",
+      "group"
+    ]
+  },
+  {
+    "id": "wave_gate_3",
+    "name": "Gate Wave III (Sergeant Push)",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "orc_breach_sergeant",
+        "count": 1
+      },
+      {
+        "enemyId": "orc_ladder_brute",
+        "count": 1
+      },
+      {
+        "enemyId": "goblin_ladder_runner",
+        "count": 2
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 10
+      }
+    },
+    "tags": [
+      "wave",
+      "siege",
+      "group",
+      "elite"
+    ]
+  },
+  {
+    "id": "infiltrator_pack_small",
+    "name": "Infiltrator Pack (Small)",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "goblin_alley_cutthroat",
+        "count": 1
+      },
+      {
+        "enemyId": "goblin_firebug",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 8
+      }
+    },
+    "tags": [
+      "infiltrator",
+      "group",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "infiltrator_pack_large",
+    "name": "Infiltrator Pack (Large)",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "goblin_alley_cutthroat",
+        "count": 2
+      },
+      {
+        "enemyId": "goblin_firebug",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 9
+      }
+    },
+    "tags": [
+      "infiltrator",
+      "group",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "goblin_sapper",
+    "name": "Goblin Sapper",
+    "kind": "humanoid",
+    "skill": 7,
+    "stamina": 8,
+    "meta": {
+      "special": "bomb"
+    },
+    "loot": [
+      {
+        "itemId": "fuse_coil",
+        "min": 0,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 6
+      }
+    ],
+    "tags": [
+      "goblin",
+      "sapper"
+    ]
+  },
+  {
+    "id": "goblin_probe_group",
+    "name": "Goblin Probe",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "goblin_raider",
+        "count": 2
+      },
+      {
+        "enemyId": "goblin_bowman",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 7
+      }
+    },
+    "tags": [
+      "goblin",
+      "group",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "goblin_ladderman",
+    "name": "Goblin Ladderman",
+    "kind": "humanoid",
+    "skill": 8,
+    "stamina": 9,
+    "meta": {
+      "special": "set_ladder"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 6
+      }
+    ],
+    "tags": [
+      "goblin",
+      "siege"
+    ]
+  },
+  {
+    "id": "orc_ram_crew",
+    "name": "Orc Ram Crew",
+    "kind": "humanoid",
+    "skill": 11,
+    "stamina": 16,
+    "meta": {
+      "special": "ram_swing"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 2,
+        "max": 14
+      }
+    ],
+    "tags": [
+      "orc",
+      "siege",
+      "gate"
+    ]
+  },
+  {
+    "id": "siege_tower_vanguard",
+    "name": "Siege Tower Vanguard",
+    "kind": "humanoid",
+    "skill": 12,
+    "stamina": 18,
+    "meta": {
+      "special": "tower_push"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 4,
+        "max": 16
+      }
+    ],
+    "tags": [
+      "orc",
+      "siege",
+      "tower"
+    ]
+  },
+  {
+    "id": "panic_mob",
+    "name": "Panic Mob",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "city_rioter",
+        "count": 3
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 6
+      }
+    },
+    "tags": [
+      "city",
+      "panic",
+      "group"
+    ]
+  },
+  {
+    "id": "ga_wall_wave",
+    "name": "Great Assault: Wall Wave",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "goblin_ladderman",
+        "count": 3
+      },
+      {
+        "enemyId": "siege_tower_vanguard",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 10
+      }
+    },
+    "tags": [
+      "group",
+      "siege",
+      "wall"
+    ]
+  },
+  {
+    "id": "ga_gate_wave",
+    "name": "Great Assault: Gate Wave",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "orc_ram_crew",
+        "count": 1
+      },
+      {
+        "enemyId": "goblin_ladderman",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 10
+      }
+    },
+    "tags": [
+      "group",
+      "siege",
+      "gate"
+    ]
+  },
+  {
+    "id": "goblin_cliff_archer",
+    "name": "Goblin Cliff Archer",
+    "kind": "humanoid",
+    "skill": 10,
+    "stamina": 10,
+    "meta": {
+      "ranged": true,
+      "range": 3,
+      "damage": "1d6",
+      "ammoType": "arrow",
+      "special": "harry_and_fallbait"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 1,
+        "max": 8
+      }
+    ],
+    "tags": [
+      "goblin",
+      "mountain",
+      "ranged"
+    ]
+  },
+  {
+    "id": "orc_pass_reaver",
+    "name": "Orc Pass Reaver",
+    "kind": "humanoid",
+    "skill": 13,
+    "stamina": 18,
+    "meta": {
+      "special": "ledge_charge"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 3,
+        "max": 16
+      }
+    ],
+    "tags": [
+      "orc",
+      "mountain"
+    ]
+  },
+  {
+    "id": "troll_scree_hunter",
+    "name": "Scree Troll Hunter",
+    "kind": "monster",
+    "skill": 12,
+    "stamina": 24,
+    "meta": {
+      "special": "rockslide"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 4,
+        "max": 20
+      }
+    ],
+    "tags": [
+      "troll",
+      "mountain"
+    ]
+  },
+  {
+    "id": "hobgoblin_sergeant",
+    "name": "Hobgoblin Sergeant",
+    "kind": "humanoid",
+    "skill": 14,
+    "stamina": 18,
+    "meta": {
+      "special": "whip_order"
+    },
+    "loot": [
+      {
+        "itemId": "fortress_badge_stolen",
+        "min": 0,
+        "max": 1
+      }
+    ],
+    "tags": [
+      "hobgoblin",
+      "fortress",
+      "elite"
+    ]
+  },
+  {
+    "id": "mf_pass_harriers",
+    "name": "Pass Harriers",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "goblin_cliff_archer",
+        "count": 2
+      },
+      {
+        "enemyId": "orc_pass_reaver",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 10
+      }
+    },
+    "tags": [
+      "group",
+      "mountain",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "mf_fortress_patrol",
+    "name": "Fortress Patrol",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "hobgoblin_sergeant",
+        "count": 1
+      },
+      {
+        "enemyId": "orc_pass_reaver",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 11
+      }
+    },
+    "tags": [
+      "group",
+      "fortress",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "goblin_raider",
+    "name": "Goblin Raider",
+    "kind": "humanoid",
+    "skill": 7,
+    "stamina": 7,
+    "meta": {
+      "ranged": false
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 6
+      }
+    ],
+    "tags": [
+      "goblin",
+      "raider"
+    ]
+  },
+  {
+    "id": "goblin_bowman",
+    "name": "Goblin Bowman",
+    "kind": "humanoid",
+    "skill": 7,
+    "stamina": 6,
+    "meta": {
+      "ranged": true,
+      "range": 3,
+      "damage": "1d6",
+      "ammoType": "arrow"
+    },
+    "loot": [
+      {
+        "itemId": "arrow_bundle",
+        "min": 0,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 5
+      }
+    ],
+    "tags": [
+      "goblin",
+      "ranged"
+    ]
+  },
+  {
+    "id": "goblin_raiding_party",
+    "name": "Goblin Raiding Party",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "goblin_raider",
+        "count": 3
+      },
+      {
+        "enemyId": "goblin_bowman",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 8
+      }
+    },
+    "tags": [
+      "goblin",
+      "group",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "goblin_scout",
+    "name": "Goblin Scout",
+    "kind": "humanoid",
+    "skill": 8,
+    "stamina": 7,
+    "meta": {
+      "ranged": false,
+      "special": "whistle_alarm"
+    },
+    "loot": [
+      {
+        "itemId": "camp_scout_badge",
+        "min": 0,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 6
+      }
+    ],
+    "tags": [
+      "goblin",
+      "scout"
+    ]
+  },
+  {
+    "id": "goblin_cook",
+    "name": "Goblin Camp Cook",
+    "kind": "humanoid",
+    "skill": 6,
+    "stamina": 6,
+    "meta": {
+      "ranged": false,
+      "special": "kettle_splash"
+    },
+    "loot": [
+      {
+        "itemId": "bitterroot_vial",
+        "min": 0,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 4
+      }
+    ],
+    "tags": [
+      "goblin",
+      "support"
+    ]
+  },
+  {
+    "id": "orc_taskmaster",
+    "name": "Orc Taskmaster",
+    "kind": "humanoid",
+    "skill": 10,
+    "stamina": 14,
+    "meta": {
+      "ranged": false,
+      "special": "cruel_shout"
+    },
+    "loot": [
+      {
+        "itemId": "shackle_key",
+        "min": 0,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 3,
+        "max": 12
+      }
+    ],
+    "tags": [
+      "orc",
+      "camp"
+    ]
+  },
+  {
+    "id": "siege_line_spearman",
+    "name": "Siege-Line Spearman",
+    "kind": "humanoid",
+    "skill": 9,
+    "stamina": 10,
+    "meta": {
+      "ranged": false
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 1,
+        "max": 10
+      }
+    ],
+    "tags": [
+      "orc",
+      "siege"
+    ]
+  },
+  {
+    "id": "siege_line_bow",
+    "name": "Siege-Line Bowman",
+    "kind": "humanoid",
+    "skill": 8,
+    "stamina": 8,
+    "meta": {
+      "ranged": true,
+      "range": 3,
+      "damage": "1d6",
+      "ammoType": "arrow"
+    },
+    "loot": [
+      {
+        "itemId": "arrow_bundle",
+        "min": 0,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 8
+      }
+    ],
+    "tags": [
+      "orc",
+      "ranged",
+      "siege"
+    ]
+  },
+  {
+    "id": "camp_patrol",
+    "name": "Camp Patrol",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "goblin_scout",
+        "count": 2
+      },
+      {
+        "enemyId": "goblin_sapper",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 8
+      }
+    },
+    "tags": [
+      "goblin",
+      "group",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "taskmaster_detail",
+    "name": "Taskmaster Detail",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "orc_taskmaster",
+        "count": 1
+      },
+      {
+        "enemyId": "goblin_scout",
+        "count": 2
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 9
+      }
+    },
+    "tags": [
+      "mixed",
+      "group",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "siege_skirmish_line",
+    "name": "Siege Skirmish Line",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "siege_line_spearman",
+        "count": 2
+      },
+      {
+        "enemyId": "siege_line_bow",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 9
+      }
+    },
+    "tags": [
+      "siege",
+      "group",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "enemy_sewer_rat",
+    "name": "Sewer Rat",
+    "hp": 4,
+    "attack": 1,
+    "defense": 0
+  },
+  {
+    "id": "enemy_cave_watcher",
+    "name": "Cave Watcher",
+    "hp": 12,
+    "attack": 4,
+    "defense": 2
+  },
+  {
+    "id": "enemy_cultist_sentinal",
+    "name": "Cultist Sentinal",
+    "hp": 14,
+    "attack": 5,
+    "defense": 1
+  },
+  {
+    "id": "orc_rearguard",
+    "name": "Orc Rearguard",
+    "kind": "humanoid",
+    "skill": 12,
+    "stamina": 16,
+    "meta": {
+      "special": "hold_the_line"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 3,
+        "max": 16
+      }
+    ],
+    "tags": [
+      "orc",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "goblin_runner",
+    "name": "Goblin Runner",
+    "kind": "humanoid",
+    "skill": 8,
+    "stamina": 6,
+    "meta": {
+      "ranged": false,
+      "special": "alarm"
+    },
+    "loot": [
+      {
+        "itemId": "prison_ring_token",
+        "min": 0,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 6
+      }
+    ],
+    "tags": [
+      "goblin",
+      "runner"
+    ]
+  },
+  {
+    "id": "warg_scout",
+    "name": "Warg Scout",
+    "kind": "monster",
+    "skill": 11,
+    "stamina": 14,
+    "meta": {
+      "special": "pounce"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 1,
+        "max": 8
+      }
+    ],
+    "tags": [
+      "warg",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "hobgoblin_bannerless_captain",
+    "name": "Hobgoblin Captain (Bannerless)",
+    "kind": "humanoid",
+    "skill": 13,
+    "stamina": 20,
+    "meta": {
+      "special": "discipline_break"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 6,
+        "max": 22
+      }
+    ],
+    "tags": [
+      "boss",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "pa_road_rearguard_group",
+    "name": "Retreat Road Rearguard",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "orc_rearguard",
+        "count": 1
+      },
+      {
+        "enemyId": "goblin_runner",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 10
+      }
+    },
+    "tags": [
+      "group",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "pa_warg_pack",
+    "name": "Warg Pack",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "warg_scout",
+        "count": 2
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 9
+      }
+    },
+    "tags": [
+      "group",
+      "pursuit",
+      "warg"
+    ]
+  },
+  {
+    "id": "goblin_redknife",
+    "name": "Red Knife Goblin",
+    "kind": "humanoid",
+    "skill": 8,
+    "stamina": 8,
+    "meta": {
+      "ranged": false
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 8
+      }
+    ],
+    "tags": [
+      "goblin",
+      "redknife"
+    ]
+  },
+  {
+    "id": "goblin_slingshot",
+    "name": "Goblin Slingman",
+    "kind": "humanoid",
+    "skill": 8,
+    "stamina": 7,
+    "meta": {
+      "ranged": true,
+      "range": 3,
+      "damage": "1d6",
+      "ammoType": "stone"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 6
+      }
+    ],
+    "tags": [
+      "goblin",
+      "ranged",
+      "redknife"
+    ]
+  },
+  {
+    "id": "orc_tunnel_guard",
+    "name": "Orc Tunnel Guard",
+    "kind": "humanoid",
+    "skill": 10,
+    "stamina": 12,
+    "meta": {
+      "ranged": false
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 2,
+        "max": 12
+      }
+    ],
+    "tags": [
+      "orc",
+      "tunnel"
+    ]
+  },
+  {
+    "id": "redknife_handler",
+    "name": "Red Knife Handler",
+    "kind": "humanoid",
+    "skill": 9,
+    "stamina": 9,
+    "meta": {
+      "special": "threaten_hostage"
+    },
+    "loot": [
+      {
+        "itemId": "ransom_token",
+        "min": 1,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 2,
+        "max": 10
+      }
+    ],
+    "tags": [
+      "goblin",
+      "handler",
+      "redknife"
+    ]
+  },
+  {
+    "id": "captain_redknife_varg",
+    "name": "Captain Varg of the Red Knife",
+    "kind": "humanoid",
+    "skill": 11,
+    "stamina": 16,
+    "meta": {
+      "special": "bleed_cut"
+    },
+    "loot": [
+      {
+        "itemId": "redknife_cord",
+        "min": 1,
+        "max": 1
+      },
+      {
+        "itemId": "redknife_transfer_orders",
+        "min": 1,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 6,
+        "max": 22
+      }
+    ],
+    "tags": [
+      "boss",
+      "goblin",
+      "redknife"
+    ]
+  },
+  {
+    "id": "chalk_cavern_patrol",
+    "name": "Chalk Cavern Patrol",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "goblin_redknife",
+        "count": 2
+      },
+      {
+        "enemyId": "goblin_slingshot",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 8
+      }
+    },
+    "tags": [
+      "group",
+      "pursuit",
+      "redknife"
+    ]
+  },
+  {
+    "id": "transfer_guard_detail",
+    "name": "Transfer Guard Detail",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "orc_tunnel_guard",
+        "count": 1
+      },
+      {
+        "enemyId": "goblin_redknife",
+        "count": 2
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 9
+      }
+    },
+    "tags": [
+      "group",
+      "pursuit",
+      "tunnel"
+    ]
+  },
+  {
+    "id": "city_saboteur",
+    "name": "City Saboteur",
+    "kind": "humanoid",
+    "skill": 8,
+    "stamina": 7,
+    "meta": {
+      "ranged": false,
+      "special": "ignite_fuse"
+    },
+    "loot": [
+      {
+        "itemId": "fuse_coil",
+        "min": 1,
+        "max": 2
+      },
+      {
+        "itemId": "dock_ledger_page",
+        "min": 0,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 1,
+        "max": 8
+      }
+    ],
+    "tags": [
+      "human",
+      "saboteur"
+    ]
+  },
+  {
+    "id": "gate_breach_probe",
+    "name": "Breach Probe",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "goblin_raider",
+        "count": 3
+      },
+      {
+        "enemyId": "goblin_bowman",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 8
+      }
+    },
+    "tags": [
+      "goblin",
+      "group",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "goblin_fireteam",
+    "name": "Goblin Fireteam",
+    "kind": "humanoid",
+    "skill": 9,
+    "stamina": 10,
+    "meta": {
+      "special": "ignite_bundle"
+    },
+    "loot": [
+      {
+        "itemId": "arsonist_tinder_pouch",
+        "min": 1,
+        "max": 2
+      }
+    ],
+    "tags": [
+      "goblin",
+      "arson",
+      "night"
+    ]
+  },
+  {
+    "id": "orc_postern_breaker",
+    "name": "Orc Postern Breaker",
+    "kind": "humanoid",
+    "skill": 11,
+    "stamina": 16,
+    "meta": {
+      "special": "door_breach"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 2,
+        "max": 14
+      }
+    ],
+    "tags": [
+      "orc",
+      "breach",
+      "night"
+    ]
+  },
+  {
+    "id": "drains_knifer_veteran",
+    "name": "Veteran Drains Knifer",
+    "kind": "humanoid",
+    "skill": 10,
+    "stamina": 11,
+    "meta": {
+      "special": "backstab"
+    },
+    "loot": [
+      {
+        "itemId": "infiltrator_token_black",
+        "min": 1,
+        "max": 1
+      }
+    ],
+    "tags": [
+      "infiltrator",
+      "drains",
+      "night"
+    ]
+  },
+  {
+    "id": "traitor_bodyguard",
+    "name": "Traitor’s Bodyguard",
+    "kind": "humanoid",
+    "skill": 11,
+    "stamina": 14,
+    "meta": {
+      "special": "shield_intercept"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 3,
+        "max": 12
+      }
+    ],
+    "tags": [
+      "city",
+      "traitor",
+      "elite"
+    ]
+  },
+  {
+    "id": "night_assault_granary",
+    "name": "Night Assault: Granary Fire",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "goblin_fireteam",
+        "count": 2
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 9
+      }
+    },
+    "tags": [
+      "group",
+      "night",
+      "arson"
+    ]
+  },
+  {
+    "id": "night_assault_postern",
+    "name": "Night Assault: Postern Breach",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "orc_postern_breaker",
+        "count": 1
+      },
+      {
+        "enemyId": "goblin_fireteam",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 10
+      }
+    },
+    "tags": [
+      "group",
+      "night",
+      "breach"
+    ]
+  },
+  {
+    "id": "night_assault_drains",
+    "name": "Night Assault: Drains Knifers",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "drains_knifer_veteran",
+        "count": 2
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 8
+      }
+    },
+    "tags": [
+      "group",
+      "night",
+      "drains"
+    ]
+  },
+  {
+    "id": "mouth_crawler",
+    "name": "Mouth Crawler",
+    "kind": "monster",
+    "skill": 10,
+    "stamina": 12,
+    "meta": {
+      "special": "cling_and_slice"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 6
+      }
+    ],
+    "tags": [
+      "drains",
+      "monster"
+    ]
+  },
+  {
+    "id": "sewer_fanatic",
+    "name": "Sewer Fanatic",
+    "kind": "humanoid",
+    "skill": 10,
+    "stamina": 11,
+    "meta": {
+      "special": "smoke_bomb"
+    },
+    "loot": [
+      {
+        "itemId": "mage_ward_chalk",
+        "min": 0,
+        "max": 1
+      }
+    ],
+    "tags": [
+      "drains",
+      "cult"
+    ]
+  },
+  {
+    "id": "maw_priest",
+    "name": "Maw Priest of the Second Mouth",
+    "kind": "humanoid",
+    "skill": 13,
+    "stamina": 20,
+    "meta": {
+      "special": "call_crawlers"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 8,
+        "max": 22
+      }
+    ],
+    "tags": [
+      "boss",
+      "drains",
+      "cult"
+    ]
+  },
+  {
+    "id": "smf_pack",
+    "name": "Mouth Pack",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "mouth_crawler",
+        "count": 2
+      },
+      {
+        "enemyId": "sewer_fanatic",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 9
+      }
+    },
+    "tags": [
+      "group",
+      "drains"
+    ]
+  },
+  {
+    "id": "goblin_picket",
+    "name": "Goblin Picket",
+    "kind": "humanoid",
+    "skill": 8,
+    "stamina": 8,
+    "meta": {
+      "ranged": true,
+      "range": 3,
+      "damage": "1d6",
+      "ammoType": "arrow"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 6
+      }
+    ],
+    "tags": [
+      "goblin",
+      "camp",
+      "ranged"
+    ]
+  },
+  {
+    "id": "orc_drillmaster",
+    "name": "Orc Drillmaster",
+    "kind": "humanoid",
+    "skill": 11,
+    "stamina": 16,
+    "meta": {
+      "special": "bellow_command"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 4,
+        "max": 16
+      }
+    ],
+    "tags": [
+      "orc",
+      "camp",
+      "elite"
+    ]
+  },
+  {
+    "id": "siege_engineer",
+    "name": "Siege Engineer",
+    "kind": "humanoid",
+    "skill": 10,
+    "stamina": 12,
+    "meta": {
+      "special": "ignite_pitch"
+    },
+    "loot": [
+      {
+        "itemId": "burnt_oil_flask",
+        "min": 1,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 2,
+        "max": 12
+      }
+    ],
+    "tags": [
+      "camp",
+      "sapper"
+    ]
+  },
+  {
+    "id": "standard_guardian",
+    "name": "Standard Guardian",
+    "kind": "humanoid",
+    "skill": 12,
+    "stamina": 18,
+    "meta": {
+      "special": "guardian_stance"
+    },
+    "loot": [
+      {
+        "itemId": "command_seal_plate",
+        "min": 1,
+        "max": 1
+      }
+    ],
+    "tags": [
+      "boss",
+      "vault"
+    ]
+  },
+  {
+    "id": "camp_picket_line",
+    "name": "Picket Line",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "goblin_picket",
+        "count": 3
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 8
+      }
+    },
+    "tags": [
+      "group",
+      "pursuit",
+      "camp"
+    ]
+  },
+  {
+    "id": "camp_inner_guard",
+    "name": "Inner Camp Guard",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "orc_drillmaster",
+        "count": 1
+      },
+      {
+        "enemyId": "goblin_picket",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 9
+      }
+    },
+    "tags": [
+      "group",
+      "pursuit",
+      "camp"
+    ]
+  },
+  {
+    "id": "goblin_oiler",
+    "name": "Goblin Oiler",
+    "kind": "humanoid",
+    "skill": 8,
+    "stamina": 8,
+    "meta": {
+      "special": "slick_throw"
+    },
+    "loot": [
+      {
+        "itemId": "oily_rag_bundle",
+        "min": 0,
+        "max": 1
+      }
+    ],
+    "tags": [
+      "camp",
+      "engine",
+      "utility"
+    ]
+  },
+  {
+    "id": "orc_engine_guard",
+    "name": "Orc Engine Guard",
+    "kind": "humanoid",
+    "skill": 12,
+    "stamina": 18,
+    "meta": {
+      "special": "brace_and_shove"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 2,
+        "max": 14
+      }
+    ],
+    "tags": [
+      "orc",
+      "engine",
+      "elite"
+    ]
+  },
+  {
+    "id": "hobgoblin_foreman",
+    "name": "Hobgoblin Foreman",
+    "kind": "humanoid",
+    "skill": 12,
+    "stamina": 16,
+    "meta": {
+      "special": "whistle_alarm"
+    },
+    "loot": [
+      {
+        "itemId": "engine_yard_key",
+        "min": 1,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 4,
+        "max": 18
+      }
+    ],
+    "tags": [
+      "boss",
+      "engine",
+      "foreman"
+    ]
+  },
+  {
+    "id": "pitch_pit_torchman",
+    "name": "Pitch Pit Torchman",
+    "kind": "humanoid",
+    "skill": 10,
+    "stamina": 12,
+    "meta": {
+      "special": "ignite_pitch"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 1,
+        "max": 10
+      }
+    ],
+    "tags": [
+      "engine",
+      "pitch"
+    ]
+  },
+  {
+    "id": "engine_yard_patrol",
+    "name": "Engine Yard Patrol",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "orc_engine_guard",
+        "count": 1
+      },
+      {
+        "enemyId": "goblin_oiler",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 10
+      }
+    },
+    "tags": [
+      "group",
+      "engine",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "pitch_pit_team",
+    "name": "Pitch Pit Team",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "pitch_pit_torchman",
+        "count": 1
+      },
+      {
+        "enemyId": "goblin_oiler",
+        "count": 2
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 9
+      }
+    },
+    "tags": [
+      "group",
+      "engine",
+      "pitch"
+    ]
+  },
+  {
+    "id": "enemy_ward_construct",
+    "name": "Ward Construct",
+    "hp": 20,
+    "attack": 6,
+    "defense": 3
+  },
+  {
+    "id": "enemy_iron_archon",
+    "name": "Iron Archon",
+    "hp": 36,
+    "attack": 9,
+    "defense": 5
+  },
+  {
+    "id": "enemy_reliquary_wisp",
+    "name": "Reliquary Wisp",
+    "hp": 6,
+    "attack": 3,
+    "defense": 0
+  },
+  {
+    "id": "orc_sentry",
+    "name": "Orc Sentry",
+    "kind": "humanoid",
+    "skill": 9,
+    "stamina": 10,
+    "meta": {
+      "ranged": false
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 1,
+        "max": 10
+      }
+    ],
+    "tags": [
+      "orc",
+      "guard"
+    ]
+  },
+  {
+    "id": "troll_hound",
+    "name": "Troll-Hound",
+    "kind": "monster",
+    "skill": 8,
+    "stamina": 11,
+    "meta": {
+      "special": "scent_track"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 5
+      }
+    ],
+    "tags": [
+      "beast",
+      "hound"
+    ]
+  },
+  {
+    "id": "orc_jailer",
+    "name": "Orc Jailer",
+    "kind": "humanoid",
+    "skill": 10,
+    "stamina": 13,
+    "meta": {
+      "special": "keyring"
+    },
+    "loot": [
+      {
+        "itemId": "fortress_key_iron",
+        "min": 1,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 3,
+        "max": 14
+      }
+    ],
+    "tags": [
+      "orc",
+      "jailer",
+      "boss"
+    ]
+  },
+  {
+    "id": "sentry_pair",
+    "name": "Sentry Pair",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "orc_sentry",
+        "count": 2
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 9
+      }
+    },
+    "tags": [
+      "orc",
+      "group",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "prison_patrol",
+    "name": "Prison Patrol",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "orc_sentry",
+        "count": 1
+      },
+      {
+        "enemyId": "goblin_runner",
+        "count": 2
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 8
+      }
+    },
+    "tags": [
+      "mixed",
+      "group",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "hound_team",
+    "name": "Hound Team",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "troll_hound",
+        "count": 1
+      },
+      {
+        "enemyId": "goblin_runner",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 9
+      }
+    },
+    "tags": [
+      "beast",
+      "group",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "orc_reliquary_guard",
+    "name": "Orc Reliquary Guard",
+    "kind": "humanoid",
+    "skill": 10,
+    "stamina": 12,
+    "meta": {
+      "ranged": false
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 2,
+        "max": 12
+      }
+    ],
+    "tags": [
+      "orc",
+      "guard"
+    ]
+  },
+  {
+    "id": "goblin_lanternist",
+    "name": "Goblin Lanternist",
+    "kind": "humanoid",
+    "skill": 9,
+    "stamina": 7,
+    "meta": {
+      "special": "flash_smoke"
+    },
+    "loot": [
+      {
+        "itemId": "smoke_pellet",
+        "min": 0,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 6
+      }
+    ],
+    "tags": [
+      "goblin",
+      "support"
+    ]
+  },
+  {
+    "id": "ward_priest_adept",
+    "name": "Ward Adept",
+    "kind": "humanoid",
+    "skill": 9,
+    "stamina": 9,
+    "meta": {
+      "special": "ward_bolt"
+    },
+    "loot": [
+      {
+        "itemId": "ward_sigiled_chain",
+        "min": 0,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 1,
+        "max": 10
+      }
+    ],
+    "tags": [
+      "caster",
+      "ward"
+    ]
+  },
+  {
+    "id": "orc_commander_kargan",
+    "name": "Commander Kargan (Reliquary)",
+    "kind": "humanoid",
+    "skill": 11,
+    "stamina": 16,
+    "meta": {
+      "special": "order_wave",
+      "ranged": false
+    },
+    "loot": [
+      {
+        "itemId": "commander_signet",
+        "min": 1,
+        "max": 1
+      },
+      {
+        "itemId": "map_scrap_reliquary",
+        "min": 1,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 6,
+        "max": 20
+      }
+    ],
+    "tags": [
+      "orc",
+      "boss"
+    ]
+  },
+  {
+    "id": "reliquary_patrol",
+    "name": "Reliquary Patrol",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "orc_reliquary_guard",
+        "count": 1
+      },
+      {
+        "enemyId": "goblin_lanternist",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 9
+      }
+    },
+    "tags": [
+      "mixed",
+      "group",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "orb_convoy",
+    "name": "Orb Convoy",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "orc_reliquary_guard",
+        "count": 2
+      },
+      {
+        "enemyId": "ward_priest_adept",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 10
+      },
+      "objective": "protect_orb"
+    },
+    "tags": [
+      "convoy",
+      "group",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "cult_warder",
+    "name": "Warder of the Chain",
+    "kind": "humanoid",
+    "skill": 13,
+    "stamina": 18,
+    "meta": {
+      "special": "ward_pulse"
+    },
+    "loot": [
+      {
+        "itemId": "oracle_chain_link",
+        "min": 1,
+        "max": 2
+      }
+    ],
+    "tags": [
+      "cult",
+      "lair"
+    ]
+  },
+  {
+    "id": "stonebound_ogre",
+    "name": "Stonebound Ogre",
+    "kind": "monster",
+    "skill": 12,
+    "stamina": 28,
+    "meta": {
+      "special": "slam_quake"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 6,
+        "max": 26
+      }
+    ],
+    "tags": [
+      "lair",
+      "brute"
+    ]
+  },
+  {
+    "id": "oracle_echo",
+    "name": "Oracle Echo",
+    "kind": "monster",
+    "skill": 14,
+    "stamina": 20,
+    "meta": {
+      "special": "predictive_strike"
+    },
+    "loot": [],
+    "tags": [
+      "lair",
+      "psychic"
+    ]
+  },
+  {
+    "id": "warbrain_overseer",
+    "name": "Warbrain Overseer",
+    "kind": "humanoid",
+    "skill": 15,
+    "stamina": 26,
+    "meta": {
+      "special": "command_resonance"
+    },
+    "loot": [
+      {
+        "itemId": "relic_heartspike",
+        "min": 1,
+        "max": 1
+      },
+      {
+        "itemId": "war_map_tablet",
+        "min": 1,
+        "max": 1
+      }
+    ],
+    "tags": [
+      "boss",
+      "lair"
+    ]
+  },
+  {
+    "id": "ul_guard_pack",
+    "name": "Lair Guard Pack",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "cult_warder",
+        "count": 2
+      },
+      {
+        "enemyId": "stonebound_ogre",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 12
+      }
+    },
+    "tags": [
+      "group",
+      "lair"
+    ]
+  },
+  {
+    "id": "silkblade_assassin",
+    "name": "Silkblade Assassin",
+    "kind": "humanoid",
+    "skill": 14,
+    "stamina": 16,
+    "meta": {
+      "special": "quiet_cut"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 8,
+        "max": 24
+      }
+    ],
+    "tags": [
+      "city",
+      "assassin"
+    ]
+  },
+  {
+    "id": "riot_mob",
+    "name": "Panic Mob",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "silkblade_assassin",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "special": "chaos_cover"
+    },
+    "tags": [
+      "city",
+      "chaos"
+    ]
+  },
+  {
+    "id": "goblin_watch_scout",
+    "name": "Watchfort Scout",
+    "kind": "humanoid",
+    "skill": 8,
+    "stamina": 8,
+    "meta": {
+      "ranged": true,
+      "range": 3,
+      "damage": "1d6",
+      "ammoType": "arrow"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 8
+      }
+    ],
+    "tags": [
+      "goblin",
+      "watchfort",
+      "ranged"
+    ]
+  },
+  {
+    "id": "orc_watch_sentinel",
+    "name": "Orc Sentinel",
+    "kind": "humanoid",
+    "skill": 10,
+    "stamina": 14,
+    "meta": {
+      "ranged": false,
+      "special": "alarm_roar"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 2,
+        "max": 12
+      }
+    ],
+    "tags": [
+      "orc",
+      "watchfort"
+    ]
+  },
+  {
+    "id": "hobgoblin_banner_captain",
+    "name": "Banner Captain (Relay Commander)",
+    "kind": "humanoid",
+    "skill": 12,
+    "stamina": 18,
+    "meta": {
+      "special": "signal_orders"
+    },
+    "loot": [
+      {
+        "itemId": "siege_signal_codebook",
+        "min": 1,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 6,
+        "max": 18
+      }
+    ],
+    "tags": [
+      "boss",
+      "hobgoblin",
+      "watchfort"
+    ]
+  },
+  {
+    "id": "troll_chain_guard",
+    "name": "Chain Troll (Pen Guard)",
+    "kind": "monster",
+    "skill": 11,
+    "stamina": 20,
+    "meta": {
+      "special": "sweep_chain"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 4,
+        "max": 14
+      }
+    ],
+    "tags": [
+      "troll",
+      "watchfort",
+      "elite"
+    ]
+  },
+  {
+    "id": "outer_patrol",
+    "name": "Outer Patrol",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "goblin_watch_scout",
+        "count": 2
+      },
+      {
+        "enemyId": "orc_watch_sentinel",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 8
+      }
+    },
+    "tags": [
+      "group",
+      "pursuit",
+      "watchfort"
+    ]
+  },
+  {
+    "id": "inner_patrol",
+    "name": "Inner Patrol",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "orc_watch_sentinel",
+        "count": 2
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 9
+      }
+    },
+    "tags": [
+      "group",
+      "pursuit",
+      "watchfort"
+    ]
+  },
+  {
+    "id": "cave_bat_swarm",
+    "name": "Cave Bat Swarm",
+    "kind": "monster",
+    "skill": 9,
+    "stamina": 12,
+    "meta": {
+      "special": "blind_flurry"
+    },
+    "loot": [],
+    "tags": [
+      "cave",
+      "swarm"
+    ]
+  },
+  {
+    "id": "slime_slick",
+    "name": "Slick Slime",
+    "kind": "monster",
+    "skill": 10,
+    "stamina": 14,
+    "meta": {
+      "special": "corrode"
+    },
+    "loot": [],
+    "tags": [
+      "cave",
+      "slime"
+    ]
+  },
+  {
+    "id": "deep_listener",
+    "name": "Deep Listener",
+    "kind": "monster",
+    "skill": 12,
+    "stamina": 18,
+    "meta": {
+      "special": "echo_sense"
+    },
+    "loot": [
+      {
+        "itemId": "shard_of_listening",
+        "min": 0,
+        "max": 1
+      }
+    ],
+    "tags": [
+      "cave",
+      "guardian"
+    ]
+  }
+]

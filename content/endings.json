@@ -1,0 +1,5 @@
+[
+  { "id": "ending_victory", "name": "Victory at the Gates", "description": "You held the line and saved the city." },
+  { "id": "ending_partial", "name": "Partial Victory", "description": "The city survived but at great cost." },
+  { "id": "ending_fall", "name": "City Falls", "description": "The gates were overwhelmed and the city fell." }
+]

@@ -1,0 +1,71 @@
+[
+  {
+    "id": "council_job_powder_security",
+    "name": "Secure the Powder Kegs",
+    "giverNpcId": "npc_councilor_vayne",
+    "startAreaId": "c_council_hall",
+    "objective": {
+      "type": "setFlag",
+      "key": "powder_secured",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 6,
+      "xp": 24,
+      "items": [
+        {
+          "itemId": "council_sigil_bronze",
+          "qty": 2
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "council_job_arrest_factor",
+    "name": "Execute Warrant: Dock Factor",
+    "giverNpcId": "npc_council_clerk_elm",
+    "startAreaId": "c_council_hall",
+    "objective": {
+      "type": "setFlag",
+      "key": "factor_arrested",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 26,
+      "items": [
+        {
+          "itemId": "council_sigil_silver",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "battle_job_hold_barricade",
+    "name": "Hold the Barricade Line",
+    "giverNpcId": "npc_captain_roth",
+    "startAreaId": "c_gate_inner_yard",
+    "objective": {
+      "type": "setFlag",
+      "key": "barricade_held",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 35,
+      "items": [
+        {
+          "itemId": "council_sigil_silver",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  }
+]

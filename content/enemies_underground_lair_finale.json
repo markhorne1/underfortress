@@ -1,0 +1,111 @@
+[
+  {
+    "id": "cult_warder",
+    "name": "Warder of the Chain",
+    "kind": "humanoid",
+    "skill": 13,
+    "stamina": 18,
+    "meta": {
+      "special": "ward_pulse"
+    },
+    "loot": [
+      {
+        "itemId": "oracle_chain_link",
+        "min": 1,
+        "max": 2
+      }
+    ],
+    "tags": [
+      "cult",
+      "lair"
+    ]
+  },
+  {
+    "id": "stonebound_ogre",
+    "name": "Stonebound Ogre",
+    "kind": "monster",
+    "skill": 12,
+    "stamina": 28,
+    "meta": {
+      "special": "slam_quake"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 6,
+        "max": 26
+      }
+    ],
+    "tags": [
+      "lair",
+      "brute"
+    ]
+  },
+  {
+    "id": "oracle_echo",
+    "name": "Oracle Echo",
+    "kind": "monster",
+    "skill": 14,
+    "stamina": 20,
+    "meta": {
+      "special": "predictive_strike"
+    },
+    "loot": [],
+    "tags": [
+      "lair",
+      "psychic"
+    ]
+  },
+  {
+    "id": "warbrain_overseer",
+    "name": "Warbrain Overseer",
+    "kind": "humanoid",
+    "skill": 15,
+    "stamina": 26,
+    "meta": {
+      "special": "command_resonance"
+    },
+    "loot": [
+      {
+        "itemId": "relic_heartspike",
+        "min": 1,
+        "max": 1
+      },
+      {
+        "itemId": "war_map_tablet",
+        "min": 1,
+        "max": 1
+      }
+    ],
+    "tags": [
+      "boss",
+      "lair"
+    ]
+  },
+  {
+    "id": "ul_guard_pack",
+    "name": "Lair Guard Pack",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "cult_warder",
+        "count": 2
+      },
+      {
+        "enemyId": "stonebound_ogre",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 12
+      }
+    },
+    "tags": [
+      "group",
+      "lair"
+    ]
+  }
+]

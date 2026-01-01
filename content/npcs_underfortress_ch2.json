@@ -1,0 +1,71 @@
+[
+  {
+    "id": "npc_captive_mage_apprentice",
+    "name": "Tess of the Tower",
+    "role": "Caged Mage Apprentice",
+    "portraitPrompt": "fantasy character portrait, young mage apprentice in torn robe, glowing runes on wrists, determined eyes, reliquary cell, painterly, no text",
+    "dialogue": {
+      "greeting": "Don’t touch the runes. They bite.",
+      "nodes": [
+        {
+          "id": "tess_help",
+          "text": "The orb isn’t just seeing. It’s steering. It ‘nudges’ troop movement—like a hand on a chess piece. Break its cradle and it loses focus for days.",
+          "choices": [
+            {
+              "label": "Ask how to break the cradle.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "orb_cradle_hint",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Free Tess (if possible).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "tess_freed",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_ward_adept_defector",
+    "name": "Adept Sorn",
+    "role": "Defector (Wants Out)",
+    "portraitPrompt": "fantasy character portrait, nervous ward adept with inked fingers, cracked ward charm, guilty eyes, torchlight, painterly, no text",
+    "dialogue": {
+      "greeting": "You shouldn’t be here. Neither should I.",
+      "nodes": [
+        {
+          "id": "sorn_deal",
+          "text": "Give me a way out and I’ll mark the safe path through the ward lines. They’ll kill me when the orb is moved.",
+          "choices": [
+            {
+              "label": "Accept: mark me a safe route.",
+              "effects": [
+                {
+                  "type": "addItem",
+                  "itemId": "reliquary_pass_mark",
+                  "qty": 1
+                },
+                {
+                  "type": "flag",
+                  "key": "reliquary_safe_marked",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

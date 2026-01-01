@@ -1,0 +1,34 @@
+[
+  {
+    "id": "oracle_chain_link",
+    "name": "Oracle Chain Link",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A link from the bound oracle’s chains. Needed to either free it safely or rebind it for the city."
+  },
+  {
+    "id": "war_map_tablet",
+    "name": "War-Map Tablet",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A carved slate showing enemy routes, caches, and fallback tunnels. Huge advantage in later battles."
+  },
+  {
+    "id": "relic_heartspike",
+    "name": "Heartspike Relic",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A cruel relic used to keep the oracle obedient. Destroying it weakens the lair’s boss effects."
+  },
+  {
+    "id": "crown_token_safekeep",
+    "name": "Safekeep Token",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A token bearing noble marks. If you rescued a high-value prisoner earlier, this gains political force."
+  }
+]

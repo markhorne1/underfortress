@@ -1,0 +1,182 @@
+[
+  {
+    "id": "goblin_redknife",
+    "name": "Red Knife Goblin",
+    "kind": "humanoid",
+    "skill": 8,
+    "stamina": 8,
+    "meta": {
+      "ranged": false
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 8
+      }
+    ],
+    "tags": [
+      "goblin",
+      "redknife"
+    ]
+  },
+  {
+    "id": "goblin_slingshot",
+    "name": "Goblin Slingman",
+    "kind": "humanoid",
+    "skill": 8,
+    "stamina": 7,
+    "meta": {
+      "ranged": true,
+      "range": 3,
+      "damage": "1d6",
+      "ammoType": "stone"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 6
+      }
+    ],
+    "tags": [
+      "goblin",
+      "ranged",
+      "redknife"
+    ]
+  },
+  {
+    "id": "orc_tunnel_guard",
+    "name": "Orc Tunnel Guard",
+    "kind": "humanoid",
+    "skill": 10,
+    "stamina": 12,
+    "meta": {
+      "ranged": false
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 2,
+        "max": 12
+      }
+    ],
+    "tags": [
+      "orc",
+      "tunnel"
+    ]
+  },
+  {
+    "id": "redknife_handler",
+    "name": "Red Knife Handler",
+    "kind": "humanoid",
+    "skill": 9,
+    "stamina": 9,
+    "meta": {
+      "special": "threaten_hostage"
+    },
+    "loot": [
+      {
+        "itemId": "ransom_token",
+        "min": 1,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 2,
+        "max": 10
+      }
+    ],
+    "tags": [
+      "goblin",
+      "handler",
+      "redknife"
+    ]
+  },
+  {
+    "id": "captain_redknife_varg",
+    "name": "Captain Varg of the Red Knife",
+    "kind": "humanoid",
+    "skill": 11,
+    "stamina": 16,
+    "meta": {
+      "special": "bleed_cut"
+    },
+    "loot": [
+      {
+        "itemId": "redknife_cord",
+        "min": 1,
+        "max": 1
+      },
+      {
+        "itemId": "redknife_transfer_orders",
+        "min": 1,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 6,
+        "max": 22
+      }
+    ],
+    "tags": [
+      "boss",
+      "goblin",
+      "redknife"
+    ]
+  },
+  {
+    "id": "chalk_cavern_patrol",
+    "name": "Chalk Cavern Patrol",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "goblin_redknife",
+        "count": 2
+      },
+      {
+        "enemyId": "goblin_slingshot",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 8
+      }
+    },
+    "tags": [
+      "group",
+      "pursuit",
+      "redknife"
+    ]
+  },
+  {
+    "id": "transfer_guard_detail",
+    "name": "Transfer Guard Detail",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "orc_tunnel_guard",
+        "count": 1
+      },
+      {
+        "enemyId": "goblin_redknife",
+        "count": 2
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 9
+      }
+    },
+    "tags": [
+      "group",
+      "pursuit",
+      "tunnel"
+    ]
+  }
+]

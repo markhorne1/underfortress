@@ -1,0 +1,29 @@
+[
+  {
+    "id": "npc_lieut_kess",
+    "name": "Lieutenant Kess",
+    "role": "Scout (Camp Infiltration Contact)",
+    "portraitPrompt": "fantasy character portrait, scout lieutenant in mud-stained cloak, campfires behind, tense whisper, painterly, no text",
+    "dialogue": {
+      "greeting": "That camp runs on fear and a banner. Take the banner, and fear turns sideways.",
+      "nodes": [
+        {
+          "id": "brief",
+          "text": "Their standard is kept below the command trench.\n\nThey call it a ‘vault’—it’s more like a buried shrine.\n\nIf you have the codebook, you can fake a horn pattern to pull guards away—once.",
+          "choices": [
+            {
+              "label": "Accept the plan.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "camp_raid_accepted",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

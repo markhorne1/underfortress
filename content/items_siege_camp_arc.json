@@ -1,0 +1,34 @@
+[
+  {
+    "id": "war_standard_black",
+    "name": "Black War Standard",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A heavy banner used to rally and coordinate the siege. If taken, enemy morale cracks."
+  },
+  {
+    "id": "command_seal_plate",
+    "name": "Command Seal Plate",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A brass seal plate used to stamp orders in the camp. Proof—and leverage—for the city."
+  },
+  {
+    "id": "camp_ration_sack",
+    "name": "Camp Ration Sack",
+    "type": "consumable",
+    "stackable": true,
+    "value": 6,
+    "description": "Hard rations taken from the siege camp. Restores stamina when you rest."
+  },
+  {
+    "id": "tunnel_chalk_mark",
+    "name": "Tunnel Chalk Mark",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A chalk mark you place to remember the path through command tunnels."
+  }
+]

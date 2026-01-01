@@ -1,0 +1,480 @@
+[
+  {
+    "id": "mf_ridge_overlook",
+    "title": "Ridge Overlook: Fortress in the Cloudline",
+    "x": 60,
+    "y": -30,
+    "floorId": "mountain",
+    "tileStyle": "ridge",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, mountain ridge overlook, fortress silhouette in cloudline, winding pass below, cinematic, no text",
+    "description": "The fortress sits like a clenched fist in the mountains.\n\nThe retreat trail leads into it.\n\nIf you let them rest here, the war resets.\n\nKess points at the pass like it insulted him personally.",
+    "actionsAvailable": {
+      "talk": {
+        "text": "Kess lays out routes and risks.",
+        "choices": [
+          {
+            "id": "kess",
+            "label": "Talk to Lieutenant Kess.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_kess_mountain"
+              }
+            ]
+          },
+          {
+            "id": "start",
+            "label": "Start: Mountain Fortress arc.",
+            "effects": [
+              {
+                "type": "startJob",
+                "jobId": "q_mountain_fortress_arc"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "route_pass",
+        "label": "1) Take the Narrow Pass (archers, chase options).",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "mf_route",
+            "value": "pass"
+          }
+        ],
+        "goToAreaId": "mf_narrow_pass"
+      },
+      {
+        "id": "route_goat",
+        "label": "2) Take the Goat Path (climb checks).",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "mf_route",
+            "value": "goat"
+          }
+        ],
+        "goToAreaId": "mf_goat_path"
+      }
+    ]
+  },
+  {
+    "id": "mf_narrow_pass",
+    "title": "Narrow Pass: Arrows and Wind",
+    "x": 61,
+    "y": -31,
+    "floorId": "mountain",
+    "tileStyle": "pass",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow cliff pass, goblin archers above, wind whipping cloak, cinematic, no text",
+    "description": "The path is one body wide.\n\nAbove, goblin archers test range.\n\nThis is where veterans use distance like a weapon:\nshoot, retreat, reposition — and make the enemy chase on bad footing.",
+    "choices": [
+      {
+        "id": "shoot_and_fall_back",
+        "label": "Shoot, then retreat one area as they close (ranged tactic).",
+        "requirements": [
+          {
+            "type": "hasAnyItem",
+            "itemIds": [
+              "training_bow",
+              "hunting_bow",
+              "bow_wallwhisper"
+            ],
+            "qty": 1
+          },
+          {
+            "type": "hasAmmo",
+            "ammoType": "arrow",
+            "minCount": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "flag",
+            "key": "mf_ranged_retreat_used",
+            "value": true
+          },
+          {
+            "type": "addXP",
+            "amount": 10
+          }
+        ],
+        "goToAreaId": "mf_pass_skirmish"
+      },
+      {
+        "id": "fight",
+        "label": "Hold position and fight the harriers.",
+        "goToAreaId": "mf_pass_skirmish"
+      },
+      {
+        "id": "brace_climb",
+        "label": "Use climbing spikes to bypass the worst of the pass (luck check).",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "climbing_spikes_set",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "luck",
+            "dc": 10,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "mf_pass_bypassed",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 12
+              }
+            ],
+            "onFail": [
+              {
+                "type": "takeDamage",
+                "amount": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "mf_fortress_outworks"
+      }
+    ]
+  },
+  {
+    "id": "mf_pass_skirmish",
+    "title": "Pass Skirmish: Make Them Misstep",
+    "x": 62,
+    "y": -31,
+    "floorId": "mountain",
+    "tileStyle": "pass",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, cliff skirmish, arrows, slipping stones, cinematic, no text",
+    "description": "A reaver rushes.\n\nArchers keep distance.\n\nOne shove near the edge ends fights quickly.\n\nBut risks ending you too.",
+    "choices": [
+      {
+        "id": "fight_threat",
+        "label": "Fight the pass harriers.",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_mf_pass",
+              "enemyGroupId": "mf_pass_harriers",
+              "distance": 3,
+              "direction": "n",
+              "speed": 1,
+              "targetAreaId": "mf_pass_skirmish",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "mf_fortress_outworks"
+      }
+    ]
+  },
+  {
+    "id": "mf_goat_path",
+    "title": "Goat Path: Stone Teeth and Thin Air",
+    "x": 61,
+    "y": -29,
+    "floorId": "mountain",
+    "tileStyle": "goat",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, steep goat path with climbing spikes, fog, distant fortress, cinematic, no text",
+    "description": "The goat path is a slow argument with gravity.\n\nOne slip becomes a lesson.\n\nTwo slips becomes a memorial.",
+    "choices": [
+      {
+        "id": "climb_check",
+        "label": "Climb carefully (body check).",
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "body",
+            "dc": 10,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "mf_goat_climb_success",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 14
+              }
+            ],
+            "onFail": [
+              {
+                "type": "takeDamage",
+                "amount": 2
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "mf_fortress_outworks"
+      }
+    ]
+  },
+  {
+    "id": "mf_fortress_outworks",
+    "title": "Fortress Outworks: Smoke Vents and Barrels",
+    "x": 63,
+    "y": -30,
+    "floorId": "fortress",
+    "tileStyle": "outworks",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, fortress outer works, smoke vents, barrels, guard lanterns, cinematic, no text",
+    "description": "The outworks smell like tar, stew, and wet iron.\n\nYou spot:\n\n- A service door used by porters.\n- A smoke vent big enough for a desperate crawl.\n- A watchpath where patrols march like metronomes.",
+    "choices": [
+      {
+        "id": "porter_bluff",
+        "label": "Bluff as a porter (mind check).",
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "mind",
+            "dc": 10,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "mf_bluff_success",
+                "value": true
+              },
+              {
+                "type": "addItem",
+                "itemId": "fortress_badge_stolen",
+                "qty": 1
+              },
+              {
+                "type": "addXP",
+                "amount": 12
+              }
+            ],
+            "onFail": [
+              {
+                "type": "flag",
+                "key": "mf_alarm_level",
+                "value": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "mf_service_corridor"
+      },
+      {
+        "id": "vent_crawl",
+        "label": "Crawl through the smoke vent (luck check).",
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "luck",
+            "dc": 10,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "mf_vent_success",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 14
+              }
+            ],
+            "onFail": [
+              {
+                "type": "takeDamage",
+                "amount": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "mf_kitchens"
+      },
+      {
+        "id": "patrol_fight",
+        "label": "Ambush a patrol for keys.",
+        "goToAreaId": "mf_patrol_fight"
+      }
+    ]
+  },
+  {
+    "id": "mf_patrol_fight",
+    "title": "Patrol Clash: Take Their Access",
+    "x": 64,
+    "y": -30,
+    "floorId": "fortress",
+    "tileStyle": "outworks",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, fortress patrol fight under lanterns, snow flurries, cinematic, no text",
+    "description": "A sergeant barks orders.\n\nA reaver watches your hands.\n\nWin cleanly and you take keys.\n\nLose loudly and the whole fortress wakes up.",
+    "choices": [
+      {
+        "id": "fight_patrol",
+        "label": "Fight the fortress patrol.",
+        "effects": [
+          {
+            "type": "startThreat",
+            "threat": {
+              "threatId": "t_mf_patrol",
+              "enemyGroupId": "mf_fortress_patrol",
+              "distance": 3,
+              "direction": "n",
+              "speed": 1,
+              "targetAreaId": "mf_patrol_fight",
+              "hazards": []
+            }
+          }
+        ],
+        "goToAreaId": "mf_service_corridor"
+      }
+    ]
+  },
+  {
+    "id": "mf_kitchens",
+    "title": "Kitchens: Stew and Secrets",
+    "x": 65,
+    "y": -29,
+    "floorId": "fortress",
+    "tileStyle": "kitchens",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, fortress kitchens with cauldrons and hooks, porter in shadows, cinematic, no text",
+    "description": "Even monsters need soup.\n\nA porter freezes when he sees you.\n\nHis belt carries keys.\n\nHis eyes carry fear.",
+    "actionsAvailable": {
+      "talk": {
+        "text": "The porter can become a door instead of a problem.",
+        "choices": [
+          {
+            "id": "jan",
+            "label": "Talk to Jan the Porter.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_porter_jan"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "take_keys_soft",
+        "label": "Ask for the keyring (mind check).",
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "mind",
+            "dc": 10,
+            "onPass": [
+              {
+                "type": "addItem",
+                "itemId": "cold_iron_keyring",
+                "qty": 1
+              },
+              {
+                "type": "addXP",
+                "amount": 12
+              }
+            ],
+            "onFail": [
+              {
+                "type": "flag",
+                "key": "mf_alarm_level",
+                "value": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "mf_service_corridor"
+      },
+      {
+        "id": "to_service",
+        "label": "Slip into the service corridor.",
+        "goToAreaId": "mf_service_corridor"
+      }
+    ]
+  },
+  {
+    "id": "mf_service_corridor",
+    "title": "Service Corridor: The Fortress’s Veins",
+    "x": 66,
+    "y": -30,
+    "floorId": "fortress",
+    "tileStyle": "service",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow corridor with pipes and doors, damp stone, cinematic, no text",
+    "description": "The fortress has two hearts:\n\n- the upper halls where orders are shouted,\n- and the lower stone where old things listen.\n\nA cistern hatch is marked with older runes.\n\nYou hear distant water… like a waterfall that shouldn’t be inside a mountain.",
+    "choices": [
+      {
+        "id": "cistern",
+        "label": "Open the cistern hatch (requires keyring or hard check).",
+        "effects": [
+          {
+            "type": "conditional",
+            "when": [
+              {
+                "key": "cold_iron_keyring",
+                "op": "hasItem",
+                "value": true
+              }
+            ],
+            "then": [
+              {
+                "type": "addXP",
+                "amount": 8
+              }
+            ],
+            "else": [
+              {
+                "type": "skillCheck",
+                "skill": "body",
+                "dc": 11,
+                "onPass": [
+                  {
+                    "type": "addXP",
+                    "amount": 10
+                  }
+                ],
+                "onFail": [
+                  {
+                    "type": "takeDamage",
+                    "amount": 1
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "wf_outer_falls"
+      },
+      {
+        "id": "upper",
+        "label": "Go upward toward the command hall (later).",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "mf_command_hall_unlocked",
+            "value": true
+          }
+        ],
+        "goToAreaId": "wf_outer_falls"
+      }
+    ]
+  }
+]

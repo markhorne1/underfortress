@@ -1,0 +1,98 @@
+[
+  {
+    "id": "q_council_debrief",
+    "name": "Victory Window II: Council Debrief",
+    "giverNpcId": "npc_councilor_vayne",
+    "startAreaId": "v_council_chamber",
+    "objective": {
+      "type": "setFlag",
+      "key": "council_debrief_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 8,
+      "xp": 22,
+      "items": [
+        {
+          "itemId": "council_writ",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_triage_hotspots",
+    "name": "Triage: Hotspots and Smoke",
+    "giverNpcId": "npc_medic_sister_elin",
+    "startAreaId": "v_infirmary_triage",
+    "objective": {
+      "type": "setFlag",
+      "key": "hotspots_resolved",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 26,
+      "items": [
+        {
+          "itemId": "triage_bandage_roll",
+          "qty": 2
+        },
+        {
+          "itemId": "hotspot_report",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_interrogate_token_carrier",
+    "name": "Interrogation: The Token Carrier",
+    "giverNpcId": "npc_inquisitor_dran",
+    "startAreaId": "v_hold_cells",
+    "objective": {
+      "type": "setFlag",
+      "key": "interrogation_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 30,
+      "items": [
+        {
+          "itemId": "infiltrator_confession",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_guard_memorial",
+    "name": "Memorial Watch (Curfew Duty)",
+    "giverNpcId": "npc_captain_harl",
+    "startAreaId": "v_memorial_square",
+    "objective": {
+      "type": "setFlag",
+      "key": "memorial_watch_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 5,
+      "xp": 18,
+      "items": [
+        {
+          "itemId": "signal_lantern_blue",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  }
+]

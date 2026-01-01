@@ -1,0 +1,242 @@
+[
+  {
+    "id": "goblin_scout",
+    "name": "Goblin Scout",
+    "kind": "humanoid",
+    "skill": 8,
+    "stamina": 7,
+    "meta": {
+      "ranged": false,
+      "special": "whistle_alarm"
+    },
+    "loot": [
+      {
+        "itemId": "camp_scout_badge",
+        "min": 0,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 6
+      }
+    ],
+    "tags": [
+      "goblin",
+      "scout"
+    ]
+  },
+  {
+    "id": "goblin_cook",
+    "name": "Goblin Camp Cook",
+    "kind": "humanoid",
+    "skill": 6,
+    "stamina": 6,
+    "meta": {
+      "ranged": false,
+      "special": "kettle_splash"
+    },
+    "loot": [
+      {
+        "itemId": "bitterroot_vial",
+        "min": 0,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 4
+      }
+    ],
+    "tags": [
+      "goblin",
+      "support"
+    ]
+  },
+  {
+    "id": "orc_taskmaster",
+    "name": "Orc Taskmaster",
+    "kind": "humanoid",
+    "skill": 10,
+    "stamina": 14,
+    "meta": {
+      "ranged": false,
+      "special": "cruel_shout"
+    },
+    "loot": [
+      {
+        "itemId": "shackle_key",
+        "min": 0,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 3,
+        "max": 12
+      }
+    ],
+    "tags": [
+      "orc",
+      "camp"
+    ]
+  },
+  {
+    "id": "goblin_sapper",
+    "name": "Goblin Sapper",
+    "kind": "humanoid",
+    "skill": 8,
+    "stamina": 8,
+    "meta": {
+      "ranged": false,
+      "special": "firepot"
+    },
+    "loot": [
+      {
+        "itemId": "smoke_jar",
+        "min": 0,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 1,
+        "max": 8
+      }
+    ],
+    "tags": [
+      "goblin",
+      "sapper"
+    ]
+  },
+  {
+    "id": "siege_line_spearman",
+    "name": "Siege-Line Spearman",
+    "kind": "humanoid",
+    "skill": 9,
+    "stamina": 10,
+    "meta": {
+      "ranged": false
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 1,
+        "max": 10
+      }
+    ],
+    "tags": [
+      "orc",
+      "siege"
+    ]
+  },
+  {
+    "id": "siege_line_bow",
+    "name": "Siege-Line Bowman",
+    "kind": "humanoid",
+    "skill": 8,
+    "stamina": 8,
+    "meta": {
+      "ranged": true,
+      "range": 3,
+      "damage": "1d6",
+      "ammoType": "arrow"
+    },
+    "loot": [
+      {
+        "itemId": "arrow_bundle",
+        "min": 0,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 8
+      }
+    ],
+    "tags": [
+      "orc",
+      "ranged",
+      "siege"
+    ]
+  },
+  {
+    "id": "camp_patrol",
+    "name": "Camp Patrol",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "goblin_scout",
+        "count": 2
+      },
+      {
+        "enemyId": "goblin_sapper",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 8
+      }
+    },
+    "tags": [
+      "goblin",
+      "group",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "taskmaster_detail",
+    "name": "Taskmaster Detail",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "orc_taskmaster",
+        "count": 1
+      },
+      {
+        "enemyId": "goblin_scout",
+        "count": 2
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 9
+      }
+    },
+    "tags": [
+      "mixed",
+      "group",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "siege_skirmish_line",
+    "name": "Siege Skirmish Line",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "siege_line_spearman",
+        "count": 2
+      },
+      {
+        "enemyId": "siege_line_bow",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 9
+      }
+    },
+    "tags": [
+      "siege",
+      "group",
+      "pursuit"
+    ]
+  }
+]

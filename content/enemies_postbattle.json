@@ -1,0 +1,5 @@
+[
+  { "id": "enemy_sewer_rat", "name": "Sewer Rat", "hp": 4, "attack": 1, "defense": 0 },
+  { "id": "enemy_cave_watcher", "name": "Cave Watcher", "hp": 12, "attack": 4, "defense": 2 },
+  { "id": "enemy_cultist_sentinal", "name": "Cultist Sentinal", "hp": 14, "attack": 5, "defense": 1 }
+]

@@ -1,0 +1,2434 @@
+[
+  {
+    "id": "g_inner_streets_intro",
+    "title": "Inner Streets: Choke Point",
+    "floorId": "city",
+    "x": 0,
+    "y": -31,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow medieval street barricade, citizens fleeing, defenders forming line, cinematic, no text"
+  },
+  {
+    "id": "h_council_covert",
+    "title": "Covert Assignment",
+    "floorId": "city",
+    "x": -1,
+    "y": -30,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, councilor leaning over map with candles, urgent whispers, cinematic, no text"
+  },
+  {
+    "id": "c_magazine_after",
+    "title": "Secured Kegs",
+    "floorId": "city",
+    "x": 4,
+    "y": -4,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, sealed powder kegs with fresh wax seals, guards arriving, relief and tension, cinematic, no text"
+  },
+  {
+    "id": "c_parapet_post",
+    "title": "Parapet Post",
+    "floorId": "city",
+    "x": 0,
+    "y": -3,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, parapet post overlooking fields, archers, arrow barrels, stormy horizon, cinematic, no text"
+  },
+  {
+    "id": "c_magazine_parley",
+    "title": "A Dirty Confession",
+    "floorId": "city",
+    "x": 4,
+    "y": -3,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, close-up parley in dim warehouse, nervous saboteur, fuse cord, cinematic, no text"
+  },
+  {
+    "id": "c_ward_installation",
+    "title": "Ward Installation Plinth",
+    "floorId": "city",
+    "x": 0,
+    "y": -2,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, rune plinth near the gate, ward-stone socket, mage-priest, glowing sigils, cinematic, no text"
+  },
+  {
+    "id": "fb_alley_chase",
+    "title": "Alley Chase: Lanterns and Teeth",
+    "floorId": "city",
+    "x": 2,
+    "y": -2,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow alley chase, goblin with tinder pouch, lantern light, cinematic, no text"
+  },
+  {
+    "id": "fb_streets_resolution",
+    "title": "Streets: Fires Contained (or Not)",
+    "floorId": "city",
+    "x": 3,
+    "y": -2,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, bucket line fighting fires, guards dragging captives, cinematic, no text"
+  },
+  {
+    "id": "g_infiltrator_cleanup",
+    "title": "Street Secured",
+    "floorId": "city",
+    "x": 3,
+    "y": -2,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, guards arriving, lanterns, captured goblin token, weary civilians, cinematic, no text"
+  },
+  {
+    "id": "c_magazine_standoff",
+    "title": "Magazine Standoff",
+    "floorId": "city",
+    "x": 4,
+    "y": -2,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, saboteur with flint and fuse near powder kegs, tense close quarters, cinematic, no text"
+  },
+  {
+    "id": "c_granary_checkpoint",
+    "title": "Granary Checkpoint",
+    "floorId": "city",
+    "x": -1,
+    "y": -1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, granary checkpoint with grain sacks, armed clerks, ration ledgers, cinematic, no text"
+  },
+  {
+    "id": "br_postern_arrival",
+    "title": "Postern Gate: Banner Under Cloak",
+    "floorId": "city",
+    "x": 0,
+    "y": -1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, returning through postern gate with bundled banner, lantern code flash, rain, cinematic, no text"
+  },
+  {
+    "id": "c_gate_inner_yard",
+    "title": "Inner Gate Yard",
+    "floorId": "city",
+    "x": 0,
+    "y": -1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, inner gate yard with barricade materials, soldiers, carts, tense preparation, cinematic, no text"
+  },
+  {
+    "id": "ce_armourers_guild",
+    "title": "Armourers’ Guild: Veteran Work",
+    "floorId": "city",
+    "x": 0,
+    "y": -1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, busy forge with armor pieces and guildmaster, sparks, cinematic, no text"
+  },
+  {
+    "id": "f_postern_return",
+    "title": "Postern Gate: Return from Fog",
+    "floorId": "city",
+    "x": 0,
+    "y": -1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, small postern gate at night, scouts returning through fog, lanterns, cinematic, no text"
+  },
+  {
+    "id": "br_barracks_react",
+    "title": "Barracks: The City Hears a Rumour",
+    "floorId": "city",
+    "x": 1,
+    "y": -1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, barracks with soldiers whispering, bundled banner on table, captain gesturing, cinematic, no text"
+  },
+  {
+    "id": "c_barricade_line",
+    "title": "Barricade Line",
+    "floorId": "city",
+    "x": 1,
+    "y": -1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, barricade line being built, stacked timber, nails, engineers, torchlight, cinematic, no text"
+  },
+  {
+    "id": "ce_barracks_report",
+    "title": "Barracks Report: Ash Ledger",
+    "floorId": "city",
+    "x": 1,
+    "y": -1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, barracks desk with casualty lists, soot-stained captain, cinematic, no text"
+  },
+  {
+    "id": "s_postern_fight",
+    "title": "Postern: Iron on Wood",
+    "floorId": "city",
+    "x": 1,
+    "y": -1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, clash at narrow gate, orc breaker snarling, sparks, cinematic, no text"
+  },
+  {
+    "id": "ce_dawn_square",
+    "title": "Dawn Square: Smoke and Applause",
+    "floorId": "city",
+    "x": 2,
+    "y": -1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, dawn in city square, soot in air, civilians cheering and grieving, guards tired, cinematic, no text"
+  },
+  {
+    "id": "fb_streets_start",
+    "title": "Final Battle: Streets (Chase-Down Response)",
+    "floorId": "city",
+    "x": 3,
+    "y": -1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, dark streets with lanterns, citizens running, shadowy infiltrators, cinematic, no text"
+  },
+  {
+    "id": "g_tenements_lane",
+    "title": "Tenements Lane",
+    "floorId": "city",
+    "x": 3,
+    "y": -1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, cramped tenement street, shuttered windows, blood on cobbles, lantern light, cinematic, no text"
+  },
+  {
+    "id": "c_magazine_inside",
+    "title": "Inside the Magazine",
+    "floorId": "city",
+    "x": 4,
+    "y": -1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, powder kegs stacked in rows, dim lantern behind shuttered glass, suspicious shadow, cinematic, no text"
+  },
+  {
+    "id": "fb_final_consolidation",
+    "title": "Final Consolidation: Victory’s Price",
+    "floorId": "city",
+    "x": 4,
+    "y": -1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, exhausted defenders at dawn, banner torn, wounded tended, city skyline smoking, cinematic, no text"
+  },
+  {
+    "id": "c_docks_standoff",
+    "title": "Dockside Standoff",
+    "floorId": "city",
+    "x": 6,
+    "y": -1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, tense dock standoff, hooded smugglers, one raising a bow, rain and lanterns, cinematic, no text"
+  },
+  {
+    "id": "c_armoury_workroom",
+    "title": "Armoury Workroom",
+    "floorId": "city",
+    "x": 0,
+    "y": 0,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, armoury sewing benches, leather panels, awls, tired workers, cinematic, no text"
+  },
+  {
+    "id": "ce_scribes_conclave",
+    "title": "Scribes’ Conclave: Ink That Bites",
+    "floorId": "city",
+    "x": 0,
+    "y": 0,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, scribe hall with scroll racks and glowing runes, quiet intensity, cinematic, no text"
+  },
+  {
+    "id": "f_council_return_debrief",
+    "title": "Council Return Debrief",
+    "floorId": "city",
+    "x": 0,
+    "y": 0,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, council chamber with codebook on table, exhausted officials leaning in, cinematic, no text"
+  },
+  {
+    "id": "s_traitor_resolved",
+    "title": "Traitor Resolved",
+    "floorId": "city",
+    "x": 0,
+    "y": 0,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, guards seizing a ring and wax seal, lanterns, grim faces, cinematic, no text"
+  },
+  {
+    "id": "v_postern_gate",
+    "title": "Postern Gate: A Thin Door in a Thick Wall",
+    "floorId": "city",
+    "x": 0,
+    "y": 0,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, small hidden city gate at night, guards with lanterns, beyond is foggy field, cinematic, no text"
+  },
+  {
+    "id": "br_council_banner",
+    "title": "Council Chamber: Banner Policy",
+    "floorId": "city",
+    "x": 1,
+    "y": 0,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, council chamber with black banner bundle on map table, officials arguing, cinematic, no text"
+  },
+  {
+    "id": "c_quartermaster_depot",
+    "title": "Quartermaster Depot",
+    "floorId": "city",
+    "x": 1,
+    "y": 0,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, crate-stacked depot, soldiers hauling bundles, quartermaster with ledger, cinematic, no text"
+  },
+  {
+    "id": "f_mage_tower_brief",
+    "title": "Mage Tower: The Next Edge",
+    "floorId": "city",
+    "x": 1,
+    "y": 0,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, mage tower study with star charts, crystal lenses, war maps, cinematic, no text"
+  },
+  {
+    "id": "s_postern_night",
+    "title": "Postern Gate: Breach at Midnight",
+    "floorId": "city",
+    "x": 1,
+    "y": 0,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, postern gate at night, orc with ram and tools, torches, cinematic, no text"
+  },
+  {
+    "id": "br_mage_warning",
+    "title": "Mage Tower: The Great Assault Foretold",
+    "floorId": "city",
+    "x": 2,
+    "y": 0,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, mage tower chamber, crystal ball showing siege tower and ram, anxious scribes, cinematic, no text"
+  },
+  {
+    "id": "ce_council_afterbattle",
+    "title": "Council Afterbattle: The Next Knife",
+    "floorId": "city",
+    "x": 2,
+    "y": 0,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, council chamber with scorched maps and wax seals, morning light, cinematic, no text"
+  },
+  {
+    "id": "f_signal_tower",
+    "title": "Signal Tower: Dawn That Isn’t Dawn",
+    "floorId": "city",
+    "x": 2,
+    "y": 0,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, city signal tower with lantern shutters and horns, pre-dawn mist, cinematic, no text"
+  },
+  {
+    "id": "s_night_resolution",
+    "title": "Night Assault Ends",
+    "floorId": "city",
+    "x": 2,
+    "y": 0,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, exhausted guards at dawn edge, smoke thinning, lanterns dying, cinematic, no text"
+  },
+  {
+    "id": "c_mage_tower_scribes",
+    "title": "Mage Tower: Scribes’ Room",
+    "floorId": "city",
+    "x": 3,
+    "y": 0,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, mage tower scribes room, scroll racks, glowing runes, scribes writing fast, cinematic, no text"
+  },
+  {
+    "id": "g_market_square_panic",
+    "title": "Market Square: Panic and Smoke",
+    "floorId": "city",
+    "x": 3,
+    "y": 0,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, market square at night with smoke, civilians running, guards shouting, cinematic, no text"
+  },
+  {
+    "id": "c_powder_magazine",
+    "title": "Powder Magazine",
+    "floorId": "city",
+    "x": 4,
+    "y": 0,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, guarded powder magazine doors, warning sigils, rain, torchlight, cinematic, no text"
+  },
+  {
+    "id": "fb_gate_start",
+    "title": "Final Battle: Gatehouse",
+    "floorId": "city",
+    "x": 4,
+    "y": 0,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, gatehouse under ram assault, chains, splinters, berserkers, cinematic, no text"
+  },
+  {
+    "id": "fb_gate_fight",
+    "title": "Gate Clash: Berserker and Sapper",
+    "floorId": "city",
+    "x": 5,
+    "y": 0,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, berserker at gate, sapper crouched, sparks, cinematic, no text"
+  },
+  {
+    "id": "c_quay_steps",
+    "title": "Quay Steps",
+    "floorId": "city",
+    "x": 6,
+    "y": 0,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, stone quay steps descending to dark water, lantern on hook, hidden nook, cinematic, no text"
+  },
+  {
+    "id": "fb_gate_wave",
+    "title": "Gate Wave",
+    "floorId": "city",
+    "x": 6,
+    "y": 0,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, gate melee with smoke and splinters, cinematic, no text"
+  },
+  {
+    "id": "s_traitor_confrontation",
+    "title": "Confrontation: Blackwax in Hand",
+    "floorId": "city",
+    "x": 0,
+    "y": 1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, tense confrontation in ledger room doorway, guard lanterns, a ring glint, cinematic, no text"
+  },
+  {
+    "id": "c_battlements_post",
+    "title": "Battlements Post",
+    "floorId": "city",
+    "x": 1,
+    "y": 1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, battlements in drizzle, archers, stacked arrows, distant siege fires, cinematic, no text"
+  },
+  {
+    "id": "f_inner_yard_dawn",
+    "title": "Inner Yard: Dawn Smoke",
+    "floorId": "city",
+    "x": 1,
+    "y": 1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, inner yard with runners and smoke, dawn light barely starting, cinematic, no text"
+  },
+  {
+    "id": "v_hold_cells",
+    "title": "Holding Cells: Lantern and Ink",
+    "floorId": "city",
+    "x": 1,
+    "y": 1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow holding cells, hooded inquisitor, frightened captive goblin, cinematic, no text"
+  },
+  {
+    "id": "c_council_hall",
+    "title": "Council Hall: War Map Chamber",
+    "floorId": "city",
+    "x": 2,
+    "y": 1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, medieval council war room, candlelit map table, tired officials, cinematic, no text"
+  },
+  {
+    "id": "f_battlements_false_dawn",
+    "title": "Battlements: The False Dawn Push",
+    "floorId": "city",
+    "x": 2,
+    "y": 1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, battlements under gray pre-dawn sky, sappers and riders below, horns blaring, cinematic, no text"
+  },
+  {
+    "id": "fb_prebattle_council",
+    "title": "Pre-Battle Council: The City Holds Its Breath",
+    "floorId": "city",
+    "x": 2,
+    "y": 1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, war council before dawn, city map, exhausted faces, cinematic, no text"
+  },
+  {
+    "id": "g_inner_gate_yard",
+    "title": "Inner Gate Yard",
+    "floorId": "city",
+    "x": 2,
+    "y": 1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, inner gate yard with panicked runners, lanterns, smoke plume, cinematic, no text"
+  },
+  {
+    "id": "s_granary_quarter",
+    "title": "Granary Quarter: Smoke Before Screams",
+    "floorId": "city",
+    "x": 2,
+    "y": 1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, granary street at night, smoke pouring from door seams, goblins with tinder, cinematic, no text"
+  },
+  {
+    "id": "v_memorial_square",
+    "title": "Memorial Square: Quiet After Screams",
+    "floorId": "city",
+    "x": 2,
+    "y": 1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, memorial square with candles and cloaked bodies, guard lanterns, solemn rain, cinematic, no text"
+  },
+  {
+    "id": "fb_lane_assignment",
+    "title": "Lane Assignment: Wall, Gate, or Streets",
+    "floorId": "city",
+    "x": 3,
+    "y": 1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, battlement staging area, arrows stacked, smoke, serjeant pointing, cinematic, no text"
+  },
+  {
+    "id": "g_back_alley_fork",
+    "title": "Back Alley Fork",
+    "floorId": "city",
+    "x": 3,
+    "y": 1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow wet alley splitting left and right, lantern swinging, footprints, cinematic, no text"
+  },
+  {
+    "id": "s_granary_fight",
+    "title": "Granary: Fire in the Doorframe",
+    "floorId": "city",
+    "x": 3,
+    "y": 1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, close fight at granary door, flames starting, goblins fleeing, cinematic, no text"
+  },
+  {
+    "id": "fb_wall_start",
+    "title": "Final Battle: Wall Line",
+    "floorId": "city",
+    "x": 4,
+    "y": 1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, wall line with smoke and ladders, distant siege tower silhouette, cinematic, no text"
+  },
+  {
+    "id": "g_chase_distance_loop",
+    "title": "Chase Distance",
+    "floorId": "city",
+    "x": 4,
+    "y": 1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, goblins sprinting between alleys, lantern streaks, arrows flying, cinematic, no text"
+  },
+  {
+    "id": "fb_wall_fight",
+    "title": "Wall Clash: Break the Breaker",
+    "floorId": "city",
+    "x": 5,
+    "y": 1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, troll wallbreaker and laddermen at wall, defenders striking, cinematic, no text"
+  },
+  {
+    "id": "g_chase_fire_scene",
+    "title": "Smoke by the Granary",
+    "floorId": "city",
+    "x": 5,
+    "y": 1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, granary street with smoke and small flames, goblin firebug fleeing, civilians shouting, cinematic, no text"
+  },
+  {
+    "id": "c_tarpaulin_row",
+    "title": "Tarpaulin Row",
+    "floorId": "city",
+    "x": 6,
+    "y": 1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, dockside tarpaulins over crates, rain, lantern reflections, suspicious figures, cinematic, no text"
+  },
+  {
+    "id": "fb_wall_wave",
+    "title": "Wall Wave: The Tide",
+    "floorId": "city",
+    "x": 6,
+    "y": 1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, massive wall melee, ladders, shields, rain, cinematic, no text"
+  },
+  {
+    "id": "g_chase_aftermath",
+    "title": "Infiltrators Dealt With",
+    "floorId": "city",
+    "x": 6,
+    "y": 1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, alley aftermath, dropped tinder pouch, guard lanterns arriving, cinematic, no text"
+  },
+  {
+    "id": "c_contraband_cache",
+    "title": "Contraband Cache",
+    "floorId": "city",
+    "x": 7,
+    "y": 1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, hidden dock warehouse cache, cracked crate revealing rune-metal shards, lantern glow, cinematic, no text"
+  },
+  {
+    "id": "g_escalation_reports",
+    "title": "Escalating Reports",
+    "floorId": "city",
+    "x": 7,
+    "y": 1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, guard runner delivering report in rainy street, worried faces, cinematic, no text"
+  },
+  {
+    "id": "s_stores_ledger_room",
+    "title": "Stores Ledger Room: Wax and Numbers",
+    "floorId": "city",
+    "x": 0,
+    "y": 2,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, ledger room with keys, wax seals, shelves of supplies, tense mood, cinematic, no text"
+  },
+  {
+    "id": "v_council_chamber",
+    "title": "Council Chamber: Maps and Candles",
+    "floorId": "city",
+    "x": 0,
+    "y": 2,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, city council chamber, war maps, candles, exhausted officials, cinematic, no text"
+  },
+  {
+    "id": "s_council_emergency",
+    "title": "Council Emergency: Three Knives at Once",
+    "floorId": "city",
+    "x": 1,
+    "y": 2,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, emergency council meeting, maps with three marked targets, lantern light, cinematic, no text"
+  },
+  {
+    "id": "v_infirmary_triage",
+    "title": "Infirmary: Triage by Lantern",
+    "floorId": "city",
+    "x": 1,
+    "y": 2,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, crowded infirmary, healers working by lantern light, raincoats steaming, cinematic, no text"
+  },
+  {
+    "id": "f_false_dawn_fight",
+    "title": "Clash: Sappers and Signals",
+    "floorId": "city",
+    "x": 2,
+    "y": 2,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, melee at battlements edge, sapper reaching for charge, signalman horn raised, cinematic, no text"
+  },
+  {
+    "id": "g_battlements_wallwalk",
+    "title": "Battlements: Wallwalk",
+    "floorId": "city",
+    "x": 2,
+    "y": 2,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, rain-slick battlements, archers, ladders below, siege fires beyond, cinematic, no text"
+  },
+  {
+    "id": "s_mage_scrying_chamber",
+    "title": "Mage Tower: Scrying Chamber",
+    "floorId": "city",
+    "x": 2,
+    "y": 2,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, crystal ball on pedestal in mage chamber, light swirling, anxious scribes, cinematic, no text"
+  },
+  {
+    "id": "v_burnt_quarter",
+    "title": "Burnt Quarter: Smoke and Embers",
+    "floorId": "city",
+    "x": 2,
+    "y": 2,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, smoky street with burning timber, civilians carrying buckets, guards shouting, cinematic, no text"
+  },
+  {
+    "id": "ga_battlements_start",
+    "title": "Battlements: The Biggest Push",
+    "floorId": "city",
+    "x": 3,
+    "y": 2,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, massive siege lines, siege tower rolling, ram at gate, arrows, smoke, cinematic, no text"
+  },
+  {
+    "id": "ga_gatehouse",
+    "title": "Gatehouse: The Ram",
+    "floorId": "city",
+    "x": 4,
+    "y": 2,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, gatehouse shaking under ram hits, splinters flying, defenders bracing, cinematic, no text"
+  },
+  {
+    "id": "ga_gate_fight",
+    "title": "Gate Clash",
+    "floorId": "city",
+    "x": 5,
+    "y": 2,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, melee at gate, orc ram crew roaring, sparks and smoke, cinematic, no text"
+  },
+  {
+    "id": "ga_gate_resolution",
+    "title": "Gate Resolution: The Door Holds",
+    "floorId": "city",
+    "x": 6,
+    "y": 2,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, gate still standing, broken ram pieces, exhausted defenders, cinematic, no text"
+  },
+  {
+    "id": "c_dock_factor_office",
+    "title": "Factor’s Office",
+    "floorId": "city",
+    "x": 7,
+    "y": 2,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, dock office with ledgers, sealing wax, fine chair, rain at window, cinematic, no text"
+  },
+  {
+    "id": "f_false_dawn_resolution",
+    "title": "False Dawn Broken",
+    "floorId": "city",
+    "x": 2,
+    "y": 3,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, dawn light finally arriving, broken sapper tools, defenders leaning on walls, cinematic, no text"
+  },
+  {
+    "id": "g_gate_wave_loop",
+    "title": "Wall Defense: Ladder Clash",
+    "floorId": "city",
+    "x": 2,
+    "y": 3,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, melee on battlements, ladder tops, goblins scrambling, orc brute climbing, cinematic, no text"
+  },
+  {
+    "id": "ga_choice_page",
+    "title": "Choice: Where You Stand Matters",
+    "floorId": "city",
+    "x": 3,
+    "y": 3,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, war map on battlement table with three marked fronts, hands pointing, cinematic, no text"
+  },
+  {
+    "id": "ga_main_wall",
+    "title": "Main Wall: Tower and Ladders",
+    "floorId": "city",
+    "x": 4,
+    "y": 3,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, siege tower nearing wall, ladders rising, defenders shouting, cinematic, no text"
+  },
+  {
+    "id": "ga_wall_fight",
+    "title": "Wall Clash",
+    "floorId": "city",
+    "x": 5,
+    "y": 3,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, close combat on wall, ladders, arrows, rain, cinematic, no text"
+  },
+  {
+    "id": "ga_wall_resolution",
+    "title": "Wall Resolution: Morale Break",
+    "floorId": "city",
+    "x": 6,
+    "y": 3,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, enemies faltering, ladder slipping, defenders pushing back, cinematic, no text"
+  },
+  {
+    "id": "c_factor_outcome",
+    "title": "Warrant Executed",
+    "floorId": "city",
+    "x": 7,
+    "y": 3,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, guards seizing ledgers, factor losing composure, wax seals, cinematic, no text"
+  },
+  {
+    "id": "g_between_waves",
+    "title": "Between Waves",
+    "floorId": "city",
+    "x": 2,
+    "y": 4,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, brief lull on battlements, bodies cleared, distant horns, cinematic, no text"
+  },
+  {
+    "id": "ga_end",
+    "title": "Great Assault: Consolidation",
+    "floorId": "city",
+    "x": 3,
+    "y": 4,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, defenders regrouping, wounded treated, smoke thinning, dawn light, cinematic, no text"
+  },
+  {
+    "id": "vcf_back_to_hearing",
+    "title": "Return: Dawn Approaches",
+    "floorId": "city",
+    "x": 6,
+    "y": 4,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, council doors with dawn light leaking under, cinematic, no text"
+  },
+  {
+    "id": "g_gate_wave_2_loop",
+    "title": "Wall Defense: Brute Push",
+    "floorId": "city",
+    "x": 2,
+    "y": 5,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, orc brutes cresting ladders, shields up, goblins behind, cinematic, no text"
+  },
+  {
+    "id": "vcf_war_room",
+    "title": "War Room: Candle Smoke and Cold Decisions",
+    "floorId": "city",
+    "x": 5,
+    "y": 5,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, candlelit war room, maps pinned, exhausted council, rain at windows, cinematic, no text"
+  },
+  {
+    "id": "vcf_vayne_hearing",
+    "title": "Vayne’s Hearing: Choose Two Before Dawn",
+    "floorId": "city",
+    "x": 6,
+    "y": 5,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, councilor addressing room, sealed evidence on table, cinematic, no text"
+  },
+  {
+    "id": "vcf_armoury_choice",
+    "title": "Armoury: Heirloom or Supplies",
+    "floorId": "city",
+    "x": 7,
+    "y": 5,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, armoury racks, named weapons on table, guildmaster smith, cinematic, no text"
+  },
+  {
+    "id": "g_pre_final_wave",
+    "title": "The Sergeant Push",
+    "floorId": "city",
+    "x": 2,
+    "y": 6,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, orc sergeant with banner roaring, final push at the ladders, cinematic, no text"
+  },
+  {
+    "id": "vcf_street_crisis",
+    "title": "Street Crisis: Rumours Become Knives",
+    "floorId": "city",
+    "x": 5,
+    "y": 6,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, tense city street at night, watch lanterns, frightened crowd, cinematic, no text"
+  },
+  {
+    "id": "vcf_archive_thread",
+    "title": "Archive Thread: The Smell of Blackwax",
+    "floorId": "city",
+    "x": 6,
+    "y": 6,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, shadowy archives with ledgers and seals, master warden, cinematic, no text"
+  },
+  {
+    "id": "vcf_assassin_interrupt",
+    "title": "Assassin Interrupt: Truth Bleeds",
+    "floorId": "city",
+    "x": 7,
+    "y": 6,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, assassin lunging among shelves of ledgers, candle flare, cinematic, no text"
+  },
+  {
+    "id": "g_final_wave_loop",
+    "title": "Final Wave: Banner on the Stones",
+    "floorId": "city",
+    "x": 2,
+    "y": 7,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, elite orc sergeant fighting on battlements, banner whipping in rain, cinematic, no text"
+  },
+  {
+    "id": "g_gate_battle_resolution",
+    "title": "Wall Held (For Now)",
+    "floorId": "city",
+    "x": 2,
+    "y": 8,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, dawn light over battered battlements, exhausted defenders, smoke in distance, cinematic, no text"
+  },
+  {
+    "id": "h_after_act2",
+    "title": "After the Iron Falls",
+    "floorId": "battle",
+    "x": 0,
+    "y": -30,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, exhausted defenders in gate yard, rain easing, broken shields, cinematic, no text"
+  },
+  {
+    "id": "f_breach_outcome",
+    "title": "Splinters and Smoke",
+    "floorId": "battle",
+    "x": 0,
+    "y": -26,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, gate splintering, smoke and rain, defenders retreating, cinematic, no text"
+  },
+  {
+    "id": "f_breach_choices",
+    "title": "Hinge and Chain",
+    "floorId": "battle",
+    "x": 0,
+    "y": -25,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, close view of gate hinge and chain under strain, defenders fighting in rain, cinematic, no text"
+  },
+  {
+    "id": "f_gate_breach_risk",
+    "title": "Breach Risk",
+    "floorId": "battle",
+    "x": 0,
+    "y": -24,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, troll brute pushing forward, orcs yelling, gate splintering, cinematic, no text"
+  },
+  {
+    "id": "f_gate_face_outcome",
+    "title": "A Cracked Moment",
+    "floorId": "battle",
+    "x": 0,
+    "y": -23,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, gate shaking, defenders grimacing, ward glow straining, cinematic, no text"
+  },
+  {
+    "id": "f_gate_face_choices",
+    "title": "Arrowstorm",
+    "floorId": "battle",
+    "x": 0,
+    "y": -22,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, arrow volleys from parapet, orcs pushing forward, rain streaks, cinematic, no text"
+  },
+  {
+    "id": "f_infiltration_after",
+    "title": "A Slam of Iron",
+    "floorId": "battle",
+    "x": -5,
+    "y": -21,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, portcullis slamming down, sparks, defenders cheering briefly, cinematic, no text"
+  },
+  {
+    "id": "f_infiltration_choices",
+    "title": "Knives on Ropes",
+    "floorId": "battle",
+    "x": -4,
+    "y": -21,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, close fight in tunnel, goblins slashing ropes, sparks and rain drip, cinematic, no text"
+  },
+  {
+    "id": "f_mechanism_infiltration",
+    "title": "Ropes Cut From Within",
+    "floorId": "battle",
+    "x": -3,
+    "y": -21,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow inner-wall tunnel, goblin infiltrators with knives, hanging ropes, cinematic, no text"
+  },
+  {
+    "id": "f_mechanism_room",
+    "title": "Gate Mechanisms",
+    "floorId": "battle",
+    "x": -2,
+    "y": -21,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, gate mechanism room with chains and winch, sparks, defenders straining, cinematic, no text"
+  },
+  {
+    "id": "f_mechanism_entry",
+    "title": "Mechanism Door",
+    "floorId": "battle",
+    "x": -1,
+    "y": -21,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, iron door to gate mechanisms, guards, sparks, rumbling gate, cinematic, no text"
+  },
+  {
+    "id": "f_gate_face",
+    "title": "Gate Face",
+    "floorId": "battle",
+    "x": 0,
+    "y": -21,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, defenders at gate with shields, arrows raining, huge ram approaching, cinematic, no text"
+  },
+  {
+    "id": "f_infiltrator_alert",
+    "title": "Infiltrator Alert",
+    "floorId": "battle",
+    "x": -1,
+    "y": -20,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, inner alley with panicked citizens, guard pointing, shadowy movement, cinematic, no text"
+  },
+  {
+    "id": "f_act2_real_push",
+    "title": "The Real Push",
+    "floorId": "battle",
+    "x": 0,
+    "y": -20,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, massive enemy wave in rain, drums, torches, silhouettes of orcs and a troll, city gate looming, cinematic, no text"
+  },
+  {
+    "id": "e_parapet_volley",
+    "title": "Parapet Volley",
+    "floorId": "battle",
+    "x": 0,
+    "y": -14,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, archers firing from parapet into storm, enemies below as silhouettes, cinematic, no text"
+  },
+  {
+    "id": "e_ward_after",
+    "title": "Ward Saved",
+    "floorId": "battle",
+    "x": 0,
+    "y": -13,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, ward plinth glowing stable, defenders relieved, broken fuse on stone, cinematic, no text"
+  },
+  {
+    "id": "e_triage",
+    "title": "Triage Under Lanterns",
+    "floorId": "battle",
+    "x": -1,
+    "y": -12,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, triage tent near gate, lanterns, healers, wounded soldiers, rain outside, cinematic, no text"
+  },
+  {
+    "id": "e_ward_choices",
+    "title": "Fuses in the Rain",
+    "floorId": "battle",
+    "x": 0,
+    "y": -12,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, close-up sapper lighting fuse, arrows flying, rain steam, cinematic, no text"
+  },
+  {
+    "id": "e_barricade_result",
+    "title": "The Line Holds",
+    "floorId": "battle",
+    "x": 1,
+    "y": -12,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, defenders pushing back goblins, broken shields, victory moment, cinematic, no text"
+  },
+  {
+    "id": "e_ward_crisis",
+    "title": "Ward Crisis",
+    "floorId": "battle",
+    "x": 0,
+    "y": -11,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, ward plinth under attack, goblin sappers with fuse, defenders panicking, cinematic, no text"
+  },
+  {
+    "id": "e_barricade_choices",
+    "title": "Rain and Arrows",
+    "floorId": "battle",
+    "x": 1,
+    "y": -11,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, close combat at barricade, arrows and shields, chaos, cinematic, no text"
+  },
+  {
+    "id": "e_battle_horns",
+    "title": "The Horns",
+    "floorId": "battle",
+    "x": 0,
+    "y": -10,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, city gate in storm rain, horns blowing, soldiers rushing, cinematic, no text"
+  },
+  {
+    "id": "e_barricade_hold",
+    "title": "Hold the Barricade",
+    "floorId": "battle",
+    "x": 1,
+    "y": -10,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, defenders behind barricade, goblins charging in rain, torchlight, cinematic, no text"
+  },
+  {
+    "id": "fwh_departure",
+    "title": "Departure: Snow Road to the Fortress-Heart",
+    "floorId": "overland",
+    "x": 100,
+    "y": -70,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, snowy road with torches, fortress lights in distance, cinematic, no text"
+  },
+  {
+    "id": "pa_crack_in_hills",
+    "title": "Crack in the Hills: The Stone Doorway",
+    "floorId": "overland",
+    "x": 15,
+    "y": -12,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow rock crack shaped like a doorway, old carvings like teeth, lantern glow, cinematic, no text"
+  },
+  {
+    "id": "pa_ridge_farms",
+    "title": "Ridge Farms: Smoke from Small Fires",
+    "floorId": "overland",
+    "x": 11,
+    "y": -11,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, farmstead with broken fence, smoke from barn corner, frightened villagers, cinematic, no text"
+  },
+  {
+    "id": "pa_hills_flank",
+    "title": "Hills Flank: Wargs in the Mist",
+    "floorId": "overland",
+    "x": 14,
+    "y": -11,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, misty hills, warg eyes glowing, sparse trees, cinematic, no text"
+  },
+  {
+    "id": "pa_outside_gate",
+    "title": "Outside the Gate: The Retreat Trail",
+    "floorId": "overland",
+    "x": 10,
+    "y": -10,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, city gate behind, muddy road ahead with retreat tracks, dawn haze, cinematic, no text"
+  },
+  {
+    "id": "pa_rearguard_contact",
+    "title": "Retreat Road: Rearguard Contact",
+    "floorId": "overland",
+    "x": 12,
+    "y": -10,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, road ambush with broken carts, orc rearguard blocking path, goblin runner ready to bolt, cinematic, no text"
+  },
+  {
+    "id": "pa_road_fight",
+    "title": "Road Fight: Break the Block",
+    "floorId": "overland",
+    "x": 13,
+    "y": -10,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, melee on muddy road, runner darting, cinematic, no text"
+  },
+  {
+    "id": "o_siege_skirmish_after",
+    "title": "Quiet After Fire",
+    "floorId": "overland",
+    "x": 15,
+    "y": -9,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, burned supply knot, fallen spears, smoke drifting, cinematic, no text"
+  },
+  {
+    "id": "o_siege_escape_choice",
+    "title": "Escape Choice",
+    "floorId": "overland",
+    "x": 14,
+    "y": -8,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, adventurer sprinting through grass, city walls far away, pursuit behind, cinematic, no text"
+  },
+  {
+    "id": "o_siege_skirmish_loop",
+    "title": "Skirmish at Distance",
+    "floorId": "overland",
+    "x": 15,
+    "y": -8,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, arrows exchanged near siege stores, smoke rising, cinematic, no text"
+  },
+  {
+    "id": "o_siege_skirmish_prompt",
+    "title": "A Small Role in a Big War",
+    "floorId": "overland",
+    "x": 15,
+    "y": -7,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, skirmish breaking out near siege stores, sentries turning, cinematic, no text"
+  },
+  {
+    "id": "o_siege_overlook",
+    "title": "Ridge Overlook",
+    "floorId": "overland",
+    "x": 15,
+    "y": -6,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, high ridge overlooking siege lines, campfires like stars, city walls distant, cinematic, no text"
+  },
+  {
+    "id": "se_approach",
+    "title": "Engine Yard Approach: Wood, Iron, Confidence",
+    "floorId": "overland",
+    "x": 30,
+    "y": -6,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, fog field overlooking enemy engine yard, silhouettes of siege tower and ram, campfires, cinematic, no text"
+  },
+  {
+    "id": "o_taskmaster_after",
+    "title": "Keys in the Mud",
+    "floorId": "overland",
+    "x": 12,
+    "y": -5,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, fallen orc, keys in mud, cages behind, cinematic, no text"
+  },
+  {
+    "id": "o_alarm_rising",
+    "title": "Alarm Rising",
+    "floorId": "overland",
+    "x": 13,
+    "y": -5,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, camp in chaos, torches flaring, goblins shouting, smoke, cinematic, no text"
+  },
+  {
+    "id": "p_siege_camp_approach",
+    "title": "Siege Camp Approach: Firelight in Fog",
+    "floorId": "overland",
+    "x": 20,
+    "y": -5,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, fog field with scattered campfires ahead, silhouettes of tents and siege engines, cinematic, no text"
+  },
+  {
+    "id": "se_escape",
+    "title": "Escape: Mud and Whistles",
+    "floorId": "overland",
+    "x": 30,
+    "y": -5,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, sprinting through fog with stolen chain over shoulder, lanterns behind, cinematic, no text"
+  },
+  {
+    "id": "o_farmer_escape_lane",
+    "title": "Escape Lane: Back Roads",
+    "floorId": "overland",
+    "x": 11,
+    "y": -4,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, hedgerow lane with fleeing captives, distant camp fires, cinematic, no text"
+  },
+  {
+    "id": "o_raid_aftermath",
+    "title": "After the Raid",
+    "floorId": "overland",
+    "x": 12,
+    "y": -4,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, goblin bodies and discarded gear in mud, quiet after fight, cinematic, no text"
+  },
+  {
+    "id": "o_taskmaster_fight",
+    "title": "Taskmaster Fight",
+    "floorId": "overland",
+    "x": 12,
+    "y": -4,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, orc taskmaster raising cudgel, goblins swarming, muddy camp, cinematic, no text"
+  },
+  {
+    "id": "o_signal_post",
+    "title": "Signal Post",
+    "floorId": "overland",
+    "x": 14,
+    "y": -4,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, crude signal post with horns and flags, goblin scout watching horizon, cinematic, no text"
+  },
+  {
+    "id": "o_cage_pens",
+    "title": "Cage Pens",
+    "floorId": "overland",
+    "x": 12,
+    "y": -3,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, crude cages with frightened farmers, orc taskmaster, rain and mud, cinematic, no text"
+  },
+  {
+    "id": "o_raid_distance_loop",
+    "title": "Skirmish Distance",
+    "floorId": "overland",
+    "x": 12,
+    "y": -3,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, arrows flying across open ground, goblins weaving, cinematic, no text"
+  },
+  {
+    "id": "o_supply_tents",
+    "title": "Supply Tents",
+    "floorId": "overland",
+    "x": 13,
+    "y": -3,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, supply tents with crates, sacks of grain, stacked arrows, torchlight, cinematic, no text"
+  },
+  {
+    "id": "o_mess_kettle",
+    "title": "Mess Kettle",
+    "floorId": "overland",
+    "x": 14,
+    "y": -3,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, camp cookfire with huge kettle, goblin cook stirring, greasy smoke, cinematic, no text"
+  },
+  {
+    "id": "s_postern_to_field",
+    "title": "Postern Exit: Into the Dark Field",
+    "floorId": "overland",
+    "x": 0,
+    "y": -2,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, slipping out a small gate into fog field, distant camp lights, cinematic, no text"
+  },
+  {
+    "id": "o_forest_track",
+    "title": "Forest Track",
+    "floorId": "overland",
+    "x": 11,
+    "y": -2,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow forest track, fog, broken cart wheel, ominous, cinematic, no text"
+  },
+  {
+    "id": "o_field_camp_edge",
+    "title": "Forward Camp Edge",
+    "floorId": "overland",
+    "x": 12,
+    "y": -2,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, hidden view of goblin camp through trees, smoke from cookfires, crude palisade, cinematic, no text"
+  },
+  {
+    "id": "o_raid_retreat_menu",
+    "title": "Choose Retreat Direction",
+    "floorId": "overland",
+    "x": 12,
+    "y": -2,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, adventurer backing away through muddy field, goblins closing, cinematic, no text"
+  },
+  {
+    "id": "o_camp_inner_lane",
+    "title": "Camp Inner Lane",
+    "floorId": "overland",
+    "x": 13,
+    "y": -2,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, muddy lane between crude tents, goblin scouts, lanterns, cinematic, no text"
+  },
+  {
+    "id": "o_camp_patrol_contact",
+    "title": "Patrol Contact: Whistles and Teeth",
+    "floorId": "overland",
+    "x": 14,
+    "y": -2,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, goblin patrol with lantern catching an intruder, tense moment, cinematic, no text"
+  },
+  {
+    "id": "r_sinkhole_ravine",
+    "title": "Sinkhole Ravine",
+    "floorId": "overland",
+    "x": 16,
+    "y": -2,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, forest ravine with yawning sinkhole, mist rising, broken roots, cinematic, no text"
+  },
+  {
+    "id": "w_no_mans_land",
+    "title": "No-Man’s Land: Low Fog and Old Stakes",
+    "floorId": "overland",
+    "x": 10,
+    "y": -1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, foggy field with broken stakes and distant watchfort silhouette, moonlight, cinematic, no text"
+  },
+  {
+    "id": "o_woodline_edge",
+    "title": "Woodline Edge",
+    "floorId": "overland",
+    "x": 11,
+    "y": -1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, forest edge with tall trunks, fog, axe stump, cinematic, no text"
+  },
+  {
+    "id": "w_watchfort_approach",
+    "title": "Watchfort Approach: Ditch and Wall",
+    "floorId": "overland",
+    "x": 11,
+    "y": -1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, stone watchfort with ditch, crude banners, sentries with lanterns, cinematic, no text"
+  },
+  {
+    "id": "o_goblin_raid_contact",
+    "title": "Goblin Raid Approaching",
+    "floorId": "overland",
+    "x": 12,
+    "y": -1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, goblin raiding party emerging from hedge/trees, spears and bows, cinematic, no text"
+  },
+  {
+    "id": "w_patrol_contact",
+    "title": "Outer Patrol Contact",
+    "floorId": "overland",
+    "x": 12,
+    "y": -1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, patrol lanterns flaring in fog, orc sentinel and goblin scouts, cinematic, no text"
+  },
+  {
+    "id": "o_city_gate_outside",
+    "title": "Outside the Walls",
+    "floorId": "overland",
+    "x": 10,
+    "y": 0,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, city gate behind, muddy road ahead, distant farms and tree line, cinematic, no text"
+  },
+  {
+    "id": "o_farm_lane",
+    "title": "Farm Lane",
+    "floorId": "overland",
+    "x": 11,
+    "y": 0,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, farm lane with hedges, distant barn, scarecrow, overcast, cinematic, no text"
+  },
+  {
+    "id": "o_farm_barnyard",
+    "title": "Barnyard",
+    "floorId": "overland",
+    "x": 12,
+    "y": 0,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, barnyard with stacked sacks, chickens scattering, muddy footprints, cinematic, no text"
+  },
+  {
+    "id": "j_caves_return_1",
+    "title": "Caves Return: Cold Air, New Weight",
+    "floorId": "caves",
+    "x": 5,
+    "y": -9,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, cave mouth with fresher air, distant city glow, exhausted adventurer, cinematic, no text"
+  },
+  {
+    "id": "i_underfortress_entry",
+    "title": "Under-Fortress Entry",
+    "floorId": "caves",
+    "x": 5,
+    "y": -8,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, underground fortress gate with iron bars, torch sconces, guards in silhouette, cinematic, no text"
+  },
+  {
+    "id": "r_captain_loot",
+    "title": "Orders and Cord",
+    "floorId": "caves",
+    "x": 18,
+    "y": -8,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, fallen goblin captain, red cord and orders on stone table, cinematic, no text"
+  },
+  {
+    "id": "i_underfortress_outer",
+    "title": "Under-Fortress Outer Wall",
+    "floorId": "caves",
+    "x": 5,
+    "y": -7,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, ancient underground fortress wall carved into rock, torchlight, skull motifs, cinematic, no text"
+  },
+  {
+    "id": "r_double_play",
+    "title": "Double Play",
+    "floorId": "caves",
+    "x": 15,
+    "y": -7,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, smoke filling vault, hostage pulled free, chaotic motion, cinematic, no text"
+  },
+  {
+    "id": "r_escape_choice",
+    "title": "Escape: What You Save, What You Lose",
+    "floorId": "caves",
+    "x": 16,
+    "y": -7,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, fleeing through chalk tunnel, distant collapse dust, torchlight fading, cinematic, no text"
+  },
+  {
+    "id": "r_second_mouth_choke",
+    "title": "Second Mouth Choke-Point",
+    "floorId": "caves",
+    "x": 17,
+    "y": -7,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow choke tunnel with heavy supports, iron wedges, marked pillars, cinematic, no text"
+  },
+  {
+    "id": "r_captain_den",
+    "title": "Captain’s Den: Red Knife Varg",
+    "floorId": "caves",
+    "x": 18,
+    "y": -7,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, goblin captain with red cord, crude table with maps and tokens, torch smoke, cinematic, no text"
+  },
+  {
+    "id": "i_cave_junction_1",
+    "title": "Cave Junction: The Forked Dark",
+    "floorId": "caves",
+    "x": 5,
+    "y": -6,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, cave junction with two tunnels, one with faint torch soot, one with crystal glimmer, cinematic, no text"
+  },
+  {
+    "id": "i_crystal_grotto",
+    "title": "Crystal Grotto",
+    "floorId": "caves",
+    "x": 6,
+    "y": -6,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, crystal grotto with glowing shards, shallow pool, eerie beauty, cinematic, no text"
+  },
+  {
+    "id": "r_swap_decision",
+    "title": "The Swap Decision",
+    "floorId": "caves",
+    "x": 15,
+    "y": -6,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, hostage handler holding token, shadows, tense negotiation, cinematic, no text"
+  },
+  {
+    "id": "r_hostage_vault_after",
+    "title": "Chains Loosened",
+    "floorId": "caves",
+    "x": 16,
+    "y": -6,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, broken chain, hostage standing, torchlight, cinematic, no text"
+  },
+  {
+    "id": "r_transfer_tunnels",
+    "title": "Transfer Tunnels",
+    "floorId": "caves",
+    "x": 17,
+    "y": -6,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow tunnel with carts and ropes, torchlight, guards, cinematic, no text"
+  },
+  {
+    "id": "r_transfer_contact",
+    "title": "Transfer Contact",
+    "floorId": "caves",
+    "x": 18,
+    "y": -6,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, orc guard with goblins in tunnel, lantern glare, cinematic, no text"
+  },
+  {
+    "id": "h_cave_mouth",
+    "title": "Cave Mouth: Limestone Breath",
+    "floorId": "caves",
+    "x": 5,
+    "y": -5,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, limestone cave mouth beyond sewer arch, mist, faint crystals, cinematic, no text"
+  },
+  {
+    "id": "r_hostage_vault",
+    "title": "Hostage Vault",
+    "floorId": "caves",
+    "x": 16,
+    "y": -5,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, underground vault cell with noble hostage chained, guarded by handler, cinematic, no text"
+  },
+  {
+    "id": "r_redknife_outer",
+    "title": "Red Knife Outer Works",
+    "floorId": "caves",
+    "x": 17,
+    "y": -5,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, crude underground fortifications, red cloth cords, iron wedges, torch smoke, cinematic, no text"
+  },
+  {
+    "id": "r_mip_hide",
+    "title": "A Whisper in the Chalk",
+    "floorId": "caves",
+    "x": 15,
+    "y": -4,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, small goblin hiding behind chalk pillar, terrified eyes, cinematic, no text"
+  },
+  {
+    "id": "r_chalk_caverns_fork",
+    "title": "Chalk Caverns Fork",
+    "floorId": "caves",
+    "x": 16,
+    "y": -4,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, forked chalk cave passage, one side with smoke, one with silence, cinematic, no text"
+  },
+  {
+    "id": "r_patrol_gallery",
+    "title": "Patrol Gallery",
+    "floorId": "caves",
+    "x": 17,
+    "y": -4,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, cavern gallery with torch patrol, chalk dust in air, cinematic, no text"
+  },
+  {
+    "id": "r_patrol_contact",
+    "title": "Chalk Patrol Contact",
+    "floorId": "caves",
+    "x": 18,
+    "y": -4,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, goblin patrol with slingmen, lantern catching intruder, cinematic, no text"
+  },
+  {
+    "id": "r_chalk_caverns_entrance",
+    "title": "Chalk Caverns: White Mouth",
+    "floorId": "caves",
+    "x": 16,
+    "y": -3,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, chalk-white cavern walls, dripping water, footprints, torch glow, cinematic, no text"
+  },
+  {
+    "id": "c_echo_caves",
+    "title": "Echo Caves: The Sound of Footsteps",
+    "floorId": "caves",
+    "x": 5,
+    "y": -1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, cavern where every drip echoes, chalky stone, distant shapes, cinematic, no text"
+  },
+  {
+    "id": "c_fungal_grove",
+    "title": "Fungal Grove: Breath Held",
+    "floorId": "caves",
+    "x": 6,
+    "y": -1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, glowing fungi grove, spores in air like dust motes, eerie beauty, cinematic, no text"
+  },
+  {
+    "id": "u_commander_loot",
+    "title": "Signet and Routes",
+    "floorId": "underfortress",
+    "x": 1,
+    "y": -17,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, fallen commander, signet ring gleaming, torn route map, cinematic, no text"
+  },
+  {
+    "id": "u_convoy_after",
+    "title": "The Orb Revealed",
+    "floorId": "underfortress",
+    "x": 0,
+    "y": -16,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, canvas pulled back revealing crystal orb glowing, reflections like armies, cinematic, no text"
+  },
+  {
+    "id": "u_commander_chamber",
+    "title": "Commander’s Chamber",
+    "floorId": "underfortress",
+    "x": 1,
+    "y": -16,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, command chamber with crude map table, torches, orc commander turning, cinematic, no text"
+  },
+  {
+    "id": "u_orb_cradle_room",
+    "title": "Orb Cradle Room",
+    "floorId": "underfortress",
+    "x": -1,
+    "y": -15,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, reliquary chamber with orb cradle pedestal, rune rings, guards, eerie glow, cinematic, no text"
+  },
+  {
+    "id": "u_convoy_choices",
+    "title": "Canvas and Candlelight",
+    "floorId": "underfortress",
+    "x": 0,
+    "y": -15,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, ambush moment, canvas-covered cart, guard lantern swinging, cinematic, no text"
+  },
+  {
+    "id": "u_escape_breakwater",
+    "title": "Breakwater Tunnel",
+    "floorId": "underfortress",
+    "x": -3,
+    "y": -14,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, rushing underground water tunnel, narrow ledges, torchlight fading, cinematic, no text"
+  },
+  {
+    "id": "u_ward_hall",
+    "title": "Ward Hall: Threaded Stone",
+    "floorId": "underfortress",
+    "x": -1,
+    "y": -14,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, corridor with glowing ward threads on floor, skull carvings, tense, cinematic, no text"
+  },
+  {
+    "id": "u_orb_convoy_intercept",
+    "title": "Convoy Intercept Gallery",
+    "floorId": "underfortress",
+    "x": 0,
+    "y": -14,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, corridor where convoy passes, crate on cart, guards, ward adept, cinematic, no text"
+  },
+  {
+    "id": "u_defector_meet",
+    "title": "Adept in the Dark",
+    "floorId": "underfortress",
+    "x": 1,
+    "y": -14,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, nervous adept stepping from shadow, ward charm cracking, cinematic, no text"
+  },
+  {
+    "id": "u_service_sluice",
+    "title": "Service Sluice",
+    "floorId": "underfortress",
+    "x": -2,
+    "y": -13,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, hidden sluice tunnel with trickling water, narrow ledge, maintenance hooks, cinematic, no text"
+  },
+  {
+    "id": "u_reliquary_antechamber",
+    "title": "Deep Reliquary: Antechamber",
+    "floorId": "underfortress",
+    "x": -1,
+    "y": -13,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, ancient reliquary antechamber, carved sphere motifs, ward lines glowing faintly, cinematic, no text"
+  },
+  {
+    "id": "u_reliquary_cells",
+    "title": "Reliquary Cells",
+    "floorId": "underfortress",
+    "x": 0,
+    "y": -13,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, small cells near reliquary, runes on bars, mage in chains, cinematic, no text"
+  },
+  {
+    "id": "u_reliquary_stairs",
+    "title": "Reliquary Stairs",
+    "floorId": "underfortress",
+    "x": -1,
+    "y": -12,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, descending stairs with old carvings, relic motifs, torch soot, cinematic, no text"
+  },
+  {
+    "id": "u_jailer_loot",
+    "title": "Keyring Taken",
+    "floorId": "underfortress",
+    "x": 4,
+    "y": -12,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, fallen jailer, keys spilled, torchlight, cinematic, no text"
+  },
+  {
+    "id": "u_supply_lift",
+    "title": "Supply Lift Platform",
+    "floorId": "underfortress",
+    "x": -1,
+    "y": -11,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, creaking lift platform over dark shaft, chains, torchlight, cinematic, no text"
+  },
+  {
+    "id": "u_escape_route_choice",
+    "title": "Escape Route Choice",
+    "floorId": "underfortress",
+    "x": 2,
+    "y": -11,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, two routes in underground corridor, one lit by torches, one narrow and dark, cinematic, no text"
+  },
+  {
+    "id": "u_jailer_gallery",
+    "title": "Jailer’s Gallery",
+    "floorId": "underfortress",
+    "x": 4,
+    "y": -11,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, jailer station with keyrings and whip, prisoner ledger, torchlight, cinematic, no text"
+  },
+  {
+    "id": "u_patrol_contact",
+    "title": "Patrol Contact",
+    "floorId": "underfortress",
+    "x": 5,
+    "y": -11,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, orc guard and goblin runner patrol, lantern, tense moment, cinematic, no text"
+  },
+  {
+    "id": "u_hound_contact",
+    "title": "Hound Contact",
+    "floorId": "underfortress",
+    "x": -1,
+    "y": -10,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, troll-hound baring teeth, goblin handler, chain shadows, cinematic, no text"
+  },
+  {
+    "id": "u_chain_gallery",
+    "title": "Chain Gallery",
+    "floorId": "underfortress",
+    "x": 0,
+    "y": -10,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, underground chain gallery with pulleys, massive chains, dripping water, cinematic, no text"
+  },
+  {
+    "id": "u_drain_slit",
+    "title": "Drain Slit",
+    "floorId": "underfortress",
+    "x": 1,
+    "y": -10,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow maintenance slit behind cistern, squeezing through stone gap, cinematic, no text"
+  },
+  {
+    "id": "u_cell_end",
+    "title": "Cell Block End",
+    "floorId": "underfortress",
+    "x": 2,
+    "y": -10,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, end of prison corridor, cracked stone, old drain slit, cinematic, no text"
+  },
+  {
+    "id": "u_prison_cells",
+    "title": "Prison Cells",
+    "floorId": "underfortress",
+    "x": 3,
+    "y": -10,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, dungeon cell corridor, barred cells, prisoners in shadow, torchlight, cinematic, no text"
+  },
+  {
+    "id": "u_prison_antechamber",
+    "title": "Prison Antechamber",
+    "floorId": "underfortress",
+    "x": 4,
+    "y": -10,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, prison antechamber with key hooks, barred door, dripping stone, cinematic, no text"
+  },
+  {
+    "id": "u_guard_junction",
+    "title": "Junction of Iron Sconces",
+    "floorId": "underfortress",
+    "x": 5,
+    "y": -10,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, underground junction with two paths, torch sconces, shadows, cinematic, no text"
+  },
+  {
+    "id": "u_entry_corridor",
+    "title": "Under-Fortress: Entry Corridor",
+    "floorId": "underfortress",
+    "x": 5,
+    "y": -9,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, underground fortress corridor, iron sconces, damp stone, distant marching, cinematic, no text"
+  },
+  {
+    "id": "c_underfortress_steps",
+    "title": "Basalt Steps: Under-Fortress Descent",
+    "floorId": "underfortress",
+    "x": 8,
+    "y": -1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, descending basalt stairs into ancient fortress, cold blue light, cinematic, no text"
+  },
+  {
+    "id": "c_second_fragment_chamber",
+    "title": "Chamber of Seals: Second Fragment",
+    "floorId": "underfortress",
+    "x": 9,
+    "y": -1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, sealed chamber with crystal fragment in ironwork, ward glyphs, cinematic, no text"
+  },
+  {
+    "id": "c_shaman_gallery",
+    "title": "Gallery: The Glass Eye",
+    "floorId": "underfortress",
+    "x": 10,
+    "y": -1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, fortress gallery with hanging charms and bones, shaman silhouette, crystal glint, cinematic, no text"
+  },
+  {
+    "id": "c_shaman_loot",
+    "title": "Shaman’s Relics: Third Fragment and Shard",
+    "floorId": "underfortress",
+    "x": 11,
+    "y": -1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, fallen shaman, crystal shard and key fragment on cloth, eerie blue glow, cinematic, no text"
+  },
+  {
+    "id": "c_lumen_vault_door",
+    "title": "The Lumen Vault Door",
+    "floorId": "underfortress",
+    "x": 12,
+    "y": -1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, massive vault door with crystal keyholes, faint ward glow, cinematic, no text"
+  },
+  {
+    "id": "c_lumen_vault_core",
+    "title": "Lumen Vault: The City’s Sight",
+    "floorId": "underfortress",
+    "x": 13,
+    "y": -1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, glowing crystal vault chamber, crystal ball on pedestal, ward light swirling, cinematic, no text"
+  },
+  {
+    "id": "w_escape_tunnel",
+    "title": "Escape Tunnel: Cold Air, Fast Feet",
+    "floorId": "watchfort",
+    "x": 11,
+    "y": -6,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow escape tunnel, distant torchlight behind, breath fog, cinematic, no text"
+  },
+  {
+    "id": "w_tower_loot",
+    "title": "Signals Broken",
+    "floorId": "watchfort",
+    "x": 12,
+    "y": -6,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, fallen banner captain, codebook in hand, lanterns dimmed, cinematic, no text"
+  },
+  {
+    "id": "w_relay_tower_top",
+    "title": "Relay Tower Top: The Banner Captain",
+    "floorId": "watchfort",
+    "x": 12,
+    "y": -5,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, tower top with signal lanterns, horn, banner captain poised, storm sky, cinematic, no text"
+  },
+  {
+    "id": "w_prison_after",
+    "title": "Pen Aftermath",
+    "floorId": "watchfort",
+    "x": 11,
+    "y": -4,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, fallen troll chain slack, prisoners stepping out, cinematic, no text"
+  },
+  {
+    "id": "w_relay_tower_base",
+    "title": "Relay Tower Base",
+    "floorId": "watchfort",
+    "x": 12,
+    "y": -4,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, stone tower stairwell, horn racks, lantern hooks, ominous climb, cinematic, no text"
+  },
+  {
+    "id": "w_prison_pen",
+    "title": "Prisoners’ Pen: Chain and Breath",
+    "floorId": "watchfort",
+    "x": 11,
+    "y": -3,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, prisoners behind bars, huge chained troll guarding, torch smoke, cinematic, no text"
+  },
+  {
+    "id": "w_courtyard",
+    "title": "Courtyard: Mud and Orders",
+    "floorId": "watchfort",
+    "x": 12,
+    "y": -3,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, muddy courtyard, stacked crates, prisoners' pen visible, relay tower looming, cinematic, no text"
+  },
+  {
+    "id": "w_armory",
+    "title": "Armory: Old City Workmanship",
+    "floorId": "watchfort",
+    "x": 13,
+    "y": -3,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, cramped armory with racks, city-made hinges, hidden hatch outline, cinematic, no text"
+  },
+  {
+    "id": "w_outer_wall_top",
+    "title": "Outer Wall Top",
+    "floorId": "watchfort",
+    "x": 11,
+    "y": -2,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, wallwalk above ditch, wet stone, crude banners, moonlit, cinematic, no text"
+  },
+  {
+    "id": "w_outer_gatehouse",
+    "title": "Gatehouse: Broken Portcullis",
+    "floorId": "watchfort",
+    "x": 12,
+    "y": -2,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, gatehouse interior, broken portcullis, guard benches, torchlight, cinematic, no text"
+  },
+  {
+    "id": "w_gatehouse_contact",
+    "title": "Gatehouse Contact",
+    "floorId": "watchfort",
+    "x": 13,
+    "y": -2,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, two orc sentinels entering gatehouse, lantern glare, cinematic, no text"
+  },
+  {
+    "id": "mf_narrow_pass",
+    "title": "Narrow Pass: Arrows and Wind",
+    "floorId": "mountain",
+    "x": 61,
+    "y": -31,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow cliff pass, goblin archers above, wind whipping cloak, cinematic, no text"
+  },
+  {
+    "id": "mf_pass_skirmish",
+    "title": "Pass Skirmish: Make Them Misstep",
+    "floorId": "mountain",
+    "x": 62,
+    "y": -31,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, cliff skirmish, arrows, slipping stones, cinematic, no text"
+  },
+  {
+    "id": "mf_ridge_overlook",
+    "title": "Ridge Overlook: Fortress in the Cloudline",
+    "floorId": "mountain",
+    "x": 60,
+    "y": -30,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, mountain ridge overlook, fortress silhouette in cloudline, winding pass below, cinematic, no text"
+  },
+  {
+    "id": "mf_goat_path",
+    "title": "Goat Path: Stone Teeth and Thin Air",
+    "floorId": "mountain",
+    "x": 61,
+    "y": -29,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, steep goat path with climbing spikes, fog, distant fortress, cinematic, no text"
+  },
+  {
+    "id": "ul_oracle_chamber",
+    "title": "Oracle Chamber: Chains of Advantage",
+    "floorId": "lair",
+    "x": 85,
+    "y": -52,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, chained oracle fused with crystal, runes glowing, water dripping, solemn mood, cinematic, no text"
+  },
+  {
+    "id": "ul_epilogue_choice",
+    "title": "Aftermath: The War Tilts",
+    "floorId": "lair",
+    "x": 86,
+    "y": -52,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, cavern exit with dawn light, broken chains, map tablet in hand, cinematic, no text"
+  },
+  {
+    "id": "ul_oracle_antechamber",
+    "title": "Oracle Antechamber: The War’s Quiet Room",
+    "floorId": "lair",
+    "x": 83,
+    "y": -51,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, quiet chamber with hanging chains and crystal reflections, eerie calm, cinematic, no text"
+  },
+  {
+    "id": "ul_overseer_chamber",
+    "title": "Overseer Chamber: The Warbrain Keeper",
+    "floorId": "lair",
+    "x": 84,
+    "y": -51,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, boss chamber with war map tablet, overseer with crystal-studded staff, oracle chains in background, cinematic, no text"
+  },
+  {
+    "id": "ul_threshold",
+    "title": "Lair Threshold: Old Air, New Lies",
+    "floorId": "lair",
+    "x": 80,
+    "y": -50,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, ancient threshold with runes, cavern beyond, torchlight, cinematic, no text"
+  },
+  {
+    "id": "ul_guard_gate",
+    "title": "Guard Gate: Chains and Warders",
+    "floorId": "lair",
+    "x": 81,
+    "y": -50,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, lair gate with chains and ward glyphs, cult warders, hulking ogre, cinematic, no text"
+  },
+  {
+    "id": "ul_gate_fight",
+    "title": "Gate Fight: Break the Lock by Force",
+    "floorId": "lair",
+    "x": 82,
+    "y": -50,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, brutal fight at rune gate, chains snapping, ogre swing, cinematic, no text"
+  },
+  {
+    "id": "p_vault_loot",
+    "title": "Banner Taken",
+    "floorId": "camp",
+    "x": 23,
+    "y": -8,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, player lifting heavy black banner, torchlight, shattered rack, cinematic, no text"
+  },
+  {
+    "id": "p_war_standard_vault",
+    "title": "War-Standard Vault: The Banner That Bites",
+    "floorId": "camp",
+    "x": 23,
+    "y": -7,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, buried vault chamber, black banner on rack, guardian in shadow, cinematic, no text"
+  },
+  {
+    "id": "se_ram_shed",
+    "title": "Ram Shed: The Metal Head",
+    "floorId": "camp",
+    "x": 29,
+    "y": -7,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, shed with massive ram head, chains, tools, wet metal shine, cinematic, no text"
+  },
+  {
+    "id": "se_foreman_platform",
+    "title": "Foreman’s Platform: The Key and the Chain",
+    "floorId": "camp",
+    "x": 30,
+    "y": -7,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, raised platform with foreman barking orders, key ring at belt, lanterns, cinematic, no text"
+  },
+  {
+    "id": "se_cage_row",
+    "title": "Cage Row: The Enemy’s Labor",
+    "floorId": "camp",
+    "x": 31,
+    "y": -7,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, prisoner cages in rain, guards nearby, desperate faces, cinematic, no text"
+  },
+  {
+    "id": "se_pitch_pits",
+    "title": "Pitch Pits: Black Boil",
+    "floorId": "camp",
+    "x": 32,
+    "y": -7,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, bubbling pitch cauldrons, torchmen, smoke, chains, cinematic, no text"
+  },
+  {
+    "id": "se_pitch_fight",
+    "title": "Pitch Pit Clash",
+    "floorId": "camp",
+    "x": 33,
+    "y": -7,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, fight near bubbling pitch, torch flare, smoke, cinematic, no text"
+  },
+  {
+    "id": "p_command_tunnels",
+    "title": "Command Tunnels: Chalk and Breath",
+    "floorId": "camp",
+    "x": 23,
+    "y": -6,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow tunnels under camp, dripping earth, lanterns, chalk marks, cinematic, no text"
+  },
+  {
+    "id": "se_engine_yard",
+    "title": "Engine Yard: Patrols and Pulleys",
+    "floorId": "camp",
+    "x": 31,
+    "y": -6,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, enemy engine yard with siege tower wheel frames, pulleys, guards, cinematic, no text"
+  },
+  {
+    "id": "se_choice_targets",
+    "title": "Choice: What You Break First",
+    "floorId": "camp",
+    "x": 32,
+    "y": -6,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, close view of three targets: wheel hub, ram chain, pitch cauldron, cinematic, no text"
+  },
+  {
+    "id": "se_wheelhouse",
+    "title": "Wheelhouse: The Hub That Holds",
+    "floorId": "camp",
+    "x": 33,
+    "y": -6,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, wooden wheelhouse interior, massive wheel hub, grease, lantern, cinematic, no text"
+  },
+  {
+    "id": "p_picket_line",
+    "title": "Picket Line: Whispering Arrows",
+    "floorId": "camp",
+    "x": 21,
+    "y": -5,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, goblin pickets with bows near stake fence, campfire glow, cinematic, no text"
+  },
+  {
+    "id": "p_picket_fight",
+    "title": "Picket Clash",
+    "floorId": "camp",
+    "x": 22,
+    "y": -5,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, arrows in fog, close melee at stake fence, cinematic, no text"
+  },
+  {
+    "id": "p_trench_entry",
+    "title": "Command Trench Entry",
+    "floorId": "camp",
+    "x": 23,
+    "y": -5,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, trench line with crude boards, lanterns, muffled voices, cinematic, no text"
+  },
+  {
+    "id": "p_command_tent",
+    "title": "Command Tent: Maps on Bloodwood",
+    "floorId": "camp",
+    "x": 24,
+    "y": -5,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, command tent interior, maps, wax seals, helmets, torch smoke, cinematic, no text"
+  },
+  {
+    "id": "p_tent_contact",
+    "title": "Tent Contact",
+    "floorId": "camp",
+    "x": 25,
+    "y": -5,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, orc drillmaster entering tent, goblin behind, torch flare, cinematic, no text"
+  },
+  {
+    "id": "wf_hidden_door",
+    "title": "Hidden Door: Stone That Pretends",
+    "floorId": "cave",
+    "x": 74,
+    "y": -42,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, hidden stone door with faint seams, crystal shard glow, cinematic, no text"
+  },
+  {
+    "id": "wf_echo_chamber",
+    "title": "Echo Chamber: The Cave Hears You",
+    "floorId": "cave",
+    "x": 72,
+    "y": -41,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, cavern echo chamber with wet stone and ripples, lantern reflections, bats swirling, cinematic, no text"
+  },
+  {
+    "id": "wf_guardian_turn",
+    "title": "Guardian Turn: Bats, Slime, or Listener",
+    "floorId": "cave",
+    "x": 73,
+    "y": -41,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, tunnel fork with shadowy movement, slime sheen and bat silhouettes, cinematic, no text"
+  },
+  {
+    "id": "wf_outer_falls",
+    "title": "The Outer Falls: Water in a Throat of Stone",
+    "floorId": "cave",
+    "x": 70,
+    "y": -40,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, hidden waterfall inside mountain cistern, spray and lantern light, narrow ledge behind falls, cinematic, no text"
+  },
+  {
+    "id": "wf_ledge_entry",
+    "title": "Behind the Falls: Slippery Truth",
+    "floorId": "cave",
+    "x": 71,
+    "y": -40,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow ledge behind waterfall, hands gripping stone, spray, cinematic, no text"
+  },
+  {
+    "id": "fwh_warlord_chamber",
+    "title": "Warlord Chamber: The Final Duel",
+    "floorId": "final_fortress",
+    "x": 104,
+    "y": -72,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, warlord on dais, broken banners, firelight, trophy weapons, cinematic, no text"
+  },
+  {
+    "id": "fwh_aftermath",
+    "title": "Aftermath: The Helm in Your Hands",
+    "floorId": "final_fortress",
+    "x": 105,
+    "y": -72,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, hero holding warlord helm trophy, dawn light through cracked stone, cinematic, no text"
+  },
+  {
+    "id": "fwh_inner_ramp",
+    "title": "Inner Ramp: Shoot and Retreat",
+    "floorId": "final_fortress",
+    "x": 102,
+    "y": -71,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, steep inner ramp, enemy closing, archer vantage points, cinematic, no text"
+  },
+  {
+    "id": "fwh_ritual_gate",
+    "title": "Ritual Gate: The Fortress-Heart Beats",
+    "floorId": "final_fortress",
+    "x": 103,
+    "y": -71,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, ritual gate with runes, chanting echoes, red glow, cinematic, no text"
+  },
+  {
+    "id": "fwh_outer_chokepoint",
+    "title": "Outer Chokepoint: The Last Skirmish",
+    "floorId": "final_fortress",
+    "x": 101,
+    "y": -70,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow gate chokepoint, shields, firebrands with pitch, cinematic, no text"
+  },
+  {
+    "id": "mf_fortress_outworks",
+    "title": "Fortress Outworks: Smoke Vents and Barrels",
+    "floorId": "fortress",
+    "x": 63,
+    "y": -30,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, fortress outer works, smoke vents, barrels, guard lanterns, cinematic, no text"
+  },
+  {
+    "id": "mf_patrol_fight",
+    "title": "Patrol Clash: Take Their Access",
+    "floorId": "fortress",
+    "x": 64,
+    "y": -30,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, fortress patrol fight under lanterns, snow flurries, cinematic, no text"
+  },
+  {
+    "id": "mf_service_corridor",
+    "title": "Service Corridor: The Fortress’s Veins",
+    "floorId": "fortress",
+    "x": 66,
+    "y": -30,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow corridor with pipes and doors, damp stone, cinematic, no text"
+  },
+  {
+    "id": "mf_kitchens",
+    "title": "Kitchens: Stew and Secrets",
+    "floorId": "fortress",
+    "x": 65,
+    "y": -29,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, fortress kitchens with cauldrons and hooks, porter in shadows, cinematic, no text"
+  },
+  {
+    "id": "ending_resolve",
+    "title": "Ending Resolve: What the City Remembers",
+    "floorId": "meta",
+    "x": 0,
+    "y": 0,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, city skyline at sunrise, banners repaired, smoke fading, cinematic, no text"
+  },
+  {
+    "id": "b_probe_contact",
+    "title": "Field Line: Goblin Probe",
+    "floorId": "outside",
+    "x": 0,
+    "y": -5,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, field line with goblin silhouettes and bows, tension, rain, cinematic, no text"
+  },
+  {
+    "id": "b_gate_approach",
+    "title": "Gate Approach Road",
+    "floorId": "outside",
+    "x": 0,
+    "y": -4,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, road facing the city gate from outside, muddy ruts, distant barricades, storm clouds, cinematic, no text"
+  },
+  {
+    "id": "smf_choice",
+    "title": "End It: Collapse or Sanctify",
+    "floorId": "sewer",
+    "x": 0,
+    "y": -6,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, cracked stone throat with ward lines glowing, player holding chalk and tools, cinematic, no text"
+  },
+  {
+    "id": "smf_mouth_chamber",
+    "title": "The Second Mouth: Chamber of Breathing Stone",
+    "floorId": "sewer",
+    "x": 0,
+    "y": -5,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, grotesque sewer chamber like a carved throat, water swirling, cult candles, cinematic, no text"
+  },
+  {
+    "id": "smf_tunnel_clash",
+    "title": "Tunnel Clash: Teeth in the Drip",
+    "floorId": "sewer",
+    "x": 0,
+    "y": -4,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, tight sewer fight, clawed creature on wall, lantern glare, cinematic, no text"
+  },
+  {
+    "id": "h_brick_patrol",
+    "title": "Brick Route: Patrol Shadows",
+    "floorId": "sewer",
+    "x": 4,
+    "y": -4,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, brick sewer with lantern light ahead, shadowy figures, tense stealth, cinematic, no text"
+  },
+  {
+    "id": "h_sewer_split",
+    "title": "Split: Brickwork and Stone",
+    "floorId": "sewer",
+    "x": 5,
+    "y": -4,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, sewer split with one brick tunnel and one rough stone tunnel, cinematic, no text"
+  },
+  {
+    "id": "h_stone_drop",
+    "title": "Stone Drop",
+    "floorId": "sewer",
+    "x": 6,
+    "y": -4,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, rough stone tunnel descending, water dripping, claw marks, cinematic, no text"
+  },
+  {
+    "id": "smf_descent",
+    "title": "Descent: Wet Steps, Old Hate",
+    "floorId": "sewer",
+    "x": 0,
+    "y": -3,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, descending sewer stairs, black water below, rune marks, cinematic, no text"
+  },
+  {
+    "id": "h_sewer_run_1",
+    "title": "Sewer Run: Whispering Water",
+    "floorId": "sewer",
+    "x": 5,
+    "y": -3,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, sewer tunnel with fast shallow water, echoes, lantern glow, cinematic, no text"
+  },
+  {
+    "id": "smf_return",
+    "title": "Return: The City’s Veins Quiet",
+    "floorId": "sewer",
+    "x": 0,
+    "y": -2,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, ascending sewer steps toward lantern light, water calmer, cinematic, no text"
+  },
+  {
+    "id": "c_sewer_swarm_run",
+    "title": "Sewer Run: Teeth in the Dark",
+    "floorId": "sewer",
+    "x": 2,
+    "y": -2,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, rats swarming across wet stones, lantern light, boots splashing, cinematic, no text"
+  },
+  {
+    "id": "h_sewer_descent_entry",
+    "title": "Old Sewer Access",
+    "floorId": "sewer",
+    "x": 5,
+    "y": -2,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, hidden sewer hatch with lantern, rainwater running into darkness, cinematic, no text"
+  },
+  {
+    "id": "k_city_drain_return",
+    "title": "City Drain Return",
+    "floorId": "sewer",
+    "x": 5,
+    "y": -2,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, sewer arch leading to hidden city hatch, lantern glow, rain sounds above, cinematic, no text"
+  },
+  {
+    "id": "c_sewer_gate_descent",
+    "title": "Sewer Gate: Below the City’s Breath",
+    "floorId": "sewer",
+    "x": 1,
+    "y": -1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, iron sewer gate opened into darkness, lantern glow, damp stone, cinematic, no text"
+  },
+  {
+    "id": "c_sewer_junction",
+    "title": "Sewer Junction: Three Flows",
+    "floorId": "sewer",
+    "x": 2,
+    "y": -1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, sewer junction with three channels, drifting debris, lantern reflections, cinematic, no text"
+  },
+  {
+    "id": "c_pella_nook",
+    "title": "Ratcatcher Nook",
+    "floorId": "sewer",
+    "x": 3,
+    "y": -1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, small sewer nook with dry platform, rat traps, lantern, a figure waiting, cinematic, no text"
+  },
+  {
+    "id": "f_drains_knifers",
+    "title": "Drains Knifers: Inside the Walls",
+    "floorId": "sewer",
+    "x": 1,
+    "y": 0,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow sewer tunnel, lantern reflections, knife glint in darkness, cinematic, no text"
+  },
+  {
+    "id": "g_drains_junction",
+    "title": "Drains Junction: Wet Stone and Whispering",
+    "floorId": "sewer",
+    "x": 1,
+    "y": 0,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, sewer junction with rushing water, lantern reflections, shadowy figures, cinematic, no text"
+  },
+  {
+    "id": "ga_drains_entry",
+    "title": "Drains Entry: The Inner Surge",
+    "floorId": "sewer",
+    "x": 3,
+    "y": 1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, sewer entry with churning water and shadows, lantern reflection, cinematic, no text"
+  },
+  {
+    "id": "uf_prison_vault_entry",
+    "title": "Prisoner Vault: The Caged Promise",
+    "floorId": "under",
+    "x": 43,
+    "y": -22,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, underground prison corridor, iron doors, muffled cries, lantern reflection, cinematic, no text"
+  },
+  {
+    "id": "uf_prison_choice",
+    "title": "Prison Choice: Save Many or Save One",
+    "floorId": "under",
+    "x": 44,
+    "y": -22,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, prison junction with two doors, one ornate, one crowded with hands through bars, cinematic, no text"
+  },
+  {
+    "id": "uf_guardpost",
+    "title": "Guardpost: Iron and Habit",
+    "floorId": "under",
+    "x": 40,
+    "y": -21,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, underground guardpost with iron bars and torchlight, disciplined captain silhouette, cinematic, no text"
+  },
+  {
+    "id": "uf_choice_objectives",
+    "title": "Choice: What Ends the War Faster",
+    "floorId": "under",
+    "x": 42,
+    "y": -21,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, underground crossroads with two carved doorways, rune-lit paths, cinematic, no text"
+  },
+  {
+    "id": "uf_nexus_entry",
+    "title": "Crystal Nexus: The Enemy’s Sight",
+    "floorId": "under",
+    "x": 43,
+    "y": -21,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, crystal-lined tunnel, pale glow, runes, cold mist, cinematic, no text"
+  },
+  {
+    "id": "uf_nexus_chamber",
+    "title": "Nexus Chamber: Turn the Tide",
+    "floorId": "under",
+    "x": 44,
+    "y": -21,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, large crystal chamber with sealed dais, keyhole glowing, reflections like stars, cinematic, no text"
+  },
+  {
+    "id": "uf_approach_entry",
+    "title": "Under-Fortress Entry: The Throat of Stone",
+    "floorId": "under",
+    "x": 40,
+    "y": -20,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, descending stone throat tunnel, wet walls, lantern in darkness, cinematic, no text"
+  },
+  {
+    "id": "uf_goblin_market",
+    "title": "Goblin Market: Quiet Violence",
+    "floorId": "under",
+    "x": 41,
+    "y": -20,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, underground market with goblins trading, hanging lanterns, strange coins, guarded stalls, cinematic, no text"
+  },
+  {
+    "id": "uf_return_to_surface",
+    "title": "Return Route: Veteran Steps",
+    "floorId": "under",
+    "x": 42,
+    "y": -19,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, climbing back through tunnels toward faint daylight, lantern low, cinematic, no text"
+  },
+  {
+    "id": "c_underway_threshold",
+    "title": "Underway Threshold: Old Stone, Older Wards",
+    "floorId": "underways",
+    "x": 4,
+    "y": -1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, ancient stone archway under city, faint glowing ward lines, cinematic, no text"
+  },
+  {
+    "id": "c_fragment_shrine",
+    "title": "Ward Shrine: Lumen Fragment",
+    "floorId": "underways",
+    "x": 7,
+    "y": -1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, small shrine with glowing crystal fragment embedded, old ward carvings, cinematic, no text"
+  },
+  {
+    "id": "c_escape_run",
+    "title": "Escape Run: Upward to War",
+    "floorId": "underways",
+    "x": 14,
+    "y": -1,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, running through underways with crystal glow in pack, shadows chasing, cinematic, no text"
+  }
+]

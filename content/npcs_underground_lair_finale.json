@@ -1,0 +1,39 @@
+[
+  {
+    "id": "npc_bound_oracle",
+    "name": "The Bound Oracle",
+    "role": "War-Sight Engine (Not Quite a Person)",
+    "portraitPrompt": "fantasy character portrait, chained oracle figure fused with crystal and stone, pale glow, sorrowful eyes, runes on chains, painterly, no text",
+    "dialogue": {
+      "greeting": "I am the map they bleed through.",
+      "nodes": [
+        {
+          "id": "truth",
+          "text": "They chained me to predict.\n\nTo choose.\n\nTo win.\n\nIf you free me, I may flee… or I may repay.\n\nIf you bind me for the city, you make the city dangerous.\n\nIf you destroy me, you end the advantage—forever.\n\nChoose with clean hands, if you can.",
+          "choices": [
+            {
+              "label": "Ask how to break the Heartspike safely.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "oracle_heartspike_hint",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Ask how to rebind it for the city without cruelty.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "oracle_rebind_hint",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,29 @@
+[
+  {
+    "id": "npc_ratcatcher_pella",
+    "name": "Pella",
+    "role": "Ratcatcher Guide (Knows the Underways)",
+    "portraitPrompt": "fantasy character portrait, streetwise ratcatcher with lantern and hooked pole, sewer backdrop, sharp grin, painterly, no text",
+    "dialogue": {
+      "greeting": "Down there? It’s not ‘dark’. It’s hungry.",
+      "nodes": [
+        {
+          "id": "deal",
+          "text": "I’ll guide you to the old underways.\n\nBut you pay in safety: don’t kick doors, don’t shout names, and if you smell mushrooms—hold your breath.",
+          "choices": [
+            {
+              "label": "Accept Pella’s guidance.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "pella_guiding",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

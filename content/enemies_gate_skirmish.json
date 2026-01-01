@@ -1,0 +1,77 @@
+[
+  {
+    "id": "goblin_sapper",
+    "name": "Goblin Sapper",
+    "kind": "humanoid",
+    "skill": 7,
+    "stamina": 8,
+    "meta": {
+      "special": "bomb"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 6
+      }
+    ],
+    "tags": [
+      "goblin",
+      "sapper"
+    ]
+  },
+  {
+    "id": "goblin_probe_group",
+    "name": "Goblin Probe",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "goblin_raider",
+        "count": 2
+      },
+      {
+        "enemyId": "goblin_bowman",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 7
+      }
+    },
+    "tags": [
+      "goblin",
+      "group",
+      "pursuit"
+    ]
+  },
+  {
+    "id": "goblin_sapper_team",
+    "name": "Sapper Team",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "goblin_sapper",
+        "count": 1
+      },
+      {
+        "enemyId": "goblin_scout",
+        "count": 2
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 8
+      }
+    },
+    "tags": [
+      "goblin",
+      "group",
+      "pursuit"
+    ]
+  }
+]

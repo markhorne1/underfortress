@@ -1,0 +1,20 @@
+[
+  {
+    "id": "q_great_assault",
+    "name": "The Great Assault: Hold the City",
+    "giverNpcId": "npc_guard_serjeant_mara",
+    "startAreaId": "ga_battlements_start",
+    "objective": {
+      "type": "setFlag",
+      "key": "great_assault_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 20,
+      "xp": 90,
+      "items": []
+    },
+    "cooldownMinutes": 99999
+  }
+]

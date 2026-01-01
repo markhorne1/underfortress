@@ -1,0 +1,152 @@
+[
+  {
+    "id": "goblin_signalman",
+    "name": "Goblin Signalman",
+    "kind": "humanoid",
+    "skill": 8,
+    "stamina": 8,
+    "meta": {
+      "ranged": false,
+      "special": "signal_horn"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 6
+      }
+    ],
+    "tags": [
+      "goblin",
+      "siege",
+      "signal"
+    ]
+  },
+  {
+    "id": "orc_sapper",
+    "name": "Orc Sapper",
+    "kind": "humanoid",
+    "skill": 10,
+    "stamina": 14,
+    "meta": {
+      "ranged": false,
+      "special": "plant_charge"
+    },
+    "loot": [
+      {
+        "itemId": "sapper_fuse_bundle",
+        "min": 1,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 2,
+        "max": 12
+      }
+    ],
+    "tags": [
+      "orc",
+      "siege",
+      "sapper"
+    ]
+  },
+  {
+    "id": "warg_rider",
+    "name": "Warg Rider",
+    "kind": "humanoid",
+    "skill": 11,
+    "stamina": 13,
+    "meta": {
+      "ranged": false,
+      "special": "charge"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 2,
+        "max": 14
+      }
+    ],
+    "tags": [
+      "goblin",
+      "cavalry",
+      "siege"
+    ]
+  },
+  {
+    "id": "drain_knifer",
+    "name": "Drain Knifer",
+    "kind": "humanoid",
+    "skill": 9,
+    "stamina": 9,
+    "meta": {
+      "ranged": false,
+      "special": "backstab"
+    },
+    "loot": [
+      {
+        "itemId": "infiltrator_token_black",
+        "min": 1,
+        "max": 1
+      }
+    ],
+    "tags": [
+      "infiltrator",
+      "drains"
+    ]
+  },
+  {
+    "id": "false_dawn_wave",
+    "name": "False Dawn Push (Signals & Sappers)",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "goblin_signalman",
+        "count": 2
+      },
+      {
+        "enemyId": "orc_sapper",
+        "count": 1
+      },
+      {
+        "enemyId": "warg_rider",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 10
+      }
+    },
+    "tags": [
+      "wave",
+      "siege",
+      "group"
+    ]
+  },
+  {
+    "id": "drains_breach_pack",
+    "name": "Drains Breach Pack",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "drain_knifer",
+        "count": 2
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 8
+      }
+    },
+    "tags": [
+      "group",
+      "drains",
+      "pursuit"
+    ]
+  }
+]

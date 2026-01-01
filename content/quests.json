@@ -1,0 +1,1194 @@
+[
+  {
+    "id": "q_banner_return",
+    "name": "Return with the War Standard",
+    "giverNpcId": "npc_captain_harl",
+    "startAreaId": "br_postern_arrival",
+    "objective": {
+      "type": "setFlag",
+      "key": "banner_return_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 8,
+      "xp": 24,
+      "items": [
+        {
+          "itemId": "banner_cloth_strip",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_banner_choice",
+    "name": "Banner Policy: Hope or Knife",
+    "giverNpcId": "npc_councilor_vayne",
+    "startAreaId": "br_council_banner",
+    "objective": {
+      "type": "setFlag",
+      "key": "banner_policy_set",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 18,
+      "items": [
+        {
+          "itemId": "civic_medal_ironleaf",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_city_epilogue",
+    "name": "City Epilogue: Titles, Ash, and Decisions",
+    "giverNpcId": "npc_councilor_vayne_epilogue",
+    "startAreaId": "ce_dawn_square",
+    "objective": {
+      "type": "setFlag",
+      "key": "city_epilogue_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 12,
+      "xp": 45,
+      "items": [
+        {
+          "itemId": "title_ironleaf_warden",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_pursuit_orders",
+    "name": "Pursuit Orders: Beyond the Walls",
+    "giverNpcId": "npc_councilor_vayne_epilogue",
+    "startAreaId": "ce_council_afterbattle",
+    "objective": {
+      "type": "setFlag",
+      "key": "pursuit_arc_started",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 25,
+      "items": [
+        {
+          "itemId": "order_to_pursue",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_city_victory_report",
+    "name": "Report to the War Council",
+    "giverNpcId": "npc_councilor_vayne",
+    "startAreaId": "k_city_drain_return",
+    "objective": {
+      "type": "setFlag",
+      "key": "victory_window_open",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 5,
+      "xp": 18,
+      "items": [
+        {
+          "itemId": "field_ration_pack",
+          "qty": 2
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_city_battlement_runs",
+    "name": "Battlement Runs: Bolts and Bandages",
+    "giverNpcId": "npc_quartermaster_brevin",
+    "startAreaId": "c_quartermaster_depot",
+    "objective": {
+      "type": "setFlag",
+      "key": "battlement_runs_completed",
+      "value": true
+    },
+    "grantsOnStart": [
+      {
+        "itemId": "field_ration_pack",
+        "qty": 1
+      }
+    ],
+    "rewards": {
+      "gold": 8,
+      "xp": 22,
+      "items": [
+        {
+          "itemId": "work_contract_token",
+          "qty": 1
+        },
+        {
+          "itemId": "arrow_bundle",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_city_scroll_delivery",
+    "name": "Mage Tower: Blank Scroll Delivery",
+    "giverNpcId": "npc_mage_tower_scribe_orrin",
+    "startAreaId": "c_mage_tower_scribes",
+    "objective": {
+      "type": "deliverItems",
+      "items": [
+        {
+          "itemId": "blank_scroll_bundle",
+          "qty": 1
+        }
+      ],
+      "toAreaId": "c_mage_tower_scribes"
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 6,
+      "xp": 20,
+      "items": [
+        {
+          "itemId": "work_contract_token",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_city_armoury_sewing",
+    "name": "Armoury: Sew Leather Panels",
+    "giverNpcId": "npc_quartermaster_brevin",
+    "startAreaId": "c_armoury_workroom",
+    "objective": {
+      "type": "setFlag",
+      "key": "armoury_sewing_done",
+      "value": true
+    },
+    "grantsOnStart": [
+      {
+        "itemId": "leather_panels",
+        "qty": 1
+      }
+    ],
+    "rewards": {
+      "gold": 4,
+      "xp": 18,
+      "items": [
+        {
+          "itemId": "work_contract_token",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_city_work_for_gear_trade",
+    "name": "Work-for-Gear: Trade Contract Tokens",
+    "giverNpcId": "npc_quartermaster_brevin",
+    "startAreaId": "c_quartermaster_depot",
+    "objective": {
+      "type": "setFlag",
+      "key": "work_for_gear_trade_open",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 8,
+      "items": []
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_overland_orders",
+    "name": "Outside the Walls: Food and Timber",
+    "giverNpcId": "npc_councilor_vayne",
+    "startAreaId": "c_council_hall",
+    "objective": {
+      "type": "setFlag",
+      "key": "overland_orders_active",
+      "value": true
+    },
+    "grantsOnStart": [
+      {
+        "itemId": "field_ration_pack",
+        "qty": 2
+      }
+    ],
+    "rewards": {
+      "gold": 0,
+      "xp": 25,
+      "items": [
+        {
+          "itemId": "work_contract_token",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_crystal_descent",
+    "name": "Descent: Into the Underways",
+    "giverNpcId": "npc_mage_archivist_salenne",
+    "startAreaId": "c_sewer_gate_descent",
+    "objective": {
+      "type": "setFlag",
+      "key": "underways_reached",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 22,
+      "items": [
+        {
+          "itemId": "ward_salt_pouch",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_lumen_key",
+    "name": "Gather the Lumen Key (3 Fragments)",
+    "giverNpcId": "npc_ratcatcher_pella",
+    "startAreaId": "c_underway_threshold",
+    "objective": {
+      "type": "counterAtLeast",
+      "key": "lumen_key_fragments",
+      "value": 3
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 40,
+      "items": []
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_lumen_vault",
+    "name": "The Lumen Vault: Retrieve the Crystal Ball",
+    "giverNpcId": "npc_mage_archivist_salenne",
+    "startAreaId": "c_lumen_vault_door",
+    "objective": {
+      "type": "setFlag",
+      "key": "crystal_ball_recovered",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 20,
+      "xp": 70,
+      "items": [
+        {
+          "itemId": "lumen_vault_crystal_ball",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_watchfort_return_debrief",
+    "name": "Return Debrief: Codebook and Prisoners",
+    "giverNpcId": "npc_councilor_vayne",
+    "startAreaId": "f_postern_return",
+    "objective": {
+      "type": "setFlag",
+      "key": "watchfort_debrief_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 10,
+      "xp": 26,
+      "items": [
+        {
+          "itemId": "counter_signal_slip",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_false_dawn",
+    "name": "False Dawn: Break the Coordinated Push",
+    "giverNpcId": "npc_captain_harl",
+    "startAreaId": "f_signal_tower",
+    "objective": {
+      "type": "setFlag",
+      "key": "false_dawn_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 12,
+      "xp": 55,
+      "items": [
+        {
+          "itemId": "barricade_spike_crate",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_false_dawn_drains",
+    "name": "False Dawn Complication: Drains Knifers",
+    "giverNpcId": "npc_guard_serjeant_mara",
+    "startAreaId": "f_inner_yard_dawn",
+    "objective": {
+      "type": "setFlag",
+      "key": "false_dawn_drains_resolved",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 6,
+      "xp": 24,
+      "items": [
+        {
+          "itemId": "triage_bandage_roll",
+          "qty": 2
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_crystal_arc_start",
+    "name": "The Crystal Ball: A War-Turning Sight",
+    "giverNpcId": "npc_mage_archivist_salenne",
+    "startAreaId": "f_mage_tower_brief",
+    "objective": {
+      "type": "setFlag",
+      "key": "crystal_arc_started",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 18,
+      "items": []
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_final_battle",
+    "name": "Battle at the Gates: The Last Push",
+    "giverNpcId": "npc_warcouncil_vayne_final",
+    "startAreaId": "fb_prebattle_council",
+    "objective": {
+      "type": "setFlag",
+      "key": "final_battle_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 40,
+      "xp": 140,
+      "items": []
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_final_warlord_hunt",
+    "name": "Final Warlord Hunt: Fortress-Heart",
+    "giverNpcId": "npc_kess_final",
+    "startAreaId": "fwh_departure",
+    "objective": {
+      "type": "setFlag",
+      "key": "final_warlord_hunt_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 120,
+      "xp": 220,
+      "items": [
+        {
+          "itemId": "signal_flare_scroll",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_gate_battle_main",
+    "name": "The Gate Battle: Hold the Battlements",
+    "giverNpcId": "npc_captain_harl",
+    "startAreaId": "g_battlements_wallwalk",
+    "objective": {
+      "type": "setFlag",
+      "key": "gate_battle_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 15,
+      "xp": 65,
+      "items": [
+        {
+          "itemId": "work_contract_token",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_chase_arsonists",
+    "name": "Chase-Down I: Arson in the Streets",
+    "giverNpcId": "npc_guard_serjeant_mara",
+    "startAreaId": "g_inner_gate_yard",
+    "objective": {
+      "type": "setFlag",
+      "key": "arsonists_stopped",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 6,
+      "xp": 28,
+      "items": [
+        {
+          "itemId": "bucket_sand",
+          "qty": 2
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_chase_casualties",
+    "name": "Chase-Down II: Civilian Casualties Reported",
+    "giverNpcId": "npc_guard_serjeant_mara",
+    "startAreaId": "g_market_square_panic",
+    "objective": {
+      "type": "setFlag",
+      "key": "infiltrators_eliminated",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 8,
+      "xp": 36,
+      "items": [
+        {
+          "itemId": "field_ration_pack",
+          "qty": 2
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_drains_breach",
+    "name": "Drains Breach: Seal the Second Mouth",
+    "giverNpcId": "npc_councilor_vayne",
+    "startAreaId": "g_drains_junction",
+    "objective": {
+      "type": "setFlag",
+      "key": "drains_breach_resolved",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 10,
+      "xp": 45,
+      "items": [
+        {
+          "itemId": "ward_damper",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_great_assault",
+    "name": "The Great Assault: Hold the City",
+    "giverNpcId": "npc_guard_serjeant_mara",
+    "startAreaId": "ga_battlements_start",
+    "objective": {
+      "type": "setFlag",
+      "key": "great_assault_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 20,
+      "xp": 90,
+      "items": []
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_mountain_fortress_arc",
+    "name": "Mountain Fortress: Cut Off the Retreat",
+    "giverNpcId": "npc_kess_mountain",
+    "startAreaId": "mf_ridge_overlook",
+    "objective": {
+      "type": "setFlag",
+      "key": "mountain_fortress_arc_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 26,
+      "xp": 110,
+      "items": [
+        {
+          "itemId": "climbing_spikes_set",
+          "qty": 1
+        },
+        {
+          "itemId": "ward_nails_bundle",
+          "qty": 2
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_overland_act2_field_camp",
+    "name": "Overland II: Break the Raiders’ Field Camp",
+    "giverNpcId": "npc_councilor_vayne",
+    "startAreaId": "o_forest_track",
+    "objective": {
+      "type": "setFlag",
+      "key": "overland_act2_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 10,
+      "xp": 40,
+      "items": [
+        {
+          "itemId": "field_ration_pack",
+          "qty": 2
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_free_farmers",
+    "name": "Free the Captive Farmers",
+    "giverNpcId": "npc_captive_farmer_rill",
+    "startAreaId": "o_cage_pens",
+    "objective": {
+      "type": "setFlag",
+      "key": "farmers_freed",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 26,
+      "items": [
+        {
+          "itemId": "work_contract_token",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_siege_lines_recon",
+    "name": "Recon the Siege Lines",
+    "giverNpcId": "npc_councilor_vayne",
+    "startAreaId": "o_siege_overlook",
+    "objective": {
+      "type": "setFlag",
+      "key": "siege_lines_reconned",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 22,
+      "items": [
+        {
+          "itemId": "work_contract_token",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_pursuit_arc",
+    "name": "Pursuit: Do Not Let Them Regroup",
+    "giverNpcId": "npc_scout_kess_pursuit",
+    "startAreaId": "pa_outside_gate",
+    "objective": {
+      "type": "setFlag",
+      "key": "pursuit_arc_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 22,
+      "xp": 95,
+      "items": [
+        {
+          "itemId": "boots_quietstep",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_redknife_hold_main",
+    "name": "Red Knife Hold: Break the Transfer",
+    "giverNpcId": "npc_councilor_vayne",
+    "startAreaId": "o_forest_track",
+    "objective": {
+      "type": "setFlag",
+      "key": "redknife_hold_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 12,
+      "xp": 55,
+      "items": [
+        {
+          "itemId": "work_contract_token",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_rescue_princess",
+    "name": "Rescue Lady Seren",
+    "giverNpcId": "npc_princess_seren",
+    "startAreaId": "r_hostage_vault",
+    "objective": {
+      "type": "setFlag",
+      "key": "princess_rescued",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 40,
+      "items": [
+        {
+          "itemId": "princess_locket",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_collapse_second_mouth",
+    "name": "Collapse the Second Mouth",
+    "giverNpcId": "npc_councilor_vayne",
+    "startAreaId": "r_second_mouth_choke",
+    "objective": {
+      "type": "setFlag",
+      "key": "second_mouth_collapsed",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 38,
+      "items": [
+        {
+          "itemId": "ward_sigiled_chain",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_crystal_delivery_scry",
+    "name": "Crystal Ball Delivered: The Scrying",
+    "giverNpcId": "npc_mage_archivist_salenne",
+    "startAreaId": "s_mage_scrying_chamber",
+    "objective": {
+      "type": "setFlag",
+      "key": "scrying_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 24,
+      "items": [
+        {
+          "itemId": "scrying_transcript",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_night_assault",
+    "name": "Night Assault: Choose What to Save",
+    "giverNpcId": "npc_councilor_vayne",
+    "startAreaId": "s_council_emergency",
+    "objective": {
+      "type": "setFlag",
+      "key": "night_assault_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 14,
+      "xp": 60,
+      "items": []
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_traitor_hunt",
+    "name": "The Traitor: Blackwax Seal",
+    "giverNpcId": "npc_councilor_vayne",
+    "startAreaId": "s_council_emergency",
+    "objective": {
+      "type": "setFlag",
+      "key": "traitor_resolved",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 10,
+      "xp": 40,
+      "items": [
+        {
+          "itemId": "traitor_ring_blackwax",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_siege_camp_raid",
+    "name": "Counterstrike: Steal the War Standard",
+    "giverNpcId": "npc_lieut_kess",
+    "startAreaId": "p_siege_camp_approach",
+    "objective": {
+      "type": "setFlag",
+      "key": "war_standard_taken",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 18,
+      "xp": 75,
+      "items": [
+        {
+          "itemId": "war_standard_black",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_siege_engines_arc",
+    "name": "Siege Engines: Break Their Machines",
+    "giverNpcId": "npc_scout_kess",
+    "startAreaId": "se_approach",
+    "objective": {
+      "type": "setFlag",
+      "key": "siege_engines_arc_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 16,
+      "xp": 85,
+      "items": [
+        {
+          "itemId": "axle_spike_wedge",
+          "qty": 1
+        },
+        {
+          "itemId": "pitch_sand_sack",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_underfortress_ch1_main",
+    "name": "Under-Fortress: Cut the Supply Vein",
+    "giverNpcId": "npc_councilor_vayne",
+    "startAreaId": "i_underfortress_entry",
+    "objective": {
+      "type": "setFlag",
+      "key": "underfortress_ch1_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 40,
+      "items": [
+        {
+          "itemId": "council_sigil_silver",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_rescue_vip",
+    "name": "Rescue the VIP Captive",
+    "giverNpcId": "npc_vip_prisoner_liora",
+    "startAreaId": "u_prison_cells",
+    "objective": {
+      "type": "setFlag",
+      "key": "vip_rescued",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 35,
+      "items": [
+        {
+          "itemId": "vip_signet_half",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_crystal_ball_rumor",
+    "name": "Trace the ‘Sight Orb’ Orders",
+    "giverNpcId": "npc_vip_prisoner_liora",
+    "startAreaId": "u_prison_cells",
+    "objective": {
+      "type": "deliverItems",
+      "items": [
+        {
+          "itemId": "crystal_ball_clue_page",
+          "qty": 1
+        }
+      ],
+      "toAreaId": "i_underfortress_entry"
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 22,
+      "items": [
+        {
+          "itemId": "ward_core_splinter",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_underfortress_ch2_orb",
+    "name": "Under-Fortress II: Seize or Sabotage the Sight Orb",
+    "giverNpcId": "npc_councilor_vayne",
+    "startAreaId": "u_reliquary_antechamber",
+    "objective": {
+      "type": "setFlag",
+      "key": "underfortress_ch2_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 55,
+      "items": [
+        {
+          "itemId": "council_sigil_silver",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_free_tess",
+    "name": "Free the Tower Apprentice",
+    "giverNpcId": "npc_captive_mage_apprentice",
+    "startAreaId": "u_reliquary_cells",
+    "objective": {
+      "type": "setFlag",
+      "key": "tess_freed",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 22,
+      "items": [
+        {
+          "itemId": "ward_damper",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_underground_lair_finale",
+    "name": "Underground Lair: End the Enemy’s War-Sight",
+    "giverNpcId": "npc_kess_mountain",
+    "startAreaId": "ul_threshold",
+    "objective": {
+      "type": "setFlag",
+      "key": "underground_lair_finale_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 50,
+      "xp": 160,
+      "items": [
+        {
+          "itemId": "amulet_clearsight",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_veteran_council_finale",
+    "name": "Veteran Council Finale: The Knife Room",
+    "giverNpcId": "npc_councilor_vayne_finale",
+    "startAreaId": "vcf_war_room",
+    "objective": {
+      "type": "setFlag",
+      "key": "veteran_council_finale_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 30,
+      "xp": 90,
+      "items": [
+        {
+          "itemId": "badge_ironleaf_full",
+          "qty": 1
+        },
+        {
+          "itemId": "seal_council_major",
+          "qty": 1
+        },
+        {
+          "itemId": "writ_requisition",
+          "qty": 2
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_council_debrief",
+    "name": "Victory Window II: Council Debrief",
+    "giverNpcId": "npc_councilor_vayne",
+    "startAreaId": "v_council_chamber",
+    "objective": {
+      "type": "setFlag",
+      "key": "council_debrief_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 8,
+      "xp": 22,
+      "items": [
+        {
+          "itemId": "council_writ",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_triage_hotspots",
+    "name": "Triage: Hotspots and Smoke",
+    "giverNpcId": "npc_medic_sister_elin",
+    "startAreaId": "v_infirmary_triage",
+    "objective": {
+      "type": "setFlag",
+      "key": "hotspots_resolved",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 26,
+      "items": [
+        {
+          "itemId": "triage_bandage_roll",
+          "qty": 2
+        },
+        {
+          "itemId": "hotspot_report",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_interrogate_token_carrier",
+    "name": "Interrogation: The Token Carrier",
+    "giverNpcId": "npc_inquisitor_dran",
+    "startAreaId": "v_hold_cells",
+    "objective": {
+      "type": "setFlag",
+      "key": "interrogation_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 30,
+      "items": [
+        {
+          "itemId": "infiltrator_confession",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_guard_memorial",
+    "name": "Memorial Watch (Curfew Duty)",
+    "giverNpcId": "npc_captain_harl",
+    "startAreaId": "v_memorial_square",
+    "objective": {
+      "type": "setFlag",
+      "key": "memorial_watch_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 5,
+      "xp": 18,
+      "items": [
+        {
+          "itemId": "signal_lantern_blue",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_watchfort_raid",
+    "name": "Counterstrike: The Captured Watchfort",
+    "giverNpcId": "npc_scout_lieut_kess",
+    "startAreaId": "w_no_mans_land",
+    "objective": {
+      "type": "setFlag",
+      "key": "watchfort_raid_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 14,
+      "xp": 60,
+      "items": [
+        {
+          "itemId": "work_contract_token",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_watchfort_free_prisoners",
+    "name": "Watchfort: Free the Prisoners",
+    "giverNpcId": "npc_prisoner_sergeant_bram",
+    "startAreaId": "w_prison_pen",
+    "objective": {
+      "type": "setFlag",
+      "key": "watchfort_prisoners_freed",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 34,
+      "items": [
+        {
+          "itemId": "watchfort_gate_key",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_watchfort_steal_signals",
+    "name": "Watchfort: Steal the Signal Codebook",
+    "giverNpcId": "npc_scout_lieut_kess",
+    "startAreaId": "w_relay_tower_base",
+    "objective": {
+      "type": "setFlag",
+      "key": "signal_codebook_taken",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 40,
+      "items": [
+        {
+          "itemId": "siege_signal_codebook",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  }
+]

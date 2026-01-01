@@ -1,0 +1,310 @@
+[
+  {
+    "id": "wf_outer_falls",
+    "title": "The Outer Falls: Water in a Throat of Stone",
+    "x": 70,
+    "y": -40,
+    "floorId": "cave",
+    "tileStyle": "waterfall",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, hidden waterfall inside mountain cistern, spray and lantern light, narrow ledge behind falls, cinematic, no text",
+    "description": "A waterfall inside the mountain.\n\nSpray steals light.\n\nBut behind the curtain of water, a ledge runs into darkness.\n\nThis is not natural.\n\nThis is a door that pretends to be stone.",
+    "choices": [
+      {
+        "id": "wrap_torch",
+        "label": "Wrap your torch against the spray (if available).",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "waterproof_torch_wrap",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "addXP",
+            "amount": 6
+          },
+          {
+            "type": "flag",
+            "key": "wf_light_secure",
+            "value": true
+          }
+        ],
+        "goToAreaId": "wf_ledge_entry"
+      },
+      {
+        "id": "bare_torch",
+        "label": "Go behind the falls with an unprotected flame (risk).",
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "luck",
+            "dc": 10,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "wf_light_secure",
+                "value": true
+              }
+            ],
+            "onFail": [
+              {
+                "type": "flag",
+                "key": "wf_light_lost",
+                "value": true
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "wf_ledge_entry"
+      }
+    ]
+  },
+  {
+    "id": "wf_ledge_entry",
+    "title": "Behind the Falls: Slippery Truth",
+    "x": 71,
+    "y": -40,
+    "floorId": "cave",
+    "tileStyle": "ledge",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow ledge behind waterfall, hands gripping stone, spray, cinematic, no text",
+    "description": "The ledge is thin.\n\nThe drop is honest.\n\nYou can move carefully, or move fast and risk it.\n\nA faint vibration in the stone suggests something ‘listens’ deeper in.",
+    "choices": [
+      {
+        "id": "careful",
+        "label": "Move carefully (body check).",
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "body",
+            "dc": 10,
+            "onPass": [
+              {
+                "type": "addXP",
+                "amount": 12
+              }
+            ],
+            "onFail": [
+              {
+                "type": "takeDamage",
+                "amount": 2
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "wf_echo_chamber"
+      },
+      {
+        "id": "fast",
+        "label": "Move fast to beat patrol timing (luck check).",
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "luck",
+            "dc": 10,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "wf_patrol_avoided",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 14
+              }
+            ],
+            "onFail": [
+              {
+                "type": "takeDamage",
+                "amount": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "wf_echo_chamber"
+      }
+    ]
+  },
+  {
+    "id": "wf_echo_chamber",
+    "title": "Echo Chamber: The Cave Hears You",
+    "x": 72,
+    "y": -41,
+    "floorId": "cave",
+    "tileStyle": "echo",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, cavern echo chamber with wet stone and ripples, lantern reflections, bats swirling, cinematic, no text",
+    "description": "Your steps return to you a heartbeat later.\n\nEchoes stack.\n\nIf you make noise, something will answer.\n\nYou can distract with an echo-stone, or proceed and accept what follows.",
+    "choices": [
+      {
+        "id": "echo_stone",
+        "label": "Throw an echo-stone to mislead whatever listens.",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "echo_stone",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "removeItem",
+            "itemId": "echo_stone",
+            "qty": 1
+          },
+          {
+            "type": "flag",
+            "key": "wf_listener_confused",
+            "value": true
+          },
+          {
+            "type": "addXP",
+            "amount": 12
+          }
+        ],
+        "goToAreaId": "wf_guardian_turn"
+      },
+      {
+        "id": "proceed",
+        "label": "Proceed without a distraction.",
+        "goToAreaId": "wf_guardian_turn"
+      }
+    ]
+  },
+  {
+    "id": "wf_guardian_turn",
+    "title": "Guardian Turn: Bats, Slime, or Listener",
+    "x": 73,
+    "y": -41,
+    "floorId": "cave",
+    "tileStyle": "turn",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, tunnel fork with shadowy movement, slime sheen and bat silhouettes, cinematic, no text",
+    "description": "The cave presents three dangers like a test:\n\n- A bat swarm in a low tunnel.\n- A slime slick in a wet crawl.\n- A deeper passage where the stone seems to listen.\n\nPick your poison.",
+    "choices": [
+      {
+        "id": "bats",
+        "label": "Take the low tunnel (bats).",
+        "effects": [
+          {
+            "type": "startCombat",
+            "enemyGroup": [
+              {
+                "enemyId": "cave_bat_swarm",
+                "count": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "wf_hidden_door"
+      },
+      {
+        "id": "slime",
+        "label": "Take the wet crawl (slime).",
+        "effects": [
+          {
+            "type": "startCombat",
+            "enemyGroup": [
+              {
+                "enemyId": "slime_slick",
+                "count": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "wf_hidden_door"
+      },
+      {
+        "id": "listener",
+        "label": "Take the listening passage (harder, better rewards).",
+        "effects": [
+          {
+            "type": "startCombat",
+            "enemyGroup": [
+              {
+                "enemyId": "deep_listener",
+                "count": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "wf_hidden_door"
+      }
+    ]
+  },
+  {
+    "id": "wf_hidden_door",
+    "title": "Hidden Door: Stone That Pretends",
+    "x": 74,
+    "y": -42,
+    "floorId": "cave",
+    "tileStyle": "door",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, hidden stone door with faint seams, crystal shard glow, cinematic, no text",
+    "description": "A door disguised as rock.\n\nIf you have a Shard of Listening, it vibrates at the seam.\n\nBeyond it: old air, and the sense you’re about to step into the war’s true heart.",
+    "choices": [
+      {
+        "id": "open",
+        "label": "Open the hidden door (mind check; easier with shard).",
+        "effects": [
+          {
+            "type": "conditional",
+            "when": [
+              {
+                "key": "shard_of_listening",
+                "op": "hasItem",
+                "value": true
+              }
+            ],
+            "then": [
+              {
+                "type": "skillCheck",
+                "skill": "mind",
+                "dc": 9,
+                "onPass": [
+                  {
+                    "type": "addXP",
+                    "amount": 16
+                  }
+                ],
+                "onFail": [
+                  {
+                    "type": "takeDamage",
+                    "amount": 1
+                  }
+                ]
+              }
+            ],
+            "else": [
+              {
+                "type": "skillCheck",
+                "skill": "mind",
+                "dc": 11,
+                "onPass": [
+                  {
+                    "type": "addXP",
+                    "amount": 16
+                  }
+                ],
+                "onFail": [
+                  {
+                    "type": "takeDamage",
+                    "amount": 1
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "ul_threshold"
+      }
+    ]
+  }
+]

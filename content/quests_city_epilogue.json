@@ -1,0 +1,48 @@
+[
+  {
+    "id": "q_city_epilogue",
+    "name": "City Epilogue: Titles, Ash, and Decisions",
+    "giverNpcId": "npc_councilor_vayne_epilogue",
+    "startAreaId": "ce_dawn_square",
+    "objective": {
+      "type": "setFlag",
+      "key": "city_epilogue_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 12,
+      "xp": 45,
+      "items": [
+        {
+          "itemId": "title_ironleaf_warden",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_pursuit_orders",
+    "name": "Pursuit Orders: Beyond the Walls",
+    "giverNpcId": "npc_councilor_vayne_epilogue",
+    "startAreaId": "ce_council_afterbattle",
+    "objective": {
+      "type": "setFlag",
+      "key": "pursuit_arc_started",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 25,
+      "items": [
+        {
+          "itemId": "order_to_pursue",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  }
+]

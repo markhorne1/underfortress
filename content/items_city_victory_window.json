@@ -1,0 +1,37 @@
+[
+  {
+    "id": "blank_scroll_bundle",
+    "name": "Blank Scroll Bundle",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "Clean vellum ready for ward scripts and battle charms."
+  },
+  {
+    "id": "leather_panels",
+    "name": "Leather Armor Panels",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "Pre-cut panels for sewing brigandine and light armor. Smells of tannin and sweat."
+  },
+  {
+    "id": "work_contract_token",
+    "name": "Work Contract Token",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A stamped token proving you completed paid work for a shop or guild. Trade-in for gear, favors, or upgrades."
+  },
+  {
+    "id": "field_ration_pack",
+    "name": "Field Ration Pack",
+    "type": "consumable",
+    "stackable": true,
+    "value": 8,
+    "meta": {
+      "heal": 3
+    },
+    "description": "Bread, salted fat, and dried fruit. Not good. Not negotiable."
+  }
+]

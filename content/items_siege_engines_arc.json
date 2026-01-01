@@ -1,0 +1,50 @@
+[
+  {
+    "id": "axle_spike_wedge",
+    "name": "Axle Spike Wedge",
+    "type": "tool",
+    "stackable": true,
+    "value": 8,
+    "description": "A hardened wedge you can hammer into wheel hubs. Sabotages siege tower wheels if planted correctly."
+  },
+  {
+    "id": "pitch_sand_sack",
+    "name": "Sack of Sand (Pitch Spoiler)",
+    "type": "tool",
+    "stackable": false,
+    "value": 6,
+    "description": "Dumped into pitch cauldrons, it ruins the pour and clogs the spouts."
+  },
+  {
+    "id": "ram_head_chain",
+    "name": "Ram Head Chain",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A heavy chain binding the ram’s metal head. If stolen, the ram becomes far less effective."
+  },
+  {
+    "id": "engine_yard_key",
+    "name": "Engine Yard Key",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A crude iron key taken from a foreman’s belt. Opens the cage pens and the wheelhouse hatch."
+  },
+  {
+    "id": "oily_rag_bundle",
+    "name": "Oily Rag Bundle",
+    "type": "tool",
+    "stackable": true,
+    "value": 4,
+    "description": "Useful for smothering small flames or making a smoky distraction."
+  },
+  {
+    "id": "cage_list_names",
+    "name": "Cage List (Names & Places)",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A scribbled list of captives and their origins. Proof of enemy slave labor operations and a hook for later quests."
+  }
+]

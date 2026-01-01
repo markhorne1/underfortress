@@ -1,0 +1,160 @@
+[
+  {
+    "id": "npc_guildmaster_orrow",
+    "name": "Guildmaster Orrow",
+    "role": "Armourers’ Guild (Craft Access)",
+    "portraitPrompt": "fantasy character portrait, stern guildmaster smith with leather apron, glowing forge behind, guild seals on wall, painterly, no text",
+    "dialogue": {
+      "greeting": "You fought like a veteran. Now you’ll be equipped like one—if you pay in sweat and sense.",
+      "nodes": [
+        {
+          "id": "craft_access",
+          "text": "The guild will back you.\n\nBring components and I’ll grant you one of these:\n\n- Warded leather reinforcements.\n- A named blade fitting.\n- A shield boss etched for enchantment.\n\nOr a credit chit, if you’re broke and useful.",
+          "choices": [
+            {
+              "label": "Request a Guild Credit Chit.",
+              "effects": [
+                {
+                  "type": "addItem",
+                  "itemId": "guild_credit_chit",
+                  "qty": 1
+                }
+              ]
+            },
+            {
+              "label": "Unlock advanced crafting access.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "advanced_crafting_unlocked",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_scribe_prefect_luvara",
+    "name": "Prefect Luvara",
+    "role": "Scribes’ Conclave (Spell Access)",
+    "portraitPrompt": "fantasy character portrait, scribe prefect in tall hat, ink-stained fingers, scroll racks, candle glow, painterly, no text",
+    "dialogue": {
+      "greeting": "Ink is slower than steel, but it wins wars that steel cannot.",
+      "nodes": [
+        {
+          "id": "scroll_access",
+          "text": "We can issue you sanctioned spellwork—if you keep the city’s interests first.\n\nBring blank scrolls, rare inks, or proofs of enemy movements.\n\nAnd mind this: reckless magic gets people hanged, not celebrated.",
+          "choices": [
+            {
+              "label": "Unlock veteran spell tiers.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "veteran_spells_unlocked",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Request one emergency scroll (single use).",
+              "effects": [
+                {
+                  "type": "addItem",
+                  "itemId": "scroll_emergency_ward",
+                  "qty": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_councilor_vayne_epilogue",
+    "name": "Councilor Vayne",
+    "role": "War Council (Politics / Promotions)",
+    "portraitPrompt": "fantasy character portrait, councilor in dawn light, city skyline smoking behind window, painterly, no text",
+    "dialogue": {
+      "greeting": "We survived. That’s not a victory. It’s permission to continue.",
+      "nodes": [
+        {
+          "id": "promotion",
+          "text": "You will be named Ironleaf Warden.\n\nYou will receive authority.\n\nAnd you will receive enemies—inside the council and beyond the walls.\n\nNow tell me: do you pursue the retreating host, or stay and rebuild?",
+          "choices": [
+            {
+              "label": "Accept the title and authority.",
+              "effects": [
+                {
+                  "type": "addItem",
+                  "itemId": "title_ironleaf_warden",
+                  "qty": 1
+                },
+                {
+                  "type": "addItem",
+                  "itemId": "council_signet_temp",
+                  "qty": 1
+                }
+              ]
+            },
+            {
+              "label": "Choose pursuit as the next chapter.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "pursuit_arc_confirmed",
+                  "value": true
+                },
+                {
+                  "type": "addItem",
+                  "itemId": "order_to_pursue",
+                  "qty": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_captain_harl_epilogue",
+    "name": "Captain Harl",
+    "role": "Guard Captain (Street Consequences)",
+    "portraitPrompt": "fantasy character portrait, guard captain exhausted, soot on cheek, helmet under arm, painterly, no text",
+    "dialogue": {
+      "greeting": "We held the wall. The streets… depended on you more than you know.",
+      "nodes": [
+        {
+          "id": "consequences",
+          "text": "Reports:\n\n- If arson damage is high: districts burned and panic lingers.\n- If you stopped infiltrators: civilians are shaken but alive.\n\nEither way, the enemy retreated.\n\nQuestion is: do we let them regroup?",
+          "choices": [
+            {
+              "label": "Ask for a small squad escort (one use).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "escort_token_available",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Take the Ironleaf cloak.",
+              "effects": [
+                {
+                  "type": "addItem",
+                  "itemId": "warden_cloak_ironleaf",
+                  "qty": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

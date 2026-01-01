@@ -1,0 +1,113 @@
+[
+  {
+    "id": "npc_captain_harl",
+    "name": "Captain Harl",
+    "role": "City Guard Captain",
+    "portraitPrompt": "fantasy character portrait, battle-worn guard captain in lamellar armor, torchlit gatehouse, rain droplets, painterly, no text",
+    "dialogue": {
+      "greeting": "You brought it back? Saints. The camp will howl when they notice.",
+      "nodes": [
+        {
+          "id": "banner_return",
+          "text": "We can show the banner to the people—raise morale.\n\nOr keep it secret—use it as bait, or as proof only when needed.\n\nChoose. Either choice has teeth.",
+          "choices": [
+            {
+              "label": "Hold a public reveal (morale surge, enemy adapts).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "banner_revealed_publicly",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Keep it secret (tactical advantage, less morale).",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "banner_kept_secret",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_councilor_vayne",
+    "name": "Councilor Vayne",
+    "role": "War Council",
+    "portraitPrompt": "fantasy character portrait, stern councilor with wax seals and maps, crystal glow, painterly, no text",
+    "dialogue": {
+      "greeting": "The enemy loses coordination when their symbols die. Good.",
+      "nodes": [
+        {
+          "id": "orders",
+          "text": "The Great Assault is coming within the day.\n\nWe’ll issue emergency authority.\n\nAnd we’ll decide whether the banner becomes hope—or becomes a knife.",
+          "choices": [
+            {
+              "label": "Request emergency orders.",
+              "effects": [
+                {
+                  "type": "addItem",
+                  "itemId": "sealed_orders_packet",
+                  "qty": 1
+                }
+              ]
+            },
+            {
+              "label": "Request signal equipment.",
+              "effects": [
+                {
+                  "type": "addItem",
+                  "itemId": "tower_signal_shutter_set",
+                  "qty": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "npc_archivist_salenne",
+    "name": "Archivist Salenne",
+    "role": "Mage Tower Scrying Lead",
+    "portraitPrompt": "fantasy character portrait, mage archivist with crystal ball light, chalk runes, painterly, no text",
+    "dialogue": {
+      "greeting": "The ball shows a single, clean truth: the next assault is their biggest.",
+      "nodes": [
+        {
+          "id": "warning",
+          "text": "They will push three fronts:\n\n1) A siege tower at the main wall.\n2) A ram at the gate.\n3) A drains surge—if the ‘second mouth’ still lives.\n\nIf you choose correctly, thousands live.\n\nIf not, the city becomes a corridor.",
+          "choices": [
+            {
+              "label": "Ask how to counter-signal under pressure.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "salenne_signal_coaching",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Ask how to blunt the drains surge.",
+              "effects": [
+                {
+                  "type": "addItem",
+                  "itemId": "holy_pitch_vial",
+                  "qty": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

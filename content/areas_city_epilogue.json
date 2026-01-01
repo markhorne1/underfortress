@@ -1,0 +1,225 @@
+[
+  {
+    "id": "ce_dawn_square",
+    "title": "Dawn Square: Smoke and Applause",
+    "x": 2,
+    "y": -1,
+    "floorId": "city",
+    "tileStyle": "square",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, dawn in city square, soot in air, civilians cheering and grieving, guards tired, cinematic, no text",
+    "description": "Dawn finds the city standing.\n\nSome cheer because they must.\n\nSome weep because they can.\n\nYour name moves through the crowd like a rumor becoming fact.",
+    "choices": [
+      {
+        "id": "to_council",
+        "label": "Go to the council for aftermath orders.",
+        "goToAreaId": "ce_council_afterbattle"
+      },
+      {
+        "id": "to_guild",
+        "label": "Visit the Armourers’ Guild for veteran crafting access.",
+        "goToAreaId": "ce_armourers_guild"
+      },
+      {
+        "id": "to_scribes",
+        "label": "Visit the Scribes’ Conclave for veteran spell access.",
+        "goToAreaId": "ce_scribes_conclave"
+      }
+    ]
+  },
+  {
+    "id": "ce_council_afterbattle",
+    "title": "Council Afterbattle: The Next Knife",
+    "x": 2,
+    "y": 0,
+    "floorId": "city",
+    "tileStyle": "council",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, council chamber with scorched maps and wax seals, morning light, cinematic, no text",
+    "description": "The council speaks in numbers:\n\nCasualties.\nSupplies.\nRepair time.\n\nVayne speaks in outcomes:\n\n\"They retreated. They will return—unless we make retreat expensive.\"",
+    "actionsAvailable": {
+      "talk": {
+        "text": "Politics begins the moment the swords stop.",
+        "choices": [
+          {
+            "id": "vayne",
+            "label": "Talk to Councilor Vayne.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_councilor_vayne_epilogue"
+              }
+            ]
+          },
+          {
+            "id": "start_epilogue",
+            "label": "Complete the epilogue formalities.",
+            "effects": [
+              {
+                "type": "startJob",
+                "jobId": "q_city_epilogue"
+              },
+              {
+                "type": "flag",
+                "key": "city_epilogue_complete",
+                "value": true
+              },
+              {
+                "type": "completeJob",
+                "jobId": "q_city_epilogue"
+              }
+            ]
+          },
+          {
+            "id": "start_pursuit",
+            "label": "Accept pursuit orders.",
+            "effects": [
+              {
+                "type": "startJob",
+                "jobId": "q_pursuit_orders"
+              },
+              {
+                "type": "flag",
+                "key": "pursuit_arc_started",
+                "value": true
+              },
+              {
+                "type": "completeJob",
+                "jobId": "q_pursuit_orders"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "to_harl",
+        "label": "Report to Captain Harl (street consequences).",
+        "goToAreaId": "ce_barracks_report"
+      },
+      {
+        "id": "to_depart",
+        "label": "Depart the city to pursue the enemy retreat.",
+        "requirements": [
+          {
+            "type": "flagEquals",
+            "key": "pursuit_arc_started",
+            "value": true
+          }
+        ],
+        "goToAreaId": "pa_outside_gate"
+      }
+    ]
+  },
+  {
+    "id": "ce_barracks_report",
+    "title": "Barracks Report: Ash Ledger",
+    "x": 1,
+    "y": -1,
+    "floorId": "city",
+    "tileStyle": "barracks",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, barracks desk with casualty lists, soot-stained captain, cinematic, no text",
+    "description": "Captain Harl’s desk is a battlefield of paper.\n\nA city can be saved and still wounded.\n\nHe looks up as you arrive.",
+    "actionsAvailable": {
+      "talk": {
+        "text": "Harl speaks plainly: consequences are a kind of enemy.",
+        "choices": [
+          {
+            "id": "harl",
+            "label": "Talk to Captain Harl.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_captain_harl_epilogue"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "back",
+        "label": "Return to the council.",
+        "goToAreaId": "ce_council_afterbattle"
+      }
+    ]
+  },
+  {
+    "id": "ce_armourers_guild",
+    "title": "Armourers’ Guild: Veteran Work",
+    "x": 0,
+    "y": -1,
+    "floorId": "city",
+    "tileStyle": "forge",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, busy forge with armor pieces and guildmaster, sparks, cinematic, no text",
+    "description": "The guild doesn’t applaud.\n\nIt measures.\n\nHammer marks. Stitch lines. Fit.\n\nThis is where veterans become harder to kill.",
+    "actionsAvailable": {
+      "talk": {
+        "text": "Orrow judges you with a craftsman’s eyes.",
+        "choices": [
+          {
+            "id": "orrow",
+            "label": "Talk to Guildmaster Orrow.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_guildmaster_orrow"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "back",
+        "label": "Return to Dawn Square.",
+        "goToAreaId": "ce_dawn_square"
+      }
+    ]
+  },
+  {
+    "id": "ce_scribes_conclave",
+    "title": "Scribes’ Conclave: Ink That Bites",
+    "x": 0,
+    "y": 0,
+    "floorId": "city",
+    "tileStyle": "scribes",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, scribe hall with scroll racks and glowing runes, quiet intensity, cinematic, no text",
+    "description": "The air smells like ink and burnt lavender.\n\nQuiet people doing loud work.\n\nLuvara doesn’t waste words.",
+    "actionsAvailable": {
+      "talk": {
+        "text": "Luvara offers sanctioned power.",
+        "choices": [
+          {
+            "id": "luvara",
+            "label": "Talk to Prefect Luvara.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_scribe_prefect_luvara"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "back",
+        "label": "Return to Dawn Square.",
+        "goToAreaId": "ce_dawn_square"
+      }
+    ]
+  }
+]

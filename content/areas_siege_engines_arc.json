@@ -1,0 +1,553 @@
+[
+  {
+    "id": "se_approach",
+    "title": "Engine Yard Approach: Wood, Iron, Confidence",
+    "x": 30,
+    "y": -6,
+    "floorId": "overland",
+    "tileStyle": "fog_field",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, fog field overlooking enemy engine yard, silhouettes of siege tower and ram, campfires, cinematic, no text",
+    "description": "Beyond the fog: the engine yard.\n\nA siege tower like a moving barn.\n\nA ram head that shines wetly.\n\nPitch pits bubbling like black soup.\n\nKess crouches beside you.",
+    "actionsAvailable": {
+      "talk": {
+        "text": "Kess points to weak points like a surgeon.",
+        "choices": [
+          {
+            "id": "kess",
+            "label": "Talk to Lieutenant Kess.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_scout_kess"
+              }
+            ]
+          },
+          {
+            "id": "start",
+            "label": "Start: Siege Engines sabotage.",
+            "effects": [
+              {
+                "type": "startJob",
+                "jobId": "q_siege_engines_arc"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "sneak_in",
+        "label": "Sneak into the yard (luck check).",
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "luck",
+            "dc": 9,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "engine_yard_sneak_success",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 10
+              }
+            ],
+            "onFail": [
+              {
+                "type": "flag",
+                "key": "camp_alarm_level",
+                "value": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "se_engine_yard"
+      }
+    ]
+  },
+  {
+    "id": "se_engine_yard",
+    "title": "Engine Yard: Patrols and Pulleys",
+    "x": 31,
+    "y": -6,
+    "floorId": "camp",
+    "tileStyle": "engine_yard",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, enemy engine yard with siege tower wheel frames, pulleys, guards, cinematic, no text",
+    "description": "Everything creaks.\n\nRopes, frames, wheel hubs.\n\nA patrol circles.\n\nTo the left: the wheelhouse.\nTo the right: the pitch pits.\nAhead: cages and a foreman’s platform.",
+    "choices": [
+      {
+        "id": "avoid_patrol",
+        "label": "Avoid patrols (mind check).",
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "mind",
+            "dc": 10,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "engine_yard_patrol_avoided",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 8
+              }
+            ],
+            "onFail": [
+              {
+                "type": "startThreat",
+                "threat": {
+                  "threatId": "t_engine_patrol",
+                  "enemyGroupId": "engine_yard_patrol",
+                  "distance": 3,
+                  "direction": "n",
+                  "speed": 1,
+                  "targetAreaId": "se_engine_yard",
+                  "hazards": []
+                }
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "se_choice_targets"
+      },
+      {
+        "id": "rush",
+        "label": "Move fast and accept the risk.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "camp_alarm_level",
+            "value": 1
+          }
+        ],
+        "goToAreaId": "se_choice_targets"
+      }
+    ]
+  },
+  {
+    "id": "se_choice_targets",
+    "title": "Choice: What You Break First",
+    "x": 32,
+    "y": -6,
+    "floorId": "camp",
+    "tileStyle": "engine_yard",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, close view of three targets: wheel hub, ram chain, pitch cauldron, cinematic, no text",
+    "description": "Three targets.\n\nThree chances to tilt the final battle.\n\nPick one to attempt first (you may manage more if you stay alive).",
+    "choices": [
+      {
+        "id": "wheelhouse",
+        "label": "1) Wheelhouse: cripple the siege tower.",
+        "goToAreaId": "se_wheelhouse"
+      },
+      {
+        "id": "pitch_pits",
+        "label": "2) Pitch pits: ruin the pour.",
+        "goToAreaId": "se_pitch_pits"
+      },
+      {
+        "id": "cages",
+        "label": "3) Cages: question prisoners / locate foreman keys.",
+        "goToAreaId": "se_cage_row"
+      }
+    ]
+  },
+  {
+    "id": "se_wheelhouse",
+    "title": "Wheelhouse: The Hub That Holds",
+    "x": 33,
+    "y": -6,
+    "floorId": "camp",
+    "tileStyle": "wheelhouse",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, wooden wheelhouse interior, massive wheel hub, grease, lantern, cinematic, no text",
+    "description": "The siege tower’s wheel hub is the heart of the machine.\n\nA wedge in the wrong place does nothing.\n\nA wedge in the right place makes a monster limp.",
+    "choices": [
+      {
+        "id": "plant_wedge",
+        "label": "Plant an axle wedge (mind check).",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "axle_spike_wedge",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "mind",
+            "dc": 10,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "siege_tower_wheels_sabotaged",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 14
+              }
+            ],
+            "onFail": [
+              {
+                "type": "flag",
+                "key": "camp_alarm_level",
+                "value": 2
+              },
+              {
+                "type": "takeDamage",
+                "amount": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "se_choice_targets"
+      },
+      {
+        "id": "leave",
+        "label": "Back away quietly.",
+        "goToAreaId": "se_choice_targets"
+      }
+    ]
+  },
+  {
+    "id": "se_pitch_pits",
+    "title": "Pitch Pits: Black Boil",
+    "x": 32,
+    "y": -7,
+    "floorId": "camp",
+    "tileStyle": "pitch",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, bubbling pitch cauldrons, torchmen, smoke, chains, cinematic, no text",
+    "description": "Pitch bubbles like anger.\n\nA torchman watches the ladle.\n\nIf you spoil the cauldrons, the enemy loses a terrifying weapon on the wall.",
+    "choices": [
+      {
+        "id": "spoil_sand",
+        "label": "Dump sand to ruin the pitch (luck check).",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "pitch_sand_sack",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "removeItem",
+            "itemId": "pitch_sand_sack",
+            "qty": 1
+          },
+          {
+            "type": "skillCheck",
+            "skill": "luck",
+            "dc": 9,
+            "onPass": [
+              {
+                "type": "flag",
+                "key": "pitch_cauldron_ruined",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 12
+              }
+            ],
+            "onFail": [
+              {
+                "type": "startThreat",
+                "threat": {
+                  "threatId": "t_pitch_team",
+                  "enemyGroupId": "pitch_pit_team",
+                  "distance": 2,
+                  "direction": "n",
+                  "speed": 1,
+                  "targetAreaId": "se_pitch_pits",
+                  "hazards": []
+                }
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "se_pitch_fight"
+      },
+      {
+        "id": "leave",
+        "label": "Retreat to the yard.",
+        "goToAreaId": "se_choice_targets"
+      }
+    ]
+  },
+  {
+    "id": "se_pitch_fight",
+    "title": "Pitch Pit Clash",
+    "x": 33,
+    "y": -7,
+    "floorId": "camp",
+    "tileStyle": "pitch",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, fight near bubbling pitch, torch flare, smoke, cinematic, no text",
+    "description": "Smoke bites your lungs.\n\nA torchman swings.\n\nOne misstep and the pit becomes your grave.",
+    "choices": [
+      {
+        "id": "fight",
+        "label": "Fight.",
+        "effects": [
+          {
+            "type": "forceCombatFromThreat",
+            "threatId": "t_pitch_team"
+          }
+        ],
+        "goToAreaId": "se_choice_targets"
+      }
+    ]
+  },
+  {
+    "id": "se_cage_row",
+    "title": "Cage Row: The Enemy’s Labor",
+    "x": 31,
+    "y": -7,
+    "floorId": "camp",
+    "tileStyle": "cages",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, prisoner cages in rain, guards nearby, desperate faces, cinematic, no text",
+    "description": "Cages line the mud.\n\nCarpenters. Haulers. Captured villagers.\n\nA woman with splintered hands whispers:\n\n\"Wheelhouse hub. Foreman key. Ram chain.\"",
+    "actionsAvailable": {
+      "talk": {
+        "text": "One prisoner meets your eyes and refuses to look away.",
+        "choices": [
+          {
+            "id": "elin",
+            "label": "Talk to Elin.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_cage_prisoner_elin"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "id": "steal_list",
+        "label": "Take the cage list (proof and future hooks).",
+        "effects": [
+          {
+            "type": "addItem",
+            "itemId": "cage_list_names",
+            "qty": 1
+          },
+          {
+            "type": "addXP",
+            "amount": 8
+          }
+        ],
+        "goToAreaId": "se_foreman_platform"
+      },
+      {
+        "id": "to_foreman",
+        "label": "Approach the foreman’s platform.",
+        "goToAreaId": "se_foreman_platform"
+      }
+    ]
+  },
+  {
+    "id": "se_foreman_platform",
+    "title": "Foreman’s Platform: The Key and the Chain",
+    "x": 30,
+    "y": -7,
+    "floorId": "camp",
+    "tileStyle": "platform",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, raised platform with foreman barking orders, key ring at belt, lanterns, cinematic, no text",
+    "description": "The foreman watches everything.\n\nA ring of keys hangs at his belt.\n\nA thick chain runs from his platform toward the ram shed.",
+    "choices": [
+      {
+        "id": "boss",
+        "label": "Confront the Hobgoblin Foreman.",
+        "effects": [
+          {
+            "type": "startCombat",
+            "enemyGroup": [
+              {
+                "enemyId": "hobgoblin_foreman",
+                "count": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "se_ram_shed"
+      },
+      {
+        "id": "pickpocket",
+        "label": "Try to steal the key ring without fighting (luck check).",
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "luck",
+            "dc": 10,
+            "onPass": [
+              {
+                "type": "addItem",
+                "itemId": "engine_yard_key",
+                "qty": 1
+              },
+              {
+                "type": "addXP",
+                "amount": 14
+              }
+            ],
+            "onFail": [
+              {
+                "type": "flag",
+                "key": "camp_alarm_level",
+                "value": 2
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "se_ram_shed"
+      }
+    ]
+  },
+  {
+    "id": "se_ram_shed",
+    "title": "Ram Shed: The Metal Head",
+    "x": 29,
+    "y": -7,
+    "floorId": "camp",
+    "tileStyle": "shed",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, shed with massive ram head, chains, tools, wet metal shine, cinematic, no text",
+    "description": "The ram head sits like a beast’s skull.\n\nIts chain is thick.\n\nIf you take it, the gate has a better chance.\n\nIf you’re caught, the camp will chase you to the walls.",
+    "choices": [
+      {
+        "id": "steal_chain",
+        "label": "Steal the ram chain and disable the ram (mind check).",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "engine_yard_key",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "skillCheck",
+            "skill": "mind",
+            "dc": 10,
+            "onPass": [
+              {
+                "type": "addItem",
+                "itemId": "ram_head_chain",
+                "qty": 1
+              },
+              {
+                "type": "flag",
+                "key": "ram_head_stolen",
+                "value": true
+              },
+              {
+                "type": "addXP",
+                "amount": 16
+              }
+            ],
+            "onFail": [
+              {
+                "type": "flag",
+                "key": "camp_alarm_level",
+                "value": 3
+              },
+              {
+                "type": "takeDamage",
+                "amount": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "se_escape"
+      },
+      {
+        "id": "escape_anyway",
+        "label": "You’ve done enough—escape now.",
+        "goToAreaId": "se_escape"
+      }
+    ]
+  },
+  {
+    "id": "se_escape",
+    "title": "Escape: Mud and Whistles",
+    "x": 30,
+    "y": -5,
+    "floorId": "overland",
+    "tileStyle": "fog_field",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, sprinting through fog with stolen chain over shoulder, lanterns behind, cinematic, no text",
+    "description": "Whistles rise behind you.\n\nBoots splash.\n\nIf you make it back with even one sabotage, the final battle changes.\n\nIf you made all three… the war might end today.",
+    "effectsOnEnter": [
+      {
+        "type": "conditional",
+        "when": [
+          {
+            "key": "siege_tower_wheels_sabotaged",
+            "op": "==",
+            "value": true
+          },
+          {
+            "key": "pitch_cauldron_ruined",
+            "op": "==",
+            "value": true
+          },
+          {
+            "key": "ram_head_stolen",
+            "op": "==",
+            "value": true
+          }
+        ],
+        "then": [
+          {
+            "type": "flag",
+            "key": "siege_engines_total_sabotage",
+            "value": true
+          }
+        ],
+        "else": []
+      },
+      {
+        "type": "flag",
+        "key": "siege_engines_arc_complete",
+        "value": true
+      },
+      {
+        "type": "completeJob",
+        "jobId": "q_siege_engines_arc"
+      }
+    ],
+    "choices": [
+      {
+        "id": "return_city",
+        "label": "Return to the city with what you stole/broke.",
+        "goToAreaId": "fb_prebattle_council"
+      }
+    ]
+  }
+]

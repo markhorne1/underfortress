@@ -1,0 +1,25 @@
+[
+  {
+    "id": "q_pursuit_arc",
+    "name": "Pursuit: Do Not Let Them Regroup",
+    "giverNpcId": "npc_scout_kess_pursuit",
+    "startAreaId": "pa_outside_gate",
+    "objective": {
+      "type": "setFlag",
+      "key": "pursuit_arc_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 22,
+      "xp": 95,
+      "items": [
+        {
+          "itemId": "boots_quietstep",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  }
+]

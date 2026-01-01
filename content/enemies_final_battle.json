@@ -1,0 +1,144 @@
+[
+  {
+    "id": "orc_berserker",
+    "name": "Orc Berserker",
+    "kind": "humanoid",
+    "skill": 13,
+    "stamina": 20,
+    "meta": {
+      "special": "frenzy"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 4,
+        "max": 20
+      }
+    ],
+    "tags": [
+      "orc",
+      "final"
+    ]
+  },
+  {
+    "id": "goblin_sapper_team",
+    "name": "Goblin Sapper Team",
+    "kind": "humanoid",
+    "skill": 10,
+    "stamina": 12,
+    "meta": {
+      "special": "plant_charge"
+    },
+    "loot": [
+      {
+        "itemId": "sapper_fuse_bundle",
+        "min": 1,
+        "max": 1
+      }
+    ],
+    "tags": [
+      "goblin",
+      "sapper",
+      "final"
+    ]
+  },
+  {
+    "id": "troll_wallbreaker",
+    "name": "Troll Wallbreaker",
+    "kind": "monster",
+    "skill": 12,
+    "stamina": 26,
+    "meta": {
+      "special": "stone_heave"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 6,
+        "max": 24
+      }
+    ],
+    "tags": [
+      "troll",
+      "final"
+    ]
+  },
+  {
+    "id": "panic_mob_final",
+    "name": "Panic Mob (Final Assault)",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "city_rioter",
+        "count": 4
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 5
+      }
+    },
+    "tags": [
+      "city",
+      "panic",
+      "group",
+      "final"
+    ]
+  },
+  {
+    "id": "final_wall_wave",
+    "name": "Final Assault: Wall Wave",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "troll_wallbreaker",
+        "count": 1
+      },
+      {
+        "enemyId": "goblin_ladderman",
+        "count": 2
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 11
+      }
+    },
+    "tags": [
+      "group",
+      "final",
+      "wall"
+    ]
+  },
+  {
+    "id": "final_gate_wave",
+    "name": "Final Assault: Gate Wave",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "orc_berserker",
+        "count": 1
+      },
+      {
+        "enemyId": "goblin_sapper_team",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 3,
+        "morale": 11
+      }
+    },
+    "tags": [
+      "group",
+      "final",
+      "gate"
+    ]
+  }
+]

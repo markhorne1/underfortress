@@ -1,0 +1,49 @@
+[
+  {
+    "id": "bind_gate_key",
+    "name": "Bind Gate Key",
+    "inputs": [
+      {
+        "itemId": "gate_key_fragment",
+        "qty": 3
+      },
+      {
+        "itemId": "council_sigil_silver",
+        "qty": 1
+      }
+    ],
+    "outputs": [
+      {
+        "itemId": "gatewarden_seal",
+        "qty": 1
+      }
+    ],
+    "description": "Three fragments, one sigil, and a council signature. It becomes less a key and more a command."
+  },
+  {
+    "id": "seal_from_ledger",
+    "name": "Forge Emergency Seal",
+    "requiresTool": "oil_lamp",
+    "inputs": [
+      {
+        "itemId": "ward_stone",
+        "qty": 1
+      },
+      {
+        "itemId": "dock_ledger_page",
+        "qty": 2
+      },
+      {
+        "itemId": "council_sigil_silver",
+        "qty": 1
+      }
+    ],
+    "outputs": [
+      {
+        "itemId": "gatewarden_seal",
+        "qty": 1
+      }
+    ],
+    "description": "Proof of betrayal, proof of magic, proof of authority. Together, they open what should remain shut."
+  }
+]

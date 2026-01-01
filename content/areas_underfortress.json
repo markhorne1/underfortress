@@ -1,0 +1,42 @@
+[
+  {
+    "id": "uf_entry_hall",
+    "title": "Underfortress Entry Hall",
+    "text": "A vast under-hall opens beneath the fort. Rune-carved pillars rise like ribs from the floor; cold torchlight catches in dust and sigils.",
+    "imagePrompt": "A cavernous subterranean hall with rune-carved pillars, cold torchlight, drifting dust and a hush of long-remembered rites.",
+    "choices": [
+      { "id": "uf_probe_reliquary", "text": "Probe the reliquary corridor", "effects": [{ "type": "startJob", "jobId": "job_uf_search_chamber" }] },
+      { "id": "uf_breach_vault", "text": "Force open an inner vault door", "effects": [{ "type": "startJob", "jobId": "job_uf_confront_archon" }] }
+    ]
+  },
+  {
+    "id": "uf_reliquary_chamber",
+    "title": "Reliquary Chamber",
+    "text": "The chamber hums with low power. On a central plinth an iron-latticed reliquary holds a pale, humming artifact — its glow a living thing.",
+    "imagePrompt": "A circular reliquary chamber with a central plinth holding a glowing artifact encased in iron, sigils etched into the stone.",
+    "choices": [
+      { "id": "uf_take_artifact", "text": "Attempt to take the artifact", "effects": [{ "type": "completeJob", "jobId": "job_pb_retrieve_artifact" }, { "type": "startJob", "jobId": "job_uf_relay_signal" }] },
+      { "id": "uf_leave_be", "text": "Leave the relic and search the perimeter", "effects": [{ "type": "startJob", "jobId": "job_uf_search_chamber" }] }
+    ]
+  },
+  {
+    "id": "uf_archon_vault",
+    "title": "Archon Vault",
+    "text": "A sealed vault stands sentry beneath gears and warding runes. Something moves in the dark — a warding construct waking to its old purpose.",
+    "imagePrompt": "A sealed stone vault guarded by a mechanical warding archon: gears, arcane filaments and a brooding, metallic silhouette.",
+    "choices": [
+      { "id": "uf_face_archon", "text": "Confront the warding archon", "effects": [{ "type": "startJob", "jobId": "job_uf_confront_archon" }] },
+      { "id": "uf_sneak_pass", "text": "Slip past on the shadows", "effects": [{ "type": "setFlag", "key": "uf_sneaked_past_archon", "value": true }] }
+    ]
+  },
+  {
+    "id": "uf_throne_reliquary",
+    "title": "Reliquary Throne",
+    "text": "At the underfortress' heart a throne holds a husk bound in wards. The relics that circle it hum with memory and coercive intent.",
+    "imagePrompt": "An ancient throne in dim light, surrounded by reliquary artifacts and binding runes that pulse faintly with power.",
+    "choices": [
+      { "id": "uf_claim_throne", "text": "Claim the reliquary's power", "effects": [{ "type": "setFlag", "key": "reliquary_claimed", "value": true }, { "type": "completeJob", "jobId": "job_uf_relay_signal" }] },
+      { "id": "uf_destroy_bindings", "text": "Destroy the bindings and free the spirit", "effects": [{ "type": "startJob", "jobId": "job_uf_destroy_bindings" }] }
+    ]
+  }
+]

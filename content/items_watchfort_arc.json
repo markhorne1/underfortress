@@ -1,0 +1,42 @@
+[
+  {
+    "id": "watchfort_gate_key",
+    "name": "Watchfort Gate Key",
+    "type": "tool",
+    "stackable": false,
+    "value": 0,
+    "description": "A heavy iron key with old city markings. Fits the watchfort gate and some inner locks."
+  },
+  {
+    "id": "siege_signal_codebook",
+    "name": "Siege Signal Codebook",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A greasy codebook detailing horn patterns and lantern colors for coordinating siege pushes."
+  },
+  {
+    "id": "watchfort_map_slate",
+    "name": "Watchfort Map Slate",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A slate map showing patrol routes, a prisoners’ pen, and a ‘banner relay’ tower."
+  },
+  {
+    "id": "rope_grapnel",
+    "name": "Rope & Grapnel",
+    "type": "tool",
+    "stackable": false,
+    "value": 14,
+    "description": "Lets you scale low walls or reach alternative entries. Quiet if used carefully."
+  },
+  {
+    "id": "oil_rag_bundle",
+    "name": "Oil Rag Bundle",
+    "type": "tool",
+    "stackable": true,
+    "value": 6,
+    "description": "Oily rags for sabotage: smoke, slick floors, or ruined fuses."
+  }
+]

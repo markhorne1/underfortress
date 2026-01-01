@@ -1,0 +1,1286 @@
+[
+  {
+    "id": "banner_cloth_strip",
+    "name": "Strip of Black Banner Cloth",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A strip cut from the stolen war standard. Proof for skeptics, leverage for allies."
+  },
+  {
+    "id": "civic_medal_ironleaf",
+    "name": "Ironleaf Civic Medal",
+    "type": "trinket",
+    "stackable": false,
+    "value": 0,
+    "description": "A simple iron medal awarded by the city. Adds authority in civic encounters."
+  },
+  {
+    "id": "sealed_orders_packet",
+    "name": "Sealed Orders Packet",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "Council orders granting you emergency authority during the Great Assault."
+  },
+  {
+    "id": "tower_signal_shutter_set",
+    "name": "Signal Shutter Set",
+    "type": "tool",
+    "stackable": false,
+    "value": 14,
+    "description": "A kit of shutters and lenses for rapid lantern patterns. Improves counter-signal checks."
+  },
+  {
+    "id": "holy_pitch_vial",
+    "name": "Holy Pitch Vial",
+    "type": "tool",
+    "stackable": true,
+    "value": 10,
+    "description": "Blessed pitch used to seal cracks and choke crawlspaces. Useful against drains routes."
+  },
+  {
+    "id": "resin_patch",
+    "name": "Resin Patch",
+    "type": "tool",
+    "stackable": true,
+    "value": 18,
+    "description": "Sticky alchemical resin used to seal cracks, reinforce hinges, or gum a mechanism at the right moment."
+  },
+  {
+    "id": "chain_hook",
+    "name": "Chain Hook",
+    "type": "tool",
+    "stackable": false,
+    "value": 25,
+    "description": "A heavy iron hook for grabbing chains and pulling hard. Gate crews use these in emergencies."
+  },
+  {
+    "id": "signal_whistle",
+    "name": "Signal Whistle",
+    "type": "tool",
+    "stackable": false,
+    "value": 12,
+    "description": "A sharp whistle that cuts through battle noise. Useful for rallying defenders to your position."
+  },
+  {
+    "id": "title_ironleaf_warden",
+    "name": "Title: Ironleaf Warden",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A civic title granting you authority during emergency actions, discounts in some guild shops, and access to war-issue equipment."
+  },
+  {
+    "id": "warden_cloak_ironleaf",
+    "name": "Ironleaf Warden’s Cloak",
+    "type": "armor_cloak",
+    "stackable": false,
+    "value": 0,
+    "description": "A heavy cloak stitched with ironleaf thread. It’s not magic—yet. But it carries weight."
+  },
+  {
+    "id": "council_signet_temp",
+    "name": "Temporary Council Signet",
+    "type": "tool",
+    "stackable": false,
+    "value": 0,
+    "description": "Lets you bypass minor bureaucracy and request limited aid (once per chapter)."
+  },
+  {
+    "id": "guild_credit_chit",
+    "name": "Guild Credit Chit",
+    "type": "currency",
+    "stackable": true,
+    "value": 0,
+    "description": "A chit accepted by specific city guilds. Used to claim services or parts you can’t afford outright."
+  },
+  {
+    "id": "order_to_pursue",
+    "name": "Order to Pursue",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A sealed order authorizing you to pursue the retreating enemy beyond the walls."
+  },
+  {
+    "id": "blank_scroll_bundle",
+    "name": "Blank Scroll Bundle",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "Clean vellum ready for ward scripts and battle charms."
+  },
+  {
+    "id": "leather_panels",
+    "name": "Leather Armor Panels",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "Pre-cut panels for sewing brigandine and light armor. Smells of tannin and sweat."
+  },
+  {
+    "id": "work_contract_token",
+    "name": "Work Contract Token",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A stamped token proving you completed paid work for a shop or guild. Trade-in for gear, favors, or upgrades."
+  },
+  {
+    "id": "field_ration_pack",
+    "name": "Field Ration Pack",
+    "type": "consumable",
+    "stackable": true,
+    "value": 8,
+    "meta": {
+      "heal": 3
+    },
+    "description": "Bread, salted fat, and dried fruit. Not good. Not negotiable."
+  },
+  {
+    "id": "council_sigil_bronze",
+    "name": "Bronze Council Sigil",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A stamped bronze token used as proof of council-authorized work."
+  },
+  {
+    "id": "council_sigil_silver",
+    "name": "Silver Council Sigil",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A silver token issued to trusted auxiliaries. Opens doors that coin cannot."
+  },
+  {
+    "id": "ward_shard",
+    "name": "Ward Shard",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A rune-etched shard that hums faintly. Three can be fused into a ward-stone."
+  },
+  {
+    "id": "ward_stone",
+    "name": "Ward-Stone",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A fused ward focus used to reinforce gates, towers, or keep creatures at bay."
+  },
+  {
+    "id": "council_warrant",
+    "name": "Council Warrant",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A signed warrant that authorizes searches and seizures in the name of the city."
+  },
+  {
+    "id": "minor_charm_ironluck",
+    "name": "Ironluck Charm",
+    "type": "accessory",
+    "slot": "amulet",
+    "stackable": false,
+    "value": 0,
+    "meta": {
+      "luckBonus": 1
+    },
+    "description": "A small iron charm that seems to turn mishaps aside — once in a while."
+  },
+  {
+    "id": "ring_quickstep",
+    "name": "Ring of Quickstep",
+    "type": "accessory",
+    "slot": "ring1",
+    "stackable": false,
+    "value": 0,
+    "meta": {
+      "moveBonus": 1
+    },
+    "description": "A plain band etched with a running figure. You feel lighter when danger closes."
+  },
+  {
+    "id": "lumen_key_fragment",
+    "name": "Lumen Key Fragment",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A shard of carved crystal key. Three fragments will unlock the Lumen Vault."
+  },
+  {
+    "id": "crystal_ball_shard",
+    "name": "Crystal Ball Shard",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A shard of scrying crystal. Warm to the touch when near old wardwork."
+  },
+  {
+    "id": "ward_salt_pouch",
+    "name": "Ward Salt Pouch",
+    "type": "tool",
+    "stackable": true,
+    "value": 6,
+    "description": "Salt mixed with ash and silver filings. Reveals faint ward-lines and weak glamours."
+  },
+  {
+    "id": "fungal_tonic",
+    "name": "Fungal Tonic",
+    "type": "consumable",
+    "stackable": true,
+    "value": 8,
+    "description": "Bitter tonic brewed from cave fungi. Helps resist spores and reduces fatigue for a short time."
+  },
+  {
+    "id": "lumen_vault_crystal_ball",
+    "name": "The Crystal Ball of Lumen",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A flawless sphere of scrying crystal. With it, the city can see enemy movements before they strike."
+  },
+  {
+    "id": "counter_signal_slip",
+    "name": "Counter-Signal Slip",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A copied sequence of horn and lantern codes. Lets you fake orders briefly during a siege."
+  },
+  {
+    "id": "dawn_lantern_shutter",
+    "name": "Lantern Shutter",
+    "type": "tool",
+    "stackable": false,
+    "value": 8,
+    "description": "A metal shutter that changes lantern patterns quickly. Used in signal towers."
+  },
+  {
+    "id": "sapper_fuse_bundle",
+    "name": "Sapper Fuse Bundle",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "Short fuses and crude blasting caps. Proof of an upcoming wall-breach attempt."
+  },
+  {
+    "id": "barricade_spike_crate",
+    "name": "Barricade Spike Crate",
+    "type": "tool",
+    "stackable": false,
+    "value": 10,
+    "description": "A crate of spikes for street barricades. Improves city defense if installed before the next push."
+  },
+  {
+    "id": "battle_token_wall",
+    "name": "Battle Token: Wall",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "Marks your assignment to the wall line during the final assault."
+  },
+  {
+    "id": "battle_token_gate",
+    "name": "Battle Token: Gate",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "Marks your assignment to the gatehouse during the final assault."
+  },
+  {
+    "id": "battle_token_streets",
+    "name": "Battle Token: Streets",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "Marks your assignment to street defense and chase-down response during the final assault."
+  },
+  {
+    "id": "signal_master_whistle",
+    "name": "Signal Master’s Whistle",
+    "type": "tool",
+    "stackable": false,
+    "value": 0,
+    "description": "Lets you issue quick tactical calls to allied squads during the final assault (one advantage on a battle check)."
+  },
+  {
+    "id": "heirloom_gatebiter_sunsteel",
+    "name": "Gate-Biter, Sunsteel Heirloom",
+    "type": "weapon_sword",
+    "stackable": false,
+    "value": 0,
+    "description": "A veteran heirloom blade. Cuts through fear as well as flesh."
+  },
+  {
+    "id": "heirloom_wallwhisper_sunsteel",
+    "name": "Wall-Whisper, Sunsteel Heirloom",
+    "type": "weapon_bow",
+    "stackable": false,
+    "value": 0,
+    "description": "A veteran heirloom bow. The string sings only for targets that matter."
+  },
+  {
+    "id": "signal_flare_scroll",
+    "name": "Signal Flare Scroll",
+    "type": "consumable",
+    "stackable": true,
+    "value": 0,
+    "description": "Calls allies to a nearby area once (if allies_from_captives or political_mandate_strong is true)."
+  },
+  {
+    "id": "warlord_trophy_helm",
+    "name": "Warlord’s Helm Trophy",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "Proof of the warlord’s defeat. Changes the ending and unlocks post-campaign content."
+  },
+  {
+    "id": "bucket_sand",
+    "name": "Bucket of Sand",
+    "type": "tool",
+    "stackable": true,
+    "value": 4,
+    "description": "Thrown onto small fires to smother them quickly."
+  },
+  {
+    "id": "hook_knife",
+    "name": "Hook Knife",
+    "type": "tool",
+    "stackable": false,
+    "value": 16,
+    "description": "A curved blade used to cut ropes and ladder lashings from the battlements."
+  },
+  {
+    "id": "signal_whistle_city",
+    "name": "City Signal Whistle",
+    "type": "tool",
+    "stackable": false,
+    "value": 0,
+    "description": "A sharp whistle issued to trusted runners. Summons guards faster in street chases."
+  },
+  {
+    "id": "burnt_oil_flask",
+    "name": "Burnt Oil Flask",
+    "type": "tool",
+    "stackable": true,
+    "value": 10,
+    "description": "A blackened oil flask. Useful for making surfaces slippery or ruining torches and fuses."
+  },
+  {
+    "id": "arsonist_tinder_pouch",
+    "name": "Arsonist’s Tinder Pouch",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "Greasy tinder, pitch cloth, and small fire-starters. Proof of infiltrator intent."
+  },
+  {
+    "id": "infiltrator_token_black",
+    "name": "Black Infiltrator Token",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A black token used to identify city infiltrators. Worth more than coin to the council."
+  },
+  {
+    "id": "assault_priority_token",
+    "name": "Assault Priority Token",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A council-marked token declaring your chosen priority during the Great Assault."
+  },
+  {
+    "id": "signal_script_braid",
+    "name": "Signal Script Braid",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A braided cord with knots representing a signal sequence. Lowers the difficulty of one counter-signal check."
+  },
+  {
+    "id": "gate_chain_hook",
+    "name": "Gate Chain Hook",
+    "type": "tool",
+    "stackable": false,
+    "value": 10,
+    "description": "A heavy hook used to drag a ram off-line or snag ladders. Useful in wall defense."
+  },
+  {
+    "id": "climbing_spikes_set",
+    "name": "Climbing Spikes Set",
+    "type": "tool",
+    "stackable": false,
+    "value": 18,
+    "description": "Iron spikes with leather straps. Enables safer narrow-path routes and reduces fall risk."
+  },
+  {
+    "id": "rope_coil_war",
+    "name": "War-Rope Coil",
+    "type": "tool",
+    "stackable": false,
+    "value": 12,
+    "description": "A tough rope coil issued to scouts. Useful for bridges, cliffs, and hauling doors shut."
+  },
+  {
+    "id": "frost_salve",
+    "name": "Frost Salve",
+    "type": "consumable",
+    "stackable": true,
+    "value": 8,
+    "description": "Reduces cold penalties and helps steady hands for ranged fire on windy ledges."
+  },
+  {
+    "id": "echo_stone",
+    "name": "Echo-Stone",
+    "type": "tool",
+    "stackable": true,
+    "value": 10,
+    "description": "Thrown into tunnels, it mimics footsteps. Great for distractions."
+  },
+  {
+    "id": "fortress_badge_stolen",
+    "name": "Stolen Fortress Badge",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A stamped badge used by fortress servants and porters. Lets you bluff past some checks."
+  },
+  {
+    "id": "cold_iron_keyring",
+    "name": "Cold-Iron Keyring",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "Keys taken from a quartermaster. Opens inner service doors and an old cistern hatch."
+  },
+  {
+    "id": "ward_nails_bundle",
+    "name": "Ward Nails Bundle",
+    "type": "tool",
+    "stackable": true,
+    "value": 14,
+    "description": "Nails etched with simple ward marks. Used to pin doors, disrupt summoning circles, or brace cracked stone."
+  },
+  {
+    "id": "timber_bundle",
+    "name": "Timber Bundle",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "Fresh-cut timber for barricades and repairs."
+  },
+  {
+    "id": "grain_sack",
+    "name": "Grain Sack",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A heavy sack of grain. Worth its weight in time."
+  },
+  {
+    "id": "spike_bundle",
+    "name": "Field Spikes",
+    "type": "tool",
+    "stackable": true,
+    "value": 18,
+    "description": "Deployable spikes for slowing pursuers at chokepoints."
+  },
+  {
+    "id": "hunting_bow",
+    "name": "Hunting Bow",
+    "type": "weapon",
+    "stackable": false,
+    "value": 35,
+    "meta": {
+      "damage": "1d6",
+      "range": 3,
+      "ammoType": "arrow"
+    },
+    "description": "A sturdier bow suited for field work and ambushes."
+  },
+  {
+    "id": "torch_bundle",
+    "name": "Torch Bundle",
+    "type": "tool",
+    "stackable": true,
+    "value": 8,
+    "description": "Dry pitch torches. Useful for burning supplies… or lighting your own retreat."
+  },
+  {
+    "id": "bitterroot_vial",
+    "name": "Bitterroot Vial",
+    "type": "tool",
+    "stackable": true,
+    "value": 0,
+    "description": "A pungent herbal concentrate. In small doses it dulls pain. In soup pots it ruins an army’s day."
+  },
+  {
+    "id": "camp_scout_badge",
+    "name": "Camp Scout Badge",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A crude badge used by goblin scouts. Wearing it might fool someone for a heartbeat."
+  },
+  {
+    "id": "tunnel_survey_map",
+    "name": "Tunnel Survey Map",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A charcoal sketch marking a ‘second mouth’ into the city drains—and a deeper route labeled: RED KNIFE HOLD (TRANSFER)."
+  },
+  {
+    "id": "siege_order_strip",
+    "name": "Siege Order Strip",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A bark-paper order: ‘Tomorrow: push ladders at dawn. If the orb is lost, hold until the Hold delivers the prize.’"
+  },
+  {
+    "id": "shackle_key",
+    "name": "Shackle Key",
+    "type": "tool",
+    "stackable": false,
+    "value": 12,
+    "description": "A small key for simple iron shackles. Not for cell locks—just cages and chains."
+  },
+  {
+    "id": "smoke_jar",
+    "name": "Smoke Jar",
+    "type": "tool",
+    "stackable": true,
+    "value": 18,
+    "description": "A clay jar that cracks into thick smoke when thrown. Cruder than pellets, but effective."
+  },
+  {
+    "id": "redknife_transfer_orders",
+    "name": "Red Knife Transfer Orders",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "Bark-paper orders stamped with a jagged red blade: ‘MOVE PRIZE BEFORE DAWN. NO WITNESSES.’"
+  },
+  {
+    "id": "princess_locket",
+    "name": "Silver Locket (Royal Crest)",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A silver locket bearing a royal crest. Proof for the council—and leverage for alliances."
+  },
+  {
+    "id": "redknife_cord",
+    "name": "Red Knife Cord",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A crimson cord worn by Red Knife captains. Guards hesitate when they see it."
+  },
+  {
+    "id": "mine_charge",
+    "name": "Mine Charge",
+    "type": "tool",
+    "stackable": true,
+    "value": 0,
+    "description": "A wrapped bundle of blasting powder with a crude fuse. Loud, dangerous, effective."
+  },
+  {
+    "id": "chalk_shard",
+    "name": "Chalk Shard",
+    "type": "tool",
+    "stackable": true,
+    "value": 4,
+    "description": "Bright chalk that marks stone. Useful for navigating the caverns and tracking patrol routes."
+  },
+  {
+    "id": "gag_cloth",
+    "name": "Gag Cloth",
+    "type": "tool",
+    "stackable": true,
+    "value": 2,
+    "description": "A strip of cloth. Useful to keep a freed captive from shouting at the wrong moment."
+  },
+  {
+    "id": "ransom_token",
+    "name": "Ransom Token",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A stamped token used in hostage exchanges. Whoever holds it can claim ‘terms’—for a moment."
+  },
+  {
+    "id": "ward_splinter_focus",
+    "name": "Ward Splinter Focus",
+    "type": "tool",
+    "stackable": false,
+    "value": 0,
+    "description": "A refined ward-core splinter mounted in wire. It vibrates near weak supports and hidden runes."
+  },
+  {
+    "id": "powder_keg",
+    "name": "Black Powder Keg",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A sealed keg marked for the siege workshop. If this explodes in the wrong place, it won’t matter who wins the war."
+  },
+  {
+    "id": "fuse_coil",
+    "name": "Fuse Coil",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "Slow-burning fuse. Smugglers love it. Sappers worship it."
+  },
+  {
+    "id": "dock_ledger_page",
+    "name": "Dock Ledger Page",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A torn page listing ‘missing’ crates. The handwriting is careful. The numbers are not."
+  },
+  {
+    "id": "gate_key_fragment",
+    "name": "Gate Key Fragment",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A shard of an old key. It fits nothing alone — but it remembers a lock."
+  },
+  {
+    "id": "gatewarden_seal",
+    "name": "Gatewarden’s Seal",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A council-and-ward fused seal granting emergency access to restricted gate mechanisms and inner tunnels."
+  },
+  {
+    "id": "water_skin",
+    "name": "Water Skin",
+    "type": "tool",
+    "stackable": false,
+    "value": 10,
+    "description": "A leather skin of clean water. Useful for travel, or ruining a fuse at the right moment."
+  },
+  {
+    "id": "smoke_pellet",
+    "name": "Smoke Pellet",
+    "type": "tool",
+    "stackable": true,
+    "value": 14,
+    "meta": {
+      "breakLOS": 2
+    },
+    "description": "A compressed pellet that blooms into choking smoke. Perfect for escapes and ambushes."
+  },
+  {
+    "id": "scrying_transcript",
+    "name": "Scrying Transcript",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A hurried transcript of what the crystal ball revealed: timings, routes, and a single identifying detail of the traitor."
+  },
+  {
+    "id": "traitor_ring_blackwax",
+    "name": "Blackwax Signet Ring",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A ring stamped with a wax-seal sigil used for covert requisitions. It smells faintly of pitch and lamp oil."
+  },
+  {
+    "id": "warden_pass",
+    "name": "Warden’s Pass",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A curfew pass signed by the council. Lets you move through locked streets without being detained."
+  },
+  {
+    "id": "mage_ward_chalk",
+    "name": "Mage Ward Chalk",
+    "type": "tool",
+    "stackable": true,
+    "value": 5,
+    "description": "Drawn across thresholds to disrupt minor glamours and tripwire stealthy infiltrators."
+  },
+  {
+    "id": "smoke_mask",
+    "name": "Smoke Mask",
+    "type": "tool",
+    "stackable": false,
+    "value": 12,
+    "description": "Cloth and resin filter. Helps you act in heavy smoke without losing stamina."
+  },
+  {
+    "id": "war_standard_black",
+    "name": "Black War Standard",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A heavy banner used to rally and coordinate the siege. If taken, enemy morale cracks."
+  },
+  {
+    "id": "command_seal_plate",
+    "name": "Command Seal Plate",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A brass seal plate used to stamp orders in the camp. Proof—and leverage—for the city."
+  },
+  {
+    "id": "camp_ration_sack",
+    "name": "Camp Ration Sack",
+    "type": "consumable",
+    "stackable": true,
+    "value": 6,
+    "description": "Hard rations taken from the siege camp. Restores stamina when you rest."
+  },
+  {
+    "id": "tunnel_chalk_mark",
+    "name": "Tunnel Chalk Mark",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A chalk mark you place to remember the path through command tunnels."
+  },
+  {
+    "id": "axle_spike_wedge",
+    "name": "Axle Spike Wedge",
+    "type": "tool",
+    "stackable": true,
+    "value": 8,
+    "description": "A hardened wedge you can hammer into wheel hubs. Sabotages siege tower wheels if planted correctly."
+  },
+  {
+    "id": "pitch_sand_sack",
+    "name": "Sack of Sand (Pitch Spoiler)",
+    "type": "tool",
+    "stackable": false,
+    "value": 6,
+    "description": "Dumped into pitch cauldrons, it ruins the pour and clogs the spouts."
+  },
+  {
+    "id": "ram_head_chain",
+    "name": "Ram Head Chain",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A heavy chain binding the ram’s metal head. If stolen, the ram becomes far less effective."
+  },
+  {
+    "id": "engine_yard_key",
+    "name": "Engine Yard Key",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A crude iron key taken from a foreman’s belt. Opens the cage pens and the wheelhouse hatch."
+  },
+  {
+    "id": "oily_rag_bundle",
+    "name": "Oily Rag Bundle",
+    "type": "tool",
+    "stackable": true,
+    "value": 4,
+    "description": "Useful for smothering small flames or making a smoky distraction."
+  },
+  {
+    "id": "cage_list_names",
+    "name": "Cage List (Names & Places)",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A scribbled list of captives and their origins. Proof of enemy slave labor operations and a hook for later quests."
+  },
+  {
+    "id": "undercoin_bonewhite",
+    "name": "Bonewhite Undercoin",
+    "type": "currency",
+    "stackable": true,
+    "value": 0,
+    "description": "A pale coin used in goblin markets beneath the hills. Some doors open to it faster than to steel."
+  },
+  {
+    "id": "lockcharm_shiverkey",
+    "name": "Shiver-Key Charm",
+    "type": "tool",
+    "stackable": false,
+    "value": 0,
+    "description": "A charm that chills a lock’s mechanism. Improves opening checks in the under-fortress."
+  },
+  {
+    "id": "crystal_map_shard",
+    "name": "Crystal Map Shard",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A shard that glows near true routes. Collect enough and you can ‘solve’ the under-fortress layout."
+  },
+  {
+    "id": "prisoner_token",
+    "name": "Prisoner Token",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A stamped token taken from guards. Proof for negotiating releases… or forging access."
+  },
+  {
+    "id": "crystal_nexus_key",
+    "name": "Crystal Nexus Key",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A resonant key used to open the sealed chamber where the enemy’s war-sight is kept."
+  },
+  {
+    "id": "fortress_key_iron",
+    "name": "Iron Fortress Key",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "Cold iron with an angular ward notch. It smells faintly of oil."
+  },
+  {
+    "id": "prison_ring_token",
+    "name": "Prison Ring Token",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A stamped token issued to prison runners. It buys passage from some guards — once."
+  },
+  {
+    "id": "ward_core_splinter",
+    "name": "Ward-Core Splinter",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A splinter of rune-metal fused to black stone. It hums when held near wards."
+  },
+  {
+    "id": "crystal_ball_clue_page",
+    "name": "Clue: The Crystal Ball",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A smear-stained order: ‘Deliver the SIGHT ORB to the Deep Reliquary. No delays. No witnesses.’"
+  },
+  {
+    "id": "vip_signet_half",
+    "name": "VIP Signet (Broken Half)",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "Half a signet seal bearing a human noble crest. Proof of who was taken — and by whom."
+  },
+  {
+    "id": "lockpick_bundle",
+    "name": "Lockpick Bundle",
+    "type": "tool",
+    "stackable": true,
+    "value": 22,
+    "description": "Basic picks made from spring steel. Better than prayer."
+  },
+  {
+    "id": "oil_flask",
+    "name": "Flask of Lamp Oil",
+    "type": "tool",
+    "stackable": true,
+    "value": 10,
+    "description": "Useful for lamps, distractions, and convincing fire to happen elsewhere."
+  },
+  {
+    "id": "salted_meat",
+    "name": "Salted Meat Strip",
+    "type": "consumable",
+    "stackable": true,
+    "value": 6,
+    "meta": {
+      "heal": 2
+    },
+    "description": "Chewy and grim. Still better than sewer water."
+  },
+  {
+    "id": "shadow_cloak_pin",
+    "name": "Shadow Cloak Pin",
+    "type": "accessory",
+    "slot": "amulet",
+    "stackable": false,
+    "value": 0,
+    "meta": {
+      "stealthBonus": 1
+    },
+    "description": "A dark pin etched with a closed eye. It makes you feel less noticeable in torchlight."
+  },
+  {
+    "id": "sight_orb_crystal_ball",
+    "name": "The Sight Orb (Crystal Ball)",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A flawless sphere that shows moving lights like armies on a board. It feels warm, like it’s watching you back."
+  },
+  {
+    "id": "reliquary_seal_wax",
+    "name": "Reliquary Seal Wax",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "Hard black wax stamped with a deep reliquary emblem. Useful as proof you were here."
+  },
+  {
+    "id": "ward_sigiled_chain",
+    "name": "Ward-Sigiled Chain",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A chain link etched with ward runes. It hums near trap-lines and mechanism rooms."
+  },
+  {
+    "id": "reliquary_pass_mark",
+    "name": "Reliquary Pass Mark",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A chalk-and-wax mark used by reliquary staff to avoid certain ward traps."
+  },
+  {
+    "id": "glow_chalk",
+    "name": "Glow Chalk",
+    "type": "tool",
+    "stackable": true,
+    "value": 9,
+    "description": "Marks stone surfaces and faintly glows. Good for mapping tunnels or identifying fresh footprints."
+  },
+  {
+    "id": "ward_damper",
+    "name": "Ward Damper",
+    "type": "tool",
+    "stackable": true,
+    "value": 0,
+    "meta": {
+      "trapReduce": 1
+    },
+    "description": "A small rune-clamp that dulls a ward line briefly. Single-use, delicate."
+  },
+  {
+    "id": "commander_signet",
+    "name": "Commander’s Signet",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A brutal signet ring etched with a commander’s mark. It smells of oil and blood."
+  },
+  {
+    "id": "map_scrap_reliquary",
+    "name": "Map Scrap: Reliquary Routes",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A torn sketch showing hidden service routes and a ‘breakwater tunnel’ back into the caves."
+  },
+  {
+    "id": "oracle_chain_link",
+    "name": "Oracle Chain Link",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A link from the bound oracle’s chains. Needed to either free it safely or rebind it for the city."
+  },
+  {
+    "id": "war_map_tablet",
+    "name": "War-Map Tablet",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A carved slate showing enemy routes, caches, and fallback tunnels. Huge advantage in later battles."
+  },
+  {
+    "id": "relic_heartspike",
+    "name": "Heartspike Relic",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A cruel relic used to keep the oracle obedient. Destroying it weakens the lair’s boss effects."
+  },
+  {
+    "id": "crown_token_safekeep",
+    "name": "Safekeep Token",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A token bearing noble marks. If you rescued a high-value prisoner earlier, this gains political force."
+  },
+  {
+    "id": "badge_ironleaf_full",
+    "name": "Ironleaf Warden Badge (Full)",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "Your full authority. Opens armories, lets you requisition limited gear, and forces minor officials to stop wasting your time."
+  },
+  {
+    "id": "writ_requisition",
+    "name": "Requisition Writ",
+    "type": "tool",
+    "stackable": true,
+    "value": 0,
+    "description": "A sealed writ allowing you to claim supplies or specialist services once per chapter."
+  },
+  {
+    "id": "seal_council_major",
+    "name": "Major Council Seal",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "Proof of council backing. Improves diplomacy outcomes and deters some guards from ‘mistakes’."
+  },
+  {
+    "id": "ledger_blackwax",
+    "name": "Blackwax Ledger",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A ledger of bribes, sabotage, and quiet betrayals. Dangerous to hold. More dangerous to ignore."
+  },
+  {
+    "id": "blade_fitting_sunsteel",
+    "name": "Sunsteel Blade Fitting",
+    "type": "craft_component",
+    "stackable": false,
+    "value": 0,
+    "description": "A rare fitting used to upgrade a named weapon into a veteran-tier heirloom."
+  },
+  {
+    "id": "scroll_decree_safeconduct",
+    "name": "Decree of Safe Conduct",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A decree that lets you move through the city during lockdown and bring a small escort."
+  },
+  {
+    "id": "sword_gatebiter",
+    "name": "Gate-Biter (Named Sword)",
+    "type": "weapon_sword",
+    "stackable": false,
+    "value": 0,
+    "description": "A blade that earned its name at the gate. Slightly better at breaking enemy morale when you win fights decisively."
+  },
+  {
+    "id": "bow_wallwhisper",
+    "name": "Wall-Whisper (Named Bow)",
+    "type": "weapon_bow",
+    "stackable": false,
+    "value": 0,
+    "description": "A bow tuned for quick shots in cramped streets and battlements. Improves ranged ‘shoot-and-retreat’ options."
+  },
+  {
+    "id": "shield_ironleaf_boss",
+    "name": "Ironleaf Boss Shield",
+    "type": "shield",
+    "stackable": false,
+    "value": 0,
+    "description": "A shield with a reinforced boss designed for ward etching. Reduces chip damage in long fights."
+  },
+  {
+    "id": "ring_emberward",
+    "name": "Ring of Ember-Ward",
+    "type": "accessory_ring",
+    "stackable": false,
+    "value": 0,
+    "description": "A small ward against fire and pitch burns. Makes arson/pitch encounters less punishing."
+  },
+  {
+    "id": "amulet_clearsight",
+    "name": "Amulet of Clear Sight",
+    "type": "accessory_amulet",
+    "stackable": false,
+    "value": 0,
+    "description": "Helps you notice hidden doors, traps, and false choices. Improves Investigate outcomes."
+  },
+  {
+    "id": "boots_quietstep",
+    "name": "Quietstep Boots",
+    "type": "armor_feet",
+    "stackable": false,
+    "value": 0,
+    "description": "Soft soles and reinforced heel. Helps you avoid patrols and reduces the chance of triggering camp alarms."
+  },
+  {
+    "id": "scroll_emergency_ward",
+    "name": "Emergency Ward Scroll",
+    "type": "consumable",
+    "stackable": true,
+    "value": 0,
+    "description": "Single-use ward. Cancel one hazard consequence (fire, pitch, collapse, or panic surge)."
+  },
+  {
+    "id": "veteran_kit_field_suture",
+    "name": "Field Suture Kit",
+    "type": "tool",
+    "stackable": true,
+    "value": 10,
+    "description": "Lets you reduce post-fight penalties after a hard combat (once per chapter)."
+  },
+  {
+    "id": "council_writ",
+    "name": "Council Writ",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A sealed writ granting you authority to requisition supplies and pass guarded streets during curfew."
+  },
+  {
+    "id": "royal_writ",
+    "name": "Royal Writ (Arclight Seal)",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A royal seal that opens doors normally closed. Proof that you were trusted when it mattered."
+  },
+  {
+    "id": "triage_bandage_roll",
+    "name": "Triage Bandage Roll",
+    "type": "consumable",
+    "stackable": true,
+    "value": 6,
+    "description": "Rough linen bandages. Restores a small amount of stamina after a fight or stabilizes injuries."
+  },
+  {
+    "id": "hotspot_report",
+    "name": "Hotspot Report",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A runner’s slate listing fires, breaches, and panic zones. Updated hourly—while the city lasts."
+  },
+  {
+    "id": "infiltrator_confession",
+    "name": "Infiltrator Confession",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A scribbled confession naming a watchfort relay point and a ‘banner captain’ who coordinates signal fires."
+  },
+  {
+    "id": "signal_lantern_blue",
+    "name": "Blue Signal Lantern",
+    "type": "tool",
+    "stackable": false,
+    "value": 0,
+    "description": "A shuttered lantern for signaling friendly patrols during curfew. Used to avoid accidental arrests."
+  },
+  {
+    "id": "watchfort_gate_key",
+    "name": "Watchfort Gate Key",
+    "type": "tool",
+    "stackable": false,
+    "value": 0,
+    "description": "A heavy iron key with old city markings. Fits the watchfort gate and some inner locks."
+  },
+  {
+    "id": "siege_signal_codebook",
+    "name": "Siege Signal Codebook",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A greasy codebook detailing horn patterns and lantern colors for coordinating siege pushes."
+  },
+  {
+    "id": "watchfort_map_slate",
+    "name": "Watchfort Map Slate",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A slate map showing patrol routes, a prisoners’ pen, and a ‘banner relay’ tower."
+  },
+  {
+    "id": "rope_grapnel",
+    "name": "Rope & Grapnel",
+    "type": "tool",
+    "stackable": false,
+    "value": 14,
+    "description": "Lets you scale low walls or reach alternative entries. Quiet if used carefully."
+  },
+  {
+    "id": "oil_rag_bundle",
+    "name": "Oil Rag Bundle",
+    "type": "tool",
+    "stackable": true,
+    "value": 6,
+    "description": "Oily rags for sabotage: smoke, slick floors, or ruined fuses."
+  },
+  {
+    "id": "waterproof_torch_wrap",
+    "name": "Waterproof Torch Wrap",
+    "type": "tool",
+    "stackable": true,
+    "value": 8,
+    "description": "Keeps a torch lit through spray. Essential for the waterfall cave."
+  },
+  {
+    "id": "cave_rune_chalk",
+    "name": "Cave Rune Chalk",
+    "type": "tool",
+    "stackable": true,
+    "value": 6,
+    "description": "Marks safe footholds and routes. Reduces navigation errors in echoing caves."
+  },
+  {
+    "id": "shard_of_listening",
+    "name": "Shard of Listening",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "A crystal fragment that vibrates near hidden doors and ‘listening stone’. Useful against the lair’s secrets."
+  },
+  {
+    "id": "arrow_bundle",
+    "name": "Bundle of Arrows",
+    "type": "ammo",
+    "stackable": true,
+    "value": 8,
+    "meta": {
+      "ammoType": "arrow",
+      "count": 10
+    },
+    "description": "Fletched shafts for a hunting bow."
+  },
+  {
+    "id": "training_bow",
+    "name": "Militia Bow",
+    "type": "weapon",
+    "slot": "mainHand",
+    "stackable": false,
+    "value": 30,
+    "meta": {
+      "weaponType": "bow",
+      "range": 3,
+      "damage": "1d6",
+      "requiresAmmo": "arrow"
+    },
+    "description": "A serviceable bow issued to auxiliaries. Light but reliable."
+  },
+  {
+    "id": "spikes_bundle",
+    "name": "Bundle of Spikes",
+    "type": "tool",
+    "stackable": true,
+    "value": 6,
+    "meta": {
+      "hazardKind": "spikes",
+      "uses": 1
+    },
+    "description": "A tied bundle of iron spikes. Useful for quickly hardening a choke-point."
+  }
+]

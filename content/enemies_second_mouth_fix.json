@@ -1,0 +1,92 @@
+[
+  {
+    "id": "mouth_crawler",
+    "name": "Mouth Crawler",
+    "kind": "monster",
+    "skill": 10,
+    "stamina": 12,
+    "meta": {
+      "special": "cling_and_slice"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 6
+      }
+    ],
+    "tags": [
+      "drains",
+      "monster"
+    ]
+  },
+  {
+    "id": "sewer_fanatic",
+    "name": "Sewer Fanatic",
+    "kind": "humanoid",
+    "skill": 10,
+    "stamina": 11,
+    "meta": {
+      "special": "smoke_bomb"
+    },
+    "loot": [
+      {
+        "itemId": "mage_ward_chalk",
+        "min": 0,
+        "max": 1
+      }
+    ],
+    "tags": [
+      "drains",
+      "cult"
+    ]
+  },
+  {
+    "id": "maw_priest",
+    "name": "Maw Priest of the Second Mouth",
+    "kind": "humanoid",
+    "skill": 13,
+    "stamina": 20,
+    "meta": {
+      "special": "call_crawlers"
+    },
+    "loot": [
+      {
+        "itemId": "gold_coin",
+        "min": 8,
+        "max": 22
+      }
+    ],
+    "tags": [
+      "boss",
+      "drains",
+      "cult"
+    ]
+  },
+  {
+    "id": "smf_pack",
+    "name": "Mouth Pack",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "mouth_crawler",
+        "count": 2
+      },
+      {
+        "enemyId": "sewer_fanatic",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 1,
+        "startDistance": 2,
+        "morale": 9
+      }
+    },
+    "tags": [
+      "group",
+      "drains"
+    ]
+  }
+]

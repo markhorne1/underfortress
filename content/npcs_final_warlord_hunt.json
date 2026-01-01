@@ -1,0 +1,29 @@
+[
+  {
+    "id": "npc_kess_final",
+    "name": "Lieutenant Kess",
+    "role": "Hunt Lead (Final)",
+    "portraitPrompt": "fantasy character portrait, scout lieutenant grim, snowfall, torchlight on armor, painterly, no text",
+    "dialogue": {
+      "greeting": "We end this now, or we end it later with more graves.",
+      "nodes": [
+        {
+          "id": "prep",
+          "text": "The Warlord’s survivors are rallying at the fortress-heart.\n\nExpect:\n- chokepoints,\n- skirmish lines,\n- and a ritual meant to turn desperation into power.\n\nIf you carry the war-map tablet, we’ll avoid the worst traps.\n\nIf you have the oracle’s advantage, we’ll see ambushes before they breathe.\n\nIf you destroyed it… we fight honest.\n\nReady?",
+          "choices": [
+            {
+              "label": "Ready.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "fwh_ready",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

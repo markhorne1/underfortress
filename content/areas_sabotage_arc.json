@@ -1,0 +1,345 @@
+[
+  {
+    "id": "c_powder_magazine",
+    "title": "Powder Magazine",
+    "x": 4,
+    "y": 0,
+    "floorId": "city",
+    "tileStyle": "warehouse",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, guarded powder magazine doors, warning sigils, rain, torchlight, cinematic, no text",
+    "description": "A thick door, two locks, and a guard who looks like he sleeps with his spear.\n\nA sign reads: NO OPEN FLAME.\n\nYou notice: someone has scraped wax from a seal recently.",
+    "exits": {
+      "e": "c_siege_workshop",
+      "w": "c_gate_inner_yard"
+    },
+    "actionsAvailable": {
+      "investigate": {
+        "text": "The seal scrapings suggest tampering. If a fuse is already laid, the city might lose the gate before the enemy arrives.",
+        "choices": [
+          {
+            "id": "enter_magazine",
+            "label": "Enter and inspect the kegs.",
+            "requirements": [
+              {
+                "type": "flagEquals",
+                "key": "council_trusted",
+                "value": true
+              }
+            ],
+            "goToAreaId": "c_magazine_inside"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "c_magazine_inside",
+    "title": "Inside the Magazine",
+    "x": 4,
+    "y": -1,
+    "floorId": "city",
+    "tileStyle": "warehouse",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, powder kegs stacked in rows, dim lantern behind shuttered glass, suspicious shadow, cinematic, no text",
+    "description": "Rows of kegs. The air is dry and wrong.\n\nA shadow moves between stacks — too careful for a guard.\n\nYou catch the faint smell of burned cord: fuse.",
+    "exits": {
+      "n": "c_powder_magazine"
+    },
+    "choices": [
+      {
+        "id": "confront",
+        "label": "Step in and confront the intruder.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "intruder_spotted",
+            "value": true
+          }
+        ],
+        "goToAreaId": "c_magazine_standoff"
+      },
+      {
+        "id": "snuff_fuse_water",
+        "label": "Quietly soak the fuse with my water skin.",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "water_skin",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "flag",
+            "key": "fuse_ruined",
+            "value": true
+          },
+          {
+            "type": "addXP",
+            "amount": 14
+          }
+        ],
+        "goToAreaId": "c_magazine_standoff"
+      }
+    ]
+  },
+  {
+    "id": "c_magazine_standoff",
+    "title": "Magazine Standoff",
+    "x": 4,
+    "y": -2,
+    "floorId": "city",
+    "tileStyle": "warehouse",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, saboteur with flint and fuse near powder kegs, tense close quarters, cinematic, no text",
+    "description": "The intruder turns — a city man, not a goblin. He holds flint and cord like holy objects.\n\n\"You shouldn’t be here,\" he says. \"This is bigger than you.\"",
+    "choices": [
+      {
+        "id": "talk_down",
+        "label": "Talk: \"Who’s paying you?\"",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "saboteur_parley",
+            "value": true
+          }
+        ],
+        "goToAreaId": "c_magazine_parley"
+      },
+      {
+        "id": "fight",
+        "label": "Fight him before he lights anything.",
+        "effects": [
+          {
+            "type": "startCombat",
+            "enemyGroup": [
+              {
+                "enemyId": "city_saboteur",
+                "count": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "c_magazine_after"
+      },
+      {
+        "id": "smoke_escape",
+        "label": "Throw a smoke pellet and rush him.",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "itemId": "smoke_pellet",
+            "qty": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "removeItem",
+            "itemId": "smoke_pellet",
+            "qty": 1
+          },
+          {
+            "type": "breakLOS",
+            "durationTurns": 2
+          },
+          {
+            "type": "startCombat",
+            "enemyGroup": [
+              {
+                "enemyId": "city_saboteur",
+                "count": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "c_magazine_after"
+      }
+    ]
+  },
+  {
+    "id": "c_magazine_parley",
+    "title": "A Dirty Confession",
+    "x": 4,
+    "y": -3,
+    "floorId": "city",
+    "tileStyle": "warehouse",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, close-up parley in dim warehouse, nervous saboteur, fuse cord, cinematic, no text",
+    "description": "His eyes flick to the kegs.\n\n\"It’s not the goblins,\" he whispers. \"It’s… a ‘friend of the docks’. They said the city must ‘change hands’ to survive. They said the gate wards are a lie.\"",
+    "choices": [
+      {
+        "id": "accept_surrender",
+        "label": "Accept his surrender and take evidence.",
+        "effects": [
+          {
+            "type": "addItem",
+            "itemId": "dock_ledger_page",
+            "qty": 1
+          },
+          {
+            "type": "addItem",
+            "itemId": "fuse_coil",
+            "qty": 1
+          },
+          {
+            "type": "flag",
+            "key": "powder_secured",
+            "value": true
+          },
+          {
+            "type": "addXP",
+            "amount": 22
+          }
+        ],
+        "goToAreaId": "c_magazine_after"
+      },
+      {
+        "id": "refuse",
+        "label": "Refuse: strike and disable him.",
+        "effects": [
+          {
+            "type": "startCombat",
+            "enemyGroup": [
+              {
+                "enemyId": "city_saboteur",
+                "count": 1
+              }
+            ]
+          }
+        ],
+        "goToAreaId": "c_magazine_after"
+      }
+    ]
+  },
+  {
+    "id": "c_magazine_after",
+    "title": "Secured Kegs",
+    "x": 4,
+    "y": -4,
+    "floorId": "city",
+    "tileStyle": "warehouse",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, sealed powder kegs with fresh wax seals, guards arriving, relief and tension, cinematic, no text",
+    "description": "Guards arrive, breathless. You point to scraped seals, the fuse cord, the ledger page.\n\nThe captain’s messenger blanches. \"If this had gone off…\"\n\nIt didn’t. Not today.",
+    "exits": {
+      "n": "c_powder_magazine",
+      "w": "c_gate_inner_yard"
+    },
+    "actionsAvailable": {
+      "talk": {
+        "text": "A guard captain nods grimly. \"Report this to the council. And don’t leave the gate yard once the horns start.\"",
+        "choices": [
+          {
+            "id": "report_council",
+            "label": "Report sabotage evidence to the council.",
+            "requirements": [
+              {
+                "type": "hasItem",
+                "itemId": "dock_ledger_page",
+                "qty": 1
+              }
+            ],
+            "effects": [
+              {
+                "type": "flag",
+                "key": "sabotage_evidence_reported",
+                "value": true
+              },
+              {
+                "type": "addItem",
+                "itemId": "council_sigil_bronze",
+                "qty": 2
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "c_dock_factor_office",
+    "title": "Factor’s Office",
+    "x": 7,
+    "y": 2,
+    "floorId": "city",
+    "tileStyle": "office",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, dock office with ledgers, sealing wax, fine chair, rain at window, cinematic, no text",
+    "description": "The office smells of wax, ink, and expensive soap. A man smiles like he’s never been hungry.\n\nFactor Merris stands behind a ledger stack as if it’s a fortress.",
+    "exits": {
+      "s": "c_tarpaulin_row"
+    },
+    "actionsAvailable": {
+      "talk": {
+        "text": "Merris’s smile is practiced. \"I’m very busy.\"",
+        "choices": [
+          {
+            "id": "warrant",
+            "label": "Present the Council Warrant.",
+            "requirements": [
+              {
+                "type": "hasItem",
+                "itemId": "council_warrant",
+                "qty": 1
+              }
+            ],
+            "effects": [
+              {
+                "type": "flag",
+                "key": "factor_confronted",
+                "value": true
+              }
+            ],
+            "goToAreaId": "c_factor_outcome"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "c_factor_outcome",
+    "title": "Warrant Executed",
+    "x": 7,
+    "y": 3,
+    "floorId": "city",
+    "tileStyle": "office",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, guards seizing ledgers, factor losing composure, wax seals, cinematic, no text",
+    "description": "His composure fractures when the warrant seal catches the light.\n\n\"This is absurd—\" he begins.\n\nA guard’s hand closes on his shoulder. The ledger pages you take feel heavier than coin.",
+    "exits": {
+      "n": "c_dock_factor_office",
+      "w": "c_docks_ward"
+    },
+    "choices": [
+      {
+        "id": "arrest",
+        "label": "Arrest Merris and seize the ledger pages.",
+        "effects": [
+          {
+            "type": "flag",
+            "key": "factor_arrested",
+            "value": true
+          },
+          {
+            "type": "addItem",
+            "itemId": "dock_ledger_page",
+            "qty": 2
+          },
+          {
+            "type": "addXP",
+            "amount": 26
+          }
+        ],
+        "goToAreaId": "c_docks_ward"
+      }
+    ]
+  }
+]

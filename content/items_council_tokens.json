@@ -1,0 +1,9 @@
+[
+  { "id": "council_sigil_bronze", "name": "Bronze Council Sigil", "type": "quest", "stackable": true, "value": 0, "description": "A stamped bronze token used as proof of council-authorized work." },
+  { "id": "council_sigil_silver", "name": "Silver Council Sigil", "type": "quest", "stackable": true, "value": 0, "description": "A silver token issued to trusted auxiliaries. Opens doors that coin cannot." },
+  { "id": "ward_shard", "name": "Ward Shard", "type": "quest", "stackable": true, "value": 0, "description": "A rune-etched shard that hums faintly. Three can be fused into a ward-stone." },
+  { "id": "ward_stone", "name": "Ward-Stone", "type": "quest", "stackable": false, "value": 0, "description": "A fused ward focus used to reinforce gates, towers, or keep creatures at bay." },
+  { "id": "council_warrant", "name": "Council Warrant", "type": "quest", "stackable": false, "value": 0, "description": "A signed warrant that authorizes searches and seizures in the name of the city." },
+  { "id": "minor_charm_ironluck", "name": "Ironluck Charm", "type": "accessory", "slot": "amulet", "stackable": false, "value": 0, "meta": { "luckBonus": 1 }, "description": "A small iron charm that seems to turn mishaps aside — once in a while." },
+  { "id": "ring_quickstep", "name": "Ring of Quickstep", "type": "accessory", "slot": "ring1", "stackable": false, "value": 0, "meta": { "moveBonus": 1 }, "description": "A plain band etched with a running figure. You feel lighter when danger closes." }
+]

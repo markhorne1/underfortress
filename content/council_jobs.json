@@ -1,0 +1,50 @@
+[
+  {
+    "id": "council_intro",
+    "name": "Council Audience: Auxiliary Status",
+    "giverNpcId": "npc_council_clerk_elm",
+    "startAreaId": "c_council_hall",
+    "objective": { "type": "flagSet", "key": "council_introduced", "value": true },
+    "rewards": { "gold": 0, "xp": 20, "items": [{ "itemId": "city_writ", "qty": 1 }, { "itemId": "council_sigil_bronze", "qty": 2 }] },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "council_job_ward_shards",
+    "name": "Recover Ward Shards from the Old Drain",
+    "giverNpcId": "npc_councilor_vayne",
+    "startAreaId": "c_council_hall",
+    "objective": { "type": "deliverItems", "items": [{ "itemId": "ward_shard", "qty": 3 }], "toAreaId": "c_council_hall" },
+    "grantsOnStart": [],
+    "rewards": { "gold": 6, "xp": 24, "items": [{ "itemId": "council_sigil_bronze", "qty": 2 }] },
+    "cooldownMinutes": 120
+  },
+  {
+    "id": "council_job_search_warrant",
+    "name": "Issue a Search Warrant",
+    "giverNpcId": "npc_council_clerk_elm",
+    "startAreaId": "c_council_hall",
+    "objective": { "type": "craftItem", "recipeId": "issue_council_warrant" },
+    "grantsOnStart": [],
+    "rewards": { "gold": 0, "xp": 18, "items": [] },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "council_job_docks_raid",
+    "name": "Disrupt the Docks Ward Contraband",
+    "giverNpcId": "npc_councilor_vayne",
+    "startAreaId": "c_council_hall",
+    "objective": { "type": "setFlag", "key": "docks_contraband_disrupted", "value": true },
+    "grantsOnStart": [],
+    "rewards": { "gold": 8, "xp": 28, "items": [{ "itemId": "council_sigil_silver", "qty": 1 }, { "itemId": "ward_shard", "qty": 2 }] },
+    "cooldownMinutes": 180
+  },
+  {
+    "id": "council_job_reward_charm",
+    "name": "Council Reward: Choose a Minor Charm",
+    "giverNpcId": "npc_councilor_vayne",
+    "startAreaId": "c_council_hall",
+    "objective": { "type": "choiceReward" },
+    "rewards": { "gold": 0, "xp": 10, "items": [] },
+    "cooldownMinutes": 99999
+  }
+]

@@ -1,0 +1,221 @@
+[
+  {
+    "id": "c_council_hall",
+    "title": "Council Hall: War Map Chamber",
+    "x": 2,
+    "y": 1,
+    "floorId": "city",
+    "tileStyle": "council",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, medieval council war room, candlelit map table, tired officials, cinematic, no text",
+    "description": "Candles gutter over a map scratched with siege lines.\n\nA clerk dips his quill in ink like it’s blood.\n\nCouncilor Vayne gestures you in. \"Report.\"",
+    "actionsAvailable": {
+      "talk": {
+        "text": "Vayne’s gaze is a blade.",
+        "choices": [
+          {
+            "id": "vayne",
+            "label": "Talk to Councilor Vayne.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_councilor_vayne"
+              }
+            ]
+          },
+          {
+            "id": "start_orders",
+            "label": "Accept Outside-the-Walls orders.",
+            "effects": [
+              {
+                "type": "startJob",
+                "jobId": "q_overland_orders"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "exits": {
+      "s": "c_market_square",
+      "e": "c_gate_inner_yard"
+    }
+  },
+  {
+    "id": "c_quartermaster_depot",
+    "title": "Quartermaster Depot",
+    "x": 1,
+    "y": 0,
+    "floorId": "city",
+    "tileStyle": "warehouse",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, crate-stacked depot, soldiers hauling bundles, quartermaster with ledger, cinematic, no text",
+    "description": "Crates rise like walls.\n\nQuartermaster Brevin barks numbers at runners.\n\nA sign reads: WORK EARNS WHAT COIN CAN’T.",
+    "actionsAvailable": {
+      "talk": {
+        "text": "Brevin looks up without smiling.",
+        "choices": [
+          {
+            "id": "brevin",
+            "label": "Talk to Quartermaster Brevin.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_quartermaster_brevin"
+              }
+            ]
+          },
+          {
+            "id": "start_runs",
+            "label": "Start: Battlement Runs.",
+            "effects": [
+              {
+                "type": "startJob",
+                "jobId": "q_city_battlement_runs"
+              }
+            ]
+          },
+          {
+            "id": "trade_tokens",
+            "label": "Trade Work Contract Tokens for gear (opens shop exchange).",
+            "requirements": [
+              {
+                "type": "hasItem",
+                "itemId": "work_contract_token",
+                "qty": 1
+              }
+            ],
+            "effects": [
+              {
+                "type": "startJob",
+                "jobId": "q_city_work_for_gear_trade"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "exits": {
+      "e": "c_market_square",
+      "n": "c_battlements_post",
+      "w": "c_armoury_workroom"
+    }
+  },
+  {
+    "id": "c_mage_tower_scribes",
+    "title": "Mage Tower: Scribes’ Room",
+    "x": 3,
+    "y": 0,
+    "floorId": "city",
+    "tileStyle": "tower",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, mage tower scribes room, scroll racks, glowing runes, scribes writing fast, cinematic, no text",
+    "description": "Quills scratch like insects.\n\nScribe Orrin stacks blank vellum beside rune-lamps.\n\n\"If you brought scrolls,\" he says, \"you brought time.\"",
+    "actionsAvailable": {
+      "talk": {
+        "text": "Orrin barely looks up.",
+        "choices": [
+          {
+            "id": "orrin",
+            "label": "Talk to Scribe Orrin.",
+            "effects": [
+              {
+                "type": "openDialogue",
+                "npcId": "npc_mage_tower_scribe_orrin"
+              }
+            ]
+          },
+          {
+            "id": "start_scrolls",
+            "label": "Start: Blank Scroll Delivery.",
+            "effects": [
+              {
+                "type": "startJob",
+                "jobId": "q_city_scroll_delivery"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "exits": {
+      "w": "c_market_square"
+    }
+  },
+  {
+    "id": "c_armoury_workroom",
+    "title": "Armoury Workroom",
+    "x": 0,
+    "y": 0,
+    "floorId": "city",
+    "tileStyle": "armoury",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, armoury sewing benches, leather panels, awls, tired workers, cinematic, no text",
+    "description": "Leather panels, needles, rivets.\n\nA master cobbler points at a pile: \"Stitch straight. Loose seams kill.\"",
+    "actionsAvailable": {
+      "craft": {
+        "text": "You can assist with stitching and fitting.",
+        "choices": [
+          {
+            "id": "start_sewing",
+            "label": "Start: Sew Leather Panels.",
+            "effects": [
+              {
+                "type": "startJob",
+                "jobId": "q_city_armoury_sewing"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "exits": {
+      "e": "c_quartermaster_depot",
+      "n": "c_gate_inner_yard"
+    }
+  },
+  {
+    "id": "c_battlements_post",
+    "title": "Battlements Post",
+    "x": 1,
+    "y": 1,
+    "floorId": "city",
+    "tileStyle": "battlements",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, battlements in drizzle, archers, stacked arrows, distant siege fires, cinematic, no text",
+    "description": "Archers stand in wet silence.\n\nBeyond the fields, siege fires glow like coals.\n\nA runner takes your bundle and nods once. \"Good. Again.\"",
+    "choices": [
+      {
+        "id": "complete_runs",
+        "label": "Complete the delivery for Battlement Runs (if active).",
+        "requirements": [
+          {
+            "type": "flagEquals",
+            "key": "battlement_runs_available",
+            "value": true
+          }
+        ],
+        "effects": [
+          {
+            "type": "flag",
+            "key": "battlement_runs_completed",
+            "value": true
+          },
+          {
+            "type": "completeJob",
+            "jobId": "q_city_battlement_runs"
+          }
+        ],
+        "goToAreaId": "c_quartermaster_depot"
+      }
+    ],
+    "exits": {
+      "s": "c_quartermaster_depot"
+    }
+  }
+]

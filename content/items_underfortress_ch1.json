@@ -1,0 +1,81 @@
+[
+  {
+    "id": "fortress_key_iron",
+    "name": "Iron Fortress Key",
+    "type": "quest",
+    "stackable": false,
+    "value": 0,
+    "description": "Cold iron with an angular ward notch. It smells faintly of oil."
+  },
+  {
+    "id": "prison_ring_token",
+    "name": "Prison Ring Token",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A stamped token issued to prison runners. It buys passage from some guards — once."
+  },
+  {
+    "id": "ward_core_splinter",
+    "name": "Ward-Core Splinter",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A splinter of rune-metal fused to black stone. It hums when held near wards."
+  },
+  {
+    "id": "crystal_ball_clue_page",
+    "name": "Clue: The Crystal Ball",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "A smear-stained order: ‘Deliver the SIGHT ORB to the Deep Reliquary. No delays. No witnesses.’"
+  },
+  {
+    "id": "vip_signet_half",
+    "name": "VIP Signet (Broken Half)",
+    "type": "quest",
+    "stackable": true,
+    "value": 0,
+    "description": "Half a signet seal bearing a human noble crest. Proof of who was taken — and by whom."
+  },
+  {
+    "id": "lockpick_bundle",
+    "name": "Lockpick Bundle",
+    "type": "tool",
+    "stackable": true,
+    "value": 22,
+    "description": "Basic picks made from spring steel. Better than prayer."
+  },
+  {
+    "id": "oil_flask",
+    "name": "Flask of Lamp Oil",
+    "type": "tool",
+    "stackable": true,
+    "value": 10,
+    "description": "Useful for lamps, distractions, and convincing fire to happen elsewhere."
+  },
+  {
+    "id": "salted_meat",
+    "name": "Salted Meat Strip",
+    "type": "consumable",
+    "stackable": true,
+    "value": 6,
+    "meta": {
+      "heal": 2
+    },
+    "description": "Chewy and grim. Still better than sewer water."
+  },
+  {
+    "id": "shadow_cloak_pin",
+    "name": "Shadow Cloak Pin",
+    "type": "accessory",
+    "slot": "amulet",
+    "stackable": false,
+    "value": 0,
+    "meta": {
+      "stealthBonus": 1
+    },
+    "description": "A dark pin etched with a closed eye. It makes you feel less noticeable in torchlight."
+  }
+]

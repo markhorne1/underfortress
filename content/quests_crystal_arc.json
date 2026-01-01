@@ -1,0 +1,66 @@
+[
+  {
+    "id": "q_crystal_descent",
+    "name": "Descent: Into the Underways",
+    "giverNpcId": "npc_mage_archivist_salenne",
+    "startAreaId": "c_sewer_gate_descent",
+    "objective": {
+      "type": "setFlag",
+      "key": "underways_reached",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 22,
+      "items": [
+        {
+          "itemId": "ward_salt_pouch",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_lumen_key",
+    "name": "Gather the Lumen Key (3 Fragments)",
+    "giverNpcId": "npc_ratcatcher_pella",
+    "startAreaId": "c_underway_threshold",
+    "objective": {
+      "type": "counterAtLeast",
+      "key": "lumen_key_fragments",
+      "value": 3
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 0,
+      "xp": 40,
+      "items": []
+    },
+    "cooldownMinutes": 99999
+  },
+  {
+    "id": "q_lumen_vault",
+    "name": "The Lumen Vault: Retrieve the Crystal Ball",
+    "giverNpcId": "npc_mage_archivist_salenne",
+    "startAreaId": "c_lumen_vault_door",
+    "objective": {
+      "type": "setFlag",
+      "key": "crystal_ball_recovered",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 20,
+      "xp": 70,
+      "items": [
+        {
+          "itemId": "lumen_vault_crystal_ball",
+          "qty": 1
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  }
+]

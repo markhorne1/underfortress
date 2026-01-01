@@ -1,0 +1,20 @@
+[
+  {
+    "id": "q_final_battle",
+    "name": "Battle at the Gates: The Last Push",
+    "giverNpcId": "npc_warcouncil_vayne_final",
+    "startAreaId": "fb_prebattle_council",
+    "objective": {
+      "type": "setFlag",
+      "key": "final_battle_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 40,
+      "xp": 140,
+      "items": []
+    },
+    "cooldownMinutes": 99999
+  }
+]

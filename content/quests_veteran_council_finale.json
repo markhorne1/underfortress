@@ -1,0 +1,33 @@
+[
+  {
+    "id": "q_veteran_council_finale",
+    "name": "Veteran Council Finale: The Knife Room",
+    "giverNpcId": "npc_councilor_vayne_finale",
+    "startAreaId": "vcf_war_room",
+    "objective": {
+      "type": "setFlag",
+      "key": "veteran_council_finale_complete",
+      "value": true
+    },
+    "grantsOnStart": [],
+    "rewards": {
+      "gold": 30,
+      "xp": 90,
+      "items": [
+        {
+          "itemId": "badge_ironleaf_full",
+          "qty": 1
+        },
+        {
+          "itemId": "seal_council_major",
+          "qty": 1
+        },
+        {
+          "itemId": "writ_requisition",
+          "qty": 2
+        }
+      ]
+    },
+    "cooldownMinutes": 99999
+  }
+]

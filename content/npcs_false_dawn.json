@@ -1,0 +1,29 @@
+[
+  {
+    "id": "npc_mage_archivist_salenne",
+    "name": "Archivist Salenne",
+    "role": "Mage Tower Liaison (War Scrying)",
+    "portraitPrompt": "fantasy character portrait, mage archivist with ink and chalk on fingers, scrolls and lanterns, tired sharp eyes, painterly, no text",
+    "dialogue": {
+      "greeting": "The enemy believes dawn makes them brave. Dawn only makes them visible.",
+      "nodes": [
+        {
+          "id": "scry",
+          "text": "Their signals are a language. If you stole their grammar, you can lie in it.\n\nIf you bring me the crystal ball later, I can see what the enemy hides behind smoke.",
+          "choices": [
+            {
+              "label": "Ask about the crystal ball.",
+              "effects": [
+                {
+                  "type": "flag",
+                  "key": "crystal_ball_thread_known",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]
