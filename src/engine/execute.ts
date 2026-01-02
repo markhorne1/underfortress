@@ -38,10 +38,10 @@ function rollD20(modifier: number = 0): { roll: number; total: number } {
   return { roll, total: roll + modifier };
 }
 
-// Get Perception bonus from player state (can be expanded later)
+// Get Perception bonus from player state
 function getPerceptionBonus(state: PlayerState): number {
-  // Base perception is 0, can be modified by items/skills
-  let bonus = 0;
+  // Base perception from stats (default 5)
+  let bonus = state.stats.perception || 0;
   
   // Check for Amulet of Clear Sight (+2 to Perception)
   const hasAmulet = state.inventory.some(item => item.itemId === 'amulet_clearsight');
@@ -101,6 +101,68 @@ export function performSearch(areaId: string, action: any, state: PlayerState): 
   // Mark as searched
   if (!newState.flags) newState.flags = {};
   (newState.flags as any)[searchFlag] = true;
+  
+  return { state: newState, log, success };
+}
+
+// Get Investigation bonus from player state
+function getInvestigationBonus(state: PlayerState): number {
+  // Base investigation from stats (default 5)
+  let bonus = state.stats.investigate || 0;
+  
+  // Check for Magnifying Glass or similar items
+  const hasMagnifier = state.inventory.some(item => item.itemId === 'magnifying_glass');
+  if (hasMagnifier) bonus += 2;
+  
+  // Check for Detective/Investigation flags
+  if ((state.flags as any)?.detective_training) bonus += 1;
+  if ((state.flags as any)?.investigation_expert) bonus += 2;
+  
+  return bonus;
+}
+
+export function performInvestigate(areaId: string, action: any, state: PlayerState): { state: PlayerState; log: string[]; success: boolean } {
+  const newState = JSON.parse(JSON.stringify(state));
+  const investigateFlag = `area:${areaId}:investigated:${action.targetId || 'default'}`;
+  
+  // Check if already investigated this target
+  if ((newState.flags as any)?.[investigateFlag]) {
+    return { 
+      state: newState, 
+      log: ['You have already investigated this thoroughly.'], 
+      success: false 
+    };
+  }
+  
+  // Get DC (default 13, slightly harder than Search)
+  const dc = action.dc ?? 13;
+  const bonus = getInvestigationBonus(newState);
+  const { roll, total } = rollD20(bonus);
+  const success = total >= dc;
+  
+  const log: string[] = [
+    `Investigation Check: d20(${roll}) + ${bonus} = ${total} vs DC ${dc} → ${success ? 'SUCCESS' : 'FAILURE'}`
+  ];
+  
+  if (success) {
+    if (action.successText) log.push(action.successText);
+    if (action.successEffects) {
+      const res = executeEffects(action.successEffects, newState);
+      Object.assign(newState, res.state);
+      log.push(...res.log);
+    }
+  } else {
+    if (action.failureText) log.push(action.failureText);
+    if (action.failureEffects) {
+      const res = executeEffects(action.failureEffects, newState);
+      Object.assign(newState, res.state);
+      log.push(...res.log);
+    }
+  }
+  
+  // Mark as investigated
+  if (!newState.flags) newState.flags = {};
+  (newState.flags as any)[investigateFlag] = true;
   
   return { state: newState, log, success };
 }

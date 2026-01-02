@@ -11,6 +11,7 @@ export default function App() {
   const loadState = usePlayerStore(s => s.loadState);
   const currentAreaId = usePlayerStore(s => s.currentAreaId);
   const inventory = usePlayerStore(s => s.inventory);
+  const equipment = usePlayerStore(s => s.equipment);
   const stats = usePlayerStore(s => s.stats);
   const spellsKnown = usePlayerStore(s => s.spellsKnown);
   const quests = usePlayerStore(s => s.quests);
@@ -74,16 +75,35 @@ export default function App() {
     if (res && res.goToAreaId) (usePlayerStore as any).getState().moveTo?.(res.goToAreaId);
   };
 
-  // build ordered choices: area.choices, actionsAvailable, exits
+  // build ordered choices: area.choices, actions array, actionsAvailable (legacy), exits
   const orderedChoices: any[] = [];
   if (area) {
     if (Array.isArray(area.choices)) orderedChoices.push(...area.choices.map((c:any)=>({ ...c })));
+    
+    // New actions array format
+    if (Array.isArray((area as any).actions)) {
+      for (const act of (area as any).actions) {
+        const actionType = act.type || 'unknown';
+        const actionIcons: Record<string, string> = {
+          search: '🔍',
+          investigate: '🔎',
+          lockpick: '🔓',
+          pickpocket: '👛'
+        };
+        const icon = actionIcons[actionType] || '⚡';
+        const label = act.label || `${icon} ${actionType.charAt(0).toUpperCase() + actionType.slice(1)}`;
+        orderedChoices.push({ id: `action_${actionType}`, label, actionType, rawAction: act });
+      }
+    }
+    
+    // Legacy actionsAvailable object format
     if (area.actionsAvailable) {
       for (const k of Object.keys(area.actionsAvailable)) {
         const act = area.actionsAvailable[k];
         orderedChoices.push({ id: `action_${k}`, label: act.text ?? act.label ?? k, requirements: act.requirements, effects: act.effects, goToAreaId: act.goToAreaId, rawAction: act });
       }
     }
+    
     const exits = area.exits || {};
     for (const [dir, aid] of Object.entries(exits)) {
       orderedChoices.push({ id: `exit_${dir}`, label: `Go to: ${getAreaById(aid as string)?.title ?? aid}`, goToAreaId: aid });
@@ -172,19 +192,103 @@ export default function App() {
             
             {modalPage === 'equipment' && (
               <div>
-                <p>Equipment system coming soon...</p>
+                {Object.keys(equipment).length === 0 ? (
+                  <p>No equipment worn.</p>
+                ) : (
+                  <ul style={{ listStyle: 'none', padding: 0 }}>
+                    {Object.entries(equipment).map(([slot, itemId]) => (
+                      <li key={slot} style={{ padding: '8px 0', borderBottom: '1px solid #eee' }}>
+                        <strong>{slot}:</strong> {itemId || '(empty)'}
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
             )}
             
             {modalPage === 'skills' && (
               <div>
-                <h3>Stats</h3>
-                <p>Skill: {stats.skill}</p>
-                <p>Stamina: {stats.stamina}</p>
-                <p>Luck: {stats.luck}</p>
-                <p>Gold: {stats.gold}</p>
-                <p>XP: {stats.xp}</p>
-                <p>Level: {stats.level}</p>
+                <h3 style={{ marginTop: 0 }}>Core Stats</h3>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginBottom: 20 }}>
+                  <div>Skill: <strong>{stats.skill}</strong></div>
+                  <div>Stamina: <strong>{stats.stamina}</strong></div>
+                  <div>Luck: <strong>{stats.luck}</strong></div>
+                  <div>Level: <strong>{stats.level}</strong></div>
+                  <div>XP: <strong>{stats.xp}</strong></div>
+                  <div>Gold: <strong>{stats.gold}</strong></div>
+                </div>
+                
+                <h3>Active Skills</h3>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '8px', marginBottom: 20 }}>
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <span style={{ flex: 1 }}>Search</span>
+                    <span style={{ marginRight: 8, fontWeight: 'bold' }}>{stats.search}</span>
+                  </div>
+                  <button style={{ padding: '4px 12px', fontSize: 12, borderRadius: 4, background: '#4a90e2', color: '#fff', border: 'none', cursor: 'pointer' }} onClick={() => alert('Use Search in areas with hidden items/clues')}>Use</button>
+                  
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <span style={{ flex: 1 }}>Investigate</span>
+                    <span style={{ marginRight: 8, fontWeight: 'bold' }}>{stats.investigate}</span>
+                  </div>
+                  <button style={{ padding: '4px 12px', fontSize: 12, borderRadius: 4, background: '#4a90e2', color: '#fff', border: 'none', cursor: 'pointer' }} onClick={() => alert('Examine objects for quest clues')}>Use</button>
+                  
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <span style={{ flex: 1 }}>Melee Attack</span>
+                    <span style={{ marginRight: 8, fontWeight: 'bold' }}>{stats.meleeAttack}</span>
+                  </div>
+                  <button style={{ padding: '4px 12px', fontSize: 12, borderRadius: 4, background: '#e74c3c', color: '#fff', border: 'none', cursor: 'pointer' }} onClick={() => alert('Used in close combat')}>Info</button>
+                  
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <span style={{ flex: 1 }}>Ranged Attack</span>
+                    <span style={{ marginRight: 8, fontWeight: 'bold' }}>{stats.rangedAttack}</span>
+                  </div>
+                  <button style={{ padding: '4px 12px', fontSize: 12, borderRadius: 4, background: '#e74c3c', color: '#fff', border: 'none', cursor: 'pointer' }} onClick={() => alert('Used for distant combat')}>Info</button>
+                  
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <span style={{ flex: 1 }}>Cast Spell</span>
+                    <span style={{ marginRight: 8, fontWeight: 'bold' }}>{stats.castSpell}</span>
+                  </div>
+                  <button style={{ padding: '4px 12px', fontSize: 12, borderRadius: 4, background: '#9b59b6', color: '#fff', border: 'none', cursor: 'pointer' }} onClick={() => alert('Used when casting spells')}>Info</button>
+                  
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <span style={{ flex: 1 }}>Lockpick</span>
+                    <span style={{ marginRight: 8, fontWeight: 'bold' }}>{stats.lockpick}</span>
+                  </div>
+                  <button style={{ padding: '4px 12px', fontSize: 12, borderRadius: 4, background: '#4a90e2', color: '#fff', border: 'none', cursor: 'pointer' }} onClick={() => alert('Open locked doors/chests')}>Use</button>
+                  
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <span style={{ flex: 1 }}>Pickpocket</span>
+                    <span style={{ marginRight: 8, fontWeight: 'bold' }}>{stats.pickpocket}</span>
+                  </div>
+                  <button style={{ padding: '4px 12px', fontSize: 12, borderRadius: 4, background: '#4a90e2', color: '#fff', border: 'none', cursor: 'pointer' }} onClick={() => alert('Steal from NPCs')}>Use</button>
+                </div>
+                
+                <h3>Passive Skills</h3>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '8px', fontSize: 14 }}>
+                  <div>Perception</div>
+                  <div style={{ fontWeight: 'bold' }}>{stats.perception}</div>
+                  
+                  <div>Melee Defense</div>
+                  <div style={{ fontWeight: 'bold' }}>{stats.meleeDefense}</div>
+                  
+                  <div>Ranged Defense</div>
+                  <div style={{ fontWeight: 'bold' }}>{stats.rangedDefense}</div>
+                  
+                  <div>Dodge</div>
+                  <div style={{ fontWeight: 'bold' }}>{stats.dodge}</div>
+                  
+                  <div>Spell Resistance</div>
+                  <div style={{ fontWeight: 'bold' }}>{stats.spellResistance}</div>
+                  
+                  <div>Stealth</div>
+                  <div style={{ fontWeight: 'bold' }}>{stats.stealth}</div>
+                  
+                  <div>Persuasion</div>
+                  <div style={{ fontWeight: 'bold' }}>{stats.persuasion}</div>
+                  
+                  <div>Intimidation</div>
+                  <div style={{ fontWeight: 'bold' }}>{stats.intimidation}</div>
+                </div>
               </div>
             )}
             

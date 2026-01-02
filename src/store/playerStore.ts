@@ -43,7 +43,11 @@ export function createPlayerStore(storage: KVStorage) {
     quests: {},
     questLog: [],
     spellsKnown: [],
-    stats: { skill: 6, stamina: 20, luck: 6, gold: 0, xp: 0, level: 1 },
+    stats: { 
+      skill: 6, stamina: 20, luck: 6, gold: 0, xp: 0, level: 1,
+      search: 5, investigate: 5, meleeAttack: 6, rangedAttack: 5, castSpell: 4, lockpick: 3, pickpocket: 3,
+      perception: 5, meleeDefense: 5, rangedDefense: 5, dodge: 4, spellResistance: 3, stealth: 4, persuasion: 5, intimidation: 4
+    },
     flags: {},
     hasSave: false,
     loadState: async () => {
@@ -75,7 +79,19 @@ export function createPlayerStore(storage: KVStorage) {
       }
       const discovered: Record<string, true> = {};
       discovered[startId] = true;
-      set({ currentAreaId: startId, discoveredMap: discovered, inventory: [], equipment: {}, spellsKnown: [], stats: { skill: 6, stamina: 20, luck: 6, gold: 0, xp: 0, level: 1 }, hasSave: true } as any);
+      set({ 
+        currentAreaId: startId, 
+        discoveredMap: discovered, 
+        inventory: [], 
+        equipment: {}, 
+        spellsKnown: [], 
+        stats: { 
+          skill: 6, stamina: 20, luck: 6, gold: 0, xp: 0, level: 1,
+          search: 5, investigate: 5, meleeAttack: 6, rangedAttack: 5, castSpell: 4, lockpick: 3, pickpocket: 3,
+          perception: 5, meleeDefense: 5, rangedDefense: 5, dodge: 4, spellResistance: 3, stealth: 4, persuasion: 5, intimidation: 4
+        }, 
+        hasSave: true 
+      } as any);
       // persist
       await storage.setItem(STORAGE_KEY, JSON.stringify(get()));
     },
@@ -161,6 +177,13 @@ export function createPlayerStore(storage: KVStorage) {
       
       console.log('🎯 handleChoice CALLED:', { currentAreaId, choiceId, choice });
       
+      // Check if this is an action (search, etc) that needs special handling
+      if (choice.rawAction && choice.actionType) {
+        console.log('→ Routing to handleAction:', choice.actionType);
+        await get().handleAction(choice.actionType, choice.rawAction);
+        return;
+      }
+      
       // Simple navigation via goToAreaId
       if (choice.goToAreaId && !choice.effects && !choice.requirements) {
         console.log('→ Simple navigation to:', choice.goToAreaId);
@@ -207,6 +230,9 @@ export function createPlayerStore(storage: KVStorage) {
       if (actionType === 'search') {
         const { performSearch } = await import('../engine/execute');
         result = performSearch(currentAreaId, action, currentState);
+      } else if (actionType === 'investigate') {
+        const { performInvestigate } = await import('../engine/execute');
+        result = performInvestigate(currentAreaId, action, currentState);
       } else {
         // Unknown action type
         return { success: false, log: [`Unknown action type: ${actionType}`] };

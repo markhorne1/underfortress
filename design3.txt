@@ -1,0 +1,44 @@
+
+
+
+Find each scenario start or main quest stage beginnings where it would be appropriate to create a Checkpoint where players who die will respawn at. 
+
+Add Health which starts at 100 and reduces with combat damage, at zero the player dies and returns to the last quest checkpoint.
+
+Add Stat Points, players start the game with 4. 
+
+Add these Core Stats - Power, Mind, Agility, Vision. They start at 1 by default and can increase over the course of the game to maximum of 10. 
+
+Players can assign Stat Points to their 4 core stats using plus and minus and Confirm and Cancel buttons. Once stat changes are Confirmed they cannot be reduced to gain points back later when fresh stat points are earned and ready to be assigned. Add a button to the start area called 'Spend 4 Stat Points' which opens the Skills page and highlights the plus buttons next to all the Stats. Once the player has added at least one point the highlighting switches off. If a player gains Stat Points in the future add the 'Spend x Stat Points' button and do the highlighting again.
+
+Rewrite the skill point system using percentages derived from Stats and replace d20 rolls with d100.
+
+Core Skills
+
+Search = Vision x10
+Investigate = Mind x10
+Melee Attack = Power x10
+Ranged Attack = Agility x10
+Cast Spell = Mind x10
+Lockpick = Vision x5 + Agility x5
+Pickpocket = Mind x5 + Agility x5
+
+Passive Skills
+
+Perception = Vision x10
+Melee Defense = Armour Rating + Power x5 + Agility x5
+Ranged Defense = Vision x5 + Agility x5
+Dodge = Agility x10
+Spell Resistance = Mind x10
+Stealth = Mind x5 + Agility x5
+Persuasion = Mind x10
+Intimidation = Power x10
+
+Audit the quests to find Experience points or XP which should be replaced with rewards of Stat Points which are added to the player's Stat Points total along with their loot after completing core quests. Determine which quests should reward Stat Points to keep the player's strength growing as required by the increasing threat level of the questline. However players hav'#0e a large degree of control to specialise their skills to improve combat outcomes at the expense of magical ability or vice versa. 0Quests should offer the very real possibility of the player dying due to a string of bad attack rolls exacerbated by bad rolls for melee defense due to lacking armour due to bad Search rolls.
+
+Audit the quests to find appropriate areas where skills can be rolled to improve the outcome for the player. New areas may need to be added to accommodate outcomes from Search for loot like essential starting weapons and armour, Investigate for keys to cupboards and chests to find further starting equipment.
+
+Audit the first scenario to make sure it includes quest rewards that give players a good selection of starting equipment to make themselves well protected enough to qualify for quartermaster quests (and protect the player from all the early combat encounters). Each armour item has an Armour Rating from 1 to 3 early game (4-7 mid game, 8 to 12 late game) which bonuses every Melee Defense roll and the player must have a minimum total Armour Rating of 10 to qualify for quartermaster quests. Make sure you create a paper doll prototype that allows players to slot armour items in the Head, Chest, Gloves, Legs, Boots. So each slot should have an armour item appropriate for the slot type  and rated at least Armour Rating 2, x5 = 10 to qualify.
+
+In later quests at the battlements let goblins add some traps in areas that the player will pass through. All the player has to do is Search and they will find the goblin trap and avoid it or collect it. If the player doesn't bother searching roll a melee combat attack by the trap against the player.
+
