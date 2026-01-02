@@ -23,6 +23,7 @@ export type PlayerActions = {
   moveTo: (areaId?: string, skipExitCheck?: boolean) => Promise<void>;
   handleChoice: (choice: any) => Promise<void>;
   handleAction: (actionType: string, action: any) => Promise<{ success: boolean; log: string[] }>;
+  allocateStats: (changes: { power: number; mind: number; agility: number; vision: number }) => Promise<void>;
   startThreat: (tConfig: any) => Promise<void>;
   shootActiveThreat: (shots?: number, seed?: number) => Promise<any>;
   placeHazardActive: (hazardType: string) => Promise<any>;
@@ -44,7 +45,7 @@ export function createPlayerStore(storage: KVStorage) {
     questLog: [],
     spellsKnown: [],
     stats: { 
-      skill: 6, stamina: 20, luck: 6, gold: 0, xp: 0, level: 1,
+      gold: 0,
       power: 1, mind: 1, agility: 1, vision: 1,
       statPoints: 4
     },
@@ -88,7 +89,7 @@ export function createPlayerStore(storage: KVStorage) {
         equipment: {}, 
         spellsKnown: [], 
         stats: { 
-          skill: 6, stamina: 20, luck: 6, gold: 0, xp: 0, level: 1,
+          gold: 0,
           power: 1, mind: 1, agility: 1, vision: 1,
           statPoints: 4
         },
@@ -261,6 +262,48 @@ export function createPlayerStore(storage: KVStorage) {
       console.log('✓ handleAction COMPLETE');
       
       return { success: result.success, log: result.log };
+    },
+    allocateStats: async (changes: { power: number; mind: number; agility: number; vision: number }) => {
+      const currentState = get();
+      const currentStats = currentState.stats;
+      
+      // Calculate total points being spent
+      const pointsSpent = changes.power + changes.mind + changes.agility + changes.vision;
+      
+      // Validate we have enough points
+      if (pointsSpent > currentStats.statPoints) {
+        console.error('Not enough stat points:', { pointsSpent, available: currentStats.statPoints });
+        return;
+      }
+      
+      // Calculate new stat values
+      const newPower = currentStats.power + changes.power;
+      const newMind = currentStats.mind + changes.mind;
+      const newAgility = currentStats.agility + changes.agility;
+      const newVision = currentStats.vision + changes.vision;
+      
+      // Validate stat limits (1-10)
+      if (newPower < 1 || newPower > 10 || newMind < 1 || newMind > 10 || 
+          newAgility < 1 || newAgility > 10 || newVision < 1 || newVision > 10) {
+        console.error('Stats must be between 1 and 10');
+        return;
+      }
+      
+      // Apply changes
+      const newStats = {
+        ...currentStats,
+        power: newPower,
+        mind: newMind,
+        agility: newAgility,
+        vision: newVision,
+        statPoints: currentStats.statPoints - pointsSpent
+      };
+      
+      set({ stats: newStats } as any);
+      
+      // Autosave
+      await storage.setItem(STORAGE_KEY, JSON.stringify(get()));
+      console.log('✓ Stats allocated:', { changes, newStats });
     },
     startThreat: async (tConfig: any) => {
       if (!tConfig) return;

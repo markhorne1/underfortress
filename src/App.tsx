@@ -8,6 +8,8 @@ export default function App() {
   const [page, setPage] = useState<'title'|'menu'|'game'>('title');
   const [loading, setLoading] = useState(true);
   const [modalPage, setModalPage] = useState<'inventory'|'equipment'|'skills'|'spells'|'quests'|'map'|null>(null);
+  const [statAllocMode, setStatAllocMode] = useState(false); // Stat allocation modal
+  const [pendingStats, setPendingStats] = useState({ power: 0, mind: 0, agility: 0, vision: 0 }); // Pending changes
   const newGame = usePlayerStore(s => s.newGame);
   const loadState = usePlayerStore(s => s.loadState);
   const currentAreaId = usePlayerStore(s => s.currentAreaId);
@@ -164,6 +166,32 @@ export default function App() {
           <div style={{ maxWidth: 800, width: '100%', textAlign: 'center' }}>
             <h1 style={{ marginBottom: 20 }}>{area.title ?? area.id}</h1>
             <p style={{ whiteSpace: 'pre-wrap', lineHeight: 1.6 }}>{area.description}</p>
+            
+            {/* Spend Stat Points Button */}
+            {stats.statPoints > 0 && (
+              <div style={{ marginTop: 20 }}>
+                <button 
+                  onClick={() => {
+                    setStatAllocMode(true);
+                    setPendingStats({ power: 0, mind: 0, agility: 0, vision: 0 });
+                  }}
+                  style={{ 
+                    padding: '12px 24px', 
+                    fontSize: 16, 
+                    fontWeight: 'bold',
+                    borderRadius: 8, 
+                    background: 'linear-gradient(135deg, #f39c12, #e67e22)', 
+                    color: '#fff', 
+                    border: '2px solid #d68910',
+                    cursor: 'pointer',
+                    boxShadow: '0 4px 12px rgba(243, 156, 18, 0.4)',
+                    animation: 'pulse 2s infinite'
+                  }}
+                >
+                  ⚡ Spend {stats.statPoints} Stat Point{stats.statPoints !== 1 ? 's' : ''}
+                </button>
+              </div>
+            )}
           </div>
         ) : (
           <div>No area loaded.</div>
@@ -337,7 +365,7 @@ export default function App() {
                 </div>
                 
                 <div style={{ marginTop: 20, padding: 12, background: '#f0f0f0', borderRadius: 8, fontSize: 12 }}>
-                  <strong>Legacy Stats:</strong> Gold: {stats.gold}, Level: {stats.level}, Luck: {stats.luck}
+                  <strong>Currency:</strong> 💰 {stats.gold} Gold
                 </div>
               </div>
             )}
@@ -380,6 +408,220 @@ export default function App() {
                 <p>Map system coming soon...</p>
               </div>
             )}
+          </div>
+        </div>
+      )}
+      
+      {/* Stat Allocation Modal */}
+      {statAllocMode && (
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.7)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 2000 }} onClick={() => { setStatAllocMode(false); setPendingStats({ power: 0, mind: 0, agility: 0, vision: 0 }); }}>
+          <div style={{ background: '#fff', padding: 30, borderRadius: 12, maxWidth: 500, width: '90%' }} onClick={(e) => e.stopPropagation()}>
+            <h2 style={{ marginTop: 0 }}>Allocate Stat Points</h2>
+            <p style={{ marginBottom: 20, color: '#666' }}>
+              Available Points: <strong style={{ fontSize: 20, color: '#f39c12' }}>{stats.statPoints - (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision)}</strong>
+            </p>
+            
+            {/* Power */}
+            <div style={{ marginBottom: 16, padding: 12, background: '#fff5f5', borderRadius: 8, border: '1px solid #ffcdd2' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                <div>
+                  <strong style={{ color: '#e74c3c' }}>⚔️ Power</strong>
+                  <div style={{ fontSize: 12, color: '#666' }}>Melee Attack, Intimidation</div>
+                </div>
+                <div style={{ fontSize: 18, fontWeight: 'bold' }}>{stats.power + pendingStats.power}/10</div>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                <button 
+                  onClick={() => setPendingStats(p => ({ ...p, power: Math.max(-(stats.power - 1), p.power - 1) }))}
+                  disabled={pendingStats.power <= -(stats.power - 1)}
+                  style={{ 
+                    padding: '8px 16px', 
+                    fontSize: 18, 
+                    borderRadius: 6, 
+                    background: pendingStats.power <= -(stats.power - 1) ? '#ddd' : '#e74c3c', 
+                    color: '#fff', 
+                    border: 'none', 
+                    cursor: pendingStats.power <= -(stats.power - 1) ? 'not-allowed' : 'pointer',
+                    opacity: pendingStats.power <= -(stats.power - 1) ? 0.5 : 1
+                  }}
+                >
+                  −
+                </button>
+                <div style={{ flex: 1, height: 24, background: '#f0f0f0', borderRadius: 12, overflow: 'hidden' }}>
+                  <div style={{ width: `${(stats.power + pendingStats.power) * 10}%`, height: '100%', background: '#e74c3c', transition: 'width 0.3s' }}></div>
+                </div>
+                <button 
+                  onClick={() => {
+                    const totalSpent = pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision;
+                    if (totalSpent < stats.statPoints && stats.power + pendingStats.power < 10) {
+                      setPendingStats(p => ({ ...p, power: p.power + 1 }));
+                    }
+                  }}
+                  disabled={stats.power + pendingStats.power >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints}
+                  style={{ 
+                    padding: '8px 16px', 
+                    fontSize: 18, 
+                    borderRadius: 6, 
+                    background: (stats.power + pendingStats.power >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? '#ddd' : '#27ae60', 
+                    color: '#fff', 
+                    border: 'none', 
+                    cursor: (stats.power + pendingStats.power >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? 'not-allowed' : 'pointer',
+                    opacity: (stats.power + pendingStats.power >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? 0.5 : 1,
+                    animation: (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) === 0 ? 'pulse 2s infinite' : 'none'
+                  }}
+                >
+                  +
+                </button>
+              </div>
+            </div>
+            
+            {/* Mind */}
+            <div style={{ marginBottom: 16, padding: 12, background: '#f3f0ff', borderRadius: 8, border: '1px solid #d1c4e9' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                <div>
+                  <strong style={{ color: '#9b59b6' }}>🧠 Mind</strong>
+                  <div style={{ fontSize: 12, color: '#666' }}>Magic, Investigation, Persuasion</div>
+                </div>
+                <div style={{ fontSize: 18, fontWeight: 'bold' }}>{stats.mind + pendingStats.mind}/10</div>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                <button 
+                  onClick={() => setPendingStats(p => ({ ...p, mind: Math.max(-(stats.mind - 1), p.mind - 1) }))}
+                  disabled={pendingStats.mind <= -(stats.mind - 1)}
+                  style={{ padding: '8px 16px', fontSize: 18, borderRadius: 6, background: pendingStats.mind <= -(stats.mind - 1) ? '#ddd' : '#9b59b6', color: '#fff', border: 'none', cursor: pendingStats.mind <= -(stats.mind - 1) ? 'not-allowed' : 'pointer', opacity: pendingStats.mind <= -(stats.mind - 1) ? 0.5 : 1 }}
+                >
+                  −
+                </button>
+                <div style={{ flex: 1, height: 24, background: '#f0f0f0', borderRadius: 12, overflow: 'hidden' }}>
+                  <div style={{ width: `${(stats.mind + pendingStats.mind) * 10}%`, height: '100%', background: '#9b59b6', transition: 'width 0.3s' }}></div>
+                </div>
+                <button 
+                  onClick={() => {
+                    const totalSpent = pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision;
+                    if (totalSpent < stats.statPoints && stats.mind + pendingStats.mind < 10) {
+                      setPendingStats(p => ({ ...p, mind: p.mind + 1 }));
+                    }
+                  }}
+                  disabled={stats.mind + pendingStats.mind >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints}
+                  style={{ padding: '8px 16px', fontSize: 18, borderRadius: 6, background: (stats.mind + pendingStats.mind >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? '#ddd' : '#27ae60', color: '#fff', border: 'none', cursor: (stats.mind + pendingStats.mind >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? 'not-allowed' : 'pointer', opacity: (stats.mind + pendingStats.mind >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? 0.5 : 1, animation: (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) === 0 ? 'pulse 2s infinite' : 'none' }}
+                >
+                  +
+                </button>
+              </div>
+            </div>
+            
+            {/* Agility */}
+            <div style={{ marginBottom: 16, padding: 12, background: '#f1f8f4', borderRadius: 8, border: '1px solid #c8e6c9' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                <div>
+                  <strong style={{ color: '#2ecc71' }}>🏃 Agility</strong>
+                  <div style={{ fontSize: 12, color: '#666' }}>Ranged Attack, Dodge, Stealth</div>
+                </div>
+                <div style={{ fontSize: 18, fontWeight: 'bold' }}>{stats.agility + pendingStats.agility}/10</div>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                <button 
+                  onClick={() => setPendingStats(p => ({ ...p, agility: Math.max(-(stats.agility - 1), p.agility - 1) }))}
+                  disabled={pendingStats.agility <= -(stats.agility - 1)}
+                  style={{ padding: '8px 16px', fontSize: 18, borderRadius: 6, background: pendingStats.agility <= -(stats.agility - 1) ? '#ddd' : '#2ecc71', color: '#fff', border: 'none', cursor: pendingStats.agility <= -(stats.agility - 1) ? 'not-allowed' : 'pointer', opacity: pendingStats.agility <= -(stats.agility - 1) ? 0.5 : 1 }}
+                >
+                  −
+                </button>
+                <div style={{ flex: 1, height: 24, background: '#f0f0f0', borderRadius: 12, overflow: 'hidden' }}>
+                  <div style={{ width: `${(stats.agility + pendingStats.agility) * 10}%`, height: '100%', background: '#2ecc71', transition: 'width 0.3s' }}></div>
+                </div>
+                <button 
+                  onClick={() => {
+                    const totalSpent = pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision;
+                    if (totalSpent < stats.statPoints && stats.agility + pendingStats.agility < 10) {
+                      setPendingStats(p => ({ ...p, agility: p.agility + 1 }));
+                    }
+                  }}
+                  disabled={stats.agility + pendingStats.agility >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints}
+                  style={{ padding: '8px 16px', fontSize: 18, borderRadius: 6, background: (stats.agility + pendingStats.agility >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? '#ddd' : '#27ae60', color: '#fff', border: 'none', cursor: (stats.agility + pendingStats.agility >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? 'not-allowed' : 'pointer', opacity: (stats.agility + pendingStats.agility >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? 0.5 : 1, animation: (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) === 0 ? 'pulse 2s infinite' : 'none' }}
+                >
+                  +
+                </button>
+              </div>
+            </div>
+            
+            {/* Vision */}
+            <div style={{ marginBottom: 20, padding: 12, background: '#e3f2fd', borderRadius: 8, border: '1px solid #bbdefb' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                <div>
+                  <strong style={{ color: '#3498db' }}>👁️ Vision</strong>
+                  <div style={{ fontSize: 12, color: '#666' }}>Search, Perception, Ranged Defense</div>
+                </div>
+                <div style={{ fontSize: 18, fontWeight: 'bold' }}>{stats.vision + pendingStats.vision}/10</div>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                <button 
+                  onClick={() => setPendingStats(p => ({ ...p, vision: Math.max(-(stats.vision - 1), p.vision - 1) }))}
+                  disabled={pendingStats.vision <= -(stats.vision - 1)}
+                  style={{ padding: '8px 16px', fontSize: 18, borderRadius: 6, background: pendingStats.vision <= -(stats.vision - 1) ? '#ddd' : '#3498db', color: '#fff', border: 'none', cursor: pendingStats.vision <= -(stats.vision - 1) ? 'not-allowed' : 'pointer', opacity: pendingStats.vision <= -(stats.vision - 1) ? 0.5 : 1 }}
+                >
+                  −
+                </button>
+                <div style={{ flex: 1, height: 24, background: '#f0f0f0', borderRadius: 12, overflow: 'hidden' }}>
+                  <div style={{ width: `${(stats.vision + pendingStats.vision) * 10}%`, height: '100%', background: '#3498db', transition: 'width 0.3s' }}></div>
+                </div>
+                <button 
+                  onClick={() => {
+                    const totalSpent = pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision;
+                    if (totalSpent < stats.statPoints && stats.vision + pendingStats.vision < 10) {
+                      setPendingStats(p => ({ ...p, vision: p.vision + 1 }));
+                    }
+                  }}
+                  disabled={stats.vision + pendingStats.vision >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints}
+                  style={{ padding: '8px 16px', fontSize: 18, borderRadius: 6, background: (stats.vision + pendingStats.vision >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? '#ddd' : '#27ae60', color: '#fff', border: 'none', cursor: (stats.vision + pendingStats.vision >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? 'not-allowed' : 'pointer', opacity: (stats.vision + pendingStats.vision >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? 0.5 : 1, animation: (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) === 0 ? 'pulse 2s infinite' : 'none' }}
+                >
+                  +
+                </button>
+              </div>
+            </div>
+            
+            {/* Confirm/Cancel Buttons */}
+            <div style={{ display: 'flex', gap: 12 }}>
+              <button 
+                onClick={() => {
+                  setStatAllocMode(false);
+                  setPendingStats({ power: 0, mind: 0, agility: 0, vision: 0 });
+                }}
+                style={{ flex: 1, padding: '12px', fontSize: 16, borderRadius: 8, background: '#95a5a6', color: '#fff', border: 'none', cursor: 'pointer' }}
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={async () => {
+                  const totalChanges = pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision;
+                  if (totalChanges > 0) {
+                    const allocateStats = (usePlayerStore as any).getState().allocateStats;
+                    await allocateStats(pendingStats);
+                    setStatAllocMode(false);
+                    setPendingStats({ power: 0, mind: 0, agility: 0, vision: 0 });
+                  }
+                }}
+                disabled={(pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) === 0}
+                style={{ 
+                  flex: 1, 
+                  padding: '12px', 
+                  fontSize: 16, 
+                  fontWeight: 'bold',
+                  borderRadius: 8, 
+                  background: (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) === 0 ? '#ddd' : 'linear-gradient(135deg, #27ae60, #229954)', 
+                  color: '#fff', 
+                  border: 'none', 
+                  cursor: (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) === 0 ? 'not-allowed' : 'pointer',
+                  opacity: (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) === 0 ? 0.5 : 1
+                }}
+              >
+                ✓ Confirm Changes
+              </button>
+            </div>
+            
+            <p style={{ marginTop: 16, fontSize: 12, color: '#999', textAlign: 'center' }}>
+              Changes are permanent once confirmed
+            </p>
           </div>
         </div>
       )}
