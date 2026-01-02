@@ -10,7 +10,11 @@
     "resolveJsonModule": true,
     "baseUrl": "./src",
     "paths": {
-      "@/*": ["*"]
+      "@/*": [
+        "*"
+      ]
     }
-  }
+  },
+  "include": ["src/**/*.ts","src/**/*.tsx","tools/**/*.ts","tools/**/*.js"],
+  "exclude": ["node_modules","web","**/*.test.ts","**/*.test.tsx"]
 }

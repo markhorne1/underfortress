@@ -9,11 +9,14 @@ import { getAreaById } from '../engine/contentLoader';
 import PageIllustration from '../components/PageIllustration';
 import ResultModal from '../components/ResultModal';
 import ChoiceDialog from '../components/ChoiceDialog';
+import GamebookFrame from '../components/GamebookFrame';
+import ChoiceBar from '../components/ChoiceBar';
+import PageTurnArrow from '../components/PageTurnArrow';
 
 export default function GameScreen({ navigation }: any) {
   const currentAreaId = usePlayerStore(s => s.currentAreaId);
   const moveTo = usePlayerStore(s => s.moveTo);
-  const area = getAreaById(currentAreaId) ?? getAreaById('start')!;
+  const area = getAreaById(currentAreaId) ?? getAreaById('start') ?? null;
   const activeThreat = usePlayerStore(s => (s as any).activeThreat as Threat | undefined);
   const trackedId = useSettingsStore(s => s.trackedQuestId);
   const content = getContentSnapshot();
@@ -21,6 +24,14 @@ export default function GameScreen({ navigation }: any) {
   const playerState = (usePlayerStore as any).getState();
   const trackedStage = trackedQuest && playerState.quests && playerState.quests[trackedId]?.stageId ? trackedQuest.stages.find((s:any)=>s.id===playerState.quests[trackedId].stageId) : null;
   const dangerLevel = (playerState as any).flags?.danger_level || 0;
+
+  if (!area) {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>Loading game data...</Text>
+      </View>
+    );
+  }
 
   const exits = area.exits ?? {};
   const [resultVisible, setResultVisible] = React.useState(false);
@@ -33,21 +44,30 @@ export default function GameScreen({ navigation }: any) {
 
   return (
     <View style={styles.container}>
-      <ScrollView>
-        <PageIllustration area={area} />
-        <View style={{ padding: 12 }}>
-          <Text style={styles.title}>{area.title}</Text>
-          <Text style={styles.desc}>{area.description}</Text>
-        </View>
-      </ScrollView>
-
-      <View style={styles.actionsRow}>
-        <Button title="Map" onPress={() => navigation.navigate('Map')} />
-        <Button title="Inventory" onPress={() => navigation.navigate('Inventory')} />
-        <Button title="Skills" onPress={() => navigation.navigate('Skills')} />
-        <Button title="Equip" onPress={() => navigation.navigate('Equipment')} />
-        <Button title="Spells" onPress={() => navigation.navigate('Spells')} />
-      </View>
+      <GamebookFrame
+        choices={[]}
+        onNextPage={async () => {
+          // arrow advance rules
+          if (area.continueToAreaId) {
+            await moveTo(area.continueToAreaId);
+            return;
+          }
+          const exIds = Object.values(area.exits || {});
+          if (exIds.length === 1) {
+            await moveTo(exIds[0]);
+            return;
+          }
+          console.warn('No choices and no unambiguous continue path for area:', area.id);
+        }}
+      >
+        <ScrollView>
+          <PageIllustration area={area} />
+          <View style={{ padding: 12 }}>
+            <Text style={styles.title}>{area.title}</Text>
+            <Text style={styles.desc}>{area.description}</Text>
+          </View>
+        </ScrollView>
+      </GamebookFrame>
       <ResultModal visible={resultVisible} title={resultTitle} logs={resultLogs} rewards={resultRewards} onClose={() => setResultVisible(false)} />
 
       {activeThreat ? (
@@ -99,80 +119,43 @@ export default function GameScreen({ navigation }: any) {
           <Text>{trackedStage ? trackedStage.objectiveText : trackedQuest.summary}</Text>
         </View>
       ) : null}
-
       <View style={{ padding: 12 }}>
-        {choices.map((c: any, idx: number) => {
-          const can = canExecute(c.requirements, playerState as any);
+        {/* build ordered choices: area.choices, actionsAvailable, exits */}
+        {(() => {
+          const ordered: any[] = [];
+          if (area.choices && Array.isArray(area.choices)) ordered.push(...area.choices.map((c:any)=>({ ...c })));
+          if (area.actionsAvailable) {
+            for (const k of Object.keys(area.actionsAvailable)) {
+              const act = area.actionsAvailable[k];
+              ordered.push({ id: k, label: act.text ?? act.label ?? k, requirements: act.requirements, effects: act.effects, goToAreaId: act.goToAreaId, rawAction: act });
+            }
+          }
+          // exits as navigation choices
+          for (const [dir, aid] of Object.entries(exits)) {
+            ordered.push({ id: `exit_${dir}`, label: `Go to: ${getAreaById(aid as string)?.title ?? aid}`, goToAreaId: aid });
+          }
+
+          if (ordered.length === 0) {
+            // nothing to render here; bottom arrow will handle continuation
+            return null;
+          }
+
           return (
-            <View key={c.id ?? idx} style={{ marginBottom: 6 }}>
-              <Button title={c.label || c.text || 'Action'} disabled={!can.ok} onPress={async () => {
-                if (c.longText || c.options || c.dialogOptions) {
-                  setActiveChoice(c);
-                  setChoiceDialogVisible(true);
-                  return;
-                }
-                const res = executeChoice(c, (usePlayerStore as any).getState());
-                // apply returned state patch into store
-                if (res && res.state) {
-                  (usePlayerStore as any).setState(res.state);
-                }
-                // show result logs
-                if (res && res.log && res.log.length > 0) {
+            <ChoiceBar choices={ordered} onExecute={(c:any)=>{
+              // handle non-navigation choices
+              if (c.rawAction || c.effects) {
+                const res = executeChoice(c.rawAction ?? c, (usePlayerStore as any).getState());
+                if (res && res.state) (usePlayerStore as any).setState(res.state);
+                if (res && res.goToAreaId) moveTo(res.goToAreaId);
+                if (res && res.log) {
                   setResultTitle('Choice Result');
                   setResultLogs(res.log);
-                  // detect simple rewards from log (grantGold/grantXP/addItem)
-                  const rewards: any[] = [];
-                  res.log.forEach((l: string) => {
-                    if (l.startsWith('grantGold')) rewards.push({ type: 'gold', qty: Number(l.split(' ')[1]) });
-                    if (l.startsWith('grantXP')) rewards.push({ type: 'xp', qty: Number(l.split(' ')[1]) });
-                    if (l.startsWith('addItem')) {
-                      const parts = l.split(' ');
-                      rewards.push({ type: 'item', id: parts[1], qty: Number((parts[2] || 'x1').replace('x','')) });
-                    }
-                  });
-                  setResultRewards(rewards);
                   setResultVisible(true);
                 }
-                // if choice requests navigation, call moveTo after applying effects
-                if (res && res.goToAreaId) {
-                  moveTo(res.goToAreaId);
-                }
-              }} />
-              {!can.ok && <Text style={{ fontSize: 12, color: '#888' }}>{can.reason}</Text>}
-            </View>
-          );
-        })}
-        <ChoiceDialog visible={choiceDialogVisible} choice={activeChoice} onClose={() => { setChoiceDialogVisible(false); setActiveChoice(null); }} onExecute={(opt) => {
-          // opt may be the choice itself or a nested option; execute it then close dialog
-          setChoiceDialogVisible(false);
-          const toExec = opt || activeChoice;
-          if (!toExec) return;
-          const res = executeChoice(toExec, (usePlayerStore as any).getState());
-          if (res && res.state) (usePlayerStore as any).setState(res.state);
-          if (res && res.log) {
-            setResultTitle('Choice Result');
-            setResultLogs(res.log);
-            const rewards: any[] = [];
-            res.log.forEach((l: string) => {
-              if (l.startsWith('grantGold')) rewards.push({ type: 'gold', qty: Number(l.split(' ')[1]) });
-              if (l.startsWith('grantXP')) rewards.push({ type: 'xp', qty: Number(l.split(' ')[1]) });
-              if (l.startsWith('addItem')) {
-                const parts = l.split(' ');
-                rewards.push({ type: 'item', id: parts[1], qty: Number((parts[2] || 'x1').replace('x','')) });
               }
-            });
-            setResultRewards(rewards);
-            setResultVisible(true);
-          }
-          if (res && res.goToAreaId) moveTo(res.goToAreaId);
-        }} />
-      </View>
-
-      <View style={styles.moveRow}>
-        <Button title="N" disabled={!exits.n} onPress={() => moveTo(exits.n)} />
-        <Button title="S" disabled={!exits.s} onPress={() => moveTo(exits.s)} />
-        <Button title="W" disabled={!exits.w} onPress={() => moveTo(exits.w)} />
-        <Button title="E" disabled={!exits.e} onPress={() => moveTo(exits.e)} />
+            }} />
+          );
+        })()}
       </View>
     </View>
   );

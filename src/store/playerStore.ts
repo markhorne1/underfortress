@@ -1,7 +1,8 @@
-import create from 'zustand';
+import { create } from 'zustand';
 import type { KVStorage } from '../storage/kvStorage';
 import { asyncStorageKV } from '../storage/asyncStorageKV';
-import { loadContent, getAreaById, getAllAreas } from '../engine/contentLoader';
+import { localStorageKV } from '../storage/localStorageKV';
+import { loadContent, getAreaById, getAllAreas, getStartAreaId } from '../engine/contentLoader';
 import { Threat, advanceThreat, shootThreat as shootThreatEngine, placeHazard as placeHazardEngine, handleThreatTick } from '../engine/threat';
 
 import { applyEffects } from '../engine/effects';
@@ -57,6 +58,13 @@ export function createPlayerStore(storage: KVStorage) {
         const raw = await storage.getItem(STORAGE_KEY);
         if (raw) {
           const data = JSON.parse(raw);
+          // validate loaded area exists
+          const loadedArea = (data as any).currentAreaId;
+          if (!loadedArea || !getAreaById(loadedArea)) {
+            console.warn('Saved state references missing area, ignoring save:', loadedArea);
+            set({ hasSave: false });
+            return;
+          }
           set({ ...(data as any), hasSave: true });
         } else {
           set({ hasSave: false });
@@ -66,11 +74,14 @@ export function createPlayerStore(storage: KVStorage) {
       }
     },
     newGame: async () => {
-      const startId = 'start';
-      const startArea = getAreaById(startId) ? startId : undefined;
+      await loadContent();
+      const startId = getStartAreaId();
+      if (!startId || !getAreaById(startId)) {
+        throw new Error(`Invalid startAreaId in content or start area missing: ${startId}`);
+      }
       const discovered: Record<string, true> = {};
-      if (startArea) discovered[startArea] = true;
-      set({ currentAreaId: startArea ?? 'start', discoveredMap: discovered, inventory: [], equipment: {}, spellsKnown: [], stats: { skill: 6, stamina: 20, luck: 6, gold: 0, xp: 0, level: 1 }, hasSave: true } as any);
+      discovered[startId] = true;
+      set({ currentAreaId: startId, discoveredMap: discovered, inventory: [], equipment: {}, spellsKnown: [], stats: { skill: 6, stamina: 20, luck: 6, gold: 0, xp: 0, level: 1 }, hasSave: true } as any);
       // persist
       await storage.setItem(STORAGE_KEY, JSON.stringify(get()));
     },
@@ -219,7 +230,9 @@ export function createPlayerStore(storage: KVStorage) {
 }
 
 // default app store using AsyncStorage adapter
-export const usePlayerStore = createPlayerStore(asyncStorageKV);
+// choose web localStorage when running in browser
+const isBrowser = typeof window !== 'undefined' && typeof window.document !== 'undefined';
+export const usePlayerStore = createPlayerStore(isBrowser ? localStorageKV : asyncStorageKV);
 
 export function listDiscoveredAreas(): string[] {
   const state = (usePlayerStore as any).getState();

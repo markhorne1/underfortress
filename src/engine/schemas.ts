@@ -81,7 +81,8 @@ export const EnemyGroupSchema = z.object({
 export const SpellSchema = z.object({
   id: z.string(),
   name: z.string(),
-  cost: z.number().optional(),
+  // cost can be a simple number (generic cost) or an object mapping resource->amount (e.g. { mana: 2 })
+  cost: z.union([z.number(), z.record(z.number())]).optional(),
   description: z.string().optional(),
   imagePrompt: z.string().optional()
 }).passthrough();
@@ -141,6 +142,17 @@ export const ContentSchema = z.object({
   npcs: z.array(NpcSchema).optional(),
   leonardo_page_prompts: z.record(z.string()).optional(),
   leonardo_portrait_prompts: z.record(z.string()).optional()
+}).passthrough();
+
+export const RuntimeContentSchema = z.object({
+  areas: z.array(AreaSchema).optional(),
+  items: z.array(ItemSchema).optional(),
+  jobs: z.array(JobSchema).optional(),
+  enemies: z.array(EnemySchema).optional(),
+  npcs: z.array(NpcSchema).optional(),
+  spells: z.array(SpellSchema).optional(),
+  recipes: z.array(RecipeSchema).optional(),
+  meta: z.object({ startAreaId: z.string() }).optional()
 }).passthrough();
 
 export type Area = z.infer<typeof AreaSchema>;
