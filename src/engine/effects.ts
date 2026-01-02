@@ -16,6 +16,7 @@ export function applyEffects(effects: any[] | undefined, state: PlayerState): Ef
 
   for (const e of effects) {
     switch (e.type) {
+      case 'flag': // alias for setFlag (legacy content support)
       case 'setFlag':
         next.flags[e.key] = e.value ?? true;
         log.push(`setFlag ${e.key}=${JSON.stringify(next.flags[e.key])}`);

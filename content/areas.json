@@ -10556,11 +10556,12 @@
         "label": "Proceed into Under-Fortress Scenario I (next chapter).",
         "effects": [
           {
-            "type": "flag",
+            "type": "setFlag",
             "key": "chapter_underfortress_started",
             "value": true
           }
-        ]
+        ],
+        "goToAreaId": "u_entry_corridor"
       }
     ]
   },

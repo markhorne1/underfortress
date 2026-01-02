@@ -6,9 +6,15 @@ import { executeChoice } from './engine/execute';
 export default function App() {
   const [page, setPage] = useState<'title'|'menu'|'game'>('title');
   const [loading, setLoading] = useState(true);
+  const [modalPage, setModalPage] = useState<'inventory'|'equipment'|'skills'|'spells'|'quests'|'map'|null>(null);
   const newGame = usePlayerStore(s => s.newGame);
   const loadState = usePlayerStore(s => s.loadState);
   const currentAreaId = usePlayerStore(s => s.currentAreaId);
+  const inventory = usePlayerStore(s => s.inventory);
+  const stats = usePlayerStore(s => s.stats);
+  const spellsKnown = usePlayerStore(s => s.spellsKnown);
+  const quests = usePlayerStore(s => s.quests);
+  const flags = usePlayerStore(s => s.flags);
   const state = (usePlayerStore as any).getState();
 
   useEffect(() => {
@@ -46,8 +52,8 @@ export default function App() {
 
   if (page === 'menu') {
     return (
-      <div style={{padding:40}}>
-        <h2>Main Menu</h2>
+      <div style={{height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
+        <h2 style={{marginBottom: 20}}>Main Menu</h2>
         <div style={{width:260}}>
           <button onClick={onNew} style={btnStyle}>New Game</button>
           <button onClick={onLoad} style={btnStyle}>Load Game</button>
@@ -100,34 +106,131 @@ export default function App() {
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      <div style={{ flex: 1, padding: 20 }}>
+      {/* Top Navigation */}
+      <div style={{ height: 56, display: 'flex', alignItems: 'center', justifyContent: 'space-around', backgroundColor: '#faf6ef', borderBottom: '1px solid #eee' }}>
+        <button onClick={() => setModalPage('inventory')} style={{ background: 'transparent', border: 'none', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>Inventory</button>
+        <button onClick={() => setModalPage('equipment')} style={{ background: 'transparent', border: 'none', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>Equipment</button>
+        <button onClick={() => setModalPage('skills')} style={{ background: 'transparent', border: 'none', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>Skills</button>
+        <button onClick={() => setModalPage('spells')} style={{ background: 'transparent', border: 'none', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>Spells</button>
+        <button onClick={() => setModalPage('quests')} style={{ background: 'transparent', border: 'none', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>Quests</button>
+        <button onClick={() => setModalPage('map')} style={{ background: 'transparent', border: 'none', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>Map</button>
+      </div>
+      
+      {/* Main Content - Centered */}
+      <div style={{ flex: 1, padding: 20, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
         {area ? (
-          <div>
-            <h1>{area.title ?? area.id}</h1>
-            <p style={{ whiteSpace: 'pre-wrap' }}>{area.description}</p>
+          <div style={{ maxWidth: 800, width: '100%', textAlign: 'center' }}>
+            <h1 style={{ marginBottom: 20 }}>{area.title ?? area.id}</h1>
+            <p style={{ whiteSpace: 'pre-wrap', lineHeight: 1.6 }}>{area.description}</p>
           </div>
         ) : (
           <div>No area loaded.</div>
         )}
       </div>
 
-      <div style={{ borderTop: '1px solid #eee', padding: 12, display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
+      {/* Bottom Buttons - Centered */}
+      <div style={{ borderTop: '1px solid #eee', padding: 20, display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
         {orderedChoices.length > 0 ? (
-          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center' }}>
+          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center', maxWidth: 800 }}>
             {orderedChoices.map((c:any, idx:number) => (
               <button key={c.id ?? idx} onClick={async () => {
                 // Use universal handleChoice
                 const handleChoice = (usePlayerStore as any).getState().handleChoice;
                 await handleChoice(c);
-              }} style={{ minWidth: 160, padding: 10, borderRadius: 8, background: '#222', color: '#fff' }}>{c.label}</button>
+              }} style={{ minWidth: 160, padding: 12, borderRadius: 8, background: '#222', color: '#fff', cursor: 'pointer', border: 'none', fontSize: 14 }}>{c.label}</button>
             ))}
           </div>
         ) : (
-          <button aria-label="Next page" onClick={onNextPage} style={{ position: 'absolute', right: 20, bottom: 12, padding: 12, borderRadius: 28, background: '#222', color: '#fff' }}>⤷</button>
+          <button aria-label="Next page" onClick={onNextPage} style={{ position: 'absolute', right: 20, bottom: 12, padding: 12, borderRadius: 28, background: '#222', color: '#fff', cursor: 'pointer', border: 'none' }}>⤷</button>
         )}
       </div>
+      
+      {/* Modal Overlay */}
+      {modalPage && (
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }} onClick={() => setModalPage(null)}>
+          <div style={{ background: '#fff', padding: 30, borderRadius: 12, maxWidth: 600, maxHeight: '80vh', overflow: 'auto', minWidth: 400 }} onClick={(e) => e.stopPropagation()}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+              <h2 style={{ margin: 0 }}>{modalPage.charAt(0).toUpperCase() + modalPage.slice(1)}</h2>
+              <button onClick={() => setModalPage(null)} style={{ background: 'transparent', border: 'none', fontSize: 24, cursor: 'pointer' }}>×</button>
+            </div>
+            
+            {modalPage === 'inventory' && (
+              <div>
+                {inventory.length === 0 ? (
+                  <p>No items in inventory.</p>
+                ) : (
+                  <ul style={{ listStyle: 'none', padding: 0 }}>
+                    {inventory.map((item, idx) => (
+                      <li key={idx} style={{ padding: '8px 0', borderBottom: '1px solid #eee' }}>
+                        {item.itemId} (x{item.qty})
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            )}
+            
+            {modalPage === 'equipment' && (
+              <div>
+                <p>Equipment system coming soon...</p>
+              </div>
+            )}
+            
+            {modalPage === 'skills' && (
+              <div>
+                <h3>Stats</h3>
+                <p>Skill: {stats.skill}</p>
+                <p>Stamina: {stats.stamina}</p>
+                <p>Luck: {stats.luck}</p>
+                <p>Gold: {stats.gold}</p>
+                <p>XP: {stats.xp}</p>
+                <p>Level: {stats.level}</p>
+              </div>
+            )}
+            
+            {modalPage === 'spells' && (
+              <div>
+                {spellsKnown.length === 0 ? (
+                  <p>No spells known.</p>
+                ) : (
+                  <ul style={{ listStyle: 'none', padding: 0 }}>
+                    {spellsKnown.map((spellId, idx) => (
+                      <li key={idx} style={{ padding: '8px 0', borderBottom: '1px solid #eee' }}>
+                        {spellId}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            )}
+            
+            {modalPage === 'quests' && (
+              <div>
+                {Object.keys(quests).length === 0 ? (
+                  <p>No active quests.</p>
+                ) : (
+                  <ul style={{ listStyle: 'none', padding: 0 }}>
+                    {Object.entries(quests).map(([questId, stageId]) => (
+                      <li key={questId} style={{ padding: '8px 0', borderBottom: '1px solid #eee' }}>
+                        {questId}: {stageId === 'completed' ? 'Completed' : `Stage ${stageId}`}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            )}
+            
+            {modalPage === 'map' && (
+              <div>
+                <p>Current Area: {currentAreaId}</p>
+                <p>Map system coming soon...</p>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
-const btnStyle: any = { background:'#222', color:'#fff', padding:12, margin:'8px 0', borderRadius:8, width:260 }
+const btnStyle: any = { background:'#222', color:'#fff', padding:12, margin:'8px 0', borderRadius:8, width:260, cursor:'pointer', border:'none', fontSize:14 }
