@@ -2282,8 +2282,8 @@
                 "value": true
               },
               {
-                "type": "addXP",
-                "amount": 10
+                "type": "addStatPoints",
+                "amount": 1
               }
             ],
             "else": []
@@ -2309,8 +2309,8 @@
                 "value": false
               },
               {
-                "type": "addXP",
-                "amount": 8
+                "type": "addStatPoints",
+                "amount": 1
               }
             ],
             "else": []
@@ -2573,7 +2573,7 @@
         "value": true
       },
       {
-        "type": "addXP",
+        "type": "addStatPoints",
         "amount": 20
       }
     ],
@@ -2755,7 +2755,7 @@
         "value": true
       },
       {
-        "type": "addXP",
+        "type": "addStatPoints",
         "amount": 22
       }
     ],
@@ -2801,7 +2801,7 @@
             "qty": 1
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 16
           },
           {
@@ -2824,7 +2824,7 @@
         ],
         "effects": [
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 14
           }
         ],
@@ -3062,8 +3062,8 @@
         "label": "Stay and hold one more impact.",
         "effects": [
           {
-            "type": "addXP",
-            "amount": 10
+            "type": "addStatPoints",
+            "amount": 1
           }
         ],
         "goToAreaId": "f_gate_breach_risk"
@@ -3137,8 +3137,8 @@
             "value": true
           },
           {
-            "type": "addXP",
-            "amount": 12
+            "type": "addStatPoints",
+            "amount": 1
           }
         ],
         "goToAreaId": "f_mechanism_entry"
@@ -3285,8 +3285,8 @@
             "value": true
           },
           {
-            "type": "addXP",
-            "amount": 18
+            "type": "addStatPoints",
+            "amount": 2
           }
         ],
         "goToAreaId": "f_mechanism_infiltration"
@@ -3306,8 +3306,8 @@
             "spellId": "wardseal"
           },
           {
-            "type": "addXP",
-            "amount": 10
+            "type": "addStatPoints",
+            "amount": 1
           }
         ],
         "goToAreaId": "f_mechanism_infiltration"
@@ -3463,8 +3463,8 @@
         "qty": 1
       },
       {
-        "type": "addXP",
-        "amount": 22
+        "type": "addStatPoints",
+        "amount": 2
       }
     ],
     "choices": [
@@ -4091,8 +4091,8 @@
         "label": "Proceed to the old underways threshold.",
         "effects": [
           {
-            "type": "addXP",
-            "amount": 8
+            "type": "addStatPoints",
+            "amount": 1
           }
         ],
         "goToAreaId": "c_underway_threshold"
@@ -10542,6 +10542,7 @@
   {
     "id": "i_underfortress_entry",
     "title": "Under-Fortress Entry",
+    "isCheckpoint": true,
     "x": 5,
     "y": -8,
     "floorId": "caves",

@@ -128,6 +128,14 @@ export function createPlayerStore(storage: KVStorage) {
       while (loop < 5) {
         const areaObj = getAreaById(nextAreaId);
         if (!areaObj) break;
+        
+        // Auto-set checkpoint if area is marked as a checkpoint
+        if ((areaObj as any).isCheckpoint) {
+          const currentState = get() as any;
+          currentState.lastCheckpointId = nextAreaId;
+          set({ lastCheckpointId: nextAreaId } as any);
+        }
+        
         const currentState = (get() as any) as any;
         const res = performEnterEffects(areaObj, currentState);
         // apply keys from res.state back to store (only common fields changed by effects)
@@ -139,6 +147,8 @@ export function createPlayerStore(storage: KVStorage) {
         if ((res.state as any).quests) newState.quests = (res.state as any).quests;
         if ((res.state as any).questLog) newState.questLog = (res.state as any).questLog;
         if (res.state.stats) newState.stats = res.state.stats;
+        if (res.state.health !== undefined) newState.health = res.state.health;
+        if (res.state.lastCheckpointId) newState.lastCheckpointId = res.state.lastCheckpointId;
         set(newState);
 
         // run any active quest stage onEnterEffects
@@ -209,6 +219,9 @@ export function createPlayerStore(storage: KVStorage) {
       if ((result.state as any).questLog) updates.questLog = (result.state as any).questLog;
       if (result.state.spellsKnown) updates.spellsKnown = result.state.spellsKnown;
       if (result.state.equipment) updates.equipment = result.state.equipment;
+      if (result.state.health !== undefined) updates.health = result.state.health;
+      if (result.state.lastCheckpointId) updates.lastCheckpointId = result.state.lastCheckpointId;
+      if (result.state.currentAreaId) updates.currentAreaId = result.state.currentAreaId;
       
       set(updates);
       
@@ -254,6 +267,9 @@ export function createPlayerStore(storage: KVStorage) {
       if ((result.state as any).questLog) updates.questLog = (result.state as any).questLog;
       if (result.state.spellsKnown) updates.spellsKnown = result.state.spellsKnown;
       if (result.state.equipment) updates.equipment = result.state.equipment;
+      if (result.state.health !== undefined) updates.health = result.state.health;
+      if (result.state.lastCheckpointId) updates.lastCheckpointId = result.state.lastCheckpointId;
+      if (result.state.currentAreaId) updates.currentAreaId = result.state.currentAreaId;
       
       set(updates);
       

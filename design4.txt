@@ -1,0 +1,33 @@
+
+We need to add a Spell Casting system which allows players to learn spells in four elemental-based 
+magical paths, each path has a square rune button which all illuminate when there are Stat Points available.
+Once a path is opened the button changes from illuminated. Proceeding from the the path icon from the right in order is a 
+chain of spells that can be researched when enough Stat Points are available. 
+It costs 1 Stat Point to open access to a magical path.
+
+For each of the four elemental magical paths create combat, defense and utility spells 
+from basic like for example with the Fire path you could have Ignite (select enemy target to do 
+rnd5-10 damage unless target makes their d100 Spell Resistance roll)
+and for the Water path Freeze Enemy (prevents the enemy from attacking or moving for one combat round)
+to mid threat like Firespray and Frost Cone affecting more than one enemy with the damage or freeze effect,
+Learning each spell should cost Stat Points osting from 1 to 5 at the top end most game-breaking
+advanced op spells like Chain Lightning (d100 damage to all enemies) and Teleport 
+(move to any area on the Map with a click).
+Add spells that complement the quests, we don't need anything that isn't going to be directly
+useful to the player to achieve quest objectives as if the result was the result.
+
+We need to add Damage Ratings to Weapons now just like we added Armour Ratings to Armour items. 
+Audit the quests to give every enemy involved in a combat quest their own character stats,
+skills, spells and equipment.
+
+Implement the combat system.
+
+The player chooses an enemy (each enemy must be represented in the area centre as an icon so it 
+can be selected, this adds a red highlight to the icon, player can deselect which switches off the highlight)
+The player rolls Melee Attack using a 'Attack <enemy name string>' button which appears when the enemy is selected.
+The enemy rolls Melee Defense to see if they parry the attack, if successful they take no damage.
+If unsuccessful the enemy takes the amount of the player's weapon's Damage Rating.
+Then enemies get their chance to attack the player in exactly the same way.
+Combat continues until either the player or all enemies in the area are dead.
+If the player wins they get all the enemies loot.
+

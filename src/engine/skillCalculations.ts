@@ -71,16 +71,75 @@ export function getIntimidation(state: PlayerState): number {
 export function getTotalArmourRating(state: PlayerState): number {
   let total = 0;
   const equipment = state.equipment || {};
-  const inventory = state.inventory || [];
   
-  // For now, we'll add AR calculation when we have armour items with ratings
-  // This is a placeholder that will be expanded when we add armourRating to items
+  // Import content loader to get item definitions
+  const { getContentSnapshot } = require('./contentLoader');
+  const content = getContentSnapshot();
+  const items = content?.items || [];
+  
+  // Create a map of itemId -> item for quick lookup
+  const itemMap = new Map();
+  for (const item of items) {
+    if (item && item.id) {
+      itemMap.set(item.id, item);
+    }
+  }
+  
+  // Sum AR from all equipped items
   for (const [slot, itemId] of Object.entries(equipment)) {
     if (itemId) {
-      // TODO: Look up item in content and get its armourRating
-      // For now, assume 2 AR per equipped item as placeholder
-      total += 2;
+      const item = itemMap.get(itemId);
+      if (item && typeof item.armourRating === 'number') {
+        total += item.armourRating;
+      }
     }
+  }
+  
+  return total;
+}
+
+/**
+ * Calculate total damage rating from equipped weapons
+ */
+export function getTotalDamageRating(state: PlayerState): number {
+  let total = 0;
+  const equipment = state.equipment || {};
+  
+  // Import content loader to get item definitions
+  const { getContentSnapshot } = require('./contentLoader');
+  const content = getContentSnapshot();
+  const items = content?.items || [];
+  
+  // Create a map of itemId -> item for quick lookup
+  const itemMap = new Map();
+  for (const item of items) {
+    if (item && item.id) {
+      itemMap.set(item.id, item);
+    }
+  }
+  
+  // Sum DR from equipped weapons (mainhand, offhand)
+  const mainhand = equipment.mainhand;
+  const offhand = equipment.offhand;
+  
+  if (mainhand) {
+    const weapon = itemMap.get(mainhand);
+    if (weapon && typeof weapon.damageRating === 'number') {
+      total += weapon.damageRating;
+    }
+  }
+  
+  if (offhand) {
+    const weapon = itemMap.get(offhand);
+    if (weapon && typeof weapon.damageRating === 'number') {
+      // Offhand weapons typically deal reduced damage
+      total += Math.floor(weapon.damageRating * 0.5);
+    }
+  }
+  
+  // If no weapons equipped, use unarmed damage (Power-based)
+  if (total === 0) {
+    total = Math.max(1, Math.floor(state.stats.power / 2));
   }
   
   return total;

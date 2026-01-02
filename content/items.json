@@ -1112,6 +1112,8 @@
     "id": "boots_quietstep",
     "name": "Quietstep Boots",
     "type": "armor_feet",
+    "slot": "boots",
+    "armourRating": 1,
     "stackable": false,
     "value": 0,
     "description": "Soft soles and reinforced heel. Helps you avoid patrols and reduces the chance of triggering camp alarms."

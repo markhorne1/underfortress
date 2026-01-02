@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { loadContent, getContentSnapshot, getStartAreaId, getAllAreas, getAreaById } from './engine/contentLoader';
 import { usePlayerStore } from './store/playerStore';
 import { executeChoice } from './engine/execute';
-import { getActiveSkills, getPassiveSkills } from './engine/skillCalculations';
+import { getActiveSkills, getPassiveSkills, getTotalArmourRating } from './engine/skillCalculations';
+import { initiateCombat, playerAttack, enemyTurn, selectEnemy } from './engine/combatNew';
 
 export default function App() {
   const [page, setPage] = useState<'title'|'menu'|'game'>('title');
@@ -13,12 +14,16 @@ export default function App() {
   const newGame = usePlayerStore(s => s.newGame);
   const loadState = usePlayerStore(s => s.loadState);
   const currentAreaId = usePlayerStore(s => s.currentAreaId);
+  const discoveredMap = usePlayerStore(s => s.discoveredMap);
+  const lastCheckpointId = usePlayerStore(s => s.lastCheckpointId);
   const inventory = usePlayerStore(s => s.inventory);
   const equipment = usePlayerStore(s => s.equipment);
   const stats = usePlayerStore(s => s.stats);
   const health = usePlayerStore(s => s.health);
+  const combat = usePlayerStore(s => s.combat);
   const spellsKnown = usePlayerStore(s => s.spellsKnown);
   const quests = usePlayerStore(s => s.quests);
+  const questLog = usePlayerStore(s => s.questLog);
   const flags = usePlayerStore(s => s.flags);
   const state = (usePlayerStore as any).getState();
 
@@ -242,17 +247,62 @@ export default function App() {
             
             {modalPage === 'equipment' && (
               <div>
-                {Object.keys(equipment).length === 0 ? (
-                  <p>No equipment worn.</p>
-                ) : (
-                  <ul style={{ listStyle: 'none', padding: 0 }}>
-                    {Object.entries(equipment).map(([slot, itemId]) => (
-                      <li key={slot} style={{ padding: '8px 0', borderBottom: '1px solid #eee' }}>
-                        <strong>{slot}:</strong> {itemId || '(empty)'}
-                      </li>
-                    ))}
-                  </ul>
-                )}
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16 }}>
+                  <h3 style={{ margin: 0 }}>Equipment</h3>
+                  <div style={{ fontSize: 18, fontWeight: 'bold', color: '#3498db' }}>
+                    AR: {getTotalArmourRating({ stats, equipment, inventory, currentAreaId, discoveredMap, spellsKnown, health, lastCheckpointId, flags: flags || {}, quests: quests || {}, questLog: questLog || [] })}
+                  </div>
+                </div>
+                
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 20, alignItems: 'start' }}>
+                  {/* Paper Doll Visual */}
+                  <div style={{ position: 'relative', width: '100%', aspectRatio: '3/4', background: 'linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%)', borderRadius: 8, border: '2px solid #dee2e6', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: 20 }}>
+                    {/* Head slot */}
+                    <div style={{ textAlign: 'center', padding: 8, background: equipment.head ? '#d1ecf1' : '#fff', border: '2px dashed #6c757d', borderRadius: 4, fontSize: 11, fontWeight: 600 }}>
+                      {equipment.head || 'HEAD'}
+                    </div>
+                    {/* Chest slot */}
+                    <div style={{ textAlign: 'center', padding: 12, background: equipment.chest ? '#d1ecf1' : '#fff', border: '2px dashed #6c757d', borderRadius: 4, fontSize: 11, fontWeight: 600 }}>
+                      {equipment.chest || 'CHEST'}
+                    </div>
+                    {/* Gloves slot */}
+                    <div style={{ textAlign: 'center', padding: 8, background: equipment.gloves ? '#d1ecf1' : '#fff', border: '2px dashed #6c757d', borderRadius: 4, fontSize: 11, fontWeight: 600 }}>
+                      {equipment.gloves || 'GLOVES'}
+                    </div>
+                    {/* Legs slot */}
+                    <div style={{ textAlign: 'center', padding: 8, background: equipment.legs ? '#d1ecf1' : '#fff', border: '2px dashed #6c757d', borderRadius: 4, fontSize: 11, fontWeight: 600 }}>
+                      {equipment.legs || 'LEGS'}
+                    </div>
+                    {/* Boots slot */}
+                    <div style={{ textAlign: 'center', padding: 8, background: equipment.boots ? '#d1ecf1' : '#fff', border: '2px dashed #6c757d', borderRadius: 4, fontSize: 11, fontWeight: 600 }}>
+                      {equipment.boots || 'BOOTS'}
+                    </div>
+                  </div>
+                  
+                  {/* Equipment Details */}
+                  <div>
+                    <h4 style={{ marginTop: 0, marginBottom: 12, fontSize: 14, color: '#6c757d' }}>ARMOR SLOTS</h4>
+                    {['head', 'chest', 'gloves', 'legs', 'boots'].map(slot => {
+                      const itemId = equipment[slot];
+                      return (
+                        <div key={slot} style={{ padding: '10px 0', borderBottom: '1px solid #e9ecef', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <div>
+                            <div style={{ fontSize: 12, fontWeight: 'bold', textTransform: 'uppercase', color: '#6c757d' }}>{slot}</div>
+                            <div style={{ fontSize: 14, marginTop: 2 }}>{itemId || <em style={{ color: '#adb5bd' }}>Empty</em>}</div>
+                          </div>
+                          {itemId && (
+                            <button onClick={() => {
+                              // TODO: Implement unequip functionality
+                              console.log(`Unequip ${itemId} from ${slot}`);
+                            }} style={{ padding: '4px 8px', fontSize: 11, background: '#dc3545', color: '#fff', border: 'none', borderRadius: 4, cursor: 'pointer' }}>
+                              Remove
+                            </button>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
             )}
             

@@ -7,6 +7,19 @@ function cloneState(s: PlayerState): PlayerState {
   return JSON.parse(JSON.stringify(s));
 }
 
+/**
+ * Check if player has died and handle respawn at last checkpoint
+ */
+function handleDeath(state: PlayerState, log: string[]): void {
+  if (state.health <= 0) {
+    // Respawn at last checkpoint
+    const checkpointId = state.lastCheckpointId || 'i_underfortress_entry';
+    state.currentAreaId = checkpointId;
+    state.health = 100;
+    log.push(`💀 You died! Respawning at ${checkpointId} with full health.`);
+  }
+}
+
 export function applyEffects(effects: any[] | undefined, state: PlayerState): EffectResult {
   const log: string[] = [];
   if (!effects || effects.length === 0) return { state: cloneState(state), log };
@@ -57,17 +70,30 @@ export function applyEffects(effects: any[] | undefined, state: PlayerState): Ef
         next.stats.gold = (next.stats.gold || 0) + (e.value || 0);
         log.push(`grantGold ${e.value}`);
         break;
-      case 'grantXP':
-        next.stats.xp = (next.stats.xp || 0) + (e.value || 0);
-        log.push(`grantXP ${e.value}`);
+      case 'addStatPoints':
+        next.stats.statPoints = (next.stats.statPoints || 0) + (e.value || e.amount || 1);
+        log.push(`addStatPoints +${e.value || e.amount || 1} (total: ${next.stats.statPoints})`);
+        break;
+      case 'addXP': // Legacy alias for addStatPoints
+      case 'grantXP': // Legacy alias for addStatPoints
+        // Convert old XP system to stat points (1 XP = 0.1 stat points, rounded)
+        const xpValue = e.value || e.amount || 0;
+        const statPointsToAdd = Math.max(1, Math.floor(xpValue / 10));
+        next.stats.statPoints = (next.stats.statPoints || 0) + statPointsToAdd;
+        log.push(`grantXP ${xpValue} (converted to +${statPointsToAdd} stat points)`);
         break;
       case 'heal':
-        next.stats.stamina = Math.min((next.stats.stamina || 0) + (e.value || 0), 9999);
-        log.push(`heal ${e.value}`);
+        next.health = Math.min((next.health || 100) + (e.value || e.amount || 0), 100);
+        log.push(`heal +${e.value || e.amount || 0} health (now: ${next.health}/100)`);
         break;
       case 'damage':
-        next.stats.stamina = Math.max((next.stats.stamina || 0) - (e.value || 0), 0);
-        log.push(`damage ${e.value}`);
+        next.health = Math.max((next.health || 100) - (e.value || e.amount || 0), 0);
+        log.push(`damage -${e.value || e.amount || 0} health (now: ${next.health}/100)`);
+        handleDeath(next, log); // Check for death and respawn
+        break;
+      case 'setCheckpoint':
+        next.lastCheckpointId = e.areaId || e.value || next.currentAreaId;
+        log.push(`checkpoint set at ${next.lastCheckpointId}`);
         break;
       case 'teleportToAreaId': {
         const aid = e.key || e.areaId || e.toAreaId;
