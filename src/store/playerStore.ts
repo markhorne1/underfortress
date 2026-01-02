@@ -4,31 +4,25 @@ import { asyncStorageKV } from '../storage/asyncStorageKV';
 import { localStorageKV } from '../storage/localStorageKV';
 import { loadContent, getAreaById, getAllAreas, getStartAreaId } from '../engine/contentLoader';
 import { Threat, advanceThreat, shootThreat as shootThreatEngine, placeHazard as placeHazardEngine, handleThreatTick } from '../engine/threat';
+import { PlayerState as EnginePlayerState } from '../engine/types';
 
 import { applyEffects } from '../engine/effects';
 import { getContentSnapshot } from '../engine/contentLoader';
-import { performEnterEffects } from '../engine/execute';
+import { performEnterEffects, executeChoice } from '../engine/execute';
 
-type InvItem = { itemId: string; qty: number };
-
-export type PlayerState = {
-  currentAreaId: string;
-  discoveredMap: Record<string, true>;
-  inventory: InvItem[];
-  equipment: Record<string, string | null>;
+export type PlayerState = EnginePlayerState & {
   activeThreat?: Threat | undefined;
   quests: Record<string, any>;
   questLog: any[];
-  spellsKnown: string[];
-  stats: { skill: number; stamina: number; luck: number; gold: number; xp: number; level: number };
-  flags?: Record<string, any>;
 };
 
 export type PlayerActions = {
   hasSave: boolean;
   loadState: () => Promise<void>;
   newGame: () => Promise<void>;
-  moveTo: (areaId?: string) => Promise<void>;
+  moveTo: (areaId?: string, skipExitCheck?: boolean) => Promise<void>;
+  handleChoice: (choice: any) => Promise<void>;
+  handleAction: (actionType: string, action: any) => Promise<{ success: boolean; log: string[] }>;
   startThreat: (tConfig: any) => Promise<void>;
   shootActiveThreat: (shots?: number, seed?: number) => Promise<any>;
   placeHazardActive: (hazardType: string) => Promise<any>;
@@ -85,20 +79,22 @@ export function createPlayerStore(storage: KVStorage) {
       // persist
       await storage.setItem(STORAGE_KEY, JSON.stringify(get()));
     },
-    moveTo: async (areaId?: string) => {
+    moveTo: async (areaId?: string, skipExitCheck: boolean = false) => {
       if (!areaId) return;
       const allAreas = getAllAreas();
       const dest = getAreaById(areaId);
       if (!dest) return;
 
-      const currentId = get().currentAreaId;
-      const currentArea = getAreaById(currentId as string);
-      // validate exit exists from current area to destination
-      const exits = (currentArea && currentArea.exits) || {};
-      const allowed = Object.values(exits).includes(areaId);
-      if (!allowed) {
-        console.warn(`moveTo blocked: ${areaId} is not an exit of ${currentId}`);
-        return;
+      // Validate exit exists from current area to destination (unless skipExitCheck is true)
+      if (!skipExitCheck) {
+        const currentId = get().currentAreaId;
+        const currentArea = getAreaById(currentId as string);
+        const exits = (currentArea && currentArea.exits) || {};
+        const allowed = Object.values(exits).includes(areaId);
+        if (!allowed) {
+          console.warn(`moveTo blocked: ${areaId} is not an exit of ${currentId}`);
+          return;
+        }
       }
 
       // set current area and discovered first
@@ -158,6 +154,84 @@ export function createPlayerStore(storage: KVStorage) {
 
       await storage.setItem(STORAGE_KEY, JSON.stringify(get()));
     },
+    handleChoice: async (choice: any) => {
+      const currentState = get();
+      const currentAreaId = currentState.currentAreaId;
+      const choiceId = choice.id || choice.label || 'unknown';
+      
+      console.log('🎯 handleChoice CALLED:', { currentAreaId, choiceId, choice });
+      
+      // Simple navigation via goToAreaId
+      if (choice.goToAreaId && !choice.effects && !choice.requirements) {
+        console.log('→ Simple navigation to:', choice.goToAreaId);
+        await get().moveTo(choice.goToAreaId, true);
+        return;
+      }
+      
+      // Full choice execution with effects
+      const result = executeChoice(choice, currentState);
+      console.log('→ Choice executed:', { nextAreaId: result.goToAreaId, log: result.log });
+      
+      // Apply state mutations from effects
+      const updates: any = {};
+      if (result.state.inventory) updates.inventory = result.state.inventory;
+      if (result.state.stats) updates.stats = result.state.stats;
+      if ((result.state as any).flags) updates.flags = (result.state as any).flags;
+      if ((result.state as any).quests) updates.quests = (result.state as any).quests;
+      if ((result.state as any).questLog) updates.questLog = (result.state as any).questLog;
+      if (result.state.spellsKnown) updates.spellsKnown = result.state.spellsKnown;
+      if (result.state.equipment) updates.equipment = result.state.equipment;
+      
+      set(updates);
+      
+      // Navigate if choice resolves to a new area
+      // Skip exit check because choices can teleport anywhere
+      if (result.goToAreaId) {
+        console.log('→ Navigating to:', result.goToAreaId);
+        await get().moveTo(result.goToAreaId, true);
+      }
+      
+      // Autosave
+      await storage.setItem(STORAGE_KEY, JSON.stringify(get()));
+      console.log('✓ handleChoice COMPLETE');
+    },
+    handleAction: async (actionType: string, action: any) => {
+      const currentState = get();
+      const currentAreaId = currentState.currentAreaId;
+      
+      console.log('🎬 handleAction CALLED:', { actionType, currentAreaId, action });
+      
+      let result: { state: PlayerState; log: string[]; success: boolean };
+      
+      // Route to appropriate action handler
+      if (actionType === 'search') {
+        const { performSearch } = await import('../engine/execute');
+        result = performSearch(currentAreaId, action, currentState);
+      } else {
+        // Unknown action type
+        return { success: false, log: [`Unknown action type: ${actionType}`] };
+      }
+      
+      console.log('→ Action executed:', { success: result.success, log: result.log });
+      
+      // Apply state mutations
+      const updates: any = {};
+      if (result.state.inventory) updates.inventory = result.state.inventory;
+      if (result.state.stats) updates.stats = result.state.stats;
+      if ((result.state as any).flags) updates.flags = (result.state as any).flags;
+      if ((result.state as any).quests) updates.quests = (result.state as any).quests;
+      if ((result.state as any).questLog) updates.questLog = (result.state as any).questLog;
+      if (result.state.spellsKnown) updates.spellsKnown = result.state.spellsKnown;
+      if (result.state.equipment) updates.equipment = result.state.equipment;
+      
+      set(updates);
+      
+      // Autosave
+      await storage.setItem(STORAGE_KEY, JSON.stringify(get()));
+      console.log('✓ handleAction COMPLETE');
+      
+      return { success: result.success, log: result.log };
+    },
     startThreat: async (tConfig: any) => {
       if (!tConfig) return;
       const id = `threat_${Date.now()}`;
@@ -215,7 +289,7 @@ export function createPlayerStore(storage: KVStorage) {
       const dest = exits[0];
       if (!dest) return { log: ['no exit found'] };
       // move player
-      await get().moveTo(dest);
+      await get().moveTo(dest as string);
       const t = get().activeThreat as Threat | undefined;
       if (t) {
         // advancing threat after retreat

@@ -17,5 +17,6 @@ export type PlayerState = {
   spellsKnown: string[];
   stats: PlayerStats;
   flags?: Record<string, any>;
-  quests?: Record<string, any>;
+  quests: Record<string, any>;
+  questLog: any[];
 };

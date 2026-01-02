@@ -14482,34 +14482,21 @@
       "n": "u_guard_junction",
       "s": "i_underfortress_entry"
     },
-    "actionsAvailable": {
-      "investigate": {
-        "text": "Boot scuffs show a heavy traffic pattern. Something important moves through here on schedule.",
-        "choices": [
+    "actions": [
+      {
+        "type": "search",
+        "dc": 12,
+        "successText": "Boot scuffs show a heavy traffic pattern. Something important moves through here on schedule.",
+        "successEffects": [
           {
-            "id": "keen_eye",
-            "label": "Cast Keen Eye to read the traffic pattern.",
-            "requirements": [
-              {
-                "type": "knowsSpell",
-                "spellId": "keen_eye"
-              }
-            ],
-            "effects": [
-              {
-                "type": "castSpell",
-                "spellId": "keen_eye"
-              },
-              {
-                "type": "flag",
-                "key": "underfortress_patrol_timing",
-                "value": true
-              }
-            ]
+            "type": "flag",
+            "key": "uf_patrol_pattern_noticed",
+            "value": true
           }
-        ]
+        ],
+        "failureText": "You search the corridor but find nothing of particular interest—just old stonework and torch soot."
       }
-    }
+    ]
   },
   {
     "id": "u_guard_junction",

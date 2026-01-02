@@ -23,6 +23,15 @@ export const ChoiceSchema = z.object({
   goToAreaId: z.string().optional()
 }).passthrough();
 
+export const ActionSchema = z.object({
+  type: z.string(), // "search", "investigate", etc.
+  dc: z.number().optional(), // difficulty class (default 12)
+  successText: z.string().optional(), // text shown on success
+  failureText: z.string().optional(), // text shown on failure
+  successEffects: z.array(EffectSchema).optional(), // effects applied on success
+  failureEffects: z.array(EffectSchema).optional() // effects applied on failure
+}).passthrough();
+
 export const AreaSchema = z.object({
   id: z.string(),
   title: z.string(),
@@ -33,7 +42,8 @@ export const AreaSchema = z.object({
   imagePrompt: z.string(),
   negativePrompt: z.string().optional(),
   text: z.string().optional(),
-  actionsAvailable: z.record(z.any()).optional(),
+  actionsAvailable: z.record(z.any()).optional(), // legacy field, prefer actions
+  actions: z.array(ActionSchema).optional(), // new action system
   exits: z.record(z.string()).optional(),
   choices: z.array(ChoiceSchema).optional(),
   effectsOnEnter: z.array(EffectSchema).optional()

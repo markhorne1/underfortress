@@ -8,6 +8,7 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const newGame = usePlayerStore(s => s.newGame);
   const loadState = usePlayerStore(s => s.loadState);
+  const currentAreaId = usePlayerStore(s => s.currentAreaId);
   const state = (usePlayerStore as any).getState();
 
   useEffect(() => {
@@ -59,7 +60,6 @@ export default function App() {
   // game page: render current area from engine + simple choice UI
   const content = getContentSnapshot();
   const areas = getAllAreas();
-  const currentAreaId = state.currentAreaId || getStartAreaId();
   const area = getAreaById(currentAreaId as string);
 
   const execute = (choice: any) => {
@@ -116,12 +116,9 @@ export default function App() {
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center' }}>
             {orderedChoices.map((c:any, idx:number) => (
               <button key={c.id ?? idx} onClick={async () => {
-                if (c.rawAction || c.effects) {
-                  const res = execute(c.rawAction ?? c);
-                }
-                if (c.goToAreaId) {
-                  await (usePlayerStore as any).getState().moveTo?.(c.goToAreaId);
-                }
+                // Use universal handleChoice
+                const handleChoice = (usePlayerStore as any).getState().handleChoice;
+                await handleChoice(c);
               }} style={{ minWidth: 160, padding: 10, borderRadius: 8, background: '#222', color: '#fff' }}>{c.label}</button>
             ))}
           </div>

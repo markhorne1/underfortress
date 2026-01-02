@@ -120,6 +120,33 @@ export default function GameScreen({ navigation }: any) {
         </View>
       ) : null}
       <View style={{ padding: 12 }}>
+        {/* Action buttons (Search, etc.) */}
+        {area.actions && Array.isArray(area.actions) && area.actions.length > 0 ? (
+          <View style={{ marginBottom: 12 }}>
+            <Text style={{ fontWeight: '600', marginBottom: 8 }}>Actions:</Text>
+            {area.actions.map((action: any, idx: number) => {
+              const searchFlag = `area:${currentAreaId}:searched`;
+              const alreadySearched = (playerState.flags as any)?.[searchFlag];
+              
+              if (alreadySearched) return null;
+              
+              return (
+                <Button
+                  key={idx}
+                  title={`\ud83d\udd0d Search Area`}
+                  onPress={async () => {
+                    const handleAction = (usePlayerStore.getState() as any).handleAction;
+                    const result = await handleAction(action.type, action);
+                    setResultTitle(result.success ? 'Search Success' : 'Search Failed');
+                    setResultLogs(result.log);
+                    setResultRewards([]);
+                    setResultVisible(true);
+                  }}
+                />
+              );
+            })}
+          </View>
+        ) : null}
         {/* build ordered choices: area.choices, actionsAvailable, exits */}
         {(() => {
           const ordered: any[] = [];
@@ -140,21 +167,7 @@ export default function GameScreen({ navigation }: any) {
             return null;
           }
 
-          return (
-            <ChoiceBar choices={ordered} onExecute={(c:any)=>{
-              // handle non-navigation choices
-              if (c.rawAction || c.effects) {
-                const res = executeChoice(c.rawAction ?? c, (usePlayerStore as any).getState());
-                if (res && res.state) (usePlayerStore as any).setState(res.state);
-                if (res && res.goToAreaId) moveTo(res.goToAreaId);
-                if (res && res.log) {
-                  setResultTitle('Choice Result');
-                  setResultLogs(res.log);
-                  setResultVisible(true);
-                }
-              }
-            }} />
-          );
+          return <ChoiceBar choices={ordered} />;
         })()}
       </View>
     </View>
