@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { loadContent, getContentSnapshot, getStartAreaId, getAllAreas, getAreaById } from './engine/contentLoader';
 import { usePlayerStore } from './store/playerStore';
 import { executeChoice } from './engine/execute';
+import { getActiveSkills, getPassiveSkills } from './engine/skillCalculations';
 
 export default function App() {
   const [page, setPage] = useState<'title'|'menu'|'game'>('title');
@@ -13,6 +14,7 @@ export default function App() {
   const inventory = usePlayerStore(s => s.inventory);
   const equipment = usePlayerStore(s => s.equipment);
   const stats = usePlayerStore(s => s.stats);
+  const health = usePlayerStore(s => s.health);
   const spellsKnown = usePlayerStore(s => s.spellsKnown);
   const quests = usePlayerStore(s => s.quests);
   const flags = usePlayerStore(s => s.flags);
@@ -136,6 +138,26 @@ export default function App() {
         <button onClick={() => setModalPage('map')} style={{ background: 'transparent', border: 'none', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>Map</button>
       </div>
       
+      {/* Health Bar */}
+      {page === 'game' && (
+        <div style={{ padding: '8px 20px', background: '#f8f8f8', borderBottom: '1px solid #ddd' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, maxWidth: 800, margin: '0 auto' }}>
+            <span style={{ fontSize: 14, fontWeight: 'bold', minWidth: 60 }}>Health:</span>
+            <div style={{ flex: 1, height: 24, background: '#e0e0e0', borderRadius: 12, overflow: 'hidden', position: 'relative' }}>
+              <div style={{ 
+                width: `${health}%`, 
+                height: '100%', 
+                background: health > 50 ? '#2ecc71' : health > 25 ? '#f39c12' : '#e74c3c',
+                transition: 'width 0.3s ease, background 0.3s ease'
+              }}></div>
+              <span style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)', fontSize: 12, fontWeight: 'bold', color: '#333' }}>
+                {health}/100
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
+      
       {/* Main Content - Centered */}
       <div style={{ flex: 1, padding: 20, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
         {area ? (
@@ -209,85 +231,113 @@ export default function App() {
             {modalPage === 'skills' && (
               <div>
                 <h3 style={{ marginTop: 0 }}>Core Stats</h3>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginBottom: 20 }}>
-                  <div>Skill: <strong>{stats.skill}</strong></div>
-                  <div>Stamina: <strong>{stats.stamina}</strong></div>
-                  <div>Luck: <strong>{stats.luck}</strong></div>
-                  <div>Level: <strong>{stats.level}</strong></div>
-                  <div>XP: <strong>{stats.xp}</strong></div>
-                  <div>Gold: <strong>{stats.gold}</strong></div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr auto', gap: '12px 8px', marginBottom: 20, alignItems: 'center' }}>
+                  <div style={{ fontWeight: 'bold' }}>Power:</div>
+                  <div style={{ background: '#f0f0f0', height: 20, borderRadius: 10, overflow: 'hidden' }}>
+                    <div style={{ background: '#e74c3c', width: `${stats.power * 10}%`, height: '100%' }}></div>
+                  </div>
+                  <div style={{ fontWeight: 'bold', minWidth: 30 }}>{stats.power}/10</div>
+                  
+                  <div style={{ fontWeight: 'bold' }}>Mind:</div>
+                  <div style={{ background: '#f0f0f0', height: 20, borderRadius: 10, overflow: 'hidden' }}>
+                    <div style={{ background: '#9b59b6', width: `${stats.mind * 10}%`, height: '100%' }}></div>
+                  </div>
+                  <div style={{ fontWeight: 'bold', minWidth: 30 }}>{stats.mind}/10</div>
+                  
+                  <div style={{ fontWeight: 'bold' }}>Agility:</div>
+                  <div style={{ background: '#f0f0f0', height: 20, borderRadius: 10, overflow: 'hidden' }}>
+                    <div style={{ background: '#2ecc71', width: `${stats.agility * 10}%`, height: '100%' }}></div>
+                  </div>
+                  <div style={{ fontWeight: 'bold', minWidth: 30 }}>{stats.agility}/10</div>
+                  
+                  <div style={{ fontWeight: 'bold' }}>Vision:</div>
+                  <div style={{ background: '#f0f0f0', height: 20, borderRadius: 10, overflow: 'hidden' }}>
+                    <div style={{ background: '#3498db', width: `${stats.vision * 10}%`, height: '100%' }}></div>
+                  </div>
+                  <div style={{ fontWeight: 'bold', minWidth: 30 }}>{stats.vision}/10</div>
                 </div>
                 
-                <h3>Active Skills</h3>
+                {stats.statPoints > 0 && (
+                  <div style={{ marginBottom: 20, padding: 12, background: '#fffbea', border: '1px solid #f39c12', borderRadius: 8 }}>
+                    <strong>⚡ {stats.statPoints} Stat Points Available</strong>
+                    <div style={{ fontSize: 12, marginTop: 4 }}>Spend points to increase your core stats and improve your skills.</div>
+                  </div>
+                )}
+                
+                <h3>Active Skills (% chance)</h3>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '8px', marginBottom: 20 }}>
                   <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <span style={{ flex: 1 }}>Search</span>
-                    <span style={{ marginRight: 8, fontWeight: 'bold' }}>{stats.search}</span>
+                    <span style={{ flex: 1 }}>🔍 Search</span>
+                    <span style={{ marginRight: 8, fontWeight: 'bold' }}>{getActiveSkills(state).search}%</span>
                   </div>
-                  <button style={{ padding: '4px 12px', fontSize: 12, borderRadius: 4, background: '#4a90e2', color: '#fff', border: 'none', cursor: 'pointer' }} onClick={() => alert('Use Search in areas with hidden items/clues')}>Use</button>
+                  <button style={{ padding: '4px 12px', fontSize: 12, borderRadius: 4, background: '#4a90e2', color: '#fff', border: 'none', cursor: 'pointer' }} onClick={() => alert('Vision × 10 = ' + getActiveSkills(state).search + '%')}>Info</button>
                   
                   <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <span style={{ flex: 1 }}>Investigate</span>
-                    <span style={{ marginRight: 8, fontWeight: 'bold' }}>{stats.investigate}</span>
+                    <span style={{ flex: 1 }}>🔎 Investigate</span>
+                    <span style={{ marginRight: 8, fontWeight: 'bold' }}>{getActiveSkills(state).investigate}%</span>
                   </div>
-                  <button style={{ padding: '4px 12px', fontSize: 12, borderRadius: 4, background: '#4a90e2', color: '#fff', border: 'none', cursor: 'pointer' }} onClick={() => alert('Examine objects for quest clues')}>Use</button>
+                  <button style={{ padding: '4px 12px', fontSize: 12, borderRadius: 4, background: '#4a90e2', color: '#fff', border: 'none', cursor: 'pointer' }} onClick={() => alert('Mind × 10 = ' + getActiveSkills(state).investigate + '%')}>Info</button>
                   
                   <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <span style={{ flex: 1 }}>Melee Attack</span>
-                    <span style={{ marginRight: 8, fontWeight: 'bold' }}>{stats.meleeAttack}</span>
+                    <span style={{ flex: 1 }}>⚔️ Melee Attack</span>
+                    <span style={{ marginRight: 8, fontWeight: 'bold' }}>{getActiveSkills(state).meleeAttack}%</span>
                   </div>
-                  <button style={{ padding: '4px 12px', fontSize: 12, borderRadius: 4, background: '#e74c3c', color: '#fff', border: 'none', cursor: 'pointer' }} onClick={() => alert('Used in close combat')}>Info</button>
+                  <button style={{ padding: '4px 12px', fontSize: 12, borderRadius: 4, background: '#e74c3c', color: '#fff', border: 'none', cursor: 'pointer' }} onClick={() => alert('Power × 10 = ' + getActiveSkills(state).meleeAttack + '%')}>Info</button>
                   
                   <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <span style={{ flex: 1 }}>Ranged Attack</span>
-                    <span style={{ marginRight: 8, fontWeight: 'bold' }}>{stats.rangedAttack}</span>
+                    <span style={{ flex: 1 }}>🏹 Ranged Attack</span>
+                    <span style={{ marginRight: 8, fontWeight: 'bold' }}>{getActiveSkills(state).rangedAttack}%</span>
                   </div>
-                  <button style={{ padding: '4px 12px', fontSize: 12, borderRadius: 4, background: '#e74c3c', color: '#fff', border: 'none', cursor: 'pointer' }} onClick={() => alert('Used for distant combat')}>Info</button>
+                  <button style={{ padding: '4px 12px', fontSize: 12, borderRadius: 4, background: '#e74c3c', color: '#fff', border: 'none', cursor: 'pointer' }} onClick={() => alert('Agility × 10 = ' + getActiveSkills(state).rangedAttack + '%')}>Info</button>
                   
                   <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <span style={{ flex: 1 }}>Cast Spell</span>
-                    <span style={{ marginRight: 8, fontWeight: 'bold' }}>{stats.castSpell}</span>
+                    <span style={{ flex: 1 }}>✨ Cast Spell</span>
+                    <span style={{ marginRight: 8, fontWeight: 'bold' }}>{getActiveSkills(state).castSpell}%</span>
                   </div>
-                  <button style={{ padding: '4px 12px', fontSize: 12, borderRadius: 4, background: '#9b59b6', color: '#fff', border: 'none', cursor: 'pointer' }} onClick={() => alert('Used when casting spells')}>Info</button>
+                  <button style={{ padding: '4px 12px', fontSize: 12, borderRadius: 4, background: '#9b59b6', color: '#fff', border: 'none', cursor: 'pointer' }} onClick={() => alert('Mind × 10 = ' + getActiveSkills(state).castSpell + '%')}>Info</button>
                   
                   <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <span style={{ flex: 1 }}>Lockpick</span>
-                    <span style={{ marginRight: 8, fontWeight: 'bold' }}>{stats.lockpick}</span>
+                    <span style={{ flex: 1 }}>🔓 Lockpick</span>
+                    <span style={{ marginRight: 8, fontWeight: 'bold' }}>{getActiveSkills(state).lockpick}%</span>
                   </div>
-                  <button style={{ padding: '4px 12px', fontSize: 12, borderRadius: 4, background: '#4a90e2', color: '#fff', border: 'none', cursor: 'pointer' }} onClick={() => alert('Open locked doors/chests')}>Use</button>
+                  <button style={{ padding: '4px 12px', fontSize: 12, borderRadius: 4, background: '#4a90e2', color: '#fff', border: 'none', cursor: 'pointer' }} onClick={() => alert('Vision×5 + Agility×5 = ' + getActiveSkills(state).lockpick + '%')}>Info</button>
                   
                   <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <span style={{ flex: 1 }}>Pickpocket</span>
-                    <span style={{ marginRight: 8, fontWeight: 'bold' }}>{stats.pickpocket}</span>
+                    <span style={{ flex: 1 }}>👛 Pickpocket</span>
+                    <span style={{ marginRight: 8, fontWeight: 'bold' }}>{getActiveSkills(state).pickpocket}%</span>
                   </div>
-                  <button style={{ padding: '4px 12px', fontSize: 12, borderRadius: 4, background: '#4a90e2', color: '#fff', border: 'none', cursor: 'pointer' }} onClick={() => alert('Steal from NPCs')}>Use</button>
+                  <button style={{ padding: '4px 12px', fontSize: 12, borderRadius: 4, background: '#4a90e2', color: '#fff', border: 'none', cursor: 'pointer' }} onClick={() => alert('Mind×5 + Agility×5 = ' + getActiveSkills(state).pickpocket + '%')}>Info</button>
                 </div>
                 
                 <h3>Passive Skills</h3>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '8px', fontSize: 14 }}>
                   <div>Perception</div>
-                  <div style={{ fontWeight: 'bold' }}>{stats.perception}</div>
+                  <div style={{ fontWeight: 'bold' }}>{getPassiveSkills(state).perception}%</div>
                   
                   <div>Melee Defense</div>
-                  <div style={{ fontWeight: 'bold' }}>{stats.meleeDefense}</div>
+                  <div style={{ fontWeight: 'bold' }}>{getPassiveSkills(state).meleeDefense}</div>
                   
                   <div>Ranged Defense</div>
-                  <div style={{ fontWeight: 'bold' }}>{stats.rangedDefense}</div>
+                  <div style={{ fontWeight: 'bold' }}>{getPassiveSkills(state).rangedDefense}%</div>
                   
                   <div>Dodge</div>
-                  <div style={{ fontWeight: 'bold' }}>{stats.dodge}</div>
+                  <div style={{ fontWeight: 'bold' }}>{getPassiveSkills(state).dodge}%</div>
                   
                   <div>Spell Resistance</div>
-                  <div style={{ fontWeight: 'bold' }}>{stats.spellResistance}</div>
+                  <div style={{ fontWeight: 'bold' }}>{getPassiveSkills(state).spellResistance}%</div>
                   
                   <div>Stealth</div>
-                  <div style={{ fontWeight: 'bold' }}>{stats.stealth}</div>
+                  <div style={{ fontWeight: 'bold' }}>{getPassiveSkills(state).stealth}%</div>
                   
                   <div>Persuasion</div>
-                  <div style={{ fontWeight: 'bold' }}>{stats.persuasion}</div>
+                  <div style={{ fontWeight: 'bold' }}>{getPassiveSkills(state).persuasion}%</div>
                   
                   <div>Intimidation</div>
-                  <div style={{ fontWeight: 'bold' }}>{stats.intimidation}</div>
+                  <div style={{ fontWeight: 'bold' }}>{getPassiveSkills(state).intimidation}%</div>
+                </div>
+                
+                <div style={{ marginTop: 20, padding: 12, background: '#f0f0f0', borderRadius: 8, fontSize: 12 }}>
+                  <strong>Legacy Stats:</strong> Gold: {stats.gold}, Level: {stats.level}, Luck: {stats.luck}
                 </div>
               </div>
             )}

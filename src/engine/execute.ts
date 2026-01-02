@@ -32,26 +32,21 @@ export function executeChoice(choice: any, state: PlayerState): { state: PlayerS
   return { state: res.state, log: combined, goToAreaId: choice.goToAreaId };
 }
 
-// Roll d20 + modifier
-function rollD20(modifier: number = 0): { roll: number; total: number } {
-  const roll = Math.floor(Math.random() * 20) + 1;
-  return { roll, total: roll + modifier };
+// Roll d100 for percentage-based checks
+function rollD100(): number {
+  return Math.floor(Math.random() * 100) + 1; // 1-100
 }
 
-// Get Perception bonus from player state
-function getPerceptionBonus(state: PlayerState): number {
-  // Base perception from stats (default 5)
-  let bonus = state.stats.perception || 0;
-  
-  // Check for Amulet of Clear Sight (+2 to Perception)
-  const hasAmulet = state.inventory.some(item => item.itemId === 'amulet_clearsight');
-  if (hasAmulet) bonus += 2;
-  
-  // Check for Observer/Observation flags (can be set by other effects)
-  if ((state.flags as any)?.observer_trained) bonus += 1;
-  if ((state.flags as any)?.observation_expert) bonus += 2;
-  
-  return bonus;
+// Get Perception skill percentage from player state
+function getPerceptionSkill(state: PlayerState): number {
+  const { getPerception } = require('./skillCalculations');
+  return getPerception(state);
+}
+
+// Get Investigation skill percentage from player state
+function getInvestigationSkill(state: PlayerState): number {
+  const { getInvestigate } = require('./skillCalculations');
+  return getInvestigate(state);
 }
 
 export function performSearch(areaId: string, action: any, state: PlayerState): { state: PlayerState; log: string[]; success: boolean } {
@@ -67,19 +62,23 @@ export function performSearch(areaId: string, action: any, state: PlayerState): 
     };
   }
   
-  // Get DC (default 12)
-  const dc = action.dc || 12;
+  // Get Search skill percentage (Vision × 10)
+  const searchSkill = getPerceptionSkill(newState);
   
-  // Roll d20 + Perception bonus
-  const perceptionBonus = getPerceptionBonus(state);
-  const { roll, total } = rollD20(perceptionBonus);
-  const success = total >= dc;
+  // Add bonuses from items/flags
+  let bonusPercent = 0;
+  const hasAmulet = newState.inventory.some(item => item.itemId === 'amulet_clearsight');
+  if (hasAmulet) bonusPercent += 10;
+  if ((newState.flags as any)?.observer_trained) bonusPercent += 5;
+  if ((newState.flags as any)?.observation_expert) bonusPercent += 10;
   
-  console.log('🔍 Search roll:', { roll, perceptionBonus, total, dc, success });
+  const totalSkill = Math.min(100, searchSkill + bonusPercent);
+  const roll = rollD100();
+  const success = roll <= totalSkill;
   
-  // Build log
-  const log: string[] = [];
-  log.push(`Search: d20(${roll}) + Perception(${perceptionBonus}) = ${total} vs DC ${dc}`);
+  const log: string[] = [
+    `Search Check: d100(${roll}) vs ${totalSkill}% → ${success ? 'SUCCESS' : 'FAILURE'}`
+  ];
   
   // Apply effects and get result text
   if (success) {
@@ -107,16 +106,16 @@ export function performSearch(areaId: string, action: any, state: PlayerState): 
 
 // Get Investigation bonus from player state
 function getInvestigationBonus(state: PlayerState): number {
-  // Base investigation from stats (default 5)
-  let bonus = state.stats.investigate || 0;
+  // Bonuses from items/flags
+  let bonus = 0;
   
   // Check for Magnifying Glass or similar items
   const hasMagnifier = state.inventory.some(item => item.itemId === 'magnifying_glass');
-  if (hasMagnifier) bonus += 2;
+  if (hasMagnifier) bonus += 10;
   
   // Check for Detective/Investigation flags
-  if ((state.flags as any)?.detective_training) bonus += 1;
-  if ((state.flags as any)?.investigation_expert) bonus += 2;
+  if ((state.flags as any)?.detective_training) bonus += 5;
+  if ((state.flags as any)?.investigation_expert) bonus += 10;
   
   return bonus;
 }
@@ -134,14 +133,15 @@ export function performInvestigate(areaId: string, action: any, state: PlayerSta
     };
   }
   
-  // Get DC (default 13, slightly harder than Search)
-  const dc = action.dc ?? 13;
-  const bonus = getInvestigationBonus(newState);
-  const { roll, total } = rollD20(bonus);
-  const success = total >= dc;
+  // Get Investigate skill percentage (Mind × 10)
+  const investigateSkill = getInvestigationSkill(newState);
+  const bonusPercent = getInvestigationBonus(newState);
+  const totalSkill = Math.min(100, investigateSkill + bonusPercent);
+  const roll = rollD100();
+  const success = roll <= totalSkill;
   
   const log: string[] = [
-    `Investigation Check: d20(${roll}) + ${bonus} = ${total} vs DC ${dc} → ${success ? 'SUCCESS' : 'FAILURE'}`
+    `Investigation Check: d100(${roll}) vs ${totalSkill}% → ${success ? 'SUCCESS' : 'FAILURE'}`
   ];
   
   if (success) {

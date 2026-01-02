@@ -1,31 +1,22 @@
 export type InvItem = { itemId: string; qty: number };
 
 export type PlayerStats = {
-  skill: number;
-  stamina: number;
+  // Legacy stats (kept for compatibility)
+  skill: number;  // Deprecated, use core stats instead
+  stamina: number;  // Deprecated, replaced by health
   luck: number;
   gold: number;
-  xp: number;
+  xp: number;  // Deprecated, replaced by statPoints
   level: number;
   
-  // Active Skills (used with buttons/actions)
-  search: number;        // Finding hidden items/clues
-  investigate: number;   // Examining objects for quest clues
-  meleeAttack: number;   // Close combat proficiency
-  rangedAttack: number;  // Distant combat proficiency
-  castSpell: number;     // Magic casting ability
-  lockpick: number;      // Opening locks
-  pickpocket: number;    // Stealth theft
+  // Core Stats (1-10 range)
+  power: number;      // Physical strength, melee combat
+  mind: number;       // Intelligence, magic, social
+  agility: number;    // Speed, ranged combat, dodging
+  vision: number;     // Perception, awareness, searching
   
-  // Passive Skills (affect calculations)
-  perception: number;    // Awareness, used in Search DCs
-  meleeDefense: number;  // Reduces melee damage taken
-  rangedDefense: number; // Reduces ranged damage taken
-  dodge: number;         // Chance to avoid attacks
-  spellResistance: number; // Reduces magic damage
-  stealth: number;       // Avoiding detection
-  persuasion: number;    // Social interactions
-  intimidation: number;  // Forcing outcomes
+  // Stat Point System
+  statPoints: number; // Available points to spend
 };
 
 export type PlayerState = {
@@ -35,6 +26,8 @@ export type PlayerState = {
   equipment: Record<string, string | null>;
   spellsKnown: string[];
   stats: PlayerStats;
+  health: number;  // Current health (max 100)
+  lastCheckpointId: string;  // Area ID of last checkpoint for respawn
   flags?: Record<string, any>;
   quests: Record<string, any>;
   questLog: any[];

@@ -45,9 +45,11 @@ export function createPlayerStore(storage: KVStorage) {
     spellsKnown: [],
     stats: { 
       skill: 6, stamina: 20, luck: 6, gold: 0, xp: 0, level: 1,
-      search: 5, investigate: 5, meleeAttack: 6, rangedAttack: 5, castSpell: 4, lockpick: 3, pickpocket: 3,
-      perception: 5, meleeDefense: 5, rangedDefense: 5, dodge: 4, spellResistance: 3, stealth: 4, persuasion: 5, intimidation: 4
+      power: 1, mind: 1, agility: 1, vision: 1,
+      statPoints: 4
     },
+    health: 100,
+    lastCheckpointId: 'start',
     flags: {},
     hasSave: false,
     loadState: async () => {
@@ -87,9 +89,11 @@ export function createPlayerStore(storage: KVStorage) {
         spellsKnown: [], 
         stats: { 
           skill: 6, stamina: 20, luck: 6, gold: 0, xp: 0, level: 1,
-          search: 5, investigate: 5, meleeAttack: 6, rangedAttack: 5, castSpell: 4, lockpick: 3, pickpocket: 3,
-          perception: 5, meleeDefense: 5, rangedDefense: 5, dodge: 4, spellResistance: 3, stealth: 4, persuasion: 5, intimidation: 4
-        }, 
+          power: 1, mind: 1, agility: 1, vision: 1,
+          statPoints: 4
+        },
+        health: 100,
+        lastCheckpointId: startId,
         hasSave: true 
       } as any);
       // persist
