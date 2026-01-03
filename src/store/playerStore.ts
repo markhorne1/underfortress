@@ -44,6 +44,7 @@ export function createPlayerStore(storage: KVStorage) {
     quests: {},
     questLog: [],
     spellsKnown: [],
+    spellPathsUnlocked: [],
     stats: { 
       gold: 0,
       power: 1, mind: 1, agility: 1, vision: 1,

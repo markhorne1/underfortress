@@ -22,6 +22,7 @@ export default function App() {
   const health = usePlayerStore(s => s.health);
   const combat = usePlayerStore(s => s.combat);
   const spellsKnown = usePlayerStore(s => s.spellsKnown);
+  const spellPathsUnlocked = usePlayerStore(s => s.spellPathsUnlocked);
   const quests = usePlayerStore(s => s.quests);
   const questLog = usePlayerStore(s => s.questLog);
   const flags = usePlayerStore(s => s.flags);
@@ -367,6 +368,175 @@ export default function App() {
                 </button>
               </div>
             )}
+
+            {/* Combat UI */}
+            {combat && combat.active && (
+              <div style={{ 
+                marginTop: 20, 
+                padding: 20, 
+                background: 'linear-gradient(135deg, #2c3e50 0%, #34495e 100%)', 
+                borderRadius: 12, 
+                border: '3px solid #e74c3c',
+                boxShadow: '0 8px 24px rgba(0,0,0,0.3)'
+              }}>
+                {/* Turn Indicator */}
+                <div style={{ 
+                  textAlign: 'center', 
+                  marginBottom: 16, 
+                  padding: 12, 
+                  background: combat.playerTurn ? 'rgba(46, 204, 113, 0.2)' : 'rgba(231, 76, 60, 0.2)',
+                  borderRadius: 8,
+                  border: `2px solid ${combat.playerTurn ? '#2ecc71' : '#e74c3c'}`,
+                  fontSize: 16,
+                  fontWeight: 'bold',
+                  color: '#fff'
+                }}>
+                  {combat.playerTurn ? '⚔️ Your Turn' : '🛡️ Enemy Turn'} - Turn {combat.turnNumber}
+                </div>
+
+                {/* Enemy Display */}
+                <div style={{ marginBottom: 20 }}>
+                  <h3 style={{ color: '#fff', marginBottom: 12, fontSize: 14, textTransform: 'uppercase', letterSpacing: 1 }}>
+                    Enemies
+                  </h3>
+                  <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', justifyContent: 'center' }}>
+                    {combat.enemies.map((enemy) => {
+                      const isSelected = combat.selectedEnemyId === enemy.instanceId;
+                      const isDead = enemy.health <= 0;
+                      return (
+                        <div
+                          key={enemy.instanceId}
+                          onClick={() => {
+                            if (!isDead && combat.playerTurn) {
+                              const currentState = usePlayerStore.getState();
+                              const newState = selectEnemy(enemy.instanceId, currentState);
+                              usePlayerStore.setState({ combat: newState.combat });
+                            }
+                          }}
+                          style={{
+                            padding: 16,
+                            background: isDead 
+                              ? 'rgba(127, 140, 141, 0.3)' 
+                              : isSelected 
+                                ? 'rgba(231, 76, 60, 0.4)' 
+                                : 'rgba(52, 73, 94, 0.6)',
+                            border: `3px solid ${isDead ? '#7f8c8d' : isSelected ? '#e74c3c' : '#34495e'}`,
+                            borderRadius: 12,
+                            minWidth: 140,
+                            cursor: isDead || !combat.playerTurn ? 'default' : 'pointer',
+                            transition: 'all 0.2s',
+                            opacity: isDead ? 0.5 : 1,
+                            boxShadow: isSelected ? '0 0 20px rgba(231, 76, 60, 0.6)' : 'none'
+                          }}
+                        >
+                          <div style={{ 
+                            fontSize: 40, 
+                            textAlign: 'center', 
+                            marginBottom: 8,
+                            filter: isDead ? 'grayscale(100%)' : 'none'
+                          }}>
+                            👹
+                          </div>
+                          <div style={{ color: '#fff', fontSize: 14, fontWeight: 'bold', textAlign: 'center', marginBottom: 8 }}>
+                            {enemy.name} {isDead && '💀'}
+                          </div>
+                          {/* Health Bar */}
+                          <div style={{ 
+                            background: 'rgba(0,0,0,0.3)', 
+                            borderRadius: 8, 
+                            height: 12, 
+                            overflow: 'hidden',
+                            marginBottom: 4 
+                          }}>
+                            <div style={{ 
+                              height: '100%', 
+                              background: enemy.health > enemy.maxHealth * 0.5 
+                                ? 'linear-gradient(90deg, #2ecc71, #27ae60)' 
+                                : enemy.health > enemy.maxHealth * 0.25 
+                                  ? 'linear-gradient(90deg, #f39c12, #e67e22)'
+                                  : 'linear-gradient(90deg, #e74c3c, #c0392b)',
+                              width: `${Math.max(0, (enemy.health / enemy.maxHealth) * 100)}%`,
+                              transition: 'width 0.3s'
+                            }} />
+                          </div>
+                          <div style={{ color: '#ecf0f1', fontSize: 12, textAlign: 'center' }}>
+                            {Math.max(0, enemy.health)} / {enemy.maxHealth} HP
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Combat Actions */}
+                {combat.playerTurn && (
+                  <div style={{ marginBottom: 20, display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+                    <button
+                      onClick={() => {
+                        if (!combat.selectedEnemyId) {
+                          alert('Select an enemy first!');
+                          return;
+                        }
+                        const currentState = usePlayerStore.getState();
+                        const result = playerAttack(currentState);
+                        usePlayerStore.setState({ combat: result.state.combat });
+                        
+                        // Enemy turn after player attacks
+                        setTimeout(() => {
+                          if (result.state.combat && result.state.combat.active && !result.state.combat.playerTurn) {
+                            const enemyResult = enemyTurn(result.state);
+                            usePlayerStore.setState({ 
+                              combat: enemyResult.state.combat,
+                              health: enemyResult.state.health 
+                            });
+                          }
+                        }, 800);
+                      }}
+                      disabled={!combat.selectedEnemyId || combat.enemies.every(e => e.health <= 0)}
+                      style={{
+                        padding: '12px 32px',
+                        fontSize: 16,
+                        fontWeight: 'bold',
+                        borderRadius: 8,
+                        background: combat.selectedEnemyId && combat.enemies.some(e => e.instanceId === combat.selectedEnemyId && e.health > 0)
+                          ? 'linear-gradient(135deg, #e74c3c, #c0392b)'
+                          : '#7f8c8d',
+                        color: '#fff',
+                        border: 'none',
+                        cursor: combat.selectedEnemyId && combat.enemies.some(e => e.instanceId === combat.selectedEnemyId && e.health > 0) ? 'pointer' : 'not-allowed',
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.3)'
+                      }}
+                    >
+                      ⚔️ Attack {combat.selectedEnemyId ? combat.enemies.find(e => e.instanceId === combat.selectedEnemyId)?.name : 'Enemy'}
+                    </button>
+                  </div>
+                )}
+
+                {/* Combat Log */}
+                <div style={{ 
+                  background: 'rgba(0,0,0,0.4)', 
+                  borderRadius: 8, 
+                  padding: 16,
+                  maxHeight: 200,
+                  overflowY: 'auto'
+                }}>
+                  <h4 style={{ color: '#ecf0f1', marginBottom: 8, fontSize: 12, textTransform: 'uppercase', letterSpacing: 1 }}>
+                    Combat Log
+                  </h4>
+                  {combat.combatLog.map((entry, idx) => (
+                    <div key={idx} style={{ 
+                      color: '#bdc3c7', 
+                      fontSize: 13, 
+                      marginBottom: 4,
+                      paddingLeft: 8,
+                      borderLeft: '2px solid #34495e'
+                    }}>
+                      {entry}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         ) : (
           <div>No area loaded.</div>
@@ -420,7 +590,7 @@ export default function App() {
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16 }}>
                   <h3 style={{ margin: 0 }}>Equipment</h3>
                   <div style={{ fontSize: 18, fontWeight: 'bold', color: '#3498db' }}>
-                    AR: {getTotalArmourRating({ stats, equipment, inventory, currentAreaId, discoveredMap, spellsKnown, health, lastCheckpointId, flags: flags || {}, quests: quests || {}, questLog: questLog || [] })}
+                    AR: {getTotalArmourRating({ stats, equipment, inventory, currentAreaId, discoveredMap, spellsKnown, spellPathsUnlocked, health, lastCheckpointId, flags: flags || {}, quests: quests || {}, questLog: questLog || [] })}
                   </div>
                 </div>
                 
@@ -592,16 +762,109 @@ export default function App() {
             
             {modalPage === 'spells' && (
               <div>
-                {spellsKnown.length === 0 ? (
-                  <p>No spells known.</p>
-                ) : (
-                  <ul style={{ listStyle: 'none', padding: 0 }}>
-                    {spellsKnown.map((spellId, idx) => (
-                      <li key={idx} style={{ padding: '8px 0', borderBottom: '1px solid #eee' }}>
-                        {spellId}
-                      </li>
-                    ))}
-                  </ul>
+                <h3 style={{ marginTop: 0, marginBottom: 20 }}>Spell Paths</h3>
+                
+                {/* Spell Path Runes */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 20, marginBottom: 30 }}>
+                  {[
+                    { id: 'fire', name: 'Fire', icon: '🔥', color: '#e74c3c', desc: 'Offensive magic' },
+                    { id: 'water', name: 'Water', icon: '💧', color: '#3498db', desc: 'Control & crowd control' },
+                    { id: 'earth', name: 'Earth', icon: '🪨', color: '#95a5a6', desc: 'Defense & utility' },
+                    { id: 'air', name: 'Air', icon: '💨', color: '#1abc9c', desc: 'Speed & mobility' }
+                  ].map(path => {
+                    const isUnlocked = spellPathsUnlocked.includes(path.id as any);
+                    const canAfford = stats.statPoints >= 1;
+                    return (
+                      <div
+                        key={path.id}
+                        onClick={() => {
+                          if (!isUnlocked && canAfford) {
+                            if (confirm(`Unlock ${path.name} path for 1 Stat Point?`)) {
+                              const currentState = usePlayerStore.getState();
+                              const newStats = { ...currentState.stats, statPoints: currentState.stats.statPoints - 1 };
+                              usePlayerStore.setState({ 
+                                stats: newStats,
+                                spellPathsUnlocked: [...(currentState.spellPathsUnlocked || []), path.id as any]
+                              });
+                            }
+                          }
+                        }}
+                        style={{
+                          padding: 20,
+                          background: isUnlocked 
+                            ? `linear-gradient(135deg, ${path.color}22, ${path.color}44)` 
+                            : '#f5f5f5',
+                          border: `3px solid ${isUnlocked ? path.color : '#ddd'}`,
+                          borderRadius: 12,
+                          cursor: !isUnlocked && canAfford ? 'pointer' : 'default',
+                          opacity: isUnlocked ? 1 : canAfford ? 0.7 : 0.4,
+                          transition: 'all 0.3s',
+                          textAlign: 'center',
+                          animation: !isUnlocked && canAfford ? 'pulse 2s infinite' : 'none'
+                        }}
+                      >
+                        <div style={{ fontSize: 48, marginBottom: 8, filter: isUnlocked ? 'none' : 'grayscale(100%)' }}>
+                          {path.icon}
+                        </div>
+                        <div style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 4, color: isUnlocked ? path.color : '#666' }}>
+                          {path.name}
+                        </div>
+                        <div style={{ fontSize: 12, color: '#999', marginBottom: 8 }}>
+                          {path.desc}
+                        </div>
+                        {!isUnlocked && (
+                          <div style={{ 
+                            fontSize: 14, 
+                            fontWeight: 'bold', 
+                            color: canAfford ? '#f39c12' : '#999',
+                            padding: '6px 12px',
+                            background: canAfford ? 'rgba(243, 156, 18, 0.1)' : 'transparent',
+                            borderRadius: 6,
+                            display: 'inline-block'
+                          }}>
+                            {canAfford ? '1 SP to unlock' : 'Need 1 SP'}
+                          </div>
+                        )}
+                        {isUnlocked && (
+                          <div style={{ fontSize: 14, fontWeight: 'bold', color: '#2ecc71' }}>
+                            ✓ Unlocked
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Known Spells */}
+                {spellsKnown.length > 0 && (
+                  <div>
+                    <h4 style={{ marginTop: 20, marginBottom: 12 }}>Known Spells</h4>
+                    <ul style={{ listStyle: 'none', padding: 0 }}>
+                      {spellsKnown.map((spellId, idx) => (
+                        <li key={idx} style={{ 
+                          padding: '12px 16px', 
+                          borderBottom: '1px solid #eee',
+                          background: '#f9f9f9',
+                          marginBottom: 8,
+                          borderRadius: 6
+                        }}>
+                          ✨ {spellId}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {spellsKnown.length === 0 && spellPathsUnlocked.length > 0 && (
+                  <p style={{ textAlign: 'center', color: '#999', fontStyle: 'italic' }}>
+                    Learn spells by exploring and completing quests.
+                  </p>
+                )}
+
+                {spellPathsUnlocked.length === 0 && (
+                  <p style={{ textAlign: 'center', color: '#999', fontStyle: 'italic' }}>
+                    Unlock spell paths to gain access to powerful magic.
+                  </p>
                 )}
               </div>
             )}

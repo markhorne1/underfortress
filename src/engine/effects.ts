@@ -192,6 +192,22 @@ export function applyEffects(effects: any[] | undefined, state: PlayerState): Ef
         } else log.push(`placeHazard not found ${tid}`);
         break;
       }
+      case 'unlockPath': {
+        const path = e.path || e.key;
+        if (!path) { log.push('unlockPath missing path'); break; }
+        if (!['fire', 'water', 'earth', 'air'].includes(path)) {
+          log.push(`unlockPath invalid path ${path}`);
+          break;
+        }
+        next.spellPathsUnlocked = next.spellPathsUnlocked || [];
+        if (!next.spellPathsUnlocked.includes(path)) {
+          next.spellPathsUnlocked.push(path);
+          log.push(`unlockPath ${path} - Spell path unlocked!`);
+        } else {
+          log.push(`unlockPath ${path} - Already unlocked`);
+        }
+        break;
+      }
       default:
         console.warn('Unknown effect type', e.type);
         log.push(`unknownEffect ${e.type}`);

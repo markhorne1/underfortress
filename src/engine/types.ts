@@ -1,5 +1,7 @@
 export type InvItem = { itemId: string; qty: number };
 
+export type SpellPath = 'fire' | 'water' | 'earth' | 'air';
+
 export type PlayerStats = {
   gold: number;       // Currency for purchases
   
@@ -71,6 +73,7 @@ export type PlayerState = {
   inventory: InvItem[];
   equipment: Record<string, string | null>;
   spellsKnown: string[];
+  spellPathsUnlocked: SpellPath[];  // Unlocked magic paths
   stats: PlayerStats;
   health: number;  // Current health (max 100)
   lastCheckpointId: string;  // Area ID of last checkpoint for respawn
