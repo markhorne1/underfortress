@@ -16,13 +16,15 @@ export async function loadContent() {
   // Two modes: Node (fs/path) for tooling/environments that allow it, and Web (fetch) for browsers.
   if (!isNode) {
     // Browser / web: fetch canonical master files from /content (runtime-only)
+    const spellsBase = (await fetchJsonWeb('spells.json')) || [];
+    const spellsCombat = (await fetchJsonWeb('spells_combat.json')) || [];
     const data: any = {
       areas: (await fetchJsonWeb('areas.json')) || [],
       items: (await fetchJsonWeb('items.json')) || [],
       jobs: (await fetchJsonWeb('jobs.json')) || [],
       enemies: (await fetchJsonWeb('enemies.json')) || [],
       npcs: (await fetchJsonWeb('npcs.json')) || [],
-      spells: (await fetchJsonWeb('spells.json')) || [],
+      spells: [...spellsBase, ...spellsCombat],
       recipes: (await fetchJsonWeb('recipes.json')) || []
     };
     const meta = await fetchJsonWeb('meta.json');
@@ -267,4 +269,12 @@ export function getContentSnapshot() { return _content; }
 
 export function getStartAreaId(): string {
   return _content?.meta?.startAreaId || '';
+}
+
+export function getSpellById(id: string) {
+  return _content.spells?.get(id);
+}
+
+export function getAllSpells() {
+  return Array.from(_content.spells?.values() || []);
 }

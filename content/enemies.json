@@ -18,6 +18,138 @@
     }
   },
   {
+    "id": "goblin_warrior",
+    "name": "Goblin Warrior",
+    "kind": "humanoid",
+    "stats": {
+      "power": 3,
+      "mind": 1,
+      "agility": 3,
+      "vision": 2
+    },
+    "maxHealth": 20,
+    "equipment": {
+      "mainhand": "rusty_sword",
+      "chest": "leather_armor"
+    },
+    "spells": [],
+    "loot": {
+      "gold": { "min": 8, "max": 15 },
+      "statPoints": { "probability": 0.4, "amount": 1 },
+      "items": [
+        { "itemId": "rusty_sword", "probability": 0.3 },
+        { "itemId": "leather_armor", "probability": 0.2 }
+      ]
+    },
+    "tags": ["goblin", "melee"]
+  },
+  {
+    "id": "goblin_archer",
+    "name": "Goblin Archer",
+    "kind": "humanoid",
+    "stats": {
+      "power": 2,
+      "mind": 1,
+      "agility": 4,
+      "vision": 3
+    },
+    "maxHealth": 18,
+    "equipment": {
+      "mainhand": "short_bow"
+    },
+    "spells": [],
+    "loot": {
+      "gold": { "min": 6, "max": 12 },
+      "statPoints": { "probability": 0.35, "amount": 1 },
+      "items": [
+        { "itemId": "short_bow", "probability": 0.4 }
+      ]
+    },
+    "tags": ["goblin", "ranged"]
+  },
+  {
+    "id": "orc_raider",
+    "name": "Orc Raider",
+    "kind": "humanoid",
+    "stats": {
+      "power": 5,
+      "mind": 1,
+      "agility": 2,
+      "vision": 2
+    },
+    "maxHealth": 35,
+    "equipment": {
+      "mainhand": "battle_axe",
+      "chest": "chainmail"
+    },
+    "spells": [],
+    "loot": {
+      "gold": { "min": 15, "max": 30 },
+      "statPoints": { "probability": 0.6, "amount": 2 },
+      "items": [
+        { "itemId": "battle_axe", "probability": 0.4 },
+        { "itemId": "chainmail", "probability": 0.3 }
+      ]
+    },
+    "tags": ["orc", "melee", "tough"]
+  },
+  {
+    "id": "cultist_mage",
+    "name": "Cultist Mage",
+    "kind": "humanoid",
+    "stats": {
+      "power": 2,
+      "mind": 6,
+      "agility": 2,
+      "vision": 3
+    },
+    "maxHealth": 25,
+    "equipment": {
+      "mainhand": "wooden_staff",
+      "chest": "robes"
+    },
+    "spells": ["ignite", "freeze"],
+    "loot": {
+      "gold": { "min": 20, "max": 40 },
+      "statPoints": { "probability": 0.7, "amount": 2 },
+      "items": [
+        { "itemId": "wooden_staff", "probability": 0.3 },
+        { "itemId": "spell_scroll", "probability": 0.5 }
+      ]
+    },
+    "tags": ["cultist", "mage", "spellcaster"]
+  },
+  {
+    "id": "elite_guard",
+    "name": "Elite Guard",
+    "kind": "humanoid",
+    "stats": {
+      "power": 6,
+      "mind": 3,
+      "agility": 4,
+      "vision": 4
+    },
+    "maxHealth": 50,
+    "equipment": {
+      "mainhand": "longsword",
+      "offhand": "steel_shield",
+      "head": "steel_helm",
+      "chest": "plate_armor",
+      "gloves": "steel_gauntlets"
+    },
+    "spells": [],
+    "loot": {
+      "gold": { "min": 30, "max": 60 },
+      "statPoints": { "probability": 0.8, "amount": 3 },
+      "items": [
+        { "itemId": "longsword", "probability": 0.5 },
+        { "itemId": "plate_armor", "probability": 0.4 },
+        { "itemId": "steel_helm", "probability": 0.3 }
+      ]
+    },
+    "tags": ["guard", "elite", "heavily_armed"]
+  },
+  {
     "id": "city_rioter",
     "name": "Panicked Rioter",
     "kind": "humanoid",

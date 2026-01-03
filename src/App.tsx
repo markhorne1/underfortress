@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { loadContent, getContentSnapshot, getStartAreaId, getAllAreas, getAreaById } from './engine/contentLoader';
+import { loadContent, getContentSnapshot, getStartAreaId, getAllAreas, getAreaById, getAllSpells } from './engine/contentLoader';
 import { usePlayerStore } from './store/playerStore';
 import { executeChoice } from './engine/execute';
 import { getActiveSkills, getPassiveSkills, getTotalArmourRating } from './engine/skillCalculations';
-import { initiateCombat, playerAttack, enemyTurn, selectEnemy } from './engine/combatNew';
+import { initiateCombat, playerAttack, enemyTurn, selectEnemy, castSpell } from './engine/combatNew';
 
 export default function App() {
   const [page, setPage] = useState<'title'|'menu'|'game'>('title');
   const [loading, setLoading] = useState(true);
   const [modalPage, setModalPage] = useState<'inventory'|'equipment'|'skills'|'spells'|'quests'|'map'|null>(null);
   const [statAllocMode, setStatAllocMode] = useState(false); // Stat allocation modal
+  const [spellTreePath, setSpellTreePath] = useState<string | null>(null); // Which path's spell tree to show
+  const [selectedSpell, setSelectedSpell] = useState<string | null>(null); // Selected spell for casting
   const [pendingStats, setPendingStats] = useState({ power: 0, mind: 0, agility: 0, vision: 0 }); // Pending changes
   const newGame = usePlayerStore(s => s.newGame);
   const loadState = usePlayerStore(s => s.loadState);
@@ -470,7 +472,7 @@ export default function App() {
 
                 {/* Combat Actions */}
                 {combat.playerTurn && (
-                  <div style={{ marginBottom: 20, display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+                  <div style={{ marginBottom: 20, display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', alignItems: 'center' }}>
                     <button
                       onClick={() => {
                         if (!combat.selectedEnemyId) {
@@ -509,6 +511,90 @@ export default function App() {
                     >
                       ⚔️ Attack {combat.selectedEnemyId ? combat.enemies.find(e => e.instanceId === combat.selectedEnemyId)?.name : 'Enemy'}
                     </button>
+
+                    {/* Spell Casting */}
+                    {spellsKnown.length > 0 && (
+                      <>
+                        <select
+                          value={selectedSpell || ''}
+                          onChange={(e) => setSelectedSpell(e.target.value || null)}
+                          style={{
+                            padding: '12px 16px',
+                            fontSize: 14,
+                            fontWeight: 'bold',
+                            borderRadius: 8,
+                            background: '#9b59b6',
+                            color: '#fff',
+                            border: 'none',
+                            cursor: 'pointer',
+                            boxShadow: '0 4px 12px rgba(155, 89, 182, 0.4)'
+                          }}
+                        >
+                          <option value="">✨ Select Spell</option>
+                          {spellsKnown.map(spellId => {
+                            const spell = getAllSpells().find((s: any) => s.id === spellId) as any;
+                            return spell ? (
+                              <option key={spellId} value={spellId}>
+                                {spell.name} ({spell.targeting})
+                              </option>
+                            ) : null;
+                          })}
+                        </select>
+
+                        {selectedSpell && (
+                          <button
+                            onClick={() => {
+                              const spell = getAllSpells().find((s: any) => s.id === selectedSpell) as any;
+                              if (!spell) return;
+
+                              let targetIds: string[] | undefined = undefined;
+                              
+                              // Handle targeting
+                              if (spell.targeting === 'single') {
+                                if (!combat.selectedEnemyId) {
+                                  alert('Select an enemy target first!');
+                                  return;
+                                }
+                                targetIds = [combat.selectedEnemyId];
+                              }
+                              // multi and all_enemies are handled automatically in castSpell
+                              
+                              const currentState = usePlayerStore.getState();
+                              const result = castSpell(selectedSpell, targetIds, currentState);
+                              usePlayerStore.setState({ 
+                                combat: result.state.combat,
+                                health: result.state.health 
+                              });
+                              setSelectedSpell(null);
+                              
+                              // Enemy turn after casting
+                              setTimeout(() => {
+                                if (result.state.combat && result.state.combat.active && !result.state.combat.playerTurn) {
+                                  const enemyResult = enemyTurn(result.state);
+                                  usePlayerStore.setState({ 
+                                    combat: enemyResult.state.combat,
+                                    health: enemyResult.state.health 
+                                  });
+                                }
+                              }, 1200);
+                            }}
+                            style={{
+                              padding: '12px 24px',
+                              fontSize: 16,
+                              fontWeight: 'bold',
+                              borderRadius: 8,
+                              background: 'linear-gradient(135deg, #8e44ad, #9b59b6)',
+                              color: '#fff',
+                              border: 'none',
+                              cursor: 'pointer',
+                              boxShadow: '0 4px 12px rgba(142, 68, 173, 0.4)'
+                            }}
+                          >
+                            ✨ Cast
+                          </button>
+                        )}
+                      </>
+                    )}
                   </div>
                 )}
 
@@ -762,109 +848,258 @@ export default function App() {
             
             {modalPage === 'spells' && (
               <div>
-                <h3 style={{ marginTop: 0, marginBottom: 20 }}>Spell Paths</h3>
-                
-                {/* Spell Path Runes */}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 20, marginBottom: 30 }}>
-                  {[
-                    { id: 'fire', name: 'Fire', icon: '🔥', color: '#e74c3c', desc: 'Offensive magic' },
-                    { id: 'water', name: 'Water', icon: '💧', color: '#3498db', desc: 'Control & crowd control' },
-                    { id: 'earth', name: 'Earth', icon: '🪨', color: '#95a5a6', desc: 'Defense & utility' },
-                    { id: 'air', name: 'Air', icon: '💨', color: '#1abc9c', desc: 'Speed & mobility' }
-                  ].map(path => {
-                    const isUnlocked = spellPathsUnlocked.includes(path.id as any);
-                    const canAfford = stats.statPoints >= 1;
-                    return (
-                      <div
-                        key={path.id}
-                        onClick={() => {
-                          if (!isUnlocked && canAfford) {
-                            if (confirm(`Unlock ${path.name} path for 1 Stat Point?`)) {
-                              const currentState = usePlayerStore.getState();
-                              const newStats = { ...currentState.stats, statPoints: currentState.stats.statPoints - 1 };
-                              usePlayerStore.setState({ 
-                                stats: newStats,
-                                spellPathsUnlocked: [...(currentState.spellPathsUnlocked || []), path.id as any]
-                              });
-                            }
-                          }
-                        }}
-                        style={{
-                          padding: 20,
-                          background: isUnlocked 
-                            ? `linear-gradient(135deg, ${path.color}22, ${path.color}44)` 
-                            : '#f5f5f5',
-                          border: `3px solid ${isUnlocked ? path.color : '#ddd'}`,
-                          borderRadius: 12,
-                          cursor: !isUnlocked && canAfford ? 'pointer' : 'default',
-                          opacity: isUnlocked ? 1 : canAfford ? 0.7 : 0.4,
-                          transition: 'all 0.3s',
-                          textAlign: 'center',
-                          animation: !isUnlocked && canAfford ? 'pulse 2s infinite' : 'none'
-                        }}
-                      >
-                        <div style={{ fontSize: 48, marginBottom: 8, filter: isUnlocked ? 'none' : 'grayscale(100%)' }}>
-                          {path.icon}
-                        </div>
-                        <div style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 4, color: isUnlocked ? path.color : '#666' }}>
-                          {path.name}
-                        </div>
-                        <div style={{ fontSize: 12, color: '#999', marginBottom: 8 }}>
-                          {path.desc}
-                        </div>
-                        {!isUnlocked && (
-                          <div style={{ 
-                            fontSize: 14, 
-                            fontWeight: 'bold', 
-                            color: canAfford ? '#f39c12' : '#999',
-                            padding: '6px 12px',
-                            background: canAfford ? 'rgba(243, 156, 18, 0.1)' : 'transparent',
-                            borderRadius: 6,
-                            display: 'inline-block'
-                          }}>
-                            {canAfford ? '1 SP to unlock' : 'Need 1 SP'}
+                {!spellTreePath ? (
+                  <>
+                    <h3 style={{ marginTop: 0, marginBottom: 20 }}>Spell Paths</h3>
+                    
+                    {/* Spell Path Runes */}
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 20, marginBottom: 30 }}>
+                      {[
+                        { id: 'fire', name: 'Fire', icon: '🔥', color: '#e74c3c', desc: 'Offensive magic' },
+                        { id: 'water', name: 'Water', icon: '💧', color: '#3498db', desc: 'Control & crowd control' },
+                        { id: 'earth', name: 'Earth', icon: '🪨', color: '#95a5a6', desc: 'Defense & utility' },
+                        { id: 'air', name: 'Air', icon: '💨', color: '#1abc9c', desc: 'Speed & mobility' }
+                      ].map(path => {
+                        const isUnlocked = spellPathsUnlocked.includes(path.id as any);
+                        const canAfford = stats.statPoints >= 1;
+                        return (
+                          <div
+                            key={path.id}
+                            onClick={() => {
+                              if (isUnlocked) {
+                                setSpellTreePath(path.id);
+                              } else if (canAfford) {
+                                if (confirm(`Unlock ${path.name} path for 1 Stat Point?`)) {
+                                  const currentState = usePlayerStore.getState();
+                                  const newStats = { ...currentState.stats, statPoints: currentState.stats.statPoints - 1 };
+                                  usePlayerStore.setState({ 
+                                    stats: newStats,
+                                    spellPathsUnlocked: [...(currentState.spellPathsUnlocked || []), path.id as any]
+                                  });
+                                }
+                              }
+                            }}
+                            style={{
+                              padding: 20,
+                              background: isUnlocked 
+                                ? `linear-gradient(135deg, ${path.color}22, ${path.color}44)` 
+                                : '#f5f5f5',
+                              border: `3px solid ${isUnlocked ? path.color : '#ddd'}`,
+                              borderRadius: 12,
+                              cursor: isUnlocked || canAfford ? 'pointer' : 'default',
+                              opacity: isUnlocked ? 1 : canAfford ? 0.7 : 0.4,
+                              transition: 'all 0.3s',
+                              textAlign: 'center',
+                              animation: !isUnlocked && canAfford ? 'pulse 2s infinite' : 'none'
+                            }}
+                          >
+                            <div style={{ fontSize: 48, marginBottom: 8, filter: isUnlocked ? 'none' : 'grayscale(100%)' }}>
+                              {path.icon}
+                            </div>
+                            <div style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 4, color: isUnlocked ? path.color : '#666' }}>
+                              {path.name}
+                            </div>
+                            <div style={{ fontSize: 12, color: '#999', marginBottom: 8 }}>
+                              {path.desc}
+                            </div>
+                            {!isUnlocked && (
+                              <div style={{ 
+                                fontSize: 14, 
+                                fontWeight: 'bold', 
+                                color: canAfford ? '#f39c12' : '#999',
+                                padding: '6px 12px',
+                                background: canAfford ? 'rgba(243, 156, 18, 0.1)' : 'transparent',
+                                borderRadius: 6,
+                                display: 'inline-block'
+                              }}>
+                                {canAfford ? '1 SP to unlock' : 'Need 1 SP'}
+                              </div>
+                            )}
+                            {isUnlocked && (
+                              <div style={{ fontSize: 14, fontWeight: 'bold', color: '#2ecc71' }}>
+                                ✓ View Spells
+                              </div>
+                            )}
                           </div>
-                        )}
-                        {isUnlocked && (
-                          <div style={{ fontSize: 14, fontWeight: 'bold', color: '#2ecc71' }}>
-                            ✓ Unlocked
-                          </div>
-                        )}
+                        );
+                      })}
+                    </div>
+
+                    {/* Known Spells Summary */}
+                    {spellsKnown.length > 0 && (
+                      <div>
+                        <h4 style={{ marginTop: 20, marginBottom: 12 }}>Known Spells ({spellsKnown.length})</h4>
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                          {spellsKnown.map((spellId, idx) => {
+                            const spell = getAllSpells().find((s: any) => s.id === spellId) as any;
+                            return (
+                              <div key={idx} style={{ 
+                                padding: '8px 12px', 
+                                background: '#f9f9f9',
+                                borderRadius: 6,
+                                fontSize: 13,
+                                border: '1px solid #ddd'
+                              }}>
+                                ✨ {spell?.name || spellId}
+                              </div>
+                            );
+                          })}
+                        </div>
                       </div>
-                    );
-                  })}
-                </div>
+                    )}
 
-                {/* Known Spells */}
-                {spellsKnown.length > 0 && (
-                  <div>
-                    <h4 style={{ marginTop: 20, marginBottom: 12 }}>Known Spells</h4>
-                    <ul style={{ listStyle: 'none', padding: 0 }}>
-                      {spellsKnown.map((spellId, idx) => (
-                        <li key={idx} style={{ 
-                          padding: '12px 16px', 
-                          borderBottom: '1px solid #eee',
-                          background: '#f9f9f9',
-                          marginBottom: 8,
-                          borderRadius: 6
-                        }}>
-                          ✨ {spellId}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-
-                {spellsKnown.length === 0 && spellPathsUnlocked.length > 0 && (
-                  <p style={{ textAlign: 'center', color: '#999', fontStyle: 'italic' }}>
-                    Learn spells by exploring and completing quests.
-                  </p>
-                )}
-
-                {spellPathsUnlocked.length === 0 && (
-                  <p style={{ textAlign: 'center', color: '#999', fontStyle: 'italic' }}>
-                    Unlock spell paths to gain access to powerful magic.
-                  </p>
+                    {spellPathsUnlocked.length === 0 && (
+                      <p style={{ textAlign: 'center', color: '#999', fontStyle: 'italic' }}>
+                        Unlock spell paths to gain access to powerful magic.
+                      </p>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    {/* Spell Tree View */}
+                    {(() => {
+                      const pathData = [
+                        { id: 'fire', name: 'Fire', icon: '🔥', color: '#e74c3c' },
+                        { id: 'water', name: 'Water', icon: '💧', color: '#3498db' },
+                        { id: 'earth', name: 'Earth', icon: '🪨', color: '#95a5a6' },
+                        { id: 'air', name: 'Air', icon: '💨', color: '#1abc9c' }
+                      ].find(p => p.id === spellTreePath);
+                      
+                      if (!pathData) return null;
+                      
+                      const pathSpells = getAllSpells().filter((s: any) => s.path === spellTreePath);
+                      const spellsByTier: Record<number, any[]> = {};
+                      pathSpells.forEach((s: any) => {
+                        const tier = s.tier || 1;
+                        if (!spellsByTier[tier]) spellsByTier[tier] = [];
+                        spellsByTier[tier].push(s);
+                      });
+                      
+                      // Check highest tier unlocked (must have learned a spell from previous tier)
+                      const getHighestAvailableTier = () => {
+                        for (let tier = 1; tier <= 4; tier++) {
+                          const tierSpells = spellsByTier[tier] || [];
+                          const hasLearnedFromTier = tierSpells.some((s: any) => spellsKnown.includes(s.id));
+                          if (tier === 1) continue; // Tier 1 always available
+                          if (!hasLearnedFromTier) return tier - 1;
+                        }
+                        return 4;
+                      };
+                      
+                      const highestTier = getHighestAvailableTier();
+                      
+                      return (
+                        <div>
+                          <div style={{ display: 'flex', alignItems: 'center', marginBottom: 20 }}>
+                            <button 
+                              onClick={() => setSpellTreePath(null)}
+                              style={{ 
+                                padding: '8px 16px', 
+                                marginRight: 16,
+                                background: '#f5f5f5',
+                                border: '1px solid #ddd',
+                                borderRadius: 6,
+                                cursor: 'pointer',
+                                fontSize: 14
+                              }}
+                            >
+                              ← Back
+                            </button>
+                            <div style={{ fontSize: 32 }}>{pathData.icon}</div>
+                            <h3 style={{ margin: '0 0 0 12px', color: pathData.color }}>{pathData.name} Path</h3>
+                          </div>
+                          
+                          {[1, 2, 3, 4].map(tier => {
+                            const tierSpells = spellsByTier[tier] || [];
+                            if (tierSpells.length === 0) return null;
+                            
+                            const tierUnlocked = tier === 1 || tier <= highestTier + 1;
+                            
+                            return (
+                              <div key={tier} style={{ marginBottom: 24 }}>
+                                <h4 style={{ 
+                                  color: tierUnlocked ? pathData.color : '#999',
+                                  marginBottom: 12,
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  gap: 8
+                                }}>
+                                  Tier {tier}
+                                  {!tierUnlocked && (
+                                    <span style={{ fontSize: 12, color: '#999', fontWeight: 'normal' }}>
+                                      (Learn a Tier {tier - 1} spell first)
+                                    </span>
+                                  )}
+                                </h4>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                                  {tierSpells.map((spell: any) => {
+                                    const isLearned = spellsKnown.includes(spell.id);
+                                    const canLearn = tierUnlocked && !isLearned && stats.statPoints >= spell.cost;
+                                    
+                                    return (
+                                      <div
+                                        key={spell.id}
+                                        style={{
+                                          padding: 16,
+                                          background: isLearned 
+                                            ? `linear-gradient(135deg, ${pathData.color}11, ${pathData.color}22)` 
+                                            : tierUnlocked ? '#f9f9f9' : '#fafafa',
+                                          border: `2px solid ${isLearned ? pathData.color : '#ddd'}`,
+                                          borderRadius: 8,
+                                          opacity: tierUnlocked ? 1 : 0.5
+                                        }}
+                                      >
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: 8 }}>
+                                          <div>
+                                            <div style={{ fontSize: 16, fontWeight: 'bold', color: isLearned ? pathData.color : '#333' }}>
+                                              {isLearned && '✓ '}{spell.name}
+                                            </div>
+                                            <div style={{ fontSize: 12, color: '#999', marginTop: 2 }}>
+                                              {spell.targeting} • {spell.requiresSR ? 'SR Check' : 'No SR'}
+                                            </div>
+                                          </div>
+                                          {!isLearned && tierUnlocked && (
+                                            <button
+                                              onClick={() => {
+                                                if (canLearn && confirm(`Learn ${spell.name} for ${spell.cost} Stat Points?`)) {
+                                                  const currentState = usePlayerStore.getState();
+                                                  usePlayerStore.setState({
+                                                    stats: { ...currentState.stats, statPoints: currentState.stats.statPoints - spell.cost },
+                                                    spellsKnown: [...currentState.spellsKnown, spell.id]
+                                                  });
+                                                }
+                                              }}
+                                              disabled={!canLearn}
+                                              style={{
+                                                padding: '6px 12px',
+                                                background: canLearn ? pathData.color : '#ddd',
+                                                color: '#fff',
+                                                border: 'none',
+                                                borderRadius: 6,
+                                                fontSize: 13,
+                                                fontWeight: 'bold',
+                                                cursor: canLearn ? 'pointer' : 'not-allowed',
+                                                opacity: canLearn ? 1 : 0.6
+                                              }}
+                                            >
+                                              Learn ({spell.cost} SP)
+                                            </button>
+                                          )}
+                                        </div>
+                                        <div style={{ fontSize: 14, color: '#666', lineHeight: 1.5 }}>
+                                          {spell.description}
+                                        </div>
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      );
+                    })()}
+                  </>
                 )}
               </div>
             )}

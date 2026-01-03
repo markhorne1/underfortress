@@ -312,3 +312,201 @@ export function selectEnemy(enemyInstanceId: string | undefined, state: PlayerSt
   
   return newState;
 }
+
+function getSpellResistance(enemy: EnemyInstance): number {
+  // SR = Mind * 10 + base 20
+  return enemy.stats.mind * 10 + 20;
+}
+
+export function castSpell(spellId: string, targetIds: string[] | undefined, state: PlayerState): { state: PlayerState; log: string[] } {
+  const newState = JSON.parse(JSON.stringify(state));
+  const log: string[] = [];
+  
+  if (!newState.combat || !newState.combat.active) {
+    return { state: newState, log: ['No active combat.'] };
+  }
+  
+  if (!newState.combat.playerTurn) {
+    return { state: newState, log: ['Not your turn!'] };
+  }
+  
+  // Get spell data
+  const content = getContentSnapshot();
+  const spells = content?.spells || new Map();
+  const spell = spells.get(spellId);
+  
+  if (!spell) {
+    return { state: newState, log: [`Unknown spell: ${spellId}`] };
+  }
+  
+  if (!newState.spellsKnown.includes(spellId)) {
+    return { state: newState, log: [`You haven't learned ${spell.name}!`] };
+  }
+  
+  log.push(`✨ Casting ${spell.name}...`);
+  
+  // Determine targets based on spell targeting
+  let targets: EnemyInstance[] = [];
+  
+  switch (spell.targeting) {
+    case 'single':
+      if (targetIds && targetIds.length > 0) {
+        const target = newState.combat.enemies.find((e: EnemyInstance) => e.instanceId === targetIds[0]);
+        if (target && target.health > 0) targets.push(target);
+      }
+      if (targets.length === 0) {
+        return { state: newState, log: ['No valid target selected!'] };
+      }
+      break;
+      
+    case 'multi':
+      // Target up to 3 enemies
+      const aliveEnemies = newState.combat.enemies.filter((e: EnemyInstance) => e.health > 0);
+      targets = aliveEnemies.slice(0, Math.min(3, aliveEnemies.length));
+      break;
+      
+    case 'all_enemies':
+      targets = newState.combat.enemies.filter((e: EnemyInstance) => e.health > 0);
+      break;
+      
+    case 'self':
+      // Self-targeting spells (buffs)
+      break;
+      
+    case 'area':
+      targets = newState.combat.enemies.filter((e: EnemyInstance) => e.health > 0);
+      break;
+  }
+  
+  // Apply spell effects
+  const effects = spell.effects || {};
+  
+  // Self buffs
+  if (spell.targeting === 'self' && effects.buff) {
+    const buff = effects.buff;
+    log.push(`🛡️ Gained ${buff.stat} +${buff.value} for ${buff.duration} turns`);
+    // Note: Would need to track active buffs in combat state
+  }
+  
+  // Special effects
+  if (effects.special) {
+    switch (effects.special) {
+      case 'double_action':
+        log.push('⚡ You can take 2 actions this turn!');
+        // Note: Would need to track action count in combat state
+        break;
+      case 'can_flee':
+        log.push('💨 You can now flee combat!');
+        break;
+      case 'chain_damage':
+        // Chain lightning - variable damage
+        targets.forEach((target: EnemyInstance) => {
+          const damage = Math.floor(rollD100() / 10);
+          target.health = Math.max(0, target.health - damage);
+          log.push(`⚡ ${target.name} takes ${damage} lightning damage! (${target.health}/${target.maxHealth} HP)`);
+        });
+        break;
+    }
+  }
+  
+  // Damage and status effects on targets
+  targets.forEach((target: EnemyInstance) => {
+    let applyEffect = true;
+    
+    // Spell Resistance check
+    if (spell.requiresSR) {
+      const srRoll = rollD100();
+      const sr = getSpellResistance(target);
+      
+      if (srRoll <= sr) {
+        log.push(`🛡️ ${target.name} resisted! (${srRoll} ≤ ${sr} SR)`);
+        
+        if (spell.srEffect === 'negate') {
+          applyEffect = false;
+        } else if (spell.srEffect === 'halve') {
+          // Damage will be halved below
+        } else if (spell.srEffect === 'reduce_duration') {
+          // Duration will be reduced below
+        }
+      }
+    }
+    
+    if (!applyEffect) return;
+    
+    // Apply damage
+    if (effects.damage) {
+      let damage = Math.floor(Math.random() * (effects.damage.max - effects.damage.min + 1)) + effects.damage.min;
+      
+      // Halve damage if SR successful and effect is 'halve'
+      if (spell.requiresSR && spell.srEffect === 'halve') {
+        const srRoll = rollD100();
+        const sr = getSpellResistance(target);
+        if (srRoll <= sr) {
+          damage = Math.floor(damage / 2);
+        }
+      }
+      
+      // Ignore AR if spell has that property
+      if (!effects.ignoresAR) {
+        const ar = getEnemyArmourRating(target);
+        damage = Math.max(1, damage - ar);
+      }
+      
+      target.health = Math.max(0, target.health - damage);
+      log.push(`💥 ${target.name} takes ${damage} damage! (${target.health}/${target.maxHealth} HP)`);
+      
+      if (target.health <= 0) {
+        log.push(`☠️ ${target.name} defeated!`);
+      }
+    }
+    
+    // Apply status effect
+    if (effects.statusEffect) {
+      const status = effects.statusEffect;
+      let duration = status.duration;
+      
+      // Reduce duration if SR successful and effect is 'reduce_duration'
+      if (spell.requiresSR && spell.srEffect === 'reduce_duration') {
+        const srRoll = rollD100();
+        const sr = getSpellResistance(target);
+        if (srRoll <= sr) {
+          duration = Math.max(1, duration - 1);
+        }
+      }
+      
+      target.statusEffects = target.statusEffects || [];
+      target.statusEffects.push({
+        type: status.type,
+        duration: duration,
+        value: status.value
+      });
+      
+      const effectEmojis: Record<string, string> = {
+        frozen: '❄️',
+        burning: '🔥',
+        stunned: '💫',
+        poisoned: '☠️'
+      };
+      
+      log.push(`${effectEmojis[status.type] || '✨'} ${target.name} is ${status.type} for ${duration} turn(s)!`);
+    }
+    
+    // Apply debuff (negative buff on enemy)
+    if (effects.buff && effects.buff.value < 0) {
+      log.push(`⬇️ ${target.name}'s ${effects.buff.stat} reduced by ${Math.abs(effects.buff.value)} for ${effects.buff.duration} turns`);
+    }
+  });
+  
+  // End player turn
+  newState.combat.playerTurn = false;
+  newState.combat.combatLog.push(...log);
+  
+  // Check if all enemies defeated
+  const allDead = newState.combat.enemies.every((e: EnemyInstance) => e.health <= 0);
+  if (allDead) {
+    const endResult = endCombat(true, newState);
+    return { state: endResult.state, log: [...log, ...endResult.log] };
+  }
+  
+  return { state: newState, log };
+}

@@ -1,5 +1,133 @@
 [
   {
+    "id": "rusty_sword",
+    "name": "Rusty Sword",
+    "type": "weapon",
+    "slot": "mainhand",
+    "damageRating": 3,
+    "stackable": false,
+    "value": 5,
+    "description": "A worn blade, barely sharp. Better than nothing."
+  },
+  {
+    "id": "short_bow",
+    "name": "Short Bow",
+    "type": "weapon",
+    "slot": "mainhand",
+    "damageRating": 4,
+    "stackable": false,
+    "value": 15,
+    "description": "A simple hunting bow. Effective at range."
+  },
+  {
+    "id": "battle_axe",
+    "name": "Battle Axe",
+    "type": "weapon",
+    "slot": "mainhand",
+    "damageRating": 8,
+    "stackable": false,
+    "value": 40,
+    "description": "A heavy axe that cleaves through armor and bone."
+  },
+  {
+    "id": "wooden_staff",
+    "name": "Wooden Staff",
+    "type": "weapon",
+    "slot": "mainhand",
+    "damageRating": 2,
+    "stackable": false,
+    "value": 10,
+    "description": "A simple wooden staff. Useful for channeling magic."
+  },
+  {
+    "id": "longsword",
+    "name": "Longsword",
+    "type": "weapon",
+    "slot": "mainhand",
+    "damageRating": 10,
+    "stackable": false,
+    "value": 80,
+    "description": "A well-balanced blade favored by professional soldiers."
+  },
+  {
+    "id": "steel_shield",
+    "name": "Steel Shield",
+    "type": "armor",
+    "slot": "offhand",
+    "armourRating": 3,
+    "stackable": false,
+    "value": 50,
+    "description": "A sturdy steel shield that deflects blows."
+  },
+  {
+    "id": "leather_armor",
+    "name": "Leather Armor",
+    "type": "armor",
+    "slot": "chest",
+    "armourRating": 2,
+    "stackable": false,
+    "value": 30,
+    "description": "Supple leather that offers basic protection."
+  },
+  {
+    "id": "chainmail",
+    "name": "Chainmail",
+    "type": "armor",
+    "slot": "chest",
+    "armourRating": 5,
+    "stackable": false,
+    "value": 100,
+    "description": "Interlocking metal rings that absorb heavy blows."
+  },
+  {
+    "id": "plate_armor",
+    "name": "Plate Armor",
+    "type": "armor",
+    "slot": "chest",
+    "armourRating": 10,
+    "stackable": false,
+    "value": 300,
+    "description": "Heavy steel plates that turn aside most attacks."
+  },
+  {
+    "id": "steel_helm",
+    "name": "Steel Helm",
+    "type": "armor",
+    "slot": "head",
+    "armourRating": 3,
+    "stackable": false,
+    "value": 60,
+    "description": "A solid helmet that protects your head from strikes."
+  },
+  {
+    "id": "steel_gauntlets",
+    "name": "Steel Gauntlets",
+    "type": "armor",
+    "slot": "gloves",
+    "armourRating": 2,
+    "stackable": false,
+    "value": 40,
+    "description": "Armored gloves that protect your hands."
+  },
+  {
+    "id": "robes",
+    "name": "Robes",
+    "type": "armor",
+    "slot": "chest",
+    "armourRating": 1,
+    "stackable": false,
+    "value": 20,
+    "description": "Simple cloth robes. Offers minimal protection."
+  },
+  {
+    "id": "spell_scroll",
+    "name": "Spell Scroll",
+    "type": "consumable",
+    "stackable": true,
+    "value": 50,
+    "description": "A scroll inscribed with magical formulae."
+  },
+  {
     "id": "banner_cloth_strip",
     "name": "Strip of Black Banner Cloth",
     "type": "quest",
