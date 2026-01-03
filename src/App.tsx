@@ -172,6 +172,150 @@ export default function App() {
             <h1 style={{ marginBottom: 20 }}>{area.title ?? area.id}</h1>
             <p style={{ whiteSpace: 'pre-wrap', lineHeight: 1.6 }}>{area.description}</p>
             
+            {/* Combat UI */}
+            {combat && (
+              <div style={{ marginTop: 30, padding: 20, background: '#f8f8f8', borderRadius: 12, border: '2px solid #e74c3c' }}>
+                {/* Turn Indicator */}
+                <div style={{ 
+                  padding: '8px 16px', 
+                  background: combat.playerTurn ? '#3498db' : '#e74c3c',
+                  color: '#fff',
+                  borderRadius: 8,
+                  fontWeight: 'bold',
+                  marginBottom: 16
+                }}>
+                  {combat.playerTurn ? '⚔️ YOUR TURN' : '🛡️ ENEMY TURN'}
+                </div>
+
+                {/* Enemy Grid */}
+                <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 20 }}>
+                  {combat.enemies.map((enemy) => (
+                    <div
+                      key={enemy.instanceId}
+                      onClick={() => {
+                        if (combat.playerTurn && enemy.health > 0) {
+                          selectEnemy(enemy.instanceId, usePlayerStore.getState());
+                        }
+                      }}
+                      style={{
+                        width: 140,
+                        padding: 12,
+                        background: '#fff',
+                        borderRadius: 8,
+                        border: combat.selectedEnemyId === enemy.instanceId ? '3px solid #e74c3c' : '2px solid #ddd',
+                        cursor: combat.playerTurn && enemy.health > 0 ? 'pointer' : 'default',
+                        opacity: enemy.health <= 0 ? 0.4 : 1,
+                        transition: 'all 0.2s ease',
+                        textAlign: 'center'
+                      }}
+                    >
+                      {/* Enemy Icon */}
+                      <div style={{ fontSize: 48, marginBottom: 8 }}>
+                        {enemy.health <= 0 ? '💀' : '👹'}
+                      </div>
+                      
+                      {/* Enemy Name */}
+                      <div style={{ fontWeight: 'bold', fontSize: 14, marginBottom: 8 }}>
+                        {enemy.name}
+                      </div>
+                      
+                      {/* Health Bar */}
+                      <div style={{ height: 16, background: '#e0e0e0', borderRadius: 8, overflow: 'hidden', position: 'relative' }}>
+                        <div style={{ 
+                          width: `${(enemy.health / enemy.maxHealth) * 100}%`, 
+                          height: '100%', 
+                          background: enemy.health > enemy.maxHealth * 0.5 ? '#2ecc71' : enemy.health > enemy.maxHealth * 0.25 ? '#f39c12' : '#e74c3c',
+                          transition: 'width 0.3s ease, background 0.3s ease'
+                        }}></div>
+                        <span style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)', fontSize: 10, fontWeight: 'bold', color: '#333' }}>
+                          {enemy.health}/{enemy.maxHealth}
+                        </span>
+                      </div>
+
+                      {/* Status Effects */}
+                      {enemy.statusEffects && enemy.statusEffects.length > 0 && (
+                        <div style={{ marginTop: 4, fontSize: 10, color: '#3498db' }}>
+                          {enemy.statusEffects.map(effect => `${effect.type} (${effect.duration})`).join(', ')}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+
+                {/* Attack Button */}
+                {combat.playerTurn && combat.selectedEnemyId && (
+                  <div style={{ marginBottom: 16 }}>
+                    <button
+                      onClick={() => playerAttack(usePlayerStore.getState())}
+                      style={{
+                        padding: '12px 32px',
+                        fontSize: 16,
+                        fontWeight: 'bold',
+                        borderRadius: 8,
+                        background: 'linear-gradient(135deg, #e74c3c, #c0392b)',
+                        color: '#fff',
+                        border: '2px solid #a93226',
+                        cursor: 'pointer',
+                        boxShadow: '0 4px 12px rgba(231, 76, 60, 0.4)'
+                      }}
+                    >
+                      ⚔️ Attack {combat.enemies.find(e => e.instanceId === combat.selectedEnemyId)?.name}
+                    </button>
+                  </div>
+                )}
+
+                {/* End Turn Button */}
+                {!combat.playerTurn && (
+                  <div style={{ marginBottom: 16 }}>
+                    <button
+                      onClick={() => enemyTurn(usePlayerStore.getState())}
+                      style={{
+                        padding: '12px 32px',
+                        fontSize: 16,
+                        fontWeight: 'bold',
+                        borderRadius: 8,
+                        background: 'linear-gradient(135deg, #95a5a6, #7f8c8d)',
+                        color: '#fff',
+                        border: '2px solid #6c7a7b',
+                        cursor: 'pointer',
+                        boxShadow: '0 4px 12px rgba(149, 165, 166, 0.4)'
+                      }}
+                    >
+                      Continue ➜
+                    </button>
+                  </div>
+                )}
+
+                {/* Combat Log */}
+                <div style={{ 
+                  maxHeight: 200, 
+                  overflow: 'auto', 
+                  background: '#fff', 
+                  padding: 12, 
+                  borderRadius: 8, 
+                  border: '1px solid #ddd',
+                  textAlign: 'left',
+                  fontSize: 13,
+                  lineHeight: 1.6
+                }}>
+                  {combat.combatLog.map((log, idx) => (
+                    <div 
+                      key={idx}
+                      style={{ 
+                        marginBottom: 4,
+                        color: log.includes('You') ? '#3498db' : log.includes('damage') ? '#e67e22' : '#333'
+                      }}
+                    >
+                      {log}
+                    </div>
+                  ))}
+                  {combat.combatLog.length === 0 && (
+                    <div style={{ color: '#999', fontStyle: 'italic' }}>Combat begins...</div>
+                  )}
+                </div>
+              </div>
+            )}
+            
             {/* Spend Stat Points Button */}
             {stats.statPoints > 0 && (
               <div style={{ marginTop: 20 }}>
@@ -194,6 +338,32 @@ export default function App() {
                   }}
                 >
                   ⚡ Spend {stats.statPoints} Stat Point{stats.statPoints !== 1 ? 's' : ''}
+                </button>
+              </div>
+            )}
+
+            {/* Test Combat Button (DEBUG) */}
+            {!combat && (
+              <div style={{ marginTop: 20 }}>
+                <button 
+                  onClick={() => {
+                    const currentState = usePlayerStore.getState();
+                    const newState = initiateCombat(['test_goblin', 'test_goblin'], currentState);
+                    usePlayerStore.setState({ combat: newState.combat });
+                  }}
+                  style={{ 
+                    padding: '12px 24px', 
+                    fontSize: 14, 
+                    fontWeight: 'bold',
+                    borderRadius: 8, 
+                    background: 'linear-gradient(135deg, #e74c3c, #c0392b)', 
+                    color: '#fff', 
+                    border: '2px solid #a93226',
+                    cursor: 'pointer',
+                    boxShadow: '0 4px 12px rgba(231, 76, 60, 0.4)'
+                  }}
+                >
+                  ⚔️ Test Combat (DEBUG)
                 </button>
               </div>
             )}

@@ -1,5 +1,23 @@
 [
   {
+    "id": "test_goblin",
+    "name": "Test Goblin",
+    "stats": {
+      "power": 2,
+      "mind": 1,
+      "agility": 3,
+      "vision": 2
+    },
+    "maxHealth": 15,
+    "equipment": {},
+    "spells": [],
+    "loot": {
+      "gold": { "min": 5, "max": 10 },
+      "statPoints": { "probability": 0.3, "amount": 1 },
+      "items": []
+    }
+  },
+  {
     "id": "city_rioter",
     "name": "Panicked Rioter",
     "kind": "humanoid",
