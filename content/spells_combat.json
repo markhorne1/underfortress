@@ -1,0 +1,262 @@
+[
+  {
+    "id": "ignite",
+    "name": "Ignite",
+    "path": "fire",
+    "tier": 1,
+    "cost": 1,
+    "targeting": "single",
+    "description": "Launch a bolt of flame at a single enemy, dealing 5-10 fire damage.",
+    "effects": {
+      "damage": { "min": 5, "max": 10 }
+    },
+    "requiresSR": true,
+    "srEffect": "negate"
+  },
+  {
+    "id": "firespray",
+    "name": "Firespray",
+    "path": "fire",
+    "tier": 2,
+    "cost": 2,
+    "targeting": "multi",
+    "description": "Spray fire at 2-3 enemies, each taking 4-8 damage.",
+    "effects": {
+      "damage": { "min": 4, "max": 8 }
+    },
+    "requiresSR": true,
+    "srEffect": "negate"
+  },
+  {
+    "id": "fireball",
+    "name": "Fireball",
+    "path": "fire",
+    "tier": 3,
+    "cost": 3,
+    "targeting": "all_enemies",
+    "description": "A massive explosion engulfs all enemies, dealing 8-12 damage to each.",
+    "effects": {
+      "damage": { "min": 8, "max": 12 }
+    },
+    "requiresSR": true,
+    "srEffect": "halve"
+  },
+  {
+    "id": "immolate",
+    "name": "Immolate",
+    "path": "fire",
+    "tier": 4,
+    "cost": 5,
+    "targeting": "single",
+    "description": "Set an enemy ablaze! Deals 15-20 immediate damage plus 5 damage per turn for 3 turns.",
+    "effects": {
+      "damage": { "min": 15, "max": 20 },
+      "statusEffect": {
+        "type": "burning",
+        "duration": 3,
+        "value": 5
+      }
+    },
+    "requiresSR": true,
+    "srEffect": "halve"
+  },
+  {
+    "id": "freeze",
+    "name": "Freeze",
+    "path": "water",
+    "tier": 1,
+    "cost": 1,
+    "targeting": "single",
+    "description": "Freeze a single enemy in ice, preventing them from acting for 1 turn.",
+    "effects": {
+      "statusEffect": {
+        "type": "frozen",
+        "duration": 1
+      }
+    },
+    "requiresSR": true,
+    "srEffect": "negate"
+  },
+  {
+    "id": "frost_cone",
+    "name": "Frost Cone",
+    "path": "water",
+    "tier": 2,
+    "cost": 2,
+    "targeting": "multi",
+    "description": "Blast 2-3 enemies with freezing cold, immobilizing them for 1 turn each.",
+    "effects": {
+      "statusEffect": {
+        "type": "frozen",
+        "duration": 1
+      }
+    },
+    "requiresSR": true,
+    "srEffect": "negate"
+  },
+  {
+    "id": "ice_wall",
+    "name": "Ice Wall",
+    "path": "water",
+    "tier": 3,
+    "cost": 3,
+    "targeting": "self",
+    "description": "Summon a wall of ice for protection, granting +20 Melee Defense for 3 turns.",
+    "effects": {
+      "buff": {
+        "stat": "meleeDefense",
+        "value": 20,
+        "duration": 3
+      }
+    },
+    "requiresSR": false
+  },
+  {
+    "id": "blizzard",
+    "name": "Blizzard",
+    "path": "water",
+    "tier": 4,
+    "cost": 4,
+    "targeting": "all_enemies",
+    "description": "A devastating blizzard freezes all enemies for 2 turns (1 turn on successful SR).",
+    "effects": {
+      "statusEffect": {
+        "type": "frozen",
+        "duration": 2
+      }
+    },
+    "requiresSR": true,
+    "srEffect": "reduce_duration"
+  },
+  {
+    "id": "stone_skin",
+    "name": "Stone Skin",
+    "path": "earth",
+    "tier": 1,
+    "cost": 1,
+    "targeting": "self",
+    "description": "Harden your skin like stone, gaining +10 Armour Rating for 3 turns.",
+    "effects": {
+      "buff": {
+        "stat": "ar",
+        "value": 10,
+        "duration": 3
+      }
+    },
+    "requiresSR": false
+  },
+  {
+    "id": "earth_spike",
+    "name": "Earth Spike",
+    "path": "earth",
+    "tier": 2,
+    "cost": 2,
+    "targeting": "single",
+    "description": "Impale an enemy with a stone spike for 6-10 damage and stun them for 1 turn.",
+    "effects": {
+      "damage": { "min": 6, "max": 10 },
+      "statusEffect": {
+        "type": "stunned",
+        "duration": 1
+      }
+    },
+    "requiresSR": true,
+    "srEffect": "negate"
+  },
+  {
+    "id": "tremor",
+    "name": "Tremor",
+    "path": "earth",
+    "tier": 3,
+    "cost": 3,
+    "targeting": "all_enemies",
+    "description": "Shake the ground violently, reducing all enemies' Melee Defense by 20 for 2 turns.",
+    "effects": {
+      "buff": {
+        "stat": "meleeDefense",
+        "value": -20,
+        "duration": 2
+      }
+    },
+    "requiresSR": true,
+    "srEffect": "negate"
+  },
+  {
+    "id": "earthquake",
+    "name": "Earthquake",
+    "path": "earth",
+    "tier": 4,
+    "cost": 5,
+    "targeting": "all_enemies",
+    "description": "Massive earthquake deals 10-15 damage to all enemies and stuns them for 1 turn.",
+    "effects": {
+      "damage": { "min": 10, "max": 15 },
+      "statusEffect": {
+        "type": "stunned",
+        "duration": 1
+      }
+    },
+    "requiresSR": true,
+    "srEffect": "halve"
+  },
+  {
+    "id": "lightning_bolt",
+    "name": "Lightning Bolt",
+    "path": "air",
+    "tier": 1,
+    "cost": 1,
+    "targeting": "single",
+    "description": "Strike an enemy with lightning for 7-12 damage that ignores armour.",
+    "effects": {
+      "damage": { "min": 7, "max": 12 },
+      "ignoresAR": true
+    },
+    "requiresSR": true,
+    "srEffect": "negate"
+  },
+  {
+    "id": "haste",
+    "name": "Haste",
+    "path": "air",
+    "tier": 2,
+    "cost": 2,
+    "targeting": "self",
+    "description": "Move with supernatural speed, allowing you to take 2 actions this turn.",
+    "effects": {
+      "special": "double_action"
+    },
+    "requiresSR": false
+  },
+  {
+    "id": "wind_walk",
+    "name": "Wind Walk",
+    "path": "air",
+    "tier": 3,
+    "cost": 3,
+    "targeting": "self",
+    "description": "Become light as air, gaining +30 dodge chance and the ability to flee combat for 3 turns.",
+    "effects": {
+      "buff": {
+        "stat": "dodge",
+        "value": 30,
+        "duration": 3
+      },
+      "special": "can_flee"
+    },
+    "requiresSR": false
+  },
+  {
+    "id": "chain_lightning",
+    "name": "Chain Lightning",
+    "path": "air",
+    "tier": 4,
+    "cost": 4,
+    "targeting": "all_enemies",
+    "description": "Lightning chains between all enemies, each taking variable damage (roll d100 ÷ 10).",
+    "effects": {
+      "special": "chain_damage"
+    },
+    "requiresSR": true,
+    "srEffect": "halve"
+  }
+]

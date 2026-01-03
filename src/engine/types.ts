@@ -2,6 +2,35 @@ export type InvItem = { itemId: string; qty: number };
 
 export type SpellPath = 'fire' | 'water' | 'earth' | 'air';
 
+export type SpellTarget = 'single' | 'multi' | 'all_enemies' | 'self' | 'area';
+
+export type Spell = {
+  id: string;
+  name: string;
+  path: SpellPath;
+  tier: number;           // 1-4, higher tiers require previous tier learned
+  cost: number;           // Stat points to learn
+  targeting: SpellTarget;
+  description: string;
+  effects: {
+    damage?: { min: number; max: number };
+    ignoresAR?: boolean;
+    statusEffect?: {
+      type: string;      // frozen, burning, stunned, etc.
+      duration: number;  // Turns
+      value?: number;    // Damage per turn for DoTs
+    };
+    buff?: {
+      stat: string;      // meleeDefense, ar, dodge, etc.
+      value: number;
+      duration: number;
+    };
+    special?: string;    // haste, teleport, flee, etc.
+  };
+  requiresSR?: boolean;   // Does enemy get Spell Resistance roll?
+  srEffect?: string;      // What happens on successful SR: 'negate', 'halve', 'reduce_duration'
+};
+
 export type PlayerStats = {
   gold: number;       // Currency for purchases
   
