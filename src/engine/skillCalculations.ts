@@ -1,4 +1,5 @@
 import { PlayerState } from './types';
+import { getContentSnapshot } from './contentLoader';
 
 /**
  * Calculate skill values from core stats using the design formulas
@@ -73,9 +74,9 @@ export function getTotalArmourRating(state: PlayerState): number {
   const equipment = state.equipment || {};
   
   // Import content loader to get item definitions
-  const { getContentSnapshot } = require('./contentLoader');
   const content = getContentSnapshot();
-  const items = content?.items || [];
+  if (!content || !content.items) return total;
+  const items = content.items || [];
   
   // Create a map of itemId -> item for quick lookup
   const itemMap = new Map();
@@ -106,9 +107,12 @@ export function getTotalDamageRating(state: PlayerState): number {
   const equipment = state.equipment || {};
   
   // Import content loader to get item definitions
-  const { getContentSnapshot } = require('./contentLoader');
   const content = getContentSnapshot();
-  const items = content?.items || [];
+  if (!content || !content.items) {
+    // Fallback to unarmed damage (power / 2)
+    return Math.floor(state.stats.power / 2);
+  }
+  const items = content.items || [];
   
   // Create a map of itemId -> item for quick lookup
   const itemMap = new Map();

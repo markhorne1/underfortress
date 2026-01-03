@@ -208,6 +208,28 @@ export function applyEffects(effects: any[] | undefined, state: PlayerState): Ef
         }
         break;
       }
+      case 'learnSpell': {
+        const spellId = e.spellId || e.key;
+        if (!spellId) { log.push('learnSpell missing spellId'); break; }
+        next.spellsKnown = next.spellsKnown || [];
+        if (!next.spellsKnown.includes(spellId)) {
+          next.spellsKnown.push(spellId);
+          log.push(`learnSpell ${spellId} - New spell learned!`);
+        } else {
+          log.push(`learnSpell ${spellId} - Already known`);
+        }
+        break;
+      }
+      case 'equipItem': {
+        const itemId = e.itemId || e.key;
+        const slot = e.slot;
+        if (!itemId) { log.push('equipItem missing itemId'); break; }
+        if (!slot) { log.push('equipItem missing slot'); break; }
+        next.equipment = next.equipment || {};
+        next.equipment[slot] = itemId;
+        log.push(`equipItem ${itemId} equipped to ${slot}`);
+        break;
+      }
       default:
         console.warn('Unknown effect type', e.type);
         log.push(`unknownEffect ${e.type}`);

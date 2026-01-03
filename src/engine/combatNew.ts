@@ -8,7 +8,11 @@ function rollD100(): number {
 
 function getEnemyById(enemyId: string): Enemy | null {
   const content = getContentSnapshot();
-  const enemies = content?.enemies || [];
+  if (!content || !content.enemies) {
+    console.error('Content not loaded or enemies missing');
+    return null;
+  }
+  const enemies = Array.isArray(content.enemies) ? content.enemies : [];
   return enemies.find((e: Enemy) => e.id === enemyId) || null;
 }
 

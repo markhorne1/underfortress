@@ -4133,7 +4133,7 @@
             "value": true
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 10
           }
         ],
@@ -4261,7 +4261,7 @@
             "amount": 1
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 12
           }
         ],
@@ -4326,7 +4326,7 @@
             "amount": 1
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 12
           }
         ],
@@ -4392,7 +4392,7 @@
         "qty": 1
       },
       {
-        "type": "addXP",
+        "type": "addStatPoints",
         "amount": 18
       }
     ],
@@ -4434,7 +4434,7 @@
         ],
         "effects": [
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 14
           }
         ],
@@ -4478,7 +4478,7 @@
             "jobId": "q_lumen_vault"
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 26
           }
         ],
@@ -4752,7 +4752,7 @@
             "qty": 2
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 22
           },
           {
@@ -4854,7 +4854,7 @@
                 "qty": 1
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 12
               }
             ],
@@ -4876,7 +4876,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 8
               }
             ],
@@ -4999,7 +4999,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 16
               }
             ],
@@ -5065,7 +5065,7 @@
             }
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 6
           }
         ],
@@ -5228,7 +5228,7 @@
             "jobId": "q_false_dawn_drains"
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 16
           }
         ],
@@ -5281,7 +5281,7 @@
             "value": true
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 10
           }
         ]
@@ -5746,7 +5746,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 10
               }
             ],
@@ -5802,7 +5802,7 @@
         ],
         "effects": [
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 8
           }
         ],
@@ -5823,7 +5823,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 12
               }
             ],
@@ -5896,13 +5896,13 @@
             "value": true
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 30
           }
         ],
         "else": [
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 18
           }
         ]
@@ -6023,7 +6023,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 18
               }
             ],
@@ -6045,7 +6045,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 18
               }
             ],
@@ -6071,7 +6071,7 @@
             "value": true
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 16
           }
         ],
@@ -6137,7 +6137,7 @@
             "value": true
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 14
           }
         ],
@@ -6160,7 +6160,7 @@
             "value": true
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 12
           }
         ],
@@ -6202,7 +6202,7 @@
             "value": true
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 20
           }
         ],
@@ -6223,7 +6223,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 18
               }
             ],
@@ -6264,7 +6264,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 18
               }
             ],
@@ -6486,7 +6486,7 @@
             "value": 1
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 8
           },
           {
@@ -6931,7 +6931,7 @@
             "value": true
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 6
           }
         ],
@@ -7066,7 +7066,7 @@
             "value": true
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 10
           }
         ],
@@ -7113,7 +7113,7 @@
         "jobId": "q_chase_arsonists"
       },
       {
-        "type": "addXP",
+        "type": "addStatPoints",
         "amount": 14
       }
     ],
@@ -7262,7 +7262,7 @@
             "jobId": "q_chase_casualties"
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 10
           }
         ],
@@ -7314,7 +7314,7 @@
     "description": "Guards arrive in numbers.\n\nThe immediate threat is gone.\n\nThe consequences remain—but you kept them from becoming worse.",
     "effectsOnEnter": [
       {
-        "type": "addXP",
+        "type": "addStatPoints",
         "amount": 18
       },
       {
@@ -7374,7 +7374,7 @@
             "jobId": "q_drains_breach"
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 20
           }
         ],
@@ -7463,7 +7463,7 @@
                 "qty": 1
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 16
               },
               {
@@ -7533,7 +7533,7 @@
                 "qty": 1
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 14
               },
               {
@@ -7586,7 +7586,7 @@
                 "qty": 1
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 22
               },
               {
@@ -7651,7 +7651,7 @@
                 "qty": 1
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 12
               },
               {
@@ -8061,7 +8061,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 12
               }
             ],
@@ -8148,7 +8148,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 14
               }
             ],
@@ -8159,7 +8159,7 @@
                 "value": false
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 6
               }
             ]
@@ -8208,7 +8208,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 12
               }
             ],
@@ -8320,7 +8320,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 12
               }
             ],
@@ -8500,7 +8500,7 @@
             "value": true
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 10
           }
         ],
@@ -8533,7 +8533,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 12
               }
             ],
@@ -8609,7 +8609,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 14
               }
             ],
@@ -8657,7 +8657,7 @@
                 "qty": 1
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 12
               }
             ],
@@ -8687,7 +8687,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 14
               }
             ],
@@ -8785,7 +8785,7 @@
                 "qty": 1
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 12
               }
             ],
@@ -8834,7 +8834,7 @@
             ],
             "then": [
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 8
               }
             ],
@@ -8845,7 +8845,7 @@
                 "dc": 11,
                 "onPass": [
                   {
-                    "type": "addXP",
+                    "type": "addStatPoints",
                     "amount": 10
                   }
                 ],
@@ -9011,7 +9011,7 @@
                 "qty": 1
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 6
               }
             ]
@@ -9276,7 +9276,7 @@
         "value": true
       },
       {
-        "type": "addXP",
+        "type": "addStatPoints",
         "amount": 18
       }
     ],
@@ -9348,7 +9348,7 @@
             "spellId": "muffle_steps"
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 6
           }
         ],
@@ -9359,7 +9359,7 @@
         "label": "Rush in before patrol loops back.",
         "effects": [
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 3
           }
         ],
@@ -9538,7 +9538,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 12
               }
             ]
@@ -9553,7 +9553,7 @@
                 "qty": 1
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 6
               }
             ]
@@ -9589,7 +9589,7 @@
             "value": true
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 18
           }
         ],
@@ -9641,7 +9641,7 @@
             "value": true
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 16
           }
         ],
@@ -9730,7 +9730,7 @@
             "jobId": "q_free_farmers"
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 16
           }
         ],
@@ -9800,7 +9800,7 @@
         "qty": 1
       },
       {
-        "type": "addXP",
+        "type": "addStatPoints",
         "amount": 12
       }
     ],
@@ -9819,7 +9819,7 @@
             "jobId": "q_free_farmers"
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 10
           }
         ],
@@ -9885,7 +9885,7 @@
             "value": true
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 10
           }
         ],
@@ -9959,7 +9959,7 @@
             "jobId": "q_siege_lines_recon"
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 12
           }
         ],
@@ -10135,7 +10135,7 @@
         "value": true
       },
       {
-        "type": "addXP",
+        "type": "addStatPoints",
         "amount": 18
       }
     ],
@@ -10258,7 +10258,7 @@
         "label": "Hold for a short time to let civilians move.",
         "effects": [
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 18
           },
           {
@@ -10329,7 +10329,7 @@
             "spellId": "keen_eye"
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 6
           }
         ],
@@ -10393,7 +10393,7 @@
             "spellId": "muffle_steps"
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 10
           }
         ],
@@ -10512,7 +10512,7 @@
             "qty": 2
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 14
           }
         ],
@@ -10834,7 +10834,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 14
               }
             ],
@@ -10935,7 +10935,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 12
               }
             ],
@@ -10994,7 +10994,7 @@
         ],
         "effects": [
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 6
           }
         ],
@@ -11020,7 +11020,7 @@
             "value": true
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 4
           }
         ]
@@ -11069,7 +11069,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 8
               }
             ]
@@ -11154,7 +11154,7 @@
             "spellId": "muffle_steps"
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 8
           }
         ],
@@ -11283,7 +11283,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 10
               }
             ]
@@ -11395,7 +11395,7 @@
             "qty": 1
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 14
           }
         ],
@@ -11447,7 +11447,7 @@
             "qty": 1
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 18
           }
         ],
@@ -11535,7 +11535,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 22
               }
             ],
@@ -11738,7 +11738,7 @@
         "qty": 1
       },
       {
-        "type": "addXP",
+        "type": "addStatPoints",
         "amount": 22
       }
     ],
@@ -11785,7 +11785,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 10
               }
             ]
@@ -11825,7 +11825,7 @@
             "jobId": "q_collapse_second_mouth"
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 22
           }
         ],
@@ -11862,7 +11862,7 @@
                 "jobId": "q_collapse_second_mouth"
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 20
               }
             ],
@@ -11891,7 +11891,7 @@
             "value": true
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 6
           }
         ],
@@ -11925,7 +11925,7 @@
             "value": true
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 12
           }
         ],
@@ -12012,7 +12012,7 @@
             "value": true
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 14
           }
         ],
@@ -12126,7 +12126,7 @@
             "value": true
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 22
           }
         ],
@@ -12268,7 +12268,7 @@
             "qty": 2
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 26
           }
         ],
@@ -12456,7 +12456,7 @@
                 "value": "rell"
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 12
               }
             ],
@@ -12467,7 +12467,7 @@
                 "value": "unknown"
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 6
               }
             ]
@@ -12530,7 +12530,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 14
               }
             ],
@@ -12578,7 +12578,7 @@
         "qty": 1
       },
       {
-        "type": "addXP",
+        "type": "addStatPoints",
         "amount": 16
       },
       {
@@ -12666,7 +12666,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 10
               }
             ],
@@ -12798,7 +12798,7 @@
             "value": true
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 10
           }
         ],
@@ -12931,7 +12931,7 @@
                 "value": false
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 22
               }
             ],
@@ -12946,7 +12946,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 10
               }
             ]
@@ -12996,7 +12996,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 24
               }
             ],
@@ -13011,7 +13011,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 10
               }
             ]
@@ -13038,7 +13038,7 @@
         "label": "Return to the surface and prepare the next counterstrike.",
         "effects": [
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 12
           }
         ],
@@ -13126,7 +13126,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 12
               }
             ],
@@ -13243,7 +13243,7 @@
             "qty": 1
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 12
           }
         ],
@@ -13322,7 +13322,7 @@
             "qty": 1
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 6
           }
         ],
@@ -13397,7 +13397,7 @@
         "jobId": "q_siege_camp_raid"
       },
       {
-        "type": "addXP",
+        "type": "addStatPoints",
         "amount": 22
       }
     ],
@@ -13470,7 +13470,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 10
               }
             ],
@@ -13514,7 +13514,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 8
               }
             ],
@@ -13613,7 +13613,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 14
               }
             ],
@@ -13678,7 +13678,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 12
               }
             ],
@@ -13771,7 +13771,7 @@
             "qty": 1
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 8
           }
         ],
@@ -13827,7 +13827,7 @@
                 "qty": 1
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 14
               }
             ],
@@ -13883,7 +13883,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 16
               }
             ],
@@ -14025,7 +14025,7 @@
             "value": true
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 12
           }
         ],
@@ -14119,7 +14119,7 @@
                 "qty": 2
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 18
               }
             ],
@@ -14157,7 +14157,7 @@
             "value": true
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 20
           }
         ],
@@ -14173,7 +14173,7 @@
             "value": true
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 22
           }
         ],
@@ -14208,7 +14208,7 @@
                 "qty": 1
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 18
               }
             ],
@@ -14253,7 +14253,7 @@
             "value": true
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 26
           }
         ],
@@ -14269,7 +14269,7 @@
             "value": true
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 22
           }
         ],
@@ -14290,7 +14290,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 30
               }
             ],
@@ -14328,7 +14328,7 @@
         "jobId": "q_pursuit_arc"
       },
       {
-        "type": "addXP",
+        "type": "addStatPoints",
         "amount": 18
       }
     ],
@@ -14529,7 +14529,7 @@
         ],
         "effects": [
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 8
           }
         ]
@@ -14665,7 +14665,7 @@
                 "qty": 1
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 10
               }
             ]
@@ -14692,7 +14692,7 @@
                 "qty": 1
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 8
               }
             ],
@@ -14829,7 +14829,7 @@
             "qty": 1
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 18
           }
         ],
@@ -14901,7 +14901,7 @@
             "spellId": "muffle_steps"
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 8
           }
         ]
@@ -14956,7 +14956,7 @@
             "qty": 1
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 10
           }
         ],
@@ -15056,7 +15056,7 @@
         "qty": 1
       },
       {
-        "type": "addXP",
+        "type": "addStatPoints",
         "amount": 24
       }
     ],
@@ -15170,7 +15170,7 @@
             "value": true
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 10
           }
         ]
@@ -15234,7 +15234,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 8
               }
             ]
@@ -15271,7 +15271,7 @@
         ],
         "effects": [
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 8
           },
           {
@@ -15298,7 +15298,7 @@
             ],
             "onPass": [
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 6
               }
             ]
@@ -15328,7 +15328,7 @@
             "value": true
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 10
           }
         ],
@@ -15405,7 +15405,7 @@
                 "jobId": "q_free_tess"
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 12
               }
             ]
@@ -15431,7 +15431,7 @@
                 "jobId": "q_free_tess"
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 10
               }
             ]
@@ -15471,7 +15471,7 @@
             "spellId": "muffle_steps"
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 6
           }
         ]
@@ -15492,7 +15492,7 @@
             ],
             "onPass": [
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 5
               }
             ]
@@ -15531,7 +15531,7 @@
                 "qty": 1
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 6
               }
             ]
@@ -15693,7 +15693,7 @@
             "value": true
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 18
           }
         ],
@@ -15728,7 +15728,7 @@
             "value": true
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 22
           }
         ],
@@ -15749,7 +15749,7 @@
             "value": true
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 14
           }
         ],
@@ -15834,7 +15834,7 @@
         "qty": 1
       },
       {
-        "type": "addXP",
+        "type": "addStatPoints",
         "amount": 26
       }
     ],
@@ -15880,7 +15880,7 @@
             "value": true
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 8
           }
         ]
@@ -16014,7 +16014,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 16
               }
             ],
@@ -16095,7 +16095,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 14
               }
             ],
@@ -16200,7 +16200,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 34
               }
             ],
@@ -16221,7 +16221,7 @@
                     "value": true
                   },
                   {
-                    "type": "addXP",
+                    "type": "addStatPoints",
                     "amount": 30
                   }
                 ],
@@ -16252,7 +16252,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 36
               }
             ],
@@ -16291,7 +16291,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 40
               }
             ],
@@ -16312,7 +16312,7 @@
                     "value": true
                   },
                   {
-                    "type": "addXP",
+                    "type": "addStatPoints",
                     "amount": 34
                   }
                 ],
@@ -16544,7 +16544,7 @@
             "qty": 1
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 10
           }
         ],
@@ -16560,7 +16560,7 @@
             "qty": 2
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 8
           }
         ],
@@ -16617,7 +16617,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 18
               }
             ],
@@ -16680,7 +16680,7 @@
             "qty": 1
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 14
           }
         ],
@@ -16736,7 +16736,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 18
               }
             ],
@@ -16851,7 +16851,7 @@
                 "qty": 1
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 12
               },
               {
@@ -16873,7 +16873,7 @@
             ],
             "then": [
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 10
               },
               {
@@ -16900,7 +16900,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 4
               }
             ],
@@ -17032,7 +17032,7 @@
             "jobId": "q_triage_hotspots"
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 14
           }
         ],
@@ -17120,7 +17120,7 @@
                 "qty": 1
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 18
               },
               {
@@ -17140,7 +17140,7 @@
                 "jobId": "q_interrogate_token_carrier"
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 10
               },
               {
@@ -17194,7 +17194,7 @@
             "jobId": "q_guard_memorial"
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 12
           }
         ],
@@ -17230,7 +17230,7 @@
         ],
         "effects": [
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 8
           }
         ],
@@ -17282,7 +17282,7 @@
         "label": "Approach the watchfort through the fog.",
         "effects": [
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 6
           }
         ],
@@ -17317,7 +17317,7 @@
         ],
         "effects": [
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 8
           }
         ],
@@ -17541,7 +17541,7 @@
                 "qty": 1
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 10
               }
             ]
@@ -17613,7 +17613,7 @@
                 "qty": 1
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 18
               }
             ],
@@ -17682,7 +17682,7 @@
         "qty": 1
       },
       {
-        "type": "addXP",
+        "type": "addStatPoints",
         "amount": 16
       }
     ],
@@ -17716,7 +17716,7 @@
             "value": true
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 10
           }
         ],
@@ -17811,7 +17811,7 @@
                 "qty": 1
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 22
               }
             ],
@@ -17864,7 +17864,7 @@
         "qty": 1
       },
       {
-        "type": "addXP",
+        "type": "addStatPoints",
         "amount": 20
       }
     ],
@@ -17930,7 +17930,7 @@
             "value": true
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 14
           }
         ],
@@ -17962,7 +17962,7 @@
         ],
         "effects": [
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 6
           },
           {
@@ -18023,7 +18023,7 @@
             "dc": 10,
             "onPass": [
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 12
               }
             ],
@@ -18052,7 +18052,7 @@
                 "value": true
               },
               {
-                "type": "addXP",
+                "type": "addStatPoints",
                 "amount": 14
               }
             ],
@@ -18102,7 +18102,7 @@
             "value": true
           },
           {
-            "type": "addXP",
+            "type": "addStatPoints",
             "amount": 12
           }
         ],
@@ -18209,7 +18209,7 @@
                 "dc": 9,
                 "onPass": [
                   {
-                    "type": "addXP",
+                    "type": "addStatPoints",
                     "amount": 16
                   }
                 ],
@@ -18228,7 +18228,7 @@
                 "dc": 11,
                 "onPass": [
                   {
-                    "type": "addXP",
+                    "type": "addStatPoints",
                     "amount": 16
                   }
                 ],

@@ -438,16 +438,20 @@
     "id": "heirloom_gatebiter_sunsteel",
     "name": "Gate-Biter, Sunsteel Heirloom",
     "type": "weapon_sword",
+    "slot": "mainhand",
+    "damageRating": 12,
     "stackable": false,
-    "value": 0,
+    "value": 150,
     "description": "A veteran heirloom blade. Cuts through fear as well as flesh."
   },
   {
     "id": "heirloom_wallwhisper_sunsteel",
     "name": "Wall-Whisper, Sunsteel Heirloom",
     "type": "weapon_bow",
+    "slot": "mainhand",
+    "damageRating": 12,
     "stackable": false,
-    "value": 0,
+    "value": 150,
     "description": "A veteran heirloom bow. The string sings only for targets that matter."
   },
   {
@@ -1200,8 +1204,10 @@
     "id": "sword_gatebiter",
     "name": "Gate-Biter (Named Sword)",
     "type": "weapon_sword",
+    "slot": "mainhand",
+    "damageRating": 9,
     "stackable": false,
-    "value": 0,
+    "value": 100,
     "description": "A blade that earned its name at the gate. Slightly better at breaking enemy morale when you win fights decisively."
   },
   {
@@ -1216,8 +1222,10 @@
     "id": "shield_ironleaf_boss",
     "name": "Ironleaf Boss Shield",
     "type": "shield",
+    "slot": "offhand",
+    "armourRating": 4,
     "stackable": false,
-    "value": 0,
+    "value": 90,
     "description": "A shield with a reinforced boss designed for ward etching. Reduces chip damage in long fights."
   },
   {
