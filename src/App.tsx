@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { loadContent, getContentSnapshot, getStartAreaId, getAllAreas, getAreaById, getAllSpells } from './engine/contentLoader';
 import { usePlayerStore } from './store/playerStore';
 import { executeChoice } from './engine/execute';
 import { getActiveSkills, getPassiveSkills, getTotalArmourRating } from './engine/skillCalculations';
-import { initiateCombat, playerAttack, enemyTurn, selectEnemy, castSpell } from './engine/combatNew';
+import { initiateCombat, playerAttack, enemyTurn, selectEnemy, castSpell, intimidateEnemy } from './engine/combatNew';
 
 export default function App() {
   const [page, setPage] = useState<'title'|'menu'|'game'>('title');
@@ -13,6 +13,7 @@ export default function App() {
   const [spellTreePath, setSpellTreePath] = useState<string | null>(null); // Which path's spell tree to show
   const [selectedSpell, setSelectedSpell] = useState<string | null>(null); // Selected spell for casting
   const [pendingStats, setPendingStats] = useState({ power: 0, mind: 0, agility: 0, vision: 0 }); // Pending changes
+  const combatLogRef = useRef<HTMLDivElement>(null); // Ref for auto-scrolling combat log
   const newGame = usePlayerStore(s => s.newGame);
   const loadState = usePlayerStore(s => s.loadState);
   const currentAreaId = usePlayerStore(s => s.currentAreaId);
@@ -37,6 +38,13 @@ export default function App() {
     }
     init();
   }, []);
+
+  // Auto-scroll combat log to bottom when new entries are added
+  useEffect(() => {
+    if (combatLogRef.current && combat?.combatLog) {
+      combatLogRef.current.scrollTop = combatLogRef.current.scrollHeight;
+    }
+  }, [combat?.combatLog]);
 
   const onNew = async () => {
     await newGame();
@@ -175,150 +183,6 @@ export default function App() {
             <h1 style={{ marginBottom: 20 }}>{area.title ?? area.id}</h1>
             <p style={{ whiteSpace: 'pre-wrap', lineHeight: 1.6 }}>{area.description}</p>
             
-            {/* Combat UI */}
-            {combat && (
-              <div style={{ marginTop: 30, padding: 20, background: '#f8f8f8', borderRadius: 12, border: '2px solid #e74c3c' }}>
-                {/* Turn Indicator */}
-                <div style={{ 
-                  padding: '8px 16px', 
-                  background: combat.playerTurn ? '#3498db' : '#e74c3c',
-                  color: '#fff',
-                  borderRadius: 8,
-                  fontWeight: 'bold',
-                  marginBottom: 16
-                }}>
-                  {combat.playerTurn ? '⚔️ YOUR TURN' : '🛡️ ENEMY TURN'}
-                </div>
-
-                {/* Enemy Grid */}
-                <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 20 }}>
-                  {combat.enemies.map((enemy) => (
-                    <div
-                      key={enemy.instanceId}
-                      onClick={() => {
-                        if (combat.playerTurn && enemy.health > 0) {
-                          selectEnemy(enemy.instanceId, usePlayerStore.getState());
-                        }
-                      }}
-                      style={{
-                        width: 140,
-                        padding: 12,
-                        background: '#fff',
-                        borderRadius: 8,
-                        border: combat.selectedEnemyId === enemy.instanceId ? '3px solid #e74c3c' : '2px solid #ddd',
-                        cursor: combat.playerTurn && enemy.health > 0 ? 'pointer' : 'default',
-                        opacity: enemy.health <= 0 ? 0.4 : 1,
-                        transition: 'all 0.2s ease',
-                        textAlign: 'center'
-                      }}
-                    >
-                      {/* Enemy Icon */}
-                      <div style={{ fontSize: 48, marginBottom: 8 }}>
-                        {enemy.health <= 0 ? '💀' : '👹'}
-                      </div>
-                      
-                      {/* Enemy Name */}
-                      <div style={{ fontWeight: 'bold', fontSize: 14, marginBottom: 8 }}>
-                        {enemy.name}
-                      </div>
-                      
-                      {/* Health Bar */}
-                      <div style={{ height: 16, background: '#e0e0e0', borderRadius: 8, overflow: 'hidden', position: 'relative' }}>
-                        <div style={{ 
-                          width: `${(enemy.health / enemy.maxHealth) * 100}%`, 
-                          height: '100%', 
-                          background: enemy.health > enemy.maxHealth * 0.5 ? '#2ecc71' : enemy.health > enemy.maxHealth * 0.25 ? '#f39c12' : '#e74c3c',
-                          transition: 'width 0.3s ease, background 0.3s ease'
-                        }}></div>
-                        <span style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)', fontSize: 10, fontWeight: 'bold', color: '#333' }}>
-                          {enemy.health}/{enemy.maxHealth}
-                        </span>
-                      </div>
-
-                      {/* Status Effects */}
-                      {enemy.statusEffects && enemy.statusEffects.length > 0 && (
-                        <div style={{ marginTop: 4, fontSize: 10, color: '#3498db' }}>
-                          {enemy.statusEffects.map(effect => `${effect.type} (${effect.duration})`).join(', ')}
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-
-                {/* Attack Button */}
-                {combat.playerTurn && combat.selectedEnemyId && (
-                  <div style={{ marginBottom: 16 }}>
-                    <button
-                      onClick={() => playerAttack(usePlayerStore.getState())}
-                      style={{
-                        padding: '12px 32px',
-                        fontSize: 16,
-                        fontWeight: 'bold',
-                        borderRadius: 8,
-                        background: 'linear-gradient(135deg, #e74c3c, #c0392b)',
-                        color: '#fff',
-                        border: '2px solid #a93226',
-                        cursor: 'pointer',
-                        boxShadow: '0 4px 12px rgba(231, 76, 60, 0.4)'
-                      }}
-                    >
-                      ⚔️ Attack {combat.enemies.find(e => e.instanceId === combat.selectedEnemyId)?.name}
-                    </button>
-                  </div>
-                )}
-
-                {/* End Turn Button */}
-                {!combat.playerTurn && (
-                  <div style={{ marginBottom: 16 }}>
-                    <button
-                      onClick={() => enemyTurn(usePlayerStore.getState())}
-                      style={{
-                        padding: '12px 32px',
-                        fontSize: 16,
-                        fontWeight: 'bold',
-                        borderRadius: 8,
-                        background: 'linear-gradient(135deg, #95a5a6, #7f8c8d)',
-                        color: '#fff',
-                        border: '2px solid #6c7a7b',
-                        cursor: 'pointer',
-                        boxShadow: '0 4px 12px rgba(149, 165, 166, 0.4)'
-                      }}
-                    >
-                      Continue ➜
-                    </button>
-                  </div>
-                )}
-
-                {/* Combat Log */}
-                <div style={{ 
-                  maxHeight: 200, 
-                  overflow: 'auto', 
-                  background: '#fff', 
-                  padding: 12, 
-                  borderRadius: 8, 
-                  border: '1px solid #ddd',
-                  textAlign: 'left',
-                  fontSize: 13,
-                  lineHeight: 1.6
-                }}>
-                  {combat.combatLog.map((log, idx) => (
-                    <div 
-                      key={idx}
-                      style={{ 
-                        marginBottom: 4,
-                        color: log.includes('You') ? '#3498db' : log.includes('damage') ? '#e67e22' : '#333'
-                      }}
-                    >
-                      {log}
-                    </div>
-                  ))}
-                  {combat.combatLog.length === 0 && (
-                    <div style={{ color: '#999', fontStyle: 'italic' }}>Combat begins...</div>
-                  )}
-                </div>
-              </div>
-            )}
-            
             {/* Spend Stat Points Button */}
             {stats.statPoints > 0 && (
               <div style={{ marginTop: 20 }}>
@@ -396,13 +260,63 @@ export default function App() {
                   {combat.playerTurn ? '⚔️ Your Turn' : '🛡️ Enemy Turn'} - Turn {combat.turnNumber}
                 </div>
 
-                {/* Enemy Display */}
-                <div style={{ marginBottom: 20 }}>
-                  <h3 style={{ color: '#fff', marginBottom: 12, fontSize: 14, textTransform: 'uppercase', letterSpacing: 1 }}>
-                    Enemies
-                  </h3>
-                  <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', justifyContent: 'center' }}>
-                    {combat.enemies.map((enemy) => {
+                {/* Combat Participants Container */}
+                <div style={{ display: 'flex', gap: 24, marginBottom: 20, alignItems: 'flex-start', justifyContent: 'center' }}>
+                  {/* Player Display */}
+                  <div>
+                    <h3 style={{ color: '#fff', marginBottom: 12, fontSize: 14, textTransform: 'uppercase', letterSpacing: 1 }}>
+                      You
+                    </h3>
+                    <div style={{
+                      padding: 16,
+                      background: 'rgba(241, 196, 15, 0.2)',
+                      border: '3px solid #f1c40f',
+                      borderRadius: 12,
+                      minWidth: 140,
+                      boxShadow: '0 0 20px rgba(241, 196, 15, 0.4)'
+                    }}>
+                      <div style={{ 
+                        fontSize: 40, 
+                        textAlign: 'center', 
+                        marginBottom: 8
+                      }}>
+                        🛡️
+                      </div>
+                      <div style={{ color: '#f1c40f', fontSize: 14, fontWeight: 'bold', textAlign: 'center', marginBottom: 8 }}>
+                        Hero
+                      </div>
+                      {/* Health Bar */}
+                      <div style={{ 
+                        background: 'rgba(0,0,0,0.3)', 
+                        borderRadius: 8, 
+                        height: 12, 
+                        overflow: 'hidden',
+                        marginBottom: 4 
+                      }}>
+                        <div style={{ 
+                          height: '100%', 
+                          background: health > 50 
+                            ? 'linear-gradient(90deg, #2ecc71, #27ae60)' 
+                            : health > 25 
+                              ? 'linear-gradient(90deg, #f39c12, #e67e22)'
+                              : 'linear-gradient(90deg, #e74c3c, #c0392b)',
+                          width: `${Math.max(0, health)}%`,
+                          transition: 'width 0.3s'
+                        }} />
+                      </div>
+                      <div style={{ color: '#f1c40f', fontSize: 12, textAlign: 'center', fontWeight: 'bold' }}>
+                        {Math.max(0, health)} / 100 HP
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Enemy Display */}
+                  <div>
+                    <h3 style={{ color: '#fff', marginBottom: 12, fontSize: 14, textTransform: 'uppercase', letterSpacing: 1 }}>
+                      Enemies
+                    </h3>
+                    <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', justifyContent: 'center' }}>
+                      {combat.enemies.map((enemy) => {
                       const isSelected = combat.selectedEnemyId === enemy.instanceId;
                       const isDead = enemy.health <= 0;
                       return (
@@ -467,6 +381,7 @@ export default function App() {
                         </div>
                       );
                     })}
+                    </div>
                   </div>
                 </div>
 
@@ -511,6 +426,78 @@ export default function App() {
                     >
                       ⚔️ Attack {combat.selectedEnemyId ? combat.enemies.find(e => e.instanceId === combat.selectedEnemyId)?.name : 'Enemy'}
                     </button>
+
+                    {/* Intimidation Button - Send to Dungeons */}
+                    {(() => {
+                      if (!combat.selectedEnemyId) return null;
+                      const selectedEnemy = combat.enemies.find(e => e.instanceId === combat.selectedEnemyId);
+                      if (!selectedEnemy || selectedEnemy.health <= 0) return null;
+                      
+                      // Check if enemy is at or below 50% health
+                      const healthPercent = (selectedEnemy.health / selectedEnemy.maxHealth) * 100;
+                      if (healthPercent > 50) return null;
+                      
+                      // Get enemy definition to check if humanoid
+                      const content = getContentSnapshot();
+                      const enemyDef = content?.enemies?.get?.(selectedEnemy.enemyId);
+                      if (!enemyDef || enemyDef.kind !== 'humanoid') return null;
+                      
+                      // Check if inside city walls
+                      const currentAreaData = content?.areas?.get?.(currentAreaId as string);
+                      const insideCityWalls = currentAreaData?.tags?.includes('city') || currentAreaData?.tags?.includes('fortress');
+                      if (!insideCityWalls) return null;
+                      
+                      return (
+                        <button
+                          onClick={() => {
+                            const currentState = usePlayerStore.getState();
+                            const result = intimidateEnemy(combat.selectedEnemyId!, currentState);
+                            usePlayerStore.setState({ 
+                              combat: result.state.combat,
+                              health: result.state.health 
+                            });
+                            
+                            // Enemy turn after intimidation attempt
+                            if (result.success) {
+                              // If successful, check if combat ended
+                              setTimeout(() => {
+                                if (result.state.combat && result.state.combat.active && !result.state.combat.playerTurn) {
+                                  const enemyResult = enemyTurn(result.state);
+                                  usePlayerStore.setState({ 
+                                    combat: enemyResult.state.combat,
+                                    health: enemyResult.state.health 
+                                  });
+                                }
+                              }, 1200);
+                            } else {
+                              // If failed, enemy turn
+                              setTimeout(() => {
+                                if (result.state.combat && result.state.combat.active && !result.state.combat.playerTurn) {
+                                  const enemyResult = enemyTurn(result.state);
+                                  usePlayerStore.setState({ 
+                                    combat: enemyResult.state.combat,
+                                    health: enemyResult.state.health 
+                                  });
+                                }
+                              }, 1200);
+                            }
+                          }}
+                          style={{
+                            padding: '12px 32px',
+                            fontSize: 16,
+                            fontWeight: 'bold',
+                            borderRadius: 8,
+                            background: 'linear-gradient(135deg, #f39c12, #e67e22)',
+                            color: '#fff',
+                            border: 'none',
+                            cursor: 'pointer',
+                            boxShadow: '0 4px 12px rgba(243, 156, 18, 0.4)'
+                          }}
+                        >
+                          ⛓️ Send {selectedEnemy.name} to Dungeons
+                        </button>
+                      );
+                    })()}
 
                     {/* Spell Casting */}
                     {spellsKnown.length > 0 && (
@@ -599,17 +586,20 @@ export default function App() {
                 )}
 
                 {/* Combat Log */}
-                <div style={{ 
-                  background: 'rgba(0,0,0,0.4)', 
-                  borderRadius: 8, 
-                  padding: 16,
-                  maxHeight: 200,
-                  overflowY: 'auto'
-                }}>
+                <div 
+                  ref={combatLogRef}
+                  style={{ 
+                    background: 'rgba(0,0,0,0.4)', 
+                    borderRadius: 8, 
+                    padding: 16,
+                    maxHeight: 200,
+                    overflowY: 'auto'
+                  }}
+                >
                   <h4 style={{ color: '#ecf0f1', marginBottom: 8, fontSize: 12, textTransform: 'uppercase', letterSpacing: 1 }}>
                     Combat Log
                   </h4>
-                  {combat.combatLog.map((entry, idx) => (
+                  {combat.combatLog.slice(-20).map((entry, idx) => (
                     <div key={idx} style={{ 
                       color: '#bdc3c7', 
                       fontSize: 13, 

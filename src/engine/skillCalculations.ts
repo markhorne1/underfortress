@@ -76,20 +76,12 @@ export function getTotalArmourRating(state: PlayerState): number {
   // Import content loader to get item definitions
   const content = getContentSnapshot();
   if (!content || !content.items) return total;
-  const items = content.items || [];
-  
-  // Create a map of itemId -> item for quick lookup
-  const itemMap = new Map();
-  for (const item of items) {
-    if (item && item.id) {
-      itemMap.set(item.id, item);
-    }
-  }
+  const items = content.items; // This is already a Map<string, Item>
   
   // Sum AR from all equipped items
   for (const [slot, itemId] of Object.entries(equipment)) {
     if (itemId) {
-      const item = itemMap.get(itemId);
+      const item = items instanceof Map ? items.get(itemId) : null;
       if (item && typeof item.armourRating === 'number') {
         total += item.armourRating;
       }
@@ -112,29 +104,21 @@ export function getTotalDamageRating(state: PlayerState): number {
     // Fallback to unarmed damage (power / 2)
     return Math.floor(state.stats.power / 2);
   }
-  const items = content.items || [];
-  
-  // Create a map of itemId -> item for quick lookup
-  const itemMap = new Map();
-  for (const item of items) {
-    if (item && item.id) {
-      itemMap.set(item.id, item);
-    }
-  }
+  const items = content.items; // This is already a Map<string, Item>
   
   // Sum DR from equipped weapons (mainhand, offhand)
   const mainhand = equipment.mainhand;
   const offhand = equipment.offhand;
   
   if (mainhand) {
-    const weapon = itemMap.get(mainhand);
+    const weapon = items instanceof Map ? items.get(mainhand) : null;
     if (weapon && typeof weapon.damageRating === 'number') {
       total += weapon.damageRating;
     }
   }
   
   if (offhand) {
-    const weapon = itemMap.get(offhand);
+    const weapon = items instanceof Map ? items.get(offhand) : null;
     if (weapon && typeof weapon.damageRating === 'number') {
       // Offhand weapons typically deal reduced damage
       total += Math.floor(weapon.damageRating * 0.5);

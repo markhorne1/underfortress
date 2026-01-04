@@ -2,6 +2,7 @@
   {
     "id": "test_goblin",
     "name": "Test Goblin",
+    "kind": "humanoid",
     "stats": {
       "power": 2,
       "mind": 1,

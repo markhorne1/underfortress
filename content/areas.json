@@ -10543,6 +10543,7 @@
     "id": "i_underfortress_entry",
     "title": "Under-Fortress Entry",
     "isCheckpoint": true,
+    "tags": ["fortress", "checkpoint"],
     "x": 5,
     "y": -8,
     "floorId": "caves",

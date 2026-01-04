@@ -1,5 +1,5 @@
 import { PlayerState, Enemy, EnemyInstance } from './types';
-import { getTotalArmourRating, getTotalDamageRating, getMeleeAttack, getMeleeDefense } from './skillCalculations';
+import { getTotalArmourRating, getTotalDamageRating, getMeleeAttack, getMeleeDefense, getIntimidation } from './skillCalculations';
 import { getContentSnapshot } from './contentLoader';
 
 function rollD100(): number {
@@ -12,8 +12,41 @@ function getEnemyById(enemyId: string): Enemy | null {
     console.error('Content not loaded or enemies missing');
     return null;
   }
+  // enemies is a Map, not an array
+  if (content.enemies instanceof Map) {
+    return content.enemies.get(enemyId) || null;
+  }
+  // Fallback for array (shouldn't happen but be safe)
   const enemies = Array.isArray(content.enemies) ? content.enemies : [];
   return enemies.find((e: Enemy) => e.id === enemyId) || null;
+}
+
+function isEnemyWeakened(enemy: EnemyInstance): boolean {
+  // Check if enemy health is at or below 50%
+  const healthPercent = (enemy.health / enemy.maxHealth) * 100;
+  if (healthPercent > 50) return false;
+  
+  // Check if enemy is a boss (exclude bosses from weakening mechanic)
+  const enemyDef = getEnemyById(enemy.enemyId);
+  if (enemyDef && enemyDef.tags && enemyDef.tags.includes('boss')) {
+    return false;
+  }
+  
+  return true;
+}
+
+function isEnemyDying(enemy: EnemyInstance): boolean {
+  // Check if enemy health is below 10%
+  const healthPercent = (enemy.health / enemy.maxHealth) * 100;
+  if (healthPercent >= 10) return false;
+  
+  // Check if enemy is a boss (exclude bosses from dying mechanic)
+  const enemyDef = getEnemyById(enemy.enemyId);
+  if (enemyDef && enemyDef.tags && enemyDef.tags.includes('boss')) {
+    return false;
+  }
+  
+  return true;
 }
 
 function getEnemyMeleeAttack(enemy: EnemyInstance): number {
@@ -22,22 +55,25 @@ function getEnemyMeleeAttack(enemy: EnemyInstance): number {
 
 function getEnemyMeleeDefense(enemy: EnemyInstance): number {
   const ar = getEnemyArmourRating(enemy);
-  return ar + enemy.stats.power * 5 + enemy.stats.agility * 5;
+  let defense = ar + enemy.stats.power * 5 + enemy.stats.agility * 5;
+  
+  // Apply weakening penalty: defense reduced by half when below 50% health
+  if (isEnemyWeakened(enemy)) {
+    defense = Math.floor(defense / 2);
+  }
+  
+  return defense;
 }
 
 function getEnemyArmourRating(enemy: EnemyInstance): number {
   let total = 0;
   const content = getContentSnapshot();
-  const items = content?.items || [];
-  const itemMap = new Map();
-  
-  for (const item of items) {
-    if (item && item.id) itemMap.set(item.id, item);
-  }
+  const items = content?.items; // Already a Map
+  if (!items) return total;
   
   for (const [slot, itemId] of Object.entries(enemy.equipment || {})) {
     if (itemId) {
-      const item = itemMap.get(itemId);
+      const item = items instanceof Map ? items.get(itemId) : null;
       if (item && typeof item.armourRating === 'number') {
         total += item.armourRating;
       }
@@ -50,16 +86,14 @@ function getEnemyArmourRating(enemy: EnemyInstance): number {
 function getEnemyDamageRating(enemy: EnemyInstance): number {
   let total = 0;
   const content = getContentSnapshot();
-  const items = content?.items || [];
-  const itemMap = new Map();
-  
-  for (const item of items) {
-    if (item && item.id) itemMap.set(item.id, item);
+  const items = content?.items; // Already a Map
+  if (!items) {
+    return Math.max(1, Math.floor(enemy.stats.power / 2));
   }
   
   const mainhand = enemy.equipment?.mainhand;
   if (mainhand) {
-    const weapon = itemMap.get(mainhand);
+    const weapon = items instanceof Map ? items.get(mainhand) : null;
     if (weapon && typeof weapon.damageRating === 'number') {
       total += weapon.damageRating;
     }
@@ -75,6 +109,16 @@ function getEnemyDamageRating(enemy: EnemyInstance): number {
 export function initiateCombat(enemyIds: string[], state: PlayerState): PlayerState {
   const newState = JSON.parse(JSON.stringify(state));
   const enemyInstances: EnemyInstance[] = [];
+  
+  console.log('initiateCombat called with:', enemyIds);
+  const content = getContentSnapshot();
+  console.log('Content snapshot:', content ? 'loaded' : 'NOT LOADED');
+  if (content) {
+    console.log('Enemies type:', typeof content.enemies, 'IsArray:', Array.isArray(content.enemies));
+    if (Array.isArray(content.enemies)) {
+      console.log('Enemy count:', content.enemies.length);
+    }
+  }
   
   for (let i = 0; i < enemyIds.length; i++) {
     const enemyDef = getEnemyById(enemyIds[i]);
@@ -130,11 +174,30 @@ export function playerAttack(state: PlayerState): { state: PlayerState; log: str
   }
   
   const attackRoll = rollD100();
-  const attackSkill = getMeleeAttack(state);
-  const attackSuccess = attackRoll <= attackSkill;
+  let attackSkill = getMeleeAttack(state);
   
-  log.push(`🗡️ You attack ${enemy.name}!`);
-  log.push(`→ Attack roll: ${attackRoll} vs ${attackSkill}% (${attackSuccess ? 'HIT' : 'MISS'})`);
+  // Check for dying state (coup de grace)
+  const isDying = isEnemyDying(enemy);
+  const isWeakened = isEnemyWeakened(enemy);
+  
+  let attackRequirement = attackSkill;
+  
+  if (isDying) {
+    // Coup de grace: only need <90% to hit
+    attackRequirement = 90;
+  } else if (isWeakened) {
+    // Apply bonus against weakened enemies: +50% to attack
+    attackRequirement = Math.floor(attackSkill * 1.5);
+  }
+  
+  const attackSuccess = attackRoll <= attackRequirement;
+  
+  let statusText = '';
+  if (isDying) statusText = ' 💀 (Dying!)';
+  else if (isWeakened) statusText = ' ⚠️ (Weakened!)';
+  
+  log.push(`🗡️ You attack ${enemy.name}!${statusText}`);
+  log.push(`→ Attack roll: ${attackRoll} vs ${attackRequirement}% (${attackSuccess ? 'HIT' : 'MISS'})`);
   
   if (attackSuccess) {
     const defenseRoll = rollD100();
@@ -236,6 +299,65 @@ export function enemyTurn(state: PlayerState): { state: PlayerState; log: string
   log.push(`--- Turn ${newState.combat.turnNumber} ---`);
   
   return { state: newState, log };
+}
+
+export function intimidateEnemy(enemyInstanceId: string, state: PlayerState): { state: PlayerState; log: string[]; success: boolean } {
+  const newState = JSON.parse(JSON.stringify(state));
+  const log: string[] = [];
+  
+  if (!newState.combat || !newState.combat.active) {
+    return { state: newState, log: ['No active combat.'], success: false };
+  }
+  
+  const enemy = newState.combat.enemies.find((e: EnemyInstance) => e.instanceId === enemyInstanceId);
+  if (!enemy || enemy.health <= 0) {
+    return { state: newState, log: ['Invalid target!'], success: false };
+  }
+  
+  // Check if enemy is humanoid
+  const enemyDef = getEnemyById(enemy.enemyId);
+  if (!enemyDef || enemyDef.kind !== 'humanoid') {
+    return { state: newState, log: [`${enemy.name} is not humanoid and cannot be intimidated!`], success: false };
+  }
+  
+  // Check if we're inside city walls (check current area tags)
+  const content = getContentSnapshot();
+  const currentArea = content?.areas?.get?.(state.currentAreaId);
+  const insideCityWalls = currentArea?.tags?.includes('city') || currentArea?.tags?.includes('fortress');
+  
+  if (!insideCityWalls) {
+    return { state: newState, log: ['You can only send enemies to the dungeons inside the city walls!'], success: false };
+  }
+  
+  // Roll intimidation
+  const intimidationRoll = rollD100();
+  const intimidationSkill = getIntimidation(state);
+  const success = intimidationRoll <= intimidationSkill;
+  
+  log.push(`👁️ You attempt to intimidate ${enemy.name}!`);
+  log.push(`→ Intimidation roll: ${intimidationRoll} vs ${intimidationSkill}% (${success ? 'SUCCESS' : 'FAILED'})`);
+  
+  if (success) {
+    // Mark enemy as defeated (set health to 0)
+    enemy.health = 0;
+    log.push(`⛓️ ${enemy.name} surrenders and is sent to the dungeons!`);
+  } else {
+    log.push(`${enemy.name} refuses to surrender!`);
+  }
+  
+  newState.combat.combatLog = [...newState.combat.combatLog, ...log];
+  
+  // Check if all enemies are defeated
+  const livingEnemies = newState.combat.enemies.filter((e: EnemyInstance) => e.health > 0);
+  if (livingEnemies.length === 0) {
+    const endResult = endCombat(true, newState);
+    return { ...endResult, success };
+  }
+  
+  // End player turn after intimidation attempt
+  newState.combat.playerTurn = false;
+  
+  return { state: newState, log, success };
 }
 
 export function endCombat(victory: boolean, state: PlayerState): { state: PlayerState; log: string[] } {
