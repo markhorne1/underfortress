@@ -31,6 +31,11 @@ export function evaluateRequirement(req: any, state: PlayerState): boolean {
       if (!job.cooldownUntil) return true;
       return job.cooldownUntil <= Date.now();
     }
+    case 'hasCombatSkill': {
+      const skillId = req.skill || req.key;
+      if (!skillId) return false;
+      return !!(state.combatSkills && state.combatSkills.includes(skillId));
+    }
     default:
       console.warn('Unknown requirement type', t);
       return false;

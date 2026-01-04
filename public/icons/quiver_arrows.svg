@@ -1,0 +1,32 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Quiver body -->
+  <ellipse cx="32" cy="45" rx="14" ry="8" fill="#654321"/>
+  <rect x="18" y="22" width="28" height="23" rx="2" fill="#8B4513"/>
+  <path d="M 18 22 L 18 45 Q 32 48, 46 45 L 46 22 Z" fill="#A0522D" stroke="#654321" stroke-width="2"/>
+  
+  <!-- Leather strap -->
+  <path d="M 20 26 Q 15 18, 20 10" stroke="#654321" stroke-width="3" fill="none"/>
+  <path d="M 44 26 Q 49 18, 44 10" stroke="#654321" stroke-width="3" fill="none"/>
+  
+  <!-- Arrows -->
+  <g>
+    <!-- Arrow 1 -->
+    <line x1="28" y1="8" x2="28" y2="28" stroke="#A0522D" stroke-width="2"/>
+    <polygon points="28,6 26,10 30,10" fill="#C0C0C0"/>
+    <path d="M 26 28 L 28 30 L 30 28" fill="#8B7355"/>
+    
+    <!-- Arrow 2 -->
+    <line x1="32" y1="6" x2="32" y2="26" stroke="#A0522D" stroke-width="2"/>
+    <polygon points="32,4 30,8 34,8" fill="#C0C0C0"/>
+    <path d="M 30 26 L 32 28 L 34 26" fill="#8B7355"/>
+    
+    <!-- Arrow 3 -->
+    <line x1="36" y1="10" x2="36" y2="30" stroke="#A0522D" stroke-width="2"/>
+    <polygon points="36,8 34,12 38,12" fill="#C0C0C0"/>
+    <path d="M 34 30 L 36 32 L 38 30" fill="#8B7355"/>
+  </g>
+  
+  <!-- Decorative leather bands -->
+  <line x1="18" y1="30" x2="46" y2="30" stroke="#654321" stroke-width="2"/>
+  <line x1="18" y1="38" x2="46" y2="38" stroke="#654321" stroke-width="2"/>
+</svg>

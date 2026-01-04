@@ -1,12 +1,13 @@
 import { PlayerState, Enemy, EnemyInstance } from './types';
-import { getTotalArmourRating, getTotalDamageRating, getMeleeAttack, getMeleeDefense, getIntimidation } from './skillCalculations';
+import { getTotalArmourRating, getTotalDamageRating, getMeleeAttack, getMeleeDefense, getIntimidation, getMaxStamina } from './skillCalculations';
 import { getContentSnapshot } from './contentLoader';
 
 function rollD100(): number {
-  const rawRandom = Math.random();
-  const result = Math.floor(rawRandom * 100) + 1;
-  console.log(`rollD100: Math.random()=${rawRandom.toFixed(4)}, result=${result}`);
-  return result;
+  // Use crypto.getRandomValues for truly random numbers
+  const array = new Uint32Array(1);
+  crypto.getRandomValues(array);
+  // Convert to 1-100 range
+  return (array[0] % 100) + 1;
 }
 
 function getEnemyById(enemyId: string): Enemy | null {
@@ -257,7 +258,7 @@ export function playerAttack(state: PlayerState): { state: PlayerState; log: str
     log.push(`Your attack missed!`);
   }
   
-  newState.combat.combatLog = [...newState.combat.combatLog, ...log];
+  newState.combat.combatLog = [...newState.combat.combatLog, ...log].slice(-60);
   
   const livingEnemies = newState.combat.enemies.filter((e: EnemyInstance) => e.health > 0);
   if (livingEnemies.length === 0) {
@@ -357,7 +358,7 @@ export function playerSlash(state: PlayerState): { state: PlayerState; log: stri
     }
   }
   
-  newState.combat.combatLog = [...newState.combat.combatLog, ...log];
+  newState.combat.combatLog = [...newState.combat.combatLog, ...log].slice(-60);
   
   const livingEnemies = newState.combat.enemies.filter((e: EnemyInstance) => e.health > 0);
   if (livingEnemies.length === 0) {
@@ -411,15 +412,23 @@ export function enemyTurn(state: PlayerState): { state: PlayerState; log: string
       log.push(`🛡️ You defend: ${defenseRoll} vs ${defenseSkill}% (${defenseSuccess ? 'PARRIED' : 'FAILED'})`);
       
       if (!defenseSuccess) {
-        const damage = getEnemyDamageRating(enemy);
+        const baseDamage = getEnemyDamageRating(enemy);
+        const playerAR = getTotalArmourRating(state);
+        const arReduction = Math.floor(baseDamage * (playerAR / 100));
+        const damage = Math.max(1, baseDamage - arReduction);
+        
         newState.health = Math.max(0, newState.health - damage);
         
-        log.push(`💔 You take ${damage} damage! (${newState.health}/100 HP)`);
+        if (playerAR > 0) {
+          log.push(`💔 You take ${damage} damage (${baseDamage} - ${arReduction} AR)! (${newState.health}/100 HP)`);
+        } else {
+          log.push(`💔 You take ${damage} damage! (${newState.health}/100 HP)`);
+        }
         
         if (newState.health <= 0) {
           log.push(`💀 You have been defeated!`);
           newState.combat.active = false;
-          newState.combat.combatLog = [...newState.combat.combatLog, ...log];
+          newState.combat.combatLog = [...newState.combat.combatLog, ...log].slice(-60);
           return { state: newState, log };
         }
       } else {
@@ -435,13 +444,8 @@ export function enemyTurn(state: PlayerState): { state: PlayerState; log: string
     newState.combat.pivotDefenseBonus.active = false;
   }
   
-  // Remove dead enemies that have been dead for more than 2 seconds
-  const now = Date.now();
-  newState.combat.enemies = newState.combat.enemies.filter((e: EnemyInstance) => {
-    if (e.health > 0) return true; // Keep alive enemies
-    if (e.deathTimestamp && (now - e.deathTimestamp) < 2000) return true; // Keep recently dead
-    return false; // Remove old dead enemies
-  });
+  // Don't remove dead enemies - keep them for victory screen tallying
+  // They'll be cleaned up when combat ends
   
   // Promote reserves to front line if slots are available
   const livingFrontEnemies = newState.combat.enemies.filter((e: EnemyInstance) => e.health > 0 && e.position === 'front');
@@ -468,7 +472,7 @@ export function enemyTurn(state: PlayerState): { state: PlayerState; log: string
       .filter((b: any) => b.duration > 0);
   }
   
-  newState.combat.combatLog = [...newState.combat.combatLog, ...log];
+  newState.combat.combatLog = [...newState.combat.combatLog, ...log].slice(-60);
   newState.combat.playerTurn = true;
   newState.combat.turnNumber += 1;
   log.push(`--- Turn ${newState.combat.turnNumber} ---`);
@@ -624,12 +628,13 @@ export function intimidateEnemy(enemyInstanceId: string, state: PlayerState): { 
   if (success) {
     // Mark enemy as defeated (set health to 0)
     enemy.health = 0;
+    enemy.surrendered = true;
     log.push(`⛓️ ${enemy.name} surrenders and is sent to the dungeons!`);
   } else {
     log.push(`${enemy.name} refuses to surrender!`);
   }
   
-  newState.combat.combatLog = [...newState.combat.combatLog, ...log];
+  newState.combat.combatLog = [...newState.combat.combatLog, ...log].slice(-60);
   
   // Check if all enemies are defeated
   const livingEnemies = newState.combat.enemies.filter((e: EnemyInstance) => e.health > 0);
@@ -656,7 +661,6 @@ export function endCombat(victory: boolean, state: PlayerState): { state: Player
     log.push(`🎉 Victory! All enemies defeated!`);
     
     // Restore stamina to max after combat
-    const { getMaxStamina } = require('./skillCalculations');
     newState.stamina = getMaxStamina(newState);
     newState.maxStamina = getMaxStamina(newState);
     
@@ -677,19 +681,37 @@ export function endCombat(victory: boolean, state: PlayerState): { state: Player
         totalStatPoints += enemyDef.statPointsDrop;
       }
       
+      // Handle loot object structure
       if (enemyDef.loot) {
-        for (const lootEntry of enemyDef.loot) {
-          const chance = lootEntry.chance || 1;
-          if (Math.random() <= chance) {
-            const qty = Math.floor(Math.random() * (lootEntry.max - lootEntry.min + 1)) + lootEntry.min;
-            if (qty > 0) {
-              const existing = newState.inventory.find((i: any) => i.itemId === lootEntry.itemId);
-              if (existing) {
-                existing.qty += qty;
-              } else {
-                newState.inventory.push({ itemId: lootEntry.itemId, qty });
+        // Gold drops
+        if (enemyDef.loot.gold) {
+          const gold = Math.floor(Math.random() * (enemyDef.loot.gold.max - enemyDef.loot.gold.min + 1)) + enemyDef.loot.gold.min;
+          totalGold += gold;
+        }
+        
+        // Stat point drops
+        if (enemyDef.loot.statPoints) {
+          const roll = Math.random();
+          if (roll <= enemyDef.loot.statPoints.probability) {
+            totalStatPoints += enemyDef.loot.statPoints.amount;
+          }
+        }
+        
+        // Item drops
+        if (enemyDef.loot.items && Array.isArray(enemyDef.loot.items)) {
+          for (const lootEntry of enemyDef.loot.items) {
+            const chance = lootEntry.chance || 1;
+            if (Math.random() <= chance) {
+              const qty = lootEntry.qty || 1;
+              if (qty > 0) {
+                const existing = newState.inventory.find((i: any) => i.itemId === lootEntry.itemId);
+                if (existing) {
+                  existing.qty += qty;
+                } else {
+                  newState.inventory.push({ itemId: lootEntry.itemId, qty });
+                }
+                itemsLooted.push(`${lootEntry.itemId} x${qty}`);
               }
-              itemsLooted.push(`${lootEntry.itemId} x${qty}`);
             }
           }
         }
@@ -709,11 +731,52 @@ export function endCombat(victory: boolean, state: PlayerState): { state: Player
     if (itemsLooted.length > 0) {
       log.push(`📦 Looted: ${itemsLooted.join(', ')}`);
     }
+    
+    // Set victory screen data - separate killed from imprisoned
+    const enemiesKilled = newState.combat.enemies
+      .filter((e: EnemyInstance) => !e.surrendered)
+      .map((e: EnemyInstance) => ({
+        name: e.name,
+        enemyId: e.enemyId
+      }));
+    
+    const enemiesImprisoned = newState.combat.enemies
+      .filter((e: EnemyInstance) => e.surrendered)
+      .map((e: EnemyInstance) => ({
+        name: e.name,
+        enemyId: e.enemyId
+      }));
+    
+    const itemsLootedParsed = itemsLooted.map((item: string) => {
+      const match = item.match(/(.+) x(\d+)/);
+      if (match) {
+        return { itemId: match[1], qty: parseInt(match[2]) };
+      }
+      return { itemId: item, qty: 1 };
+    });
+    
+    newState.combat.victoryScreen = {
+      enemiesKilled,
+      enemiesImprisoned,
+      goldLooted: totalGold,
+      statPointsGained: totalStatPoints,
+      itemsLooted: itemsLootedParsed
+    };
+    
+    newState.combat.active = false;
   } else {
     log.push(`💀 Defeat...`);
+    
+    // Find the enemy that's currently attacking (assume last alive enemy)
+    const killerEnemy = newState.combat.enemies.find((e: EnemyInstance) => e.health > 0);
+    
+    newState.combat.defeatScreen = {
+      killedBy: killerEnemy ? killerEnemy.name : 'Unknown Enemy',
+      checkpointName: newState.lastCheckpointId || 'Starting Area'
+    };
+    
+    newState.combat.active = false;
   }
-  
-  newState.combat = undefined;
   
   return { state: newState, log };
 }
@@ -809,15 +872,17 @@ export function castSpell(spellId: string, targetIds: string[] | undefined, stat
     
     newState.activeBuffs = newState.activeBuffs || [];
     
+    // Remove old buffs from THIS spell to prevent self-stacking
+    // This allows Fireblade + Iceblade to stack, but not Fireblade + Fireblade
+    newState.activeBuffs = newState.activeBuffs.filter((b: any) => b.source !== spellId);
+    
     for (const buff of buffArray) {
-      // Remove any existing buff of the same type (don't stack)
-      newState.activeBuffs = newState.activeBuffs.filter((b: any) => b.stat !== buff.stat);
-      
-      // Add new buff
+      // Add new buff with spell source
       newState.activeBuffs.push({
         stat: buff.stat,
         value: buff.value,
-        duration: buff.duration
+        duration: buff.duration,
+        source: spellId
       });
       
       log.push(`🛡️ Gained ${buff.stat} +${buff.value} for ${buff.duration} turns`);
@@ -935,7 +1000,7 @@ export function castSpell(spellId: string, targetIds: string[] | undefined, stat
   
   // End player turn
   newState.combat.playerTurn = false;
-  newState.combat.combatLog.push(...log);
+  newState.combat.combatLog = [...newState.combat.combatLog, ...log].slice(-60);
   
   // Check if all enemies defeated
   const allDead = newState.combat.enemies.every((e: EnemyInstance) => e.health <= 0);

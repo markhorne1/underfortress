@@ -3387,5 +3387,45 @@
       "cave",
       "guardian"
     ]
+  },
+  {
+    "id": "cave_rat",
+    "name": "Cave Rat",
+    "kind": "beast",
+    "stats": {
+      "power": 1,
+      "mind": 1,
+      "agility": 3,
+      "vision": 2
+    },
+    "maxHealth": 8,
+    "equipment": {},
+    "spells": [],
+    "loot": {
+      "gold": { "min": 0, "max": 2 },
+      "statPoints": { "probability": 0.1, "amount": 1 },
+      "items": []
+    },
+    "tags": ["beast", "cave"]
+  },
+  {
+    "id": "blind_cave_snake",
+    "name": "Blind Cave Snake",
+    "kind": "beast",
+    "stats": {
+      "power": 4,
+      "mind": 2,
+      "agility": 5,
+      "vision": 1
+    },
+    "maxHealth": 45,
+    "equipment": {},
+    "spells": [],
+    "loot": {
+      "gold": { "min": 20, "max": 40 },
+      "statPoints": { "probability": 0.8, "amount": 2 },
+      "items": []
+    },
+    "tags": ["beast", "boss", "cave"]
   }
 ]

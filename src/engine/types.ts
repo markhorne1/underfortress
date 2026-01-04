@@ -82,6 +82,7 @@ export type EnemyInstance = {
   spells: string[];
   position: 'front' | 'back';  // Combat positioning
   deathTimestamp?: number;  // Track when enemy died for UI delay
+  surrendered?: boolean;  // True if enemy surrendered via intimidation
   statusEffects?: Array<{
     type: string;      // frozen, burning, stunned, etc.
     duration: number;  // Turns remaining
@@ -98,6 +99,17 @@ export type CombatState = {
   combatLog: string[];
   intimidationAttempts?: Record<string, number>; // Track intimidation attempts per enemy instanceId
   pivotDefenseBonus?: { active: boolean; targetId: string }; // Track pivot defense bonus for current turn
+  victoryScreen?: {
+    enemiesKilled: Array<{ name: string; enemyId: string }>;
+    enemiesImprisoned: Array<{ name: string; enemyId: string }>;
+    goldLooted: number;
+    statPointsGained: number;
+    itemsLooted: Array<{ itemId: string; qty: number }>;
+  };
+  defeatScreen?: {
+    killedBy: string; // Name of enemy that dealt killing blow
+    checkpointName: string; // Where player will respawn
+  };
 };
 
 export type PlayerState = {
@@ -121,5 +133,6 @@ export type PlayerState = {
     stat: string;      // The stat being buffed (ar, attackDamage, meleeAttack, etc.)
     value: number;     // Buff amount
     duration: number;  // Turns remaining
+    source?: string;   // Spell ID that created this buff
   }>;
 };

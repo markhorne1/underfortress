@@ -1444,5 +1444,40 @@
       "uses": 1
     },
     "description": "A tied bundle of iron spikes. Useful for quickly hardening a choke-point."
+  },
+  {
+    "id": "smoke_pellets",
+    "name": "Smoke Pellets",
+    "type": "consumable",
+    "stackable": true,
+    "value": 3,
+    "description": "Small clay pellets that release thick smoke when thrown. Useful for escapes and diversions.",
+    "icon": "/icons/smoke_pellets.svg"
+  },
+  {
+    "id": "short_bow",
+    "name": "Short Bow",
+    "type": "weapon",
+    "slot": "mainhand",
+    "damageRating": 4,
+    "attackBonus": 10,
+    "stackable": false,
+    "value": 25,
+    "description": "A lightweight hunting bow. Effective for ranged attacks. (+10% ranged attack)",
+    "icon": "/icons/short_bow.svg"
+  },
+  {
+    "id": "quiver_arrows",
+    "name": "Quiver with 10 Arrows",
+    "type": "ammunition",
+    "slot": "offhand",
+    "stackable": true,
+    "value": 10,
+    "meta": {
+      "ammoType": "arrow",
+      "quantity": 10
+    },
+    "description": "A leather quiver containing ten iron-tipped arrows.",
+    "icon": "/icons/quiver_arrows.svg"
   }
 ]

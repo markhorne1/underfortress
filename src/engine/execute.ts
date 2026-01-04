@@ -34,7 +34,11 @@ export function executeChoice(choice: any, state: PlayerState): { state: PlayerS
 
 // Roll d100 for percentage-based checks
 function rollD100(): number {
-  return Math.floor(Math.random() * 100) + 1; // 1-100
+  // Use crypto.getRandomValues for truly random numbers
+  const array = new Uint32Array(1);
+  crypto.getRandomValues(array);
+  // Convert to 1-100 range
+  return (array[0] % 100) + 1;
 }
 
 // Get Perception skill percentage from player state
@@ -67,7 +71,7 @@ export function performSearch(areaId: string, action: any, state: PlayerState): 
   
   // Add bonuses from items/flags
   let bonusPercent = 0;
-  const hasAmulet = newState.inventory.some(item => item.itemId === 'amulet_clearsight');
+  const hasAmulet = newState.inventory.some((item: any) => item.itemId === 'amulet_clearsight');
   if (hasAmulet) bonusPercent += 10;
   if ((newState.flags as any)?.observer_trained) bonusPercent += 5;
   if ((newState.flags as any)?.observation_expert) bonusPercent += 10;

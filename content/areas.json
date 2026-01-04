@@ -14523,17 +14523,17 @@
         "label": "If Muffle Steps is active, slip past the nearest patrol shadow.",
         "requirements": [
           {
-            "type": "flagEquals",
-            "key": "muffle_steps_active",
-            "value": true
+            "type": "hasCombatSkill",
+            "skill": "muffle_steps"
           }
         ],
         "effects": [
           {
             "type": "addStatPoints",
-            "amount": 8
+            "amount": 1
           }
-        ]
+        ],
+        "goToAreaId": "u_crawlspace_entrance"
       },
       {
         "id": "start_patrol",
@@ -18403,6 +18403,161 @@
     "exits": {
       "e": "c_powder_magazine"
     }
+  },
+  {
+    "id": "u_crawlspace_entrance",
+    "title": "Crawlspace Entrance",
+    "x": 6,
+    "y": -10,
+    "floorId": "underfortress",
+    "tileStyle": "fortress",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, narrow stone crawlspace entrance, dusty, forgotten passage, torch light fading, cinematic, no text",
+    "description": "Your silent footsteps led you past the patrol. Ahead, a narrow gap in the stonework—barely wide enough for a person.\n\nDust swirls as you approach. This passage hasn't been used in years.",
+    "exits": {
+      "s": "u_guard_junction",
+      "n": "u_tight_crawl"
+    }
+  },
+  {
+    "id": "u_tight_crawl",
+    "title": "Tight Crawl",
+    "x": 6,
+    "y": -11,
+    "floorId": "underfortress",
+    "tileStyle": "cavern",
+    "cover": "none",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, very narrow stone tunnel, claustrophobic, rough walls, darkness ahead, cinematic, no text",
+    "description": "The walls press close. Stone scrapes your shoulders as you squeeze through.\n\nYou hear skittering sounds ahead—something lives down here.",
+    "exits": {
+      "s": "u_crawlspace_entrance",
+      "n": "u_forgotten_cavern"
+    },
+    "onEnter": [
+      {
+        "type": "initiateCombat",
+        "enemyIds": ["cave_rat", "cave_rat"]
+      }
+    ]
+  },
+  {
+    "id": "u_forgotten_cavern",
+    "title": "Forgotten Cavern",
+    "x": 6,
+    "y": -12,
+    "floorId": "underfortress",
+    "tileStyle": "cavern",
+    "cover": "high",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, natural cave formation, stalactites, old bones, ancient treasure pile, cinematic, no text",
+    "description": "The crawlspace opens into a natural cavern. Stalactites drip overhead.\n\nIn the center: a pile of old bones, rotted cloth, and the glint of metal. Something valuable lies here.",
+    "exits": {
+      "s": "u_tight_crawl",
+      "n": "u_snake_lair"
+    },
+    "actions": [
+      {
+        "type": "search",
+        "label": "🔍 Search the bone pile",
+        "successChance": 80,
+        "successText": "You find some useful items hidden among the remains!",
+        "effects": [
+          {
+            "type": "giveItem",
+            "itemId": "smoke_pellets",
+            "qty": 10
+          },
+          {
+            "type": "giveItem",
+            "itemId": "short_bow",
+            "qty": 1
+          },
+          {
+            "type": "giveItem",
+            "itemId": "quiver_arrows",
+            "qty": 1
+          }
+        ],
+        "failureText": "The bones crumble as you search. Nothing useful here."
+      }
+    ]
+  },
+  {
+    "id": "u_snake_lair",
+    "title": "Blind Cave Snake Lair",
+    "x": 6,
+    "y": -13,
+    "floorId": "underfortress",
+    "tileStyle": "cavern",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, dark cave with massive pale snake coiled on rocks, blind white eyes, menacing, cinematic, no text",
+    "description": "A massive pale serpent lies coiled in the darkness. Its milky eyes are blind, but it senses your vibrations.\n\nIt raises its head and hisses—a guardian that has killed many who sought the treasure beyond.",
+    "exits": {
+      "s": "u_forgotten_cavern",
+      "n": "u_treasure_chamber"
+    },
+    "onEnter": [
+      {
+        "type": "initiateCombat",
+        "enemyIds": ["blind_cave_snake"]
+      }
+    ]
+  },
+  {
+    "id": "u_treasure_chamber",
+    "title": "Hidden Treasure Chamber",
+    "x": 6,
+    "y": -14,
+    "floorId": "underfortress",
+    "tileStyle": "cavern",
+    "cover": "none",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, small cave chamber with ancient chest, coins, weapons, magical glow, cinematic, no text",
+    "description": "Beyond the snake's lair lies a small chamber. An ancient chest sits open, already looted by whoever left those bones behind.\n\nBut there's still treasure here—a small leather bag containing smoke pellets, a short bow, and a quiver of arrows.",
+    "exits": {
+      "s": "u_snake_lair"
+    },
+    "actions": [
+      {
+        "type": "search",
+        "label": "🔍 Take the treasure",
+        "successChance": 100,
+        "successText": "You collect the smoke pellets, bow, and arrows!",
+        "effects": [
+          {
+            "type": "giveItem",
+            "itemId": "smoke_pellets",
+            "qty": 10
+          },
+          {
+            "type": "giveItem",
+            "itemId": "short_bow",
+            "qty": 1
+          },
+          {
+            "type": "giveItem",
+            "itemId": "quiver_arrows",
+            "qty": 1
+          },
+          {
+            "type": "setFlag",
+            "key": "treasure_chamber_looted",
+            "value": true
+          }
+        ],
+        "requirements": [
+          {
+            "type": "flagEquals",
+            "key": "treasure_chamber_looted",
+            "value": false
+          }
+        ],
+        "failureText": "You've already taken everything valuable from this chamber."
+      }
+    ]
   },
   {
     "id": "u_cistern_run",

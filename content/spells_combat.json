@@ -52,6 +52,24 @@
     "srEffect": "negate"
   },
   {
+    "id": "radiate",
+    "name": "Radiate",
+    "path": "fire",
+    "tier": 2,
+    "cost": 5,
+    "targeting": "self",
+    "description": "Radiate intense heat that damages all front rank enemies for 1 damage per turn for 15 turns.",
+    "effects": {
+      "aura": {
+        "type": "radiate_heat",
+        "duration": 15,
+        "damage": 1,
+        "target": "front_enemies"
+      }
+    },
+    "requiresSR": false
+  },
+  {
     "id": "fireball",
     "name": "Fireball",
     "path": "fire",
@@ -64,6 +82,24 @@
     },
     "requiresSR": true,
     "srEffect": "halve"
+  },
+  {
+    "id": "firespark",
+    "name": "Firespark",
+    "path": "fire",
+    "tier": 3,
+    "cost": 5,
+    "targeting": "self",
+    "description": "Surround yourself with volatile fire sparks that retaliate with d10 damage when an enemy successfully attacks you for 10 turns.",
+    "effects": {
+      "counterattack": {
+        "type": "fire_retaliation",
+        "duration": 10,
+        "damage": { "min": 1, "max": 10 },
+        "trigger": "on_enemy_hit"
+      }
+    },
+    "requiresSR": false
   },
   {
     "id": "immolate",
