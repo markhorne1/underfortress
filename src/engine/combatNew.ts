@@ -3,7 +3,10 @@ import { getTotalArmourRating, getTotalDamageRating, getMeleeAttack, getMeleeDef
 import { getContentSnapshot } from './contentLoader';
 
 function rollD100(): number {
-  return Math.floor(Math.random() * 100) + 1;
+  const rawRandom = Math.random();
+  const result = Math.floor(rawRandom * 100) + 1;
+  console.log(`rollD100: Math.random()=${rawRandom.toFixed(4)}, result=${result}`);
+  return result;
 }
 
 function getEnemyById(enemyId: string): Enemy | null {
@@ -133,6 +136,7 @@ export function initiateCombat(enemyIds: string[], state: PlayerState): PlayerSt
       stats: { ...enemyDef.stats },
       equipment: enemyDef.equipment ? { ...enemyDef.equipment } : {},
       spells: enemyDef.spells ? [...enemyDef.spells] : [],
+      position: i < 2 ? 'front' : 'back', // First 2 enemies in front, rest in back
       statusEffects: []
     };
     
@@ -145,7 +149,8 @@ export function initiateCombat(enemyIds: string[], state: PlayerState): PlayerSt
     selectedEnemyId: undefined,
     playerTurn: true,
     turnNumber: 1,
-    combatLog: [`Combat initiated! ${enemyInstances.length} ${enemyInstances.length === 1 ? 'enemy' : 'enemies'} appeared!`]
+    combatLog: [`Combat initiated! ${enemyInstances.length} ${enemyInstances.length === 1 ? 'enemy' : 'enemies'} appeared!`],
+    intimidationAttempts: {}
   };
   
   return newState;
@@ -214,12 +219,112 @@ export function playerAttack(state: PlayerState): { state: PlayerState; log: str
       
       if (enemy.health <= 0) {
         log.push(`☠️ ${enemy.name} defeated!`);
+        
+        // Promote a back enemy to front if one exists
+        const frontEnemies = newState.combat.enemies.filter((e: EnemyInstance) => e.health > 0 && e.position === 'front');
+        const backEnemies = newState.combat.enemies.filter((e: EnemyInstance) => e.health > 0 && e.position === 'back');
+        
+        if (frontEnemies.length < 2 && backEnemies.length > 0) {
+          const promoted = backEnemies[0];
+          promoted.position = 'front';
+          log.push(`⚔️ ${promoted.name} steps forward to fight!`);
+        }
       }
     } else {
       log.push(`The attack was parried!`);
     }
   } else {
     log.push(`Your attack missed!`);
+  }
+  
+  newState.combat.combatLog = [...newState.combat.combatLog, ...log];
+  
+  const livingEnemies = newState.combat.enemies.filter((e: EnemyInstance) => e.health > 0);
+  if (livingEnemies.length === 0) {
+    return endCombat(true, newState);
+  }
+  
+  newState.combat.playerTurn = false;
+  
+  return { state: newState, log };
+}
+
+export function playerSlash(state: PlayerState): { state: PlayerState; log: string[] } {
+  const newState = JSON.parse(JSON.stringify(state));
+  const log: string[] = [];
+  
+  if (!newState.combat || !newState.combat.active) {
+    return { state: newState, log: ['No active combat.'] };
+  }
+  
+  if (!newState.combat.playerTurn) {
+    return { state: newState, log: ['Not your turn!'] };
+  }
+  
+  // Get front enemies
+  const frontEnemies = newState.combat.enemies.filter((e: EnemyInstance) => e.health > 0 && e.position === 'front');
+  
+  if (frontEnemies.length === 0) {
+    return { state: newState, log: ['No enemies to attack!'] };
+  }
+  
+  log.push(`⚔️💥 You perform a SLASH attack against all front enemies!`);
+  
+  // Attack each front enemy separately
+  for (const enemy of frontEnemies) {
+    const attackRoll = rollD100();
+    let attackSkill = getMeleeAttack(state);
+    
+    // Check for dying state (coup de grace)
+    const isDying = isEnemyDying(enemy);
+    const isWeakened = isEnemyWeakened(enemy);
+    
+    let attackRequirement = attackSkill;
+    
+    if (isDying) {
+      attackRequirement = 90;
+    } else if (isWeakened) {
+      attackRequirement = Math.floor(attackSkill * 1.5);
+    }
+    
+    const attackSuccess = attackRoll <= attackRequirement;
+    
+    let statusText = '';
+    if (isDying) statusText = ' 💀 (Dying!)';
+    else if (isWeakened) statusText = ' ⚠️ (Weakened!)';
+    
+    log.push(`→ ${enemy.name}${statusText}: Roll ${attackRoll} vs ${attackRequirement}% (${attackSuccess ? 'HIT' : 'MISS'})`);
+    
+    if (attackSuccess) {
+      const defenseRoll = rollD100();
+      const defenseSkill = getEnemyMeleeDefense(enemy);
+      const defenseSuccess = defenseRoll <= defenseSkill;
+      
+      log.push(`  🛡️ ${enemy.name} defends: ${defenseRoll} vs ${defenseSkill}% (${defenseSuccess ? 'PARRIED' : 'FAILED'})`);
+      
+      if (!defenseSuccess) {
+        const damage = getTotalDamageRating(state);
+        enemy.health = Math.max(0, enemy.health - damage);
+        
+        log.push(`  💥 ${enemy.name} takes ${damage} damage! (${enemy.health}/${enemy.maxHealth} HP)`);
+        
+        if (enemy.health <= 0) {
+          log.push(`  ☠️ ${enemy.name} defeated!`);
+          
+          // Promote a back enemy to front if one exists
+          const currentFrontEnemies = newState.combat.enemies.filter((e: EnemyInstance) => e.health > 0 && e.position === 'front');
+          const backEnemies = newState.combat.enemies.filter((e: EnemyInstance) => e.health > 0 && e.position === 'back');
+          
+          if (currentFrontEnemies.length < 2 && backEnemies.length > 0) {
+            const promoted = backEnemies[0];
+            promoted.position = 'front';
+            log.push(`  ⚔️ ${promoted.name} steps forward to fight!`);
+          }
+        }
+      } else {
+        log.push(`  The attack was parried!`);
+      }
+    }
   }
   
   newState.combat.combatLog = [...newState.combat.combatLog, ...log];
@@ -242,9 +347,12 @@ export function enemyTurn(state: PlayerState): { state: PlayerState; log: string
     return { state: newState, log: ['No active combat.'] };
   }
   
-  const livingEnemies = newState.combat.enemies.filter((e: EnemyInstance) => e.health > 0);
+  // Only front enemies can attack
+  const livingEnemies = newState.combat.enemies.filter((e: EnemyInstance) => e.health > 0 && e.position === 'front');
+  let attackerCount = 0;
   
   for (const enemy of livingEnemies) {
+    attackerCount++;
     const frozen = enemy.statusEffects?.find((e: any) => e.type === 'frozen');
     if (frozen) {
       log.push(`❄️ ${enemy.name} is frozen and cannot act!`);
@@ -260,7 +368,14 @@ export function enemyTurn(state: PlayerState): { state: PlayerState; log: string
     
     if (attackSuccess) {
       const defenseRoll = rollD100();
-      const defenseSkill = getMeleeDefense(state);
+      let defenseSkill = getMeleeDefense(state);
+      
+      // Apply pivot defense bonus to second attacker
+      if (attackerCount === 2 && newState.combat.pivotDefenseBonus?.active) {
+        defenseSkill = Math.floor(defenseSkill * 1.5);
+        log.push(`🔄 Pivot bonus: defense increased to ${defenseSkill}% against second attacker!`);
+      }
+      
       const defenseSuccess = defenseRoll <= defenseSkill;
       
       log.push(`🛡️ You defend: ${defenseRoll} vs ${defenseSkill}% (${defenseSuccess ? 'PARRIED' : 'FAILED'})`);
@@ -285,6 +400,11 @@ export function enemyTurn(state: PlayerState): { state: PlayerState; log: string
     }
   }
   
+  // Clear pivot defense bonus after enemy turn
+  if (newState.combat && newState.combat.pivotDefenseBonus) {
+    newState.combat.pivotDefenseBonus.active = false;
+  }
+  
   for (const enemy of newState.combat.enemies) {
     if (enemy.statusEffects) {
       enemy.statusEffects = enemy.statusEffects
@@ -297,6 +417,77 @@ export function enemyTurn(state: PlayerState): { state: PlayerState; log: string
   newState.combat.playerTurn = true;
   newState.combat.turnNumber += 1;
   log.push(`--- Turn ${newState.combat.turnNumber} ---`);
+  
+  return { state: newState, log };
+}
+
+export function playerPivot(targetInstanceId: string, state: PlayerState): { state: PlayerState; log: string[] } {
+  const newState = JSON.parse(JSON.stringify(state));
+  const log: string[] = [];
+  
+  if (!newState.combat || !newState.combat.active) {
+    return { state: newState, log: ['No active combat.'] };
+  }
+  
+  if (!newState.combat.playerTurn) {
+    return { state: newState, log: ['Not your turn!'] };
+  }
+  
+  const targetEnemy = newState.combat.enemies.find((e: EnemyInstance) => e.instanceId === targetInstanceId);
+  if (!targetEnemy || targetEnemy.health <= 0) {
+    return { state: newState, log: ['Invalid target.'] };
+  }
+  
+  log.push(`🔄 You pivot to attack ${targetEnemy.name}!`);
+  
+  // Perform normal attack
+  const enemyDef = getEnemyById(targetEnemy.enemyId);
+  if (!enemyDef) {
+    return { state: newState, log: ['Enemy definition not found.'] };
+  }
+  
+  // Calculate player attack with potential weakening bonus
+  let playerAttackSkill = getMeleeAttack(newState);
+  if (isEnemyWeakened(targetEnemy)) {
+    playerAttackSkill = Math.floor(playerAttackSkill * 1.5);
+    log.push(`${targetEnemy.name} is weakened! Your attack skill increased to ${playerAttackSkill}%.`);
+  }
+  
+  const playerRoll = rollD100();
+  const attackSuccess = playerRoll <= playerAttackSkill;
+  log.push(`Player rolls ${playerRoll} vs Attack ${playerAttackSkill}% → ${attackSuccess ? 'HIT' : 'MISS'}`);
+  
+  if (attackSuccess) {
+    const dmg = getTotalDamageRating(newState);
+    const ar = getEnemyArmourRating(targetEnemy);
+    let finalDmg = Math.max(1, dmg - ar);
+    
+    // Apply weakening damage multiplier
+    if (isEnemyWeakened(targetEnemy)) {
+      finalDmg = Math.floor(finalDmg * 1.5);
+    }
+    
+    targetEnemy.health = Math.max(0, targetEnemy.health - finalDmg);
+    log.push(`💥 You deal ${finalDmg} damage! (${targetEnemy.name}: ${targetEnemy.health}/${enemyDef.maxHealth} HP)`);
+    
+    if (targetEnemy.health <= 0) {
+      log.push(`☠️ ${targetEnemy.name} is defeated!`);
+    }
+  } else {
+    log.push(`Miss! ${targetEnemy.name} dodges your attack.`);
+  }
+  
+  // Set pivot defense bonus flag for this combat round
+  if (!newState.combat.pivotDefenseBonus) {
+    newState.combat.pivotDefenseBonus = {} as any;
+  }
+  newState.combat.pivotDefenseBonus.active = true;
+  newState.combat.pivotDefenseBonus.targetId = targetInstanceId;
+  
+  log.push(`🛡️ Pivot stance: +50% defense against second attacker this turn!`);
+  
+  // End player turn
+  newState.combat.playerTurn = false;
   
   return { state: newState, log };
 }
@@ -331,10 +522,37 @@ export function intimidateEnemy(enemyInstanceId: string, state: PlayerState): { 
   
   // Roll intimidation
   const intimidationRoll = rollD100();
-  const intimidationSkill = getIntimidation(state);
+  let intimidationSkill = getIntimidation(state);
+  
+  // Apply bonus for Weakened (50% health) or Dying (10% health) enemies
+  const isWeakened = isEnemyWeakened(enemy);
+  const isDying = isEnemyDying(enemy);
+  
+  if (isWeakened) {
+    intimidationSkill = Math.floor(intimidationSkill * 1.5);
+  }
+  
+  // Initialize intimidation attempts tracking if needed
+  if (!newState.combat.intimidationAttempts) {
+    newState.combat.intimidationAttempts = {};
+  }
+  
+  // Get previous attempts against this specific enemy
+  const previousAttempts = newState.combat.intimidationAttempts[enemyInstanceId] || 0;
+  
+  // Add 5% bonus per previous attempt (cumulative)
+  const attemptBonus = previousAttempts * 5;
+  intimidationSkill += attemptBonus;
+  
+  // Track this attempt
+  newState.combat.intimidationAttempts[enemyInstanceId] = previousAttempts + 1;
+  
   const success = intimidationRoll <= intimidationSkill;
   
-  log.push(`👁️ You attempt to intimidate ${enemy.name}!`);
+  const statusText = isDying ? ' 💀 (Dying!)' : isWeakened ? ' ⚠️ (Weakened!)' : '';
+  const attemptText = previousAttempts > 0 ? ` [+${attemptBonus}% from ${previousAttempts} previous attempt${previousAttempts > 1 ? 's' : ''}]` : '';
+  
+  log.push(`👁️ You attempt to intimidate ${enemy.name}!${statusText}${attemptText}`);
   log.push(`→ Intimidation roll: ${intimidationRoll} vs ${intimidationSkill}% (${success ? 'SUCCESS' : 'FAILED'})`);
   
   if (success) {
@@ -370,6 +588,11 @@ export function endCombat(victory: boolean, state: PlayerState): { state: Player
   
   if (victory) {
     log.push(`🎉 Victory! All enemies defeated!`);
+    
+    // Restore stamina to max after combat
+    const { getMaxStamina } = require('./skillCalculations');
+    newState.stamina = getMaxStamina(newState);
+    newState.maxStamina = getMaxStamina(newState);
     
     let totalGold = 0;
     let totalStatPoints = 0;
@@ -433,6 +656,13 @@ export function selectEnemy(enemyInstanceId: string | undefined, state: PlayerSt
   const newState = JSON.parse(JSON.stringify(state));
   
   if (newState.combat) {
+    // Reset intimidation attempts when switching to a different enemy
+    if (newState.combat.selectedEnemyId !== enemyInstanceId) {
+      if (!newState.combat.intimidationAttempts) {
+        newState.combat.intimidationAttempts = {};
+      }
+      // Don't reset the counter for the newly selected enemy, just switch selection
+    }
     newState.combat.selectedEnemyId = enemyInstanceId;
   }
   

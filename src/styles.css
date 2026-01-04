@@ -4,3 +4,8 @@ body{margin:0;background:var(--bg);color:#e6eef6}
 .choice-bar{display:flex;gap:12;flex-wrap:wrap;justify-content:center}
 .choice-btn{min-width:160;padding:10;border-radius:8;background:#222;color:#fff;border:0}
 h1{margin-top:0}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.9; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.02); }
+}

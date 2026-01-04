@@ -3,7 +3,7 @@ import { loadContent, getContentSnapshot, getStartAreaId, getAllAreas, getAreaBy
 import { usePlayerStore } from './store/playerStore';
 import { executeChoice } from './engine/execute';
 import { getActiveSkills, getPassiveSkills, getTotalArmourRating } from './engine/skillCalculations';
-import { initiateCombat, playerAttack, enemyTurn, selectEnemy, castSpell, intimidateEnemy } from './engine/combatNew';
+import { initiateCombat, playerAttack, enemyTurn, selectEnemy, castSpell, intimidateEnemy, playerSlash, playerPivot } from './engine/combatNew';
 
 export default function App() {
   const [page, setPage] = useState<'title'|'menu'|'game'>('title');
@@ -23,9 +23,12 @@ export default function App() {
   const equipment = usePlayerStore(s => s.equipment);
   const stats = usePlayerStore(s => s.stats);
   const health = usePlayerStore(s => s.health);
+  const stamina = usePlayerStore(s => s.stamina);
+  const maxStamina = usePlayerStore(s => s.maxStamina);
   const combat = usePlayerStore(s => s.combat);
   const spellsKnown = usePlayerStore(s => s.spellsKnown);
   const spellPathsUnlocked = usePlayerStore(s => s.spellPathsUnlocked);
+  const combatSkills = usePlayerStore(s => s.combatSkills);
   const quests = usePlayerStore(s => s.quests);
   const questLog = usePlayerStore(s => s.questLog);
   const flags = usePlayerStore(s => s.flags);
@@ -188,7 +191,7 @@ export default function App() {
               <div style={{ marginTop: 20 }}>
                 <button 
                   onClick={() => {
-                    setStatAllocMode(true);
+                    setModalPage('skills');
                     setPendingStats({ power: 0, mind: 0, agility: 0, vision: 0 });
                   }}
                   style={{ 
@@ -215,7 +218,7 @@ export default function App() {
                 <button 
                   onClick={() => {
                     const currentState = usePlayerStore.getState();
-                    const newState = initiateCombat(['test_goblin', 'test_goblin'], currentState);
+                    const newState = initiateCombat(['test_goblin', 'test_goblin', 'test_goblin', 'test_goblin'], currentState);
                     usePlayerStore.setState({ combat: newState.combat });
                   }}
                   style={{ 
@@ -307,6 +310,25 @@ export default function App() {
                       <div style={{ color: '#f1c40f', fontSize: 12, textAlign: 'center', fontWeight: 'bold' }}>
                         {Math.max(0, health)} / 100 HP
                       </div>
+                      {/* Stamina Bar */}
+                      <div style={{ 
+                        background: 'rgba(0,0,0,0.3)', 
+                        borderRadius: 8, 
+                        height: 10, 
+                        overflow: 'hidden',
+                        marginTop: 8,
+                        marginBottom: 4 
+                      }}>
+                        <div style={{ 
+                          height: '100%', 
+                          background: 'linear-gradient(90deg, #3498db, #2980b9)',
+                          width: `${Math.max(0, (stamina / maxStamina) * 100)}%`,
+                          transition: 'width 0.3s'
+                        }} />
+                      </div>
+                      <div style={{ color: '#5dade2', fontSize: 11, textAlign: 'center', fontWeight: 'bold' }}>
+                        ⚡ {Math.max(0, stamina)} / {maxStamina} Stamina
+                      </div>
                     </div>
                   </div>
 
@@ -315,54 +337,61 @@ export default function App() {
                     <h3 style={{ color: '#fff', marginBottom: 12, fontSize: 14, textTransform: 'uppercase', letterSpacing: 1 }}>
                       Enemies
                     </h3>
-                    <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', justifyContent: 'center' }}>
+                    <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', justifyContent: 'center', alignItems: 'flex-end' }}>
                       {combat.enemies.map((enemy) => {
                       const isSelected = combat.selectedEnemyId === enemy.instanceId;
                       const isDead = enemy.health <= 0;
+                      const isBack = enemy.position === 'back';
+                      const scale = isBack ? 0.6 : 1; // Make back enemies 60% size
+                      
                       return (
                         <div
                           key={enemy.instanceId}
                           onClick={() => {
-                            if (!isDead && combat.playerTurn) {
+                            if (!isDead && combat.playerTurn && !isBack) {
                               const currentState = usePlayerStore.getState();
                               const newState = selectEnemy(enemy.instanceId, currentState);
                               usePlayerStore.setState({ combat: newState.combat });
                             }
                           }}
                           style={{
-                            padding: 16,
+                            padding: 16 * scale,
                             background: isDead 
                               ? 'rgba(127, 140, 141, 0.3)' 
                               : isSelected 
                                 ? 'rgba(231, 76, 60, 0.4)' 
-                                : 'rgba(52, 73, 94, 0.6)',
-                            border: `3px solid ${isDead ? '#7f8c8d' : isSelected ? '#e74c3c' : '#34495e'}`,
-                            borderRadius: 12,
-                            minWidth: 140,
-                            cursor: isDead || !combat.playerTurn ? 'default' : 'pointer',
+                                : isBack
+                                  ? 'rgba(52, 73, 94, 0.4)'
+                                  : 'rgba(52, 73, 94, 0.6)',
+                            border: `${3 * scale}px solid ${isDead ? '#7f8c8d' : isSelected ? '#e74c3c' : '#34495e'}`,
+                            borderRadius: 12 * scale,
+                            minWidth: 140 * scale,
+                            cursor: isDead || !combat.playerTurn || isBack ? 'default' : 'pointer',
                             transition: 'all 0.2s',
-                            opacity: isDead ? 0.5 : 1,
-                            boxShadow: isSelected ? '0 0 20px rgba(231, 76, 60, 0.6)' : 'none'
+                            opacity: isDead ? 0.5 : isBack ? 0.7 : 1,
+                            boxShadow: isSelected ? '0 0 20px rgba(231, 76, 60, 0.6)' : 'none',
+                            transform: `scale(${scale})`,
+                            transformOrigin: 'bottom center'
                           }}
                         >
                           <div style={{ 
                             fontSize: 40, 
                             textAlign: 'center', 
-                            marginBottom: 8,
+                            marginBottom: 8 * scale,
                             filter: isDead ? 'grayscale(100%)' : 'none'
                           }}>
                             👹
                           </div>
-                          <div style={{ color: '#fff', fontSize: 14, fontWeight: 'bold', textAlign: 'center', marginBottom: 8 }}>
-                            {enemy.name} {isDead && '💀'}
+                          <div style={{ color: '#fff', fontSize: 14, fontWeight: 'bold', textAlign: 'center', marginBottom: 8 * scale }}>
+                            {enemy.name} {isDead && '💀'} {isBack && '(Back)'}
                           </div>
                           {/* Health Bar */}
                           <div style={{ 
                             background: 'rgba(0,0,0,0.3)', 
-                            borderRadius: 8, 
-                            height: 12, 
+                            borderRadius: 8 * scale, 
+                            height: 12 * scale, 
                             overflow: 'hidden',
-                            marginBottom: 4 
+                            marginBottom: 4 * scale 
                           }}>
                             <div style={{ 
                               height: '100%', 
@@ -375,7 +404,7 @@ export default function App() {
                               transition: 'width 0.3s'
                             }} />
                           </div>
-                          <div style={{ color: '#ecf0f1', fontSize: 12, textAlign: 'center' }}>
+                          <div style={{ color: '#ecf0f1', fontSize: 12 * scale, textAlign: 'center' }}>
                             {Math.max(0, enemy.health)} / {enemy.maxHealth} HP
                           </div>
                         </div>
@@ -426,6 +455,113 @@ export default function App() {
                     >
                       ⚔️ Attack {combat.selectedEnemyId ? combat.enemies.find(e => e.instanceId === combat.selectedEnemyId)?.name : 'Enemy'}
                     </button>
+
+                    {/* Slash Button - Attack All Front Enemies */}
+                    {(() => {
+                      const frontEnemies = combat.enemies.filter(e => e.health > 0 && e.position === 'front');
+                      const slashCost = 3;
+                      const hasSkill = combatSkills?.includes('slash');
+                      const hasStamina = stamina >= slashCost;
+                      if (frontEnemies.length < 2 || !hasSkill) return null;
+                      
+                      return (
+                        <button
+                          onClick={() => {
+                            if (!hasStamina) {
+                              alert('Out of Stamina!');
+                              return;
+                            }
+                            const currentState = usePlayerStore.getState();
+                            const result = playerSlash(currentState);
+                            usePlayerStore.setState({ 
+                              combat: result.state.combat,
+                              stamina: Math.max(0, currentState.stamina - slashCost)
+                            });
+                            
+                            // Enemy turn after slash
+                            setTimeout(() => {
+                              if (result.state.combat && result.state.combat.active && !result.state.combat.playerTurn) {
+                                const enemyResult = enemyTurn(result.state);
+                                usePlayerStore.setState({ 
+                                  combat: enemyResult.state.combat,
+                                  health: enemyResult.state.health 
+                                });
+                              }
+                            }, 1200);
+                          }}
+                          disabled={!hasStamina}
+                          style={{
+                            padding: '12px 32px',
+                            fontSize: 16,
+                            fontWeight: 'bold',
+                            borderRadius: 8,
+                            background: hasStamina ? 'linear-gradient(135deg, #e67e22, #d35400)' : '#95a5a6',
+                            color: '#fff',
+                            border: 'none',
+                            cursor: hasStamina ? 'pointer' : 'not-allowed',
+                            boxShadow: hasStamina ? '0 4px 12px rgba(230, 126, 34, 0.4)' : 'none',
+                            opacity: hasStamina ? 1 : 0.6
+                          }}
+                        >
+                          ⚔️💥 Slash All ({frontEnemies.length} enemies) [{slashCost}⚡]
+                        </button>
+                      );
+                    })()}
+
+                    {/* Pivot Button - Attack + Defense Boost */}
+                    {(() => {
+                      const pivotCost = 2;
+                      const hasSkill = combatSkills?.includes('pivot');
+                      const hasStamina = stamina >= pivotCost;
+                      if (!hasSkill) return null;
+                      
+                      return (
+                        <button
+                          onClick={() => {
+                            if (!combat.selectedEnemyId) {
+                              alert('Select an enemy first!');
+                              return;
+                            }
+                            if (!hasStamina) {
+                              alert('Out of Stamina!');
+                              return;
+                            }
+                            const currentState = usePlayerStore.getState();
+                            const result = playerPivot(combat.selectedEnemyId, currentState);
+                            usePlayerStore.setState({ 
+                              combat: result.state.combat,
+                              stamina: Math.max(0, currentState.stamina - pivotCost)
+                            });
+                            
+                            // Enemy turn after pivot
+                            setTimeout(() => {
+                              if (result.state.combat && result.state.combat.active && !result.state.combat.playerTurn) {
+                                const enemyResult = enemyTurn(result.state);
+                                usePlayerStore.setState({ 
+                                  combat: enemyResult.state.combat,
+                                  health: enemyResult.state.health 
+                                });
+                              }
+                            }, 1000);
+                          }}
+                          disabled={!hasStamina}
+                          style={{
+                            padding: '12px 32px',
+                            fontSize: 16,
+                            fontWeight: 'bold',
+                            borderRadius: 8,
+                            background: hasStamina ? 'linear-gradient(135deg, #16a085, #138d75)' : '#95a5a6',
+                            color: '#fff',
+                            border: 'none',
+                            cursor: hasStamina ? 'pointer' : 'not-allowed',
+                            boxShadow: hasStamina ? '0 4px 12px rgba(22, 160, 133, 0.4)' : 'none',
+                            opacity: hasStamina ? 1 : 0.6
+                          }}
+                        >
+                          🔄 Pivot [{pivotCost}⚡]
+                        </button>
+                      );
+                    })()}
 
                     {/* Intimidation Button - Send to Dungeons */}
                     {(() => {
@@ -528,58 +664,72 @@ export default function App() {
                           })}
                         </select>
 
-                        {selectedSpell && (
-                          <button
-                            onClick={() => {
-                              const spell = getAllSpells().find((s: any) => s.id === selectedSpell) as any;
-                              if (!spell) return;
-
-                              let targetIds: string[] | undefined = undefined;
-                              
-                              // Handle targeting
-                              if (spell.targeting === 'single') {
-                                if (!combat.selectedEnemyId) {
-                                  alert('Select an enemy target first!');
+                        {selectedSpell && (() => {
+                          const spell = getAllSpells().find((s: any) => s.id === selectedSpell) as any;
+                          // Determine stamina cost based on spell path (all paths cost 1 SP to unlock)
+                          const spellCost = 1;
+                          const hasStamina = stamina >= spellCost;
+                          
+                          return (
+                            <button
+                              onClick={() => {
+                                if (!spell) return;
+                                
+                                if (!hasStamina) {
+                                  alert('Out of Stamina!');
                                   return;
                                 }
-                                targetIds = [combat.selectedEnemyId];
-                              }
-                              // multi and all_enemies are handled automatically in castSpell
-                              
-                              const currentState = usePlayerStore.getState();
-                              const result = castSpell(selectedSpell, targetIds, currentState);
-                              usePlayerStore.setState({ 
-                                combat: result.state.combat,
-                                health: result.state.health 
-                              });
-                              setSelectedSpell(null);
-                              
-                              // Enemy turn after casting
-                              setTimeout(() => {
-                                if (result.state.combat && result.state.combat.active && !result.state.combat.playerTurn) {
-                                  const enemyResult = enemyTurn(result.state);
-                                  usePlayerStore.setState({ 
-                                    combat: enemyResult.state.combat,
-                                    health: enemyResult.state.health 
-                                  });
+
+                                let targetIds: string[] | undefined = undefined;
+                                
+                                // Handle targeting
+                                if (spell.targeting === 'single') {
+                                  if (!combat.selectedEnemyId) {
+                                    alert('Select an enemy target first!');
+                                    return;
+                                  }
+                                  targetIds = [combat.selectedEnemyId];
                                 }
-                              }, 1200);
-                            }}
-                            style={{
-                              padding: '12px 24px',
-                              fontSize: 16,
-                              fontWeight: 'bold',
-                              borderRadius: 8,
-                              background: 'linear-gradient(135deg, #8e44ad, #9b59b6)',
-                              color: '#fff',
-                              border: 'none',
-                              cursor: 'pointer',
-                              boxShadow: '0 4px 12px rgba(142, 68, 173, 0.4)'
-                            }}
-                          >
-                            ✨ Cast
-                          </button>
-                        )}
+                                // multi and all_enemies are handled automatically in castSpell
+                                
+                                const currentState = usePlayerStore.getState();
+                                const result = castSpell(selectedSpell, targetIds, currentState);
+                                usePlayerStore.setState({ 
+                                  combat: result.state.combat,
+                                  health: result.state.health,
+                                  stamina: Math.max(0, currentState.stamina - spellCost)
+                                });
+                                setSelectedSpell(null);
+                                
+                                // Enemy turn after casting
+                                setTimeout(() => {
+                                  if (result.state.combat && result.state.combat.active && !result.state.combat.playerTurn) {
+                                    const enemyResult = enemyTurn(result.state);
+                                    usePlayerStore.setState({ 
+                                      combat: enemyResult.state.combat,
+                                      health: enemyResult.state.health 
+                                    });
+                                  }
+                                }, 1200);
+                              }}
+                              disabled={!hasStamina}
+                              style={{
+                                padding: '12px 24px',
+                                fontSize: 16,
+                                fontWeight: 'bold',
+                                borderRadius: 8,
+                                background: hasStamina ? 'linear-gradient(135deg, #8e44ad, #9b59b6)' : '#95a5a6',
+                                color: '#fff',
+                                border: 'none',
+                                cursor: hasStamina ? 'pointer' : 'not-allowed',
+                                boxShadow: hasStamina ? '0 4px 12px rgba(142, 68, 173, 0.4)' : 'none',
+                                opacity: hasStamina ? 1 : 0.6
+                              }}
+                            >
+                              ✨ Cast {spell.name} [1⚡]
+                            </button>
+                          );
+                        })()}
                       </>
                     )}
                   </div>
@@ -666,7 +816,7 @@ export default function App() {
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16 }}>
                   <h3 style={{ margin: 0 }}>Equipment</h3>
                   <div style={{ fontSize: 18, fontWeight: 'bold', color: '#3498db' }}>
-                    AR: {getTotalArmourRating({ stats, equipment, inventory, currentAreaId, discoveredMap, spellsKnown, spellPathsUnlocked, health, lastCheckpointId, flags: flags || {}, quests: quests || {}, questLog: questLog || [] })}
+                    AR: {getTotalArmourRating({ stats, equipment, inventory, currentAreaId, discoveredMap, spellsKnown, spellPathsUnlocked, combatSkills: combatSkills || [], health, stamina: stamina || 0, maxStamina: maxStamina || 0, lastCheckpointId, flags: flags || {}, quests: quests || {}, questLog: questLog || [] })}
                   </div>
                 </div>
                 
@@ -725,38 +875,152 @@ export default function App() {
             {modalPage === 'skills' && (
               <div>
                 <h3 style={{ marginTop: 0 }}>Core Stats</h3>
-                <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr auto', gap: '12px 8px', marginBottom: 20, alignItems: 'center' }}>
-                  <div style={{ fontWeight: 'bold' }}>Power:</div>
-                  <div style={{ background: '#f0f0f0', height: 20, borderRadius: 10, overflow: 'hidden' }}>
-                    <div style={{ background: '#e74c3c', width: `${stats.power * 10}%`, height: '100%' }}></div>
-                  </div>
-                  <div style={{ fontWeight: 'bold', minWidth: 30 }}>{stats.power}/10</div>
-                  
-                  <div style={{ fontWeight: 'bold' }}>Mind:</div>
-                  <div style={{ background: '#f0f0f0', height: 20, borderRadius: 10, overflow: 'hidden' }}>
-                    <div style={{ background: '#9b59b6', width: `${stats.mind * 10}%`, height: '100%' }}></div>
-                  </div>
-                  <div style={{ fontWeight: 'bold', minWidth: 30 }}>{stats.mind}/10</div>
-                  
-                  <div style={{ fontWeight: 'bold' }}>Agility:</div>
-                  <div style={{ background: '#f0f0f0', height: 20, borderRadius: 10, overflow: 'hidden' }}>
-                    <div style={{ background: '#2ecc71', width: `${stats.agility * 10}%`, height: '100%' }}></div>
-                  </div>
-                  <div style={{ fontWeight: 'bold', minWidth: 30 }}>{stats.agility}/10</div>
-                  
-                  <div style={{ fontWeight: 'bold' }}>Vision:</div>
-                  <div style={{ background: '#f0f0f0', height: 20, borderRadius: 10, overflow: 'hidden' }}>
-                    <div style={{ background: '#3498db', width: `${stats.vision * 10}%`, height: '100%' }}></div>
-                  </div>
-                  <div style={{ fontWeight: 'bold', minWidth: 30 }}>{stats.vision}/10</div>
-                </div>
-                
                 {stats.statPoints > 0 && (
-                  <div style={{ marginBottom: 20, padding: 12, background: '#fffbea', border: '1px solid #f39c12', borderRadius: 8 }}>
-                    <strong>⚡ {stats.statPoints} Stat Points Available</strong>
-                    <div style={{ fontSize: 12, marginTop: 4 }}>Spend points to increase your core stats and improve your skills.</div>
+                  <div style={{ marginBottom: 16, padding: 12, background: '#fffbea', border: '1px solid #f39c12', borderRadius: 8 }}>
+                    <strong>⚡ {stats.statPoints - (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision)} Stat Points Available</strong>
+                    <div style={{ fontSize: 12, marginTop: 4 }}>Click + to increase stats, − to decrease. Changes apply immediately.</div>
                   </div>
                 )}
+                
+                {/* Power */}
+                <div style={{ marginBottom: 12, padding: 12, background: '#fff5f5', borderRadius: 8, border: '1px solid #ffcdd2' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                    <div>
+                      <strong style={{ color: '#e74c3c' }}>⚔️ Power</strong>
+                      <div style={{ fontSize: 11, color: '#666' }}>Melee Attack, Intimidation</div>
+                    </div>
+                    <div style={{ fontSize: 18, fontWeight: 'bold' }}>{stats.power + pendingStats.power}/10</div>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <button 
+                      onClick={() => setPendingStats(p => ({ ...p, power: Math.max(-(stats.power - 1), p.power - 1) }))}
+                      disabled={pendingStats.power <= -(stats.power - 1)}
+                      style={{ padding: '4px 12px', fontSize: 16, borderRadius: 6, background: pendingStats.power <= -(stats.power - 1) ? '#ddd' : '#e74c3c', color: '#fff', border: 'none', cursor: pendingStats.power <= -(stats.power - 1) ? 'not-allowed' : 'pointer', opacity: pendingStats.power <= -(stats.power - 1) ? 0.5 : 1 }}
+                    >−</button>
+                    <div style={{ flex: 1, height: 20, background: '#f0f0f0', borderRadius: 10, overflow: 'hidden' }}>
+                      <div style={{ width: `${(stats.power + pendingStats.power) * 10}%`, height: '100%', background: '#e74c3c', transition: 'width 0.3s' }}></div>
+                    </div>
+                    <button 
+                      onClick={async () => {
+                        const totalSpent = pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision;
+                        if (totalSpent < stats.statPoints && stats.power + pendingStats.power < 10) {
+                          const newPending = { ...pendingStats, power: pendingStats.power + 1 };
+                          setPendingStats(newPending);
+                          const allocateStats = (usePlayerStore as any).getState().allocateStats;
+                          await allocateStats({ power: 1, mind: 0, agility: 0, vision: 0 });
+                          setPendingStats({ power: 0, mind: 0, agility: 0, vision: 0 });
+                        }
+                      }}
+                      disabled={stats.power + pendingStats.power >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints}
+                      style={{ padding: '4px 12px', fontSize: 16, borderRadius: 6, background: (stats.power + pendingStats.power >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? '#ddd' : '#27ae60', color: '#fff', border: 'none', cursor: (stats.power + pendingStats.power >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? 'not-allowed' : 'pointer', opacity: (stats.power + pendingStats.power >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? 0.5 : 1, animation: stats.statPoints > 0 && (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) === 0 ? 'pulse 2s infinite' : 'none' }}
+                    >+</button>
+                  </div>
+                </div>
+                
+                {/* Mind */}
+                <div style={{ marginBottom: 12, padding: 12, background: '#f8f5ff', borderRadius: 8, border: '1px solid #e1d5ff' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                    <div>
+                      <strong style={{ color: '#9b59b6' }}>🧠 Mind</strong>
+                      <div style={{ fontSize: 11, color: '#666' }}>Magic Power, Ranged Attack</div>
+                    </div>
+                    <div style={{ fontSize: 18, fontWeight: 'bold' }}>{stats.mind + pendingStats.mind}/10</div>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <button 
+                      onClick={() => setPendingStats(p => ({ ...p, mind: Math.max(-(stats.mind - 1), p.mind - 1) }))}
+                      disabled={pendingStats.mind <= -(stats.mind - 1)}
+                      style={{ padding: '4px 12px', fontSize: 16, borderRadius: 6, background: pendingStats.mind <= -(stats.mind - 1) ? '#ddd' : '#9b59b6', color: '#fff', border: 'none', cursor: pendingStats.mind <= -(stats.mind - 1) ? 'not-allowed' : 'pointer', opacity: pendingStats.mind <= -(stats.mind - 1) ? 0.5 : 1 }}
+                    >−</button>
+                    <div style={{ flex: 1, height: 20, background: '#f0f0f0', borderRadius: 10, overflow: 'hidden' }}>
+                      <div style={{ width: `${(stats.mind + pendingStats.mind) * 10}%`, height: '100%', background: '#9b59b6', transition: 'width 0.3s' }}></div>
+                    </div>
+                    <button 
+                      onClick={async () => {
+                        const totalSpent = pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision;
+                        if (totalSpent < stats.statPoints && stats.mind + pendingStats.mind < 10) {
+                          const newPending = { ...pendingStats, mind: pendingStats.mind + 1 };
+                          setPendingStats(newPending);
+                          const allocateStats = (usePlayerStore as any).getState().allocateStats;
+                          await allocateStats({ power: 0, mind: 1, agility: 0, vision: 0 });
+                          setPendingStats({ power: 0, mind: 0, agility: 0, vision: 0 });
+                        }
+                      }}
+                      disabled={stats.mind + pendingStats.mind >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints}
+                      style={{ padding: '4px 12px', fontSize: 16, borderRadius: 6, background: (stats.mind + pendingStats.mind >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? '#ddd' : '#27ae60', color: '#fff', border: 'none', cursor: (stats.mind + pendingStats.mind >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? 'not-allowed' : 'pointer', opacity: (stats.mind + pendingStats.mind >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? 0.5 : 1, animation: stats.statPoints > 0 && (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) === 0 ? 'pulse 2s infinite' : 'none' }}
+                    >+</button>
+                  </div>
+                </div>
+                
+                {/* Agility */}
+                <div style={{ marginBottom: 12, padding: 12, background: '#f0fff4', borderRadius: 8, border: '1px solid #c6f6d5' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                    <div>
+                      <strong style={{ color: '#2ecc71' }}>🏃 Agility</strong>
+                      <div style={{ fontSize: 11, color: '#666' }}>Dodge, Ranged Attack, Pickpocket</div>
+                    </div>
+                    <div style={{ fontSize: 18, fontWeight: 'bold' }}>{stats.agility + pendingStats.agility}/10</div>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <button 
+                      onClick={() => setPendingStats(p => ({ ...p, agility: Math.max(-(stats.agility - 1), p.agility - 1) }))}
+                      disabled={pendingStats.agility <= -(stats.agility - 1)}
+                      style={{ padding: '4px 12px', fontSize: 16, borderRadius: 6, background: pendingStats.agility <= -(stats.agility - 1) ? '#ddd' : '#2ecc71', color: '#fff', border: 'none', cursor: pendingStats.agility <= -(stats.agility - 1) ? 'not-allowed' : 'pointer', opacity: pendingStats.agility <= -(stats.agility - 1) ? 0.5 : 1 }}
+                    >−</button>
+                    <div style={{ flex: 1, height: 20, background: '#f0f0f0', borderRadius: 10, overflow: 'hidden' }}>
+                      <div style={{ width: `${(stats.agility + pendingStats.agility) * 10}%`, height: '100%', background: '#2ecc71', transition: 'width 0.3s' }}></div>
+                    </div>
+                    <button 
+                      onClick={async () => {
+                        const totalSpent = pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision;
+                        if (totalSpent < stats.statPoints && stats.agility + pendingStats.agility < 10) {
+                          const newPending = { ...pendingStats, agility: pendingStats.agility + 1 };
+                          setPendingStats(newPending);
+                          const allocateStats = (usePlayerStore as any).getState().allocateStats;
+                          await allocateStats({ power: 0, mind: 0, agility: 1, vision: 0 });
+                          setPendingStats({ power: 0, mind: 0, agility: 0, vision: 0 });
+                        }
+                      }}
+                      disabled={stats.agility + pendingStats.agility >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints}
+                      style={{ padding: '4px 12px', fontSize: 16, borderRadius: 6, background: (stats.agility + pendingStats.agility >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? '#ddd' : '#27ae60', color: '#fff', border: 'none', cursor: (stats.agility + pendingStats.agility >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? 'not-allowed' : 'pointer', opacity: (stats.agility + pendingStats.agility >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? 0.5 : 1, animation: stats.statPoints > 0 && (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) === 0 ? 'pulse 2s infinite' : 'none' }}
+                    >+</button>
+                  </div>
+                </div>
+                
+                {/* Vision */}
+                <div style={{ marginBottom: 20, padding: 12, background: '#f0f8ff', borderRadius: 8, border: '1px solid #bee3f8' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                    <div>
+                      <strong style={{ color: '#3498db' }}>👁️ Vision</strong>
+                      <div style={{ fontSize: 11, color: '#666' }}>Perception, Ranged Attack</div>
+                    </div>
+                    <div style={{ fontSize: 18, fontWeight: 'bold' }}>{stats.vision + pendingStats.vision}/10</div>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <button 
+                      onClick={() => setPendingStats(p => ({ ...p, vision: Math.max(-(stats.vision - 1), p.vision - 1) }))}
+                      disabled={pendingStats.vision <= -(stats.vision - 1)}
+                      style={{ padding: '4px 12px', fontSize: 16, borderRadius: 6, background: pendingStats.vision <= -(stats.vision - 1) ? '#ddd' : '#3498db', color: '#fff', border: 'none', cursor: pendingStats.vision <= -(stats.vision - 1) ? 'not-allowed' : 'pointer', opacity: pendingStats.vision <= -(stats.vision - 1) ? 0.5 : 1 }}
+                    >−</button>
+                    <div style={{ flex: 1, height: 20, background: '#f0f0f0', borderRadius: 10, overflow: 'hidden' }}>
+                      <div style={{ width: `${(stats.vision + pendingStats.vision) * 10}%`, height: '100%', background: '#3498db', transition: 'width 0.3s' }}></div>
+                    </div>
+                    <button 
+                      onClick={async () => {
+                        const totalSpent = pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision;
+                        if (totalSpent < stats.statPoints && stats.vision + pendingStats.vision < 10) {
+                          const newPending = { ...pendingStats, vision: pendingStats.vision + 1 };
+                          setPendingStats(newPending);
+                          const allocateStats = (usePlayerStore as any).getState().allocateStats;
+                          await allocateStats({ power: 0, mind: 0, agility: 0, vision: 1 });
+                          setPendingStats({ power: 0, mind: 0, agility: 0, vision: 0 });
+                        }
+                      }}
+                      disabled={stats.vision + pendingStats.vision >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints}
+                      style={{ padding: '4px 12px', fontSize: 16, borderRadius: 6, background: (stats.vision + pendingStats.vision >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? '#ddd' : '#27ae60', color: '#fff', border: 'none', cursor: (stats.vision + pendingStats.vision >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? 'not-allowed' : 'pointer', opacity: (stats.vision + pendingStats.vision >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? 0.5 : 1, animation: stats.statPoints > 0 && (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) === 0 ? 'pulse 2s infinite' : 'none' }}
+                    >+</button>
+                  </div>
+                </div>
                 
                 <h3>Active Skills (% chance)</h3>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '8px', marginBottom: 20 }}>
@@ -801,6 +1065,89 @@ export default function App() {
                     <span style={{ marginRight: 8, fontWeight: 'bold' }}>{getActiveSkills(state).pickpocket}%</span>
                   </div>
                   <button style={{ padding: '4px 12px', fontSize: 12, borderRadius: 4, background: '#4a90e2', color: '#fff', border: 'none', cursor: 'pointer' }} onClick={() => alert('Mind×5 + Agility×5 = ' + getActiveSkills(state).pickpocket + '%')}>Info</button>
+                </div>
+                
+                <h3>Combat Skills</h3>
+                <div style={{ marginBottom: 20 }}>
+                  {[
+                    { id: 'clash', name: 'Clash', cost: 1, icon: '🛡️', desc: 'Force enemy back, preventing their attack and second enemy\'s attack' },
+                    { id: 'pivot', name: 'Pivot', cost: 2, icon: '🔄', desc: 'Normal attack + 50% defense boost against second opponent' },
+                    { id: 'feint', name: 'Feint', cost: 2, icon: '🤺', desc: 'Dodge targeted enemy\'s attack AND attack any second enemy' },
+                    { id: 'slash', name: 'Slash', cost: 3, icon: '⚔️💥', desc: 'Attack all front enemies with separate rolls' }
+                  ].map(skill => {
+                    const isLearned = combatSkills.includes(skill.id);
+                    const canAfford = stats.statPoints >= skill.cost;
+                    
+                    return (
+                      <div
+                        key={skill.id}
+                        style={{
+                          padding: 12,
+                          marginBottom: 8,
+                          background: isLearned ? 'linear-gradient(135deg, #2ecc71, #27ae60)' : canAfford ? 'rgba(243, 156, 18, 0.1)' : '#f5f5f5',
+                          border: `2px solid ${isLearned ? '#27ae60' : canAfford ? '#f39c12' : '#ddd'}`,
+                          borderRadius: 8,
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 12,
+                          opacity: isLearned ? 1 : canAfford ? 0.9 : 0.5,
+                          animation: !isLearned && canAfford ? 'pulse 2s infinite' : 'none'
+                        }}
+                      >
+                        <div style={{ fontSize: 32 }}>{skill.icon}</div>
+                        <div style={{ flex: 1 }}>
+                          <div style={{ fontWeight: 'bold', fontSize: 16, marginBottom: 4, color: isLearned ? '#fff' : '#333' }}>
+                            {skill.name}
+                          </div>
+                          <div style={{ fontSize: 12, color: isLearned ? '#e8f8f0' : '#666' }}>
+                            {skill.desc}
+                          </div>
+                        </div>
+                        {!isLearned && (
+                          <button
+                            onClick={() => {
+                              if (canAfford) {
+                                if (confirm(`Learn ${skill.name} for ${skill.cost} Stat Point${skill.cost > 1 ? 's' : ''}?`)) {
+                                  const currentState = usePlayerStore.getState();
+                                  const newStats = { ...currentState.stats, statPoints: currentState.stats.statPoints - skill.cost };
+                                  usePlayerStore.setState({ 
+                                    stats: newStats,
+                                    combatSkills: [...(currentState.combatSkills || []), skill.id]
+                                  });
+                                }
+                              }
+                            }}
+                            disabled={!canAfford}
+                            style={{
+                              padding: '8px 16px',
+                              fontSize: 14,
+                              fontWeight: 'bold',
+                              borderRadius: 6,
+                              background: canAfford ? 'linear-gradient(135deg, #f39c12, #e67e22)' : '#ccc',
+                              color: '#fff',
+                              border: 'none',
+                              cursor: canAfford ? 'pointer' : 'not-allowed',
+                              boxShadow: canAfford ? '0 2px 8px rgba(243, 156, 18, 0.3)' : 'none'
+                            }}
+                          >
+                            {canAfford ? `Learn (${skill.cost} SP)` : `Requires ${skill.cost} SP`}
+                          </button>
+                        )}
+                        {isLearned && (
+                          <div style={{ 
+                            padding: '8px 16px',
+                            fontSize: 14,
+                            fontWeight: 'bold',
+                            color: '#fff',
+                            background: 'rgba(255,255,255,0.2)',
+                            borderRadius: 6
+                          }}>
+                            ✓ Learned
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
                 
                 <h3>Passive Skills</h3>
@@ -1120,8 +1467,8 @@ export default function App() {
         </div>
       )}
       
-      {/* Stat Allocation Modal */}
-      {statAllocMode && (
+      {/* Stat Allocation Modal - REMOVED: Now integrated into Skills page */}
+      {false && statAllocMode && (
         <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.7)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 2000 }} onClick={() => { setStatAllocMode(false); setPendingStats({ power: 0, mind: 0, agility: 0, vision: 0 }); }}>
           <div style={{ background: '#fff', padding: 30, borderRadius: 12, maxWidth: 500, width: '90%' }} onClick={(e) => e.stopPropagation()}>
             <h2 style={{ marginTop: 0 }}>Allocate Stat Points</h2>

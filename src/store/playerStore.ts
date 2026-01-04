@@ -45,12 +45,15 @@ export function createPlayerStore(storage: KVStorage) {
     questLog: [],
     spellsKnown: [],
     spellPathsUnlocked: [],
+    combatSkills: [],
     stats: { 
       gold: 0,
       power: 1, mind: 1, agility: 1, vision: 1,
       statPoints: 4
     },
     health: 100,
+    stamina: 15,  // Starting stamina: (1+1+1)×5 = 15
+    maxStamina: 15,
     lastCheckpointId: 'start',
     flags: {},
     hasSave: false,
@@ -88,7 +91,9 @@ export function createPlayerStore(storage: KVStorage) {
         discoveredMap: discovered, 
         inventory: [], 
         equipment: {}, 
-        spellsKnown: [], 
+        spellsKnown: [],
+        spellPathsUnlocked: [],
+        combatSkills: [],
         stats: { 
           gold: 0,
           power: 1, mind: 1, agility: 1, vision: 1,

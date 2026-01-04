@@ -80,6 +80,7 @@ export type EnemyInstance = {
   stats: EnemyStats;
   equipment: Record<string, string | null>;
   spells: string[];
+  position: 'front' | 'back';  // Combat positioning
   statusEffects?: Array<{
     type: string;      // frozen, burning, stunned, etc.
     duration: number;  // Turns remaining
@@ -94,6 +95,8 @@ export type CombatState = {
   playerTurn: boolean;
   turnNumber: number;
   combatLog: string[];
+  intimidationAttempts?: Record<string, number>; // Track intimidation attempts per enemy instanceId
+  pivotDefenseBonus?: { active: boolean; targetId: string }; // Track pivot defense bonus for current turn
 };
 
 export type PlayerState = {
@@ -103,8 +106,11 @@ export type PlayerState = {
   equipment: Record<string, string | null>;
   spellsKnown: string[];
   spellPathsUnlocked: SpellPath[];  // Unlocked magic paths
+  combatSkills: string[];  // Learned combat skills (clash, feint, slash)
   stats: PlayerStats;
   health: number;  // Current health (max 100)
+  stamina: number;  // Current stamina for skills/spells
+  maxStamina: number;  // Maximum stamina (Power×5 + Mind×5 + Agility×5)
   lastCheckpointId: string;  // Area ID of last checkpoint for respawn
   combat?: CombatState;  // Active combat state
   flags?: Record<string, any>;

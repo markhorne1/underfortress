@@ -5,6 +5,10 @@ import { getContentSnapshot } from './contentLoader';
  * Calculate skill values from core stats using the design formulas
  */
 
+export function getMaxStamina(state: PlayerState): number {
+  return state.stats.power * 5 + state.stats.mind * 5 + state.stats.agility * 5;
+}
+
 export function getSearch(state: PlayerState): number {
   return state.stats.vision * 10;
 }
