@@ -1,0 +1,12 @@
+[
+  {
+    "id": "godstone",
+    "name": "Godstone of Renewal",
+    "description": "A fist-sized crystal that pulses with purple inner fire. An artifact of immense power from an age before memory. Allows you to reset all your stats to their base values and recover all spent stat points. Can only be used once — the Godstone will be consumed in the process.",
+    "stackable": false,
+    "usableInCombat": false,
+    "rarity": "legendary",
+    "value": 0,
+    "category": "quest"
+  }
+]

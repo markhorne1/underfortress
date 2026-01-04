@@ -427,8 +427,28 @@
       "e": "u_drain_slit",
       "n": "u_jailer_gallery",
       "w": "u_supply_lift"
-    },
-    "choices": [
+    },    "actionsAvailable": {
+      "investigate": {
+        "text": "Behind one of the massive chain wheels, the wall shows signs of an old collapse. Rubble partially blocks what might be a passage.",
+        "choices": [
+          {
+            "id": "notice_passage",
+            "label": "Examine the collapsed section more closely.",
+            "effects": [
+              {
+                "type": "text",
+                "text": "You peer through the rubble and see ancient stonework beyond — much older than this fortress. A faint purple glow emanates from within."
+              },
+              {
+                "type": "addExit",
+                "direction": "ne",
+                "targetAreaId": "u_forgotten_shrine_entrance"
+              }
+            ]
+          }
+        ]
+      }
+    },    "choices": [
       {
         "id": "muffle",
         "label": "Cast Muffle Steps to cross the chain gallery quietly.",

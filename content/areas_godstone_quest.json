@@ -1,0 +1,145 @@
+[
+  {
+    "id": "u_forgotten_shrine_entrance",
+    "title": "Collapsed Passage",
+    "x": 8,
+    "y": -12,
+    "floorId": "underfortress",
+    "tileStyle": "fortress",
+    "cover": "partial",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, ancient collapsed passage in underground fortress, rubble partially blocking ornate doorway, faint mystical glow from within, cinematic, no text",
+    "description": "A section of the corridor has collapsed, revealing what looks like an older passage behind the fortress walls.\n\nBetween the rubble, you can see carved stone that predates the fortress by centuries — perhaps millennia. A faint purple glow pulses from within.",
+    "exits": {
+      "s": "u_chain_gallery"
+    },
+    "actionsAvailable": {
+      "investigate": {
+        "text": "The rubble blocks direct entry, but with enough strength or the right tools...",
+        "choices": [
+          {
+            "id": "clear_rubble_power",
+            "label": "Clear the rubble by hand. (Power 7+)",
+            "requirements": [
+              {
+                "type": "stat",
+                "stat": "power",
+                "min": 7
+              }
+            ],
+            "effects": [
+              {
+                "type": "flag",
+                "key": "shrine_rubble_cleared",
+                "value": true
+              },
+              {
+                "type": "text",
+                "text": "You heave aside the stone blocks one by one. Sweat pours down your face, but the passage opens."
+              },
+              {
+                "type": "addExit",
+                "direction": "e",
+                "targetAreaId": "u_forgotten_shrine"
+              }
+            ]
+          },
+          {
+            "id": "clear_rubble_magic",
+            "label": "Use Earth magic to shift the stones. (Earthshape spell)",
+            "requirements": [
+              {
+                "type": "knowsSpell",
+                "spellId": "earthshape"
+              }
+            ],
+            "effects": [
+              {
+                "type": "castSpell",
+                "spellId": "earthshape"
+              },
+              {
+                "type": "flag",
+                "key": "shrine_rubble_cleared",
+                "value": true
+              },
+              {
+                "type": "text",
+                "text": "The stones groan and shift aside at your command, revealing the ancient passage."
+              },
+              {
+                "type": "addExit",
+                "direction": "e",
+                "targetAreaId": "u_forgotten_shrine"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "u_forgotten_shrine",
+    "title": "The Forgotten Shrine",
+    "x": 9,
+    "y": -12,
+    "floorId": "underfortress",
+    "tileStyle": "ancient",
+    "cover": "none",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, ancient underground shrine with mystical purple crystal on stone pedestal, magical runes glowing on walls, dust motes in divine light beams, cinematic atmosphere, no text",
+    "description": "This chamber predates the fortress by ages unknown. The walls are carved with runes in a language that seems to shift when you try to read it.\n\nIn the center, on a simple stone pedestal, rests a fist-sized crystal that glows with inner purple fire. The air hums with ancient power.\n\nThis is a place of renewal, of second chances — a gift from gods whose names are long forgotten.",
+    "exits": {
+      "w": "u_forgotten_shrine_entrance"
+    },
+    "actionsAvailable": {
+      "investigate": {
+        "text": "The crystal pulses with a rhythm like a heartbeat. The runes on the walls seem to speak of rebirth and transformation.",
+        "choices": [
+          {
+            "id": "read_runes_mind",
+            "label": "Study the ancient runes. (Mind 6+)",
+            "requirements": [
+              {
+                "type": "stat",
+                "stat": "mind",
+                "min": 6
+              }
+            ],
+            "effects": [
+              {
+                "type": "flag",
+                "key": "shrine_runes_understood",
+                "value": true
+              },
+              {
+                "type": "text",
+                "text": "The runes speak of a Godstone — a relic that allows one to undo past choices and begin anew. Those who built this place believed in the power of transformation."
+              }
+            ]
+          },
+          {
+            "id": "take_godstone",
+            "label": "Take the crystal from the pedestal.",
+            "effects": [
+              {
+                "type": "addItem",
+                "itemId": "godstone",
+                "qty": 1
+              },
+              {
+                "type": "flag",
+                "key": "godstone_acquired",
+                "value": true
+              },
+              {
+                "type": "text",
+                "text": "As your fingers close around the crystal, warmth floods through you. This is the Godstone — a relic of immense power that can unravel the very threads of your being and allow you to rebuild yourself anew.\n\nYou sense this power can only be used once. Choose the moment wisely."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+]

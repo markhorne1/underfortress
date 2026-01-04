@@ -1,0 +1,39 @@
+<svg width="300" height="400" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Simple stick figure body outline -->
+  <!-- Head circle -->
+  <circle cx="150" cy="50" r="30" fill="none" stroke="#bbb" stroke-width="2" stroke-dasharray="4,4"/>
+  
+  <!-- Neck -->
+  <line x1="150" y1="80" x2="150" y2="100" stroke="#bbb" stroke-width="2" stroke-dasharray="4,4"/>
+  
+  <!-- Shoulders line -->
+  <line x1="80" y1="120" x2="220" y2="120" stroke="#bbb" stroke-width="2" stroke-dasharray="4,4"/>
+  
+  <!-- Torso -->
+  <rect x="120" y="100" width="60" height="100" fill="none" stroke="#bbb" stroke-width="2" stroke-dasharray="4,4" rx="4"/>
+  
+  <!-- Arms -->
+  <line x1="80" y1="120" x2="80" y2="180" stroke="#bbb" stroke-width="2" stroke-dasharray="4,4"/>
+  <line x1="220" y1="120" x2="220" y2="180" stroke="#bbb" stroke-width="2" stroke-dasharray="4,4"/>
+  
+  <!-- Hands circles -->
+  <circle cx="80" cy="190" r="20" fill="none" stroke="#bbb" stroke-width="2" stroke-dasharray="4,4"/>
+  <circle cx="220" cy="190" r="20" fill="none" stroke="#bbb" stroke-width="2" stroke-dasharray="4,4"/>
+  
+  <!-- Legs -->
+  <line x1="130" y1="200" x2="120" y2="300" stroke="#bbb" stroke-width="2" stroke-dasharray="4,4"/>
+  <line x1="170" y1="200" x2="180" y2="300" stroke="#bbb" stroke-width="2" stroke-dasharray="4,4"/>
+  
+  <!-- Feet circles -->
+  <circle cx="120" cy="320" r="18" fill="none" stroke="#bbb" stroke-width="2" stroke-dasharray="4,4"/>
+  <circle cx="180" cy="320" r="18" fill="none" stroke="#bbb" stroke-width="2" stroke-dasharray="4,4"/>
+  
+  <!-- Background fill with slight gradient -->
+  <defs>
+    <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8f9fa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e9ecef;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="300" height="400" fill="url(#bodyGrad)" opacity="0.3"/>
+</svg>

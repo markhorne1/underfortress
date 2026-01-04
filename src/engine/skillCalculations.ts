@@ -18,7 +18,35 @@ export function getInvestigate(state: PlayerState): number {
 }
 
 export function getMeleeAttack(state: PlayerState): number {
-  return state.stats.power * 10;
+  let base = state.stats.power * 10;
+  
+  // Add bonuses from equipped weapons
+  const equipment = state.equipment || {};
+  const content = getContentSnapshot();
+  const items = content?.items || new Map();
+  
+  if (equipment.mainhand) {
+    const weapon = items.get(equipment.mainhand);
+    if (weapon && typeof weapon.attackBonus === 'number') {
+      base += weapon.attackBonus;
+    }
+  }
+  
+  if (equipment.offhand) {
+    const weapon = items.get(equipment.offhand);
+    if (weapon && typeof weapon.attackBonus === 'number') {
+      base += weapon.attackBonus;
+    }
+  }
+  
+  // Add bonuses from active buffs (e.g., Fireblade, Iceblade)
+  const buffs = state.activeBuffs || [];
+  const attackBuffs = buffs.filter(b => b.stat === 'meleeAttack');
+  for (const buff of attackBuffs) {
+    base += buff.value;
+  }
+  
+  return base;
 }
 
 export function getRangedAttack(state: PlayerState): number {
@@ -43,7 +71,35 @@ export function getPerception(state: PlayerState): number {
 
 export function getMeleeDefense(state: PlayerState): number {
   const armourRating = getTotalArmourRating(state);
-  return armourRating + state.stats.power * 5 + state.stats.agility * 5;
+  let base = armourRating + state.stats.power * 5 + state.stats.agility * 5;
+  
+  // Add bonuses from equipped shields and weapons
+  const equipment = state.equipment || {};
+  const content = getContentSnapshot();
+  const items = content?.items || new Map();
+  
+  if (equipment.mainhand) {
+    const item = items.get(equipment.mainhand);
+    if (item && typeof item.defenseBonus === 'number') {
+      base += item.defenseBonus;
+    }
+  }
+  
+  if (equipment.offhand) {
+    const item = items.get(equipment.offhand);
+    if (item && typeof item.defenseBonus === 'number') {
+      base += item.defenseBonus;
+    }
+  }
+  
+  // Add bonuses from active buffs
+  const buffs = state.activeBuffs || [];
+  const defenseBuffs = buffs.filter(b => b.stat === 'meleeDefense');
+  for (const buff of defenseBuffs) {
+    base += buff.value;
+  }
+  
+  return base;
 }
 
 export function getRangedDefense(state: PlayerState): number {
@@ -92,6 +148,13 @@ export function getTotalArmourRating(state: PlayerState): number {
     }
   }
   
+  // Add AR bonuses from active buffs (e.g., Stone Skin)
+  const buffs = state.activeBuffs || [];
+  const arBuffs = buffs.filter(b => b.stat === 'ar');
+  for (const buff of arBuffs) {
+    total += buff.value;
+  }
+  
   return total;
 }
 
@@ -132,6 +195,13 @@ export function getTotalDamageRating(state: PlayerState): number {
   // If no weapons equipped, use unarmed damage (Power-based)
   if (total === 0) {
     total = Math.max(1, Math.floor(state.stats.power / 2));
+  }
+  
+  // Add damage bonuses from active buffs (e.g., Fireblade, Iceblade)
+  const buffs = state.activeBuffs || [];
+  const damageBuffs = buffs.filter(b => b.stat === 'attackDamage');
+  for (const buff of damageBuffs) {
+    total += buff.value;
   }
   
   return total;

@@ -181,6 +181,15 @@ export function playerAttack(state: PlayerState): { state: PlayerState; log: str
   const attackRoll = rollD100();
   let attackSkill = getMeleeAttack(state);
   
+  // Debug: Log active buffs
+  if (state.activeBuffs && state.activeBuffs.length > 0) {
+    const attackBuffs = state.activeBuffs.filter(b => b.stat === 'meleeAttack');
+    if (attackBuffs.length > 0) {
+      const bonusTotal = attackBuffs.reduce((sum, b) => sum + b.value, 0);
+      log.push(`📊 Attack buffs active: +${bonusTotal}% (base: ${attackSkill - bonusTotal}%)`);
+    }
+  }
+  
   // Check for dying state (coup de grace)
   const isDying = isEnemyDying(enemy);
   const isWeakened = isEnemyWeakened(enemy);
@@ -213,12 +222,23 @@ export function playerAttack(state: PlayerState): { state: PlayerState; log: str
     
     if (!defenseSuccess) {
       const damage = getTotalDamageRating(state);
+      
+      // Debug: Log damage buffs
+      if (state.activeBuffs && state.activeBuffs.length > 0) {
+        const damageBuffs = state.activeBuffs.filter(b => b.stat === 'attackDamage');
+        if (damageBuffs.length > 0) {
+          const bonusTotal = damageBuffs.reduce((sum, b) => sum + b.value, 0);
+          log.push(`📊 Damage buffs active: +${bonusTotal} damage`);
+        }
+      }
+      
       enemy.health = Math.max(0, enemy.health - damage);
       
       log.push(`💥 ${enemy.name} takes ${damage} damage! (${enemy.health}/${enemy.maxHealth} HP)`);
       
       if (enemy.health <= 0) {
         log.push(`☠️ ${enemy.name} defeated!`);
+        enemy.deathTimestamp = Date.now();
         
         // Promote a back enemy to front if one exists
         const frontEnemies = newState.combat.enemies.filter((e: EnemyInstance) => e.health > 0 && e.position === 'front');
@@ -275,6 +295,15 @@ export function playerSlash(state: PlayerState): { state: PlayerState; log: stri
     const attackRoll = rollD100();
     let attackSkill = getMeleeAttack(state);
     
+    // Debug: Log active buffs
+    if (state.activeBuffs && state.activeBuffs.length > 0) {
+      const attackBuffs = state.activeBuffs.filter(b => b.stat === 'meleeAttack');
+      if (attackBuffs.length > 0) {
+        const bonusTotal = attackBuffs.reduce((sum, b) => sum + b.value, 0);
+        log.push(`📊 Attack buffs active: +${bonusTotal}% (base: ${attackSkill - bonusTotal}%)`);
+      }
+    }
+    
     // Check for dying state (coup de grace)
     const isDying = isEnemyDying(enemy);
     const isWeakened = isEnemyWeakened(enemy);
@@ -310,6 +339,7 @@ export function playerSlash(state: PlayerState): { state: PlayerState; log: stri
         
         if (enemy.health <= 0) {
           log.push(`  ☠️ ${enemy.name} defeated!`);
+          enemy.deathTimestamp = Date.now();
           
           // Promote a back enemy to front if one exists
           const currentFrontEnemies = newState.combat.enemies.filter((e: EnemyInstance) => e.health > 0 && e.position === 'front');
@@ -405,12 +435,37 @@ export function enemyTurn(state: PlayerState): { state: PlayerState; log: string
     newState.combat.pivotDefenseBonus.active = false;
   }
   
+  // Remove dead enemies that have been dead for more than 2 seconds
+  const now = Date.now();
+  newState.combat.enemies = newState.combat.enemies.filter((e: EnemyInstance) => {
+    if (e.health > 0) return true; // Keep alive enemies
+    if (e.deathTimestamp && (now - e.deathTimestamp) < 2000) return true; // Keep recently dead
+    return false; // Remove old dead enemies
+  });
+  
+  // Promote reserves to front line if slots are available
+  const livingFrontEnemies = newState.combat.enemies.filter((e: EnemyInstance) => e.health > 0 && e.position === 'front');
+  const livingBackEnemies = newState.combat.enemies.filter((e: EnemyInstance) => e.health > 0 && e.position === 'back');
+  
+  if (livingFrontEnemies.length < 2 && livingBackEnemies.length > 0) {
+    const promoted = livingBackEnemies[0];
+    promoted.position = 'front';
+    log.push(`⚔️ ${promoted.name} steps forward from reserves!`);
+  }
+  
   for (const enemy of newState.combat.enemies) {
     if (enemy.statusEffects) {
       enemy.statusEffects = enemy.statusEffects
         .map((e: any) => ({ ...e, duration: e.duration - 1 }))
         .filter((e: any) => e.duration > 0);
     }
+  }
+  
+  // Decrement player buffs
+  if (newState.activeBuffs) {
+    newState.activeBuffs = newState.activeBuffs
+      .map((b: any) => ({ ...b, duration: b.duration - 1 }))
+      .filter((b: any) => b.duration > 0);
   }
   
   newState.combat.combatLog = [...newState.combat.combatLog, ...log];
@@ -472,6 +527,17 @@ export function playerPivot(targetInstanceId: string, state: PlayerState): { sta
     
     if (targetEnemy.health <= 0) {
       log.push(`☠️ ${targetEnemy.name} is defeated!`);
+      targetEnemy.deathTimestamp = Date.now();
+      
+      // Promote a back enemy to front if one exists
+      const frontEnemies = newState.combat.enemies.filter((e: EnemyInstance) => e.health > 0 && e.position === 'front');
+      const backEnemies = newState.combat.enemies.filter((e: EnemyInstance) => e.health > 0 && e.position === 'back');
+      
+      if (frontEnemies.length < 2 && backEnemies.length > 0) {
+        const promoted = backEnemies[0];
+        promoted.position = 'front';
+        log.push(`⚔️ ${promoted.name} steps forward to fight!`);
+      }
     }
   } else {
     log.push(`Miss! ${targetEnemy.name} dodges your attack.`);
@@ -739,9 +805,23 @@ export function castSpell(spellId: string, targetIds: string[] | undefined, stat
   
   // Self buffs
   if (spell.targeting === 'self' && effects.buff) {
-    const buff = effects.buff;
-    log.push(`🛡️ Gained ${buff.stat} +${buff.value} for ${buff.duration} turns`);
-    // Note: Would need to track active buffs in combat state
+    const buffArray = Array.isArray(effects.buff) ? effects.buff : [effects.buff];
+    
+    newState.activeBuffs = newState.activeBuffs || [];
+    
+    for (const buff of buffArray) {
+      // Remove any existing buff of the same type (don't stack)
+      newState.activeBuffs = newState.activeBuffs.filter((b: any) => b.stat !== buff.stat);
+      
+      // Add new buff
+      newState.activeBuffs.push({
+        stat: buff.stat,
+        value: buff.value,
+        duration: buff.duration
+      });
+      
+      log.push(`🛡️ Gained ${buff.stat} +${buff.value} for ${buff.duration} turns`);
+    }
   }
   
   // Special effects

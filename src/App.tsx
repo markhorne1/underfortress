@@ -180,11 +180,11 @@ export default function App() {
       )}
       
       {/* Main Content - Centered */}
-      <div style={{ flex: 1, padding: 20, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ flex: 1, padding: 20, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', overflowY: 'auto' }}>
         {area ? (
-          <div style={{ maxWidth: 800, width: '100%', textAlign: 'center' }}>
-            <h1 style={{ marginBottom: 20 }}>{area.title ?? area.id}</h1>
-            <p style={{ whiteSpace: 'pre-wrap', lineHeight: 1.6 }}>{area.description}</p>
+          <div style={{ maxWidth: 800, width: '100%' }}>
+            <h1 style={{ marginBottom: 20, textAlign: 'center' }}>{area.title ?? area.id}</h1>
+            <p style={{ whiteSpace: 'pre-wrap', lineHeight: 1.6, textAlign: 'center' }}>{area.description}</p>
             
             {/* Spend Stat Points Button */}
             {stats.statPoints > 0 && (
@@ -238,7 +238,7 @@ export default function App() {
               </div>
             )}
 
-            {/* Combat UI */}
+            {/* Combat UI - Positioned ABOVE continuing text */}
             {combat && combat.active && (
               <div style={{ 
                 marginTop: 20, 
@@ -333,84 +333,152 @@ export default function App() {
                   </div>
 
                   {/* Enemy Display */}
-                  <div>
-                    <h3 style={{ color: '#fff', marginBottom: 12, fontSize: 14, textTransform: 'uppercase', letterSpacing: 1 }}>
-                      Enemies
-                    </h3>
-                    <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', justifyContent: 'center', alignItems: 'flex-end' }}>
-                      {combat.enemies.map((enemy) => {
-                      const isSelected = combat.selectedEnemyId === enemy.instanceId;
-                      const isDead = enemy.health <= 0;
-                      const isBack = enemy.position === 'back';
-                      const scale = isBack ? 0.6 : 1; // Make back enemies 60% size
+                  <div style={{ display: 'flex', gap: 20, alignItems: 'flex-start' }}>
+                    {/* Front Row Enemies */}
+                    <div>
+                      <h3 style={{ color: '#fff', marginBottom: 12, fontSize: 14, textTransform: 'uppercase', letterSpacing: 1 }}>
+                        Front Line
+                      </h3>
+                      <div style={{ display: 'flex', gap: 16, justifyContent: 'center', alignItems: 'flex-end' }}>
+                        {combat.enemies.filter(e => {
+                          // Show if alive and in front
+                          if (e.health > 0 && e.position === 'front') return true;
+                          // Show if dead but within 2 seconds
+                          if (e.health <= 0 && e.position === 'front' && e.deathTimestamp && (Date.now() - e.deathTimestamp) < 2000) return true;
+                          return false;
+                        }).map((enemy) => {
+                          const isSelected = combat.selectedEnemyId === enemy.instanceId;
+                          const isDead = enemy.health <= 0;
+                          
+                          return (
+                            <div
+                              key={enemy.instanceId}
+                              onClick={() => {
+                                if (!isDead && combat.playerTurn) {
+                                  const currentState = usePlayerStore.getState();
+                                  const newState = selectEnemy(enemy.instanceId, currentState);
+                                  usePlayerStore.setState({ combat: newState.combat });
+                                }
+                              }}
+                              style={{
+                                padding: 16,
+                                background: isDead
+                                  ? 'rgba(127, 140, 141, 0.3)'
+                                  : isSelected 
+                                    ? 'rgba(231, 76, 60, 0.4)' 
+                                    : 'rgba(52, 73, 94, 0.6)',
+                                border: `3px solid ${isDead ? '#7f8c8d' : isSelected ? '#e74c3c' : '#34495e'}`,
+                                borderRadius: 12,
+                                minWidth: 140,
+                                cursor: isDead || !combat.playerTurn ? 'default' : 'pointer',
+                                transition: 'all 0.2s',
+                                opacity: isDead ? 0.4 : 1,
+                                boxShadow: isSelected ? '0 0 20px rgba(231, 76, 60, 0.6)' : 'none'
+                              }}
+                            >
+                              <div style={{ 
+                                fontSize: 40, 
+                                textAlign: 'center', 
+                                marginBottom: 8,
+                                filter: isDead ? 'grayscale(100%)' : 'none'
+                              }}>
+                                {isDead ? '💀' : '👹'}
+                              </div>
+                              <div style={{ color: '#fff', fontSize: 14, fontWeight: 'bold', textAlign: 'center', marginBottom: 8 }}>
+                                {enemy.name}
+                              </div>
+                              {/* Health Bar */}
+                              <div style={{ 
+                                background: 'rgba(0,0,0,0.3)', 
+                                borderRadius: 8, 
+                                height: 12, 
+                                overflow: 'hidden',
+                                marginBottom: 4
+                              }}>
+                                <div style={{ 
+                                  height: '100%', 
+                                  background: enemy.health > enemy.maxHealth * 0.5 
+                                    ? 'linear-gradient(90deg, #2ecc71, #27ae60)' 
+                                    : enemy.health > enemy.maxHealth * 0.25 
+                                      ? 'linear-gradient(90deg, #f39c12, #e67e22)'
+                                      : 'linear-gradient(90deg, #e74c3c, #c0392b)',
+                                  width: `${Math.max(0, (enemy.health / enemy.maxHealth) * 100)}%`,
+                                  transition: 'width 0.3s'
+                                }} />
+                              </div>
+                              <div style={{ color: '#ecf0f1', fontSize: 12, textAlign: 'center' }}>
+                                {Math.max(0, enemy.health)} / {enemy.maxHealth} HP
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                    
+                    {/* Reserve Enemies */}
+                    {(() => {
+                      const reserveEnemies = combat.enemies.filter(e => e.health > 0 && e.position === 'back');
+                      if (reserveEnemies.length === 0) return null;
                       
                       return (
-                        <div
-                          key={enemy.instanceId}
-                          onClick={() => {
-                            if (!isDead && combat.playerTurn && !isBack) {
-                              const currentState = usePlayerStore.getState();
-                              const newState = selectEnemy(enemy.instanceId, currentState);
-                              usePlayerStore.setState({ combat: newState.combat });
-                            }
-                          }}
-                          style={{
-                            padding: 16 * scale,
-                            background: isDead 
-                              ? 'rgba(127, 140, 141, 0.3)' 
-                              : isSelected 
-                                ? 'rgba(231, 76, 60, 0.4)' 
-                                : isBack
-                                  ? 'rgba(52, 73, 94, 0.4)'
-                                  : 'rgba(52, 73, 94, 0.6)',
-                            border: `${3 * scale}px solid ${isDead ? '#7f8c8d' : isSelected ? '#e74c3c' : '#34495e'}`,
-                            borderRadius: 12 * scale,
-                            minWidth: 140 * scale,
-                            cursor: isDead || !combat.playerTurn || isBack ? 'default' : 'pointer',
-                            transition: 'all 0.2s',
-                            opacity: isDead ? 0.5 : isBack ? 0.7 : 1,
-                            boxShadow: isSelected ? '0 0 20px rgba(231, 76, 60, 0.6)' : 'none',
-                            transform: `scale(${scale})`,
-                            transformOrigin: 'bottom center'
-                          }}
-                        >
+                        <div>
+                          <h3 style={{ color: '#fff', marginBottom: 12, fontSize: 14, textTransform: 'uppercase', letterSpacing: 1 }}>
+                            Reserve ({reserveEnemies.length})
+                          </h3>
                           <div style={{ 
-                            fontSize: 40, 
-                            textAlign: 'center', 
-                            marginBottom: 8 * scale,
-                            filter: isDead ? 'grayscale(100%)' : 'none'
+                            maxHeight: 400, 
+                            overflowY: reserveEnemies.length > 4 ? 'auto' : 'visible',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: 12,
+                            paddingRight: reserveEnemies.length > 4 ? 8 : 0
                           }}>
-                            👹
-                          </div>
-                          <div style={{ color: '#fff', fontSize: 14, fontWeight: 'bold', textAlign: 'center', marginBottom: 8 * scale }}>
-                            {enemy.name} {isDead && '💀'} {isBack && '(Back)'}
-                          </div>
-                          {/* Health Bar */}
-                          <div style={{ 
-                            background: 'rgba(0,0,0,0.3)', 
-                            borderRadius: 8 * scale, 
-                            height: 12 * scale, 
-                            overflow: 'hidden',
-                            marginBottom: 4 * scale 
-                          }}>
-                            <div style={{ 
-                              height: '100%', 
-                              background: enemy.health > enemy.maxHealth * 0.5 
-                                ? 'linear-gradient(90deg, #2ecc71, #27ae60)' 
-                                : enemy.health > enemy.maxHealth * 0.25 
-                                  ? 'linear-gradient(90deg, #f39c12, #e67e22)'
-                                  : 'linear-gradient(90deg, #e74c3c, #c0392b)',
-                              width: `${Math.max(0, (enemy.health / enemy.maxHealth) * 100)}%`,
-                              transition: 'width 0.3s'
-                            }} />
-                          </div>
-                          <div style={{ color: '#ecf0f1', fontSize: 12 * scale, textAlign: 'center' }}>
-                            {Math.max(0, enemy.health)} / {enemy.maxHealth} HP
+                            {reserveEnemies.map((enemy) => (
+                              <div
+                                key={enemy.instanceId}
+                                style={{
+                                  padding: 10,
+                                  background: 'rgba(52, 73, 94, 0.4)',
+                                  border: '2px solid #34495e',
+                                  borderRadius: 8,
+                                  minWidth: 100,
+                                  opacity: 0.7
+                                }}
+                              >
+                                <div style={{ 
+                                  fontSize: 28, 
+                                  textAlign: 'center', 
+                                  marginBottom: 4
+                                }}>
+                                  👹
+                                </div>
+                                <div style={{ color: '#fff', fontSize: 11, fontWeight: 'bold', textAlign: 'center', marginBottom: 6 }}>
+                                  {enemy.name}
+                                </div>
+                                {/* Health Bar */}
+                                <div style={{ 
+                                  background: 'rgba(0,0,0,0.3)', 
+                                  borderRadius: 6, 
+                                  height: 8, 
+                                  overflow: 'hidden',
+                                  marginBottom: 3
+                                }}>
+                                  <div style={{ 
+                                    height: '100%', 
+                                    background: 'linear-gradient(90deg, #2ecc71, #27ae60)',
+                                    width: `${Math.max(0, (enemy.health / enemy.maxHealth) * 100)}%`,
+                                    transition: 'width 0.3s'
+                                  }} />
+                                </div>
+                                <div style={{ color: '#ecf0f1', fontSize: 10, textAlign: 'center' }}>
+                                  {Math.max(0, enemy.health)} / {enemy.maxHealth} HP
+                                </div>
+                              </div>
+                            ))}
                           </div>
                         </div>
                       );
-                    })}
-                    </div>
+                    })()}
                   </div>
                 </div>
 
@@ -425,7 +493,10 @@ export default function App() {
                         }
                         const currentState = usePlayerStore.getState();
                         const result = playerAttack(currentState);
-                        usePlayerStore.setState({ combat: result.state.combat });
+                        usePlayerStore.setState({ 
+                          combat: result.state.combat,
+                          activeBuffs: result.state.activeBuffs
+                        });
                         
                         // Enemy turn after player attacks
                         setTimeout(() => {
@@ -433,7 +504,8 @@ export default function App() {
                             const enemyResult = enemyTurn(result.state);
                             usePlayerStore.setState({ 
                               combat: enemyResult.state.combat,
-                              health: enemyResult.state.health 
+                              health: enemyResult.state.health,
+                              activeBuffs: enemyResult.state.activeBuffs
                             });
                           }
                         }, 800);
@@ -475,7 +547,8 @@ export default function App() {
                             const result = playerSlash(currentState);
                             usePlayerStore.setState({ 
                               combat: result.state.combat,
-                              stamina: Math.max(0, currentState.stamina - slashCost)
+                              stamina: Math.max(0, currentState.stamina - slashCost),
+                              activeBuffs: result.state.activeBuffs
                             });
                             
                             // Enemy turn after slash
@@ -484,7 +557,8 @@ export default function App() {
                                 const enemyResult = enemyTurn(result.state);
                                 usePlayerStore.setState({ 
                                   combat: enemyResult.state.combat,
-                                  health: enemyResult.state.health 
+                                  health: enemyResult.state.health,
+                                  activeBuffs: enemyResult.state.activeBuffs
                                 });
                               }
                             }, 1200);
@@ -530,7 +604,8 @@ export default function App() {
                             const result = playerPivot(combat.selectedEnemyId, currentState);
                             usePlayerStore.setState({ 
                               combat: result.state.combat,
-                              stamina: Math.max(0, currentState.stamina - pivotCost)
+                              stamina: Math.max(0, currentState.stamina - pivotCost),
+                              activeBuffs: result.state.activeBuffs
                             });
                             
                             // Enemy turn after pivot
@@ -539,7 +614,8 @@ export default function App() {
                                 const enemyResult = enemyTurn(result.state);
                                 usePlayerStore.setState({ 
                                   combat: enemyResult.state.combat,
-                                  health: enemyResult.state.health 
+                                  health: enemyResult.state.health,
+                                  activeBuffs: enemyResult.state.activeBuffs
                                 });
                               }
                             }, 1000);
@@ -697,7 +773,8 @@ export default function App() {
                                 usePlayerStore.setState({ 
                                   combat: result.state.combat,
                                   health: result.state.health,
-                                  stamina: Math.max(0, currentState.stamina - spellCost)
+                                  stamina: Math.max(0, currentState.stamina - spellCost),
+                                  activeBuffs: result.state.activeBuffs
                                 });
                                 setSelectedSpell(null);
                                 
@@ -742,24 +819,37 @@ export default function App() {
                     background: 'rgba(0,0,0,0.4)', 
                     borderRadius: 8, 
                     padding: 16,
-                    maxHeight: 200,
+                    maxHeight: 400,
+                    minHeight: 300,
                     overflowY: 'auto'
                   }}
                 >
-                  <h4 style={{ color: '#ecf0f1', marginBottom: 8, fontSize: 12, textTransform: 'uppercase', letterSpacing: 1 }}>
+                  <h4 style={{ color: '#ecf0f1', marginBottom: 12, fontSize: 14, textTransform: 'uppercase', letterSpacing: 1.5, fontWeight: 'bold' }}>
                     Combat Log
                   </h4>
-                  {combat.combatLog.slice(-20).map((entry, idx) => (
-                    <div key={idx} style={{ 
-                      color: '#bdc3c7', 
-                      fontSize: 13, 
-                      marginBottom: 4,
-                      paddingLeft: 8,
-                      borderLeft: '2px solid #34495e'
-                    }}>
-                      {entry}
-                    </div>
-                  ))}
+                  {combat.combatLog.slice(-30).map((entry, idx) => {
+                    // Check if this is a player action entry
+                    const isPlayerAction = entry.startsWith('🗡️ You') || entry.startsWith('⚔️💥 You') || entry.startsWith('✨ Casting') || entry.startsWith('🛡️ You');
+                    const isPlayerRoll = entry.startsWith('→ Attack roll') || entry.startsWith('📊');
+                    const isTurnMarker = entry.startsWith('---');
+                    
+                    return (
+                      <div key={idx} style={{ 
+                        color: isPlayerAction ? '#2ecc71' : isPlayerRoll ? '#3498db' : isTurnMarker ? '#f39c12' : '#bdc3c7', 
+                        fontSize: isPlayerAction ? 16 : isPlayerRoll ? 15 : 13, 
+                        fontWeight: isPlayerAction ? 'bold' : isPlayerRoll ? '600' : 'normal',
+                        marginBottom: isPlayerAction ? 8 : 4,
+                        paddingLeft: isPlayerAction ? 12 : 8,
+                        paddingTop: isPlayerAction ? 4 : 0,
+                        paddingBottom: isPlayerAction ? 4 : 0,
+                        borderLeft: isPlayerAction ? '4px solid #2ecc71' : isPlayerRoll ? '3px solid #3498db' : '2px solid #34495e',
+                        background: isPlayerAction ? 'rgba(46, 204, 113, 0.1)' : 'transparent',
+                        borderRadius: isPlayerAction ? 4 : 0
+                      }}>
+                        {entry}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             )}
@@ -820,53 +910,255 @@ export default function App() {
                   </div>
                 </div>
                 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 20, alignItems: 'start' }}>
-                  {/* Paper Doll Visual */}
-                  <div style={{ position: 'relative', width: '100%', aspectRatio: '3/4', background: 'linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%)', borderRadius: 8, border: '2px solid #dee2e6', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: 20 }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+                  {/* Paper Doll Visual with body-shaped layout */}
+                  <div style={{ 
+                    position: 'relative', 
+                    width: '100%', 
+                    maxWidth: 400,
+                    margin: '0 auto',
+                    minHeight: 600,
+                    background: 'url(/icons/paper_doll_bg.svg) center center no-repeat, linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%)', 
+                    backgroundSize: 'contain',
+                    borderRadius: 12, 
+                    border: '3px solid #dee2e6', 
+                    padding: '30px 20px'
+                  }}>
                     {/* Head slot */}
-                    <div style={{ textAlign: 'center', padding: 8, background: equipment.head ? '#d1ecf1' : '#fff', border: '2px dashed #6c757d', borderRadius: 4, fontSize: 11, fontWeight: 600 }}>
+                    <div style={{ 
+                      textAlign: 'center', 
+                      padding: 16, 
+                      background: equipment.head ? '#d1ecf1' : '#fff', 
+                      border: '3px dashed #6c757d', 
+                      borderRadius: 8, 
+                      fontSize: 14, 
+                      fontWeight: 600,
+                      width: 80,
+                      height: 80,
+                      margin: '0 auto 20px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}>
                       {equipment.head || 'HEAD'}
                     </div>
+                    
                     {/* Chest slot */}
-                    <div style={{ textAlign: 'center', padding: 12, background: equipment.chest ? '#d1ecf1' : '#fff', border: '2px dashed #6c757d', borderRadius: 4, fontSize: 11, fontWeight: 600 }}>
+                    <div style={{ 
+                      textAlign: 'center', 
+                      padding: 20, 
+                      background: equipment.chest ? '#d1ecf1' : '#fff', 
+                      border: '3px dashed #6c757d', 
+                      borderRadius: 8, 
+                      fontSize: 14, 
+                      fontWeight: 600,
+                      width: 100,
+                      height: 120,
+                      margin: '0 auto 20px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}>
                       {equipment.chest || 'CHEST'}
                     </div>
-                    {/* Gloves slot */}
-                    <div style={{ textAlign: 'center', padding: 8, background: equipment.gloves ? '#d1ecf1' : '#fff', border: '2px dashed #6c757d', borderRadius: 4, fontSize: 11, fontWeight: 600 }}>
-                      {equipment.gloves || 'GLOVES'}
+                    
+                    {/* Hands row - shows gloves with weapons layered on top */}
+                    <div style={{ display: 'flex', gap: 60, justifyContent: 'center', marginBottom: 20 }}>
+                      {/* Offhand (left hand) */}
+                      <div style={{ 
+                        position: 'relative', 
+                        textAlign: 'center', 
+                        padding: 16, 
+                        background: (equipment.gloves || equipment.offhand) ? '#d1ecf1' : '#fff', 
+                        border: '3px dashed #6c757d', 
+                        borderRadius: 8, 
+                        fontSize: 14, 
+                        fontWeight: 600,
+                        width: 80,
+                        height: 80,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                      }}>
+                        {equipment.gloves && <div style={{ fontSize: 10, color: '#6c757d', marginBottom: 4 }}>GLOVES</div>}
+                        {equipment.offhand ? (
+                          <div style={{ position: 'relative' }}>
+                            {(() => {
+                              const content = getContentSnapshot();
+                              const items = content?.items || new Map();
+                              const item = items.get(equipment.offhand);
+                              return item?.icon ? (
+                                <img src={item.icon} alt={item.name} style={{ width: 64, height: 64, display: 'block', margin: '0 auto' }} />
+                              ) : equipment.offhand;
+                            })()}
+                          </div>
+                        ) : (
+                          <div>L.HAND</div>
+                        )}
+                      </div>
+                      {/* Mainhand (right hand) */}
+                      <div style={{ 
+                        position: 'relative', 
+                        textAlign: 'center', 
+                        padding: 16, 
+                        background: (equipment.gloves || equipment.mainhand) ? '#d1ecf1' : '#fff', 
+                        border: '3px dashed #6c757d', 
+                        borderRadius: 8, 
+                        fontSize: 14, 
+                        fontWeight: 600,
+                        width: 80,
+                        height: 80,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                      }}>
+                        {equipment.gloves && <div style={{ fontSize: 10, color: '#6c757d', marginBottom: 4 }}>GLOVES</div>}
+                        {equipment.mainhand ? (
+                          <div style={{ position: 'relative' }}>
+                            {(() => {
+                              const content = getContentSnapshot();
+                              const items = content?.items || new Map();
+                              const item = items.get(equipment.mainhand);
+                              return item?.icon ? (
+                                <img src={item.icon} alt={item.name} style={{ width: 64, height: 64, display: 'block', margin: '0 auto' }} />
+                              ) : equipment.mainhand;
+                            })()}
+                          </div>
+                        ) : (
+                          <div>R.HAND</div>
+                        )}
+                      </div>
                     </div>
+                    
                     {/* Legs slot */}
-                    <div style={{ textAlign: 'center', padding: 8, background: equipment.legs ? '#d1ecf1' : '#fff', border: '2px dashed #6c757d', borderRadius: 4, fontSize: 11, fontWeight: 600 }}>
+                    <div style={{ 
+                      textAlign: 'center', 
+                      padding: 16, 
+                      background: equipment.legs ? '#d1ecf1' : '#fff', 
+                      border: '3px dashed #6c757d', 
+                      borderRadius: 8, 
+                      fontSize: 14, 
+                      fontWeight: 600,
+                      width: 100,
+                      height: 100,
+                      margin: '0 auto 20px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}>
                       {equipment.legs || 'LEGS'}
                     </div>
+                    
                     {/* Boots slot */}
-                    <div style={{ textAlign: 'center', padding: 8, background: equipment.boots ? '#d1ecf1' : '#fff', border: '2px dashed #6c757d', borderRadius: 4, fontSize: 11, fontWeight: 600 }}>
+                    <div style={{ 
+                      textAlign: 'center', 
+                      padding: 16, 
+                      background: equipment.boots ? '#d1ecf1' : '#fff', 
+                      border: '3px dashed #6c757d', 
+                      borderRadius: 8, 
+                      fontSize: 14, 
+                      fontWeight: 600,
+                      width: 80,
+                      height: 60,
+                      margin: '0 auto',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}>
                       {equipment.boots || 'BOOTS'}
                     </div>
                   </div>
                   
-                  {/* Equipment Details */}
-                  <div>
-                    <h4 style={{ marginTop: 0, marginBottom: 12, fontSize: 14, color: '#6c757d' }}>ARMOR SLOTS</h4>
-                    {['head', 'chest', 'gloves', 'legs', 'boots'].map(slot => {
-                      const itemId = equipment[slot];
-                      return (
-                        <div key={slot} style={{ padding: '10px 0', borderBottom: '1px solid #e9ecef', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <div>
-                            <div style={{ fontSize: 12, fontWeight: 'bold', textTransform: 'uppercase', color: '#6c757d' }}>{slot}</div>
-                            <div style={{ fontSize: 14, marginTop: 2 }}>{itemId || <em style={{ color: '#adb5bd' }}>Empty</em>}</div>
+                  {/* Equipment Details - Weapons Section Below */}
+                  <div style={{ maxWidth: 400, margin: '0 auto', width: '100%' }}>
+                    <h4 style={{ marginTop: 0, marginBottom: 8, fontSize: 14, color: '#6c757d', textAlign: 'center' }}>EQUIPPED WEAPONS</h4>
+                    <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
+                      {['mainhand', 'offhand'].map(slot => {
+                        const itemId = equipment[slot];
+                        return (
+                          <div key={slot} style={{ 
+                            flex: 1,
+                            padding: '8px 12px', 
+                            background: '#f8f9fa',
+                            border: '2px solid #dee2e6', 
+                            borderRadius: 6,
+                            display: 'flex', 
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            gap: 4
+                          }}>
+                            <div style={{ fontSize: 11, fontWeight: 'bold', textTransform: 'uppercase', color: '#6c757d' }}>
+                              {slot === 'mainhand' ? 'Main Hand' : 'Off Hand'}
+                            </div>
+                            <div style={{ fontSize: 13, fontWeight: '600' }}>
+                              {itemId || <em style={{ color: '#adb5bd' }}>Empty</em>}
+                            </div>
+                            {itemId && (
+                              <button onClick={() => {
+                                console.log(`Unequip ${itemId} from ${slot}`);
+                              }} style={{ 
+                                padding: '3px 8px', 
+                                fontSize: 10, 
+                                background: '#dc3545', 
+                                color: '#fff', 
+                                border: 'none', 
+                                borderRadius: 3, 
+                                cursor: 'pointer',
+                                marginTop: 4
+                              }}>
+                                Remove
+                              </button>
+                            )}
                           </div>
-                          {itemId && (
-                            <button onClick={() => {
-                              // TODO: Implement unequip functionality
-                              console.log(`Unequip ${itemId} from ${slot}`);
-                            }} style={{ padding: '4px 8px', fontSize: 11, background: '#dc3545', color: '#fff', border: 'none', borderRadius: 4, cursor: 'pointer' }}>
-                              Remove
-                            </button>
-                          )}
-                        </div>
-                      );
-                    })}
+                        );
+                      })}
+                    </div>
+                    
+                    <h4 style={{ marginTop: 20, marginBottom: 8, fontSize: 14, color: '#6c757d', textAlign: 'center' }}>ARMOR PIECES</h4>
+                    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'center' }}>
+                      {['head', 'chest', 'gloves', 'legs', 'boots'].map(slot => {
+                        const itemId = equipment[slot];
+                        return (
+                          <div key={slot} style={{ 
+                            flex: '0 0 calc(50% - 6px)',
+                            padding: '8px 12px', 
+                            background: '#f8f9fa',
+                            border: '2px solid #dee2e6', 
+                            borderRadius: 6,
+                            display: 'flex', 
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            gap: 4,
+                            minWidth: 120
+                          }}>
+                            <div style={{ fontSize: 11, fontWeight: 'bold', textTransform: 'uppercase', color: '#6c757d' }}>
+                              {slot}
+                            </div>
+                            <div style={{ fontSize: 13, fontWeight: '600' }}>
+                              {itemId || <em style={{ color: '#adb5bd' }}>Empty</em>}
+                            </div>
+                            {itemId && (
+                              <button onClick={() => {
+                                console.log(`Unequip ${itemId} from ${slot}`);
+                              }} style={{ 
+                                padding: '3px 8px', 
+                                fontSize: 10, 
+                                background: '#dc3545', 
+                                color: '#fff', 
+                                border: 'none', 
+                                borderRadius: 3, 
+                                cursor: 'pointer',
+                                marginTop: 4
+                              }}>
+                                Remove
+                              </button>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -877,10 +1169,103 @@ export default function App() {
                 <h3 style={{ marginTop: 0 }}>Core Stats</h3>
                 {stats.statPoints > 0 && (
                   <div style={{ marginBottom: 16, padding: 12, background: '#fffbea', border: '1px solid #f39c12', borderRadius: 8 }}>
-                    <strong>⚡ {stats.statPoints - (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision)} Stat Points Available</strong>
-                    <div style={{ fontSize: 12, marginTop: 4 }}>Click + to increase stats, − to decrease. Changes apply immediately.</div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                      <strong>⚡ {stats.statPoints - (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision)} Stat Points Available</strong>
+                      {(pendingStats.power !== 0 || pendingStats.mind !== 0 || pendingStats.agility !== 0 || pendingStats.vision !== 0) && (
+                        <div style={{ display: 'flex', gap: 8 }}>
+                          <button
+                            onClick={() => setPendingStats({ power: 0, mind: 0, agility: 0, vision: 0 })}
+                            style={{
+                              padding: '6px 12px',
+                              fontSize: 13,
+                              borderRadius: 6,
+                              background: '#95a5a6',
+                              color: '#fff',
+                              border: 'none',
+                              cursor: 'pointer',
+                              fontWeight: 'bold'
+                            }}
+                          >
+                            Cancel
+                          </button>
+                          <button
+                            onClick={async () => {
+                              const allocateStats = (usePlayerStore as any).getState().allocateStats;
+                              await allocateStats(pendingStats);
+                              setPendingStats({ power: 0, mind: 0, agility: 0, vision: 0 });
+                            }}
+                            style={{
+                              padding: '6px 16px',
+                              fontSize: 13,
+                              borderRadius: 6,
+                              background: 'linear-gradient(135deg, #27ae60, #229954)',
+                              color: '#fff',
+                              border: 'none',
+                              cursor: 'pointer',
+                              fontWeight: 'bold',
+                              boxShadow: '0 2px 8px rgba(39, 174, 96, 0.3)'
+                            }}
+                          >
+                            ✓ Confirm
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                    <div style={{ fontSize: 12, marginTop: 4 }}>Click + to increase stats, − to decrease. Click Confirm to apply changes.</div>
                   </div>
                 )}
+                
+                {/* Godstone Reset */}
+                {(() => {
+                  const inv = (usePlayerStore as any).getState().inventory || [];
+                  const godstone = inv.find((i: any) => i.itemId === 'godstone');
+                  const hasGodstone = godstone && godstone.qty > 0;
+                  
+                  if (hasGodstone) {
+                    return (
+                      <div style={{ marginBottom: 16, padding: 12, background: '#f3e5f5', border: '2px solid #9c27b0', borderRadius: 8 }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <div>
+                            <strong style={{ color: '#9c27b0' }}>🔮 Godstone of Renewal</strong>
+                            <div style={{ fontSize: 11, color: '#666', marginTop: 4 }}>
+                              Reset all stats to 1 and recover all spent points. The Godstone will be consumed.
+                            </div>
+                          </div>
+                          <button
+                            onClick={async () => {
+                              if (window.confirm('Are you sure you want to reset all your stats? This will consume your Godstone and cannot be undone!')) {
+                                const resetStats = (usePlayerStore as any).getState().resetStats;
+                                const result = await resetStats();
+                                if (result?.success) {
+                                  setPendingStats({ power: 0, mind: 0, agility: 0, vision: 0 });
+                                  alert(result.message);
+                                  setModalPage(null);
+                                } else {
+                                  alert(result?.message || 'Failed to reset stats');
+                                }
+                              }
+                            }}
+                            style={{
+                              padding: '8px 16px',
+                              fontSize: 13,
+                              borderRadius: 6,
+                              background: 'linear-gradient(135deg, #9c27b0, #7b1fa2)',
+                              color: '#fff',
+                              border: 'none',
+                              cursor: 'pointer',
+                              fontWeight: 'bold',
+                              boxShadow: '0 2px 8px rgba(156, 39, 176, 0.3)',
+                              whiteSpace: 'nowrap'
+                            }}
+                          >
+                            Reset Stats
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  }
+                  return null;
+                })()}
                 
                 {/* Power */}
                 <div style={{ marginBottom: 12, padding: 12, background: '#fff5f5', borderRadius: 8, border: '1px solid #ffcdd2' }}>
@@ -893,26 +1278,22 @@ export default function App() {
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                     <button 
-                      onClick={() => setPendingStats(p => ({ ...p, power: Math.max(-(stats.power - 1), p.power - 1) }))}
-                      disabled={pendingStats.power <= -(stats.power - 1)}
-                      style={{ padding: '4px 12px', fontSize: 16, borderRadius: 6, background: pendingStats.power <= -(stats.power - 1) ? '#ddd' : '#e74c3c', color: '#fff', border: 'none', cursor: pendingStats.power <= -(stats.power - 1) ? 'not-allowed' : 'pointer', opacity: pendingStats.power <= -(stats.power - 1) ? 0.5 : 1 }}
+                      onClick={() => setPendingStats(p => ({ ...p, power: p.power - 1 }))}
+                      disabled={pendingStats.power <= 0}
+                      style={{ padding: '4px 12px', fontSize: 16, borderRadius: 6, background: (pendingStats.power <= 0) ? '#ddd' : '#e74c3c', color: '#fff', border: 'none', cursor: (pendingStats.power <= 0) ? 'not-allowed' : 'pointer', opacity: (pendingStats.power <= 0) ? 0.5 : 1 }}
                     >−</button>
                     <div style={{ flex: 1, height: 20, background: '#f0f0f0', borderRadius: 10, overflow: 'hidden' }}>
                       <div style={{ width: `${(stats.power + pendingStats.power) * 10}%`, height: '100%', background: '#e74c3c', transition: 'width 0.3s' }}></div>
                     </div>
                     <button 
-                      onClick={async () => {
+                      onClick={() => {
                         const totalSpent = pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision;
                         if (totalSpent < stats.statPoints && stats.power + pendingStats.power < 10) {
-                          const newPending = { ...pendingStats, power: pendingStats.power + 1 };
-                          setPendingStats(newPending);
-                          const allocateStats = (usePlayerStore as any).getState().allocateStats;
-                          await allocateStats({ power: 1, mind: 0, agility: 0, vision: 0 });
-                          setPendingStats({ power: 0, mind: 0, agility: 0, vision: 0 });
+                          setPendingStats(p => ({ ...p, power: p.power + 1 }));
                         }
                       }}
                       disabled={stats.power + pendingStats.power >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints}
-                      style={{ padding: '4px 12px', fontSize: 16, borderRadius: 6, background: (stats.power + pendingStats.power >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? '#ddd' : '#27ae60', color: '#fff', border: 'none', cursor: (stats.power + pendingStats.power >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? 'not-allowed' : 'pointer', opacity: (stats.power + pendingStats.power >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? 0.5 : 1, animation: stats.statPoints > 0 && (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) === 0 ? 'pulse 2s infinite' : 'none' }}
+                      style={{ padding: '4px 12px', fontSize: 16, borderRadius: 6, background: (stats.power + pendingStats.power >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? '#ddd' : '#27ae60', color: '#fff', border: 'none', cursor: (stats.power + pendingStats.power >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? 'not-allowed' : 'pointer', opacity: (stats.power + pendingStats.power >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? 0.5 : 1 }}
                     >+</button>
                   </div>
                 </div>
@@ -928,26 +1309,22 @@ export default function App() {
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                     <button 
-                      onClick={() => setPendingStats(p => ({ ...p, mind: Math.max(-(stats.mind - 1), p.mind - 1) }))}
-                      disabled={pendingStats.mind <= -(stats.mind - 1)}
-                      style={{ padding: '4px 12px', fontSize: 16, borderRadius: 6, background: pendingStats.mind <= -(stats.mind - 1) ? '#ddd' : '#9b59b6', color: '#fff', border: 'none', cursor: pendingStats.mind <= -(stats.mind - 1) ? 'not-allowed' : 'pointer', opacity: pendingStats.mind <= -(stats.mind - 1) ? 0.5 : 1 }}
+                      onClick={() => setPendingStats(p => ({ ...p, mind: p.mind - 1 }))}
+                      disabled={pendingStats.mind <= 0}
+                      style={{ padding: '4px 12px', fontSize: 16, borderRadius: 6, background: (pendingStats.mind <= 0) ? '#ddd' : '#9b59b6', color: '#fff', border: 'none', cursor: (pendingStats.mind <= 0) ? 'not-allowed' : 'pointer', opacity: (pendingStats.mind <= 0) ? 0.5 : 1 }}
                     >−</button>
                     <div style={{ flex: 1, height: 20, background: '#f0f0f0', borderRadius: 10, overflow: 'hidden' }}>
                       <div style={{ width: `${(stats.mind + pendingStats.mind) * 10}%`, height: '100%', background: '#9b59b6', transition: 'width 0.3s' }}></div>
                     </div>
                     <button 
-                      onClick={async () => {
+                      onClick={() => {
                         const totalSpent = pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision;
                         if (totalSpent < stats.statPoints && stats.mind + pendingStats.mind < 10) {
-                          const newPending = { ...pendingStats, mind: pendingStats.mind + 1 };
-                          setPendingStats(newPending);
-                          const allocateStats = (usePlayerStore as any).getState().allocateStats;
-                          await allocateStats({ power: 0, mind: 1, agility: 0, vision: 0 });
-                          setPendingStats({ power: 0, mind: 0, agility: 0, vision: 0 });
+                          setPendingStats(p => ({ ...p, mind: p.mind + 1 }));
                         }
                       }}
                       disabled={stats.mind + pendingStats.mind >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints}
-                      style={{ padding: '4px 12px', fontSize: 16, borderRadius: 6, background: (stats.mind + pendingStats.mind >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? '#ddd' : '#27ae60', color: '#fff', border: 'none', cursor: (stats.mind + pendingStats.mind >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? 'not-allowed' : 'pointer', opacity: (stats.mind + pendingStats.mind >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? 0.5 : 1, animation: stats.statPoints > 0 && (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) === 0 ? 'pulse 2s infinite' : 'none' }}
+                      style={{ padding: '4px 12px', fontSize: 16, borderRadius: 6, background: (stats.mind + pendingStats.mind >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? '#ddd' : '#27ae60', color: '#fff', border: 'none', cursor: (stats.mind + pendingStats.mind >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? 'not-allowed' : 'pointer', opacity: (stats.mind + pendingStats.mind >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? 0.5 : 1 }}
                     >+</button>
                   </div>
                 </div>
@@ -963,26 +1340,17 @@ export default function App() {
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                     <button 
-                      onClick={() => setPendingStats(p => ({ ...p, agility: Math.max(-(stats.agility - 1), p.agility - 1) }))}
-                      disabled={pendingStats.agility <= -(stats.agility - 1)}
-                      style={{ padding: '4px 12px', fontSize: 16, borderRadius: 6, background: pendingStats.agility <= -(stats.agility - 1) ? '#ddd' : '#2ecc71', color: '#fff', border: 'none', cursor: pendingStats.agility <= -(stats.agility - 1) ? 'not-allowed' : 'pointer', opacity: pendingStats.agility <= -(stats.agility - 1) ? 0.5 : 1 }}
+                      onClick={() => setPendingStats(p => ({ ...p, agility: p.agility - 1 }))}
+                      disabled={pendingStats.agility <= 0}
+                      style={{ padding: '4px 12px', fontSize: 16, borderRadius: 6, background: (pendingStats.agility <= 0) ? '#ddd' : '#2ecc71', color: '#fff', border: 'none', cursor: (pendingStats.agility <= 0) ? 'not-allowed' : 'pointer', opacity: (pendingStats.agility <= 0) ? 0.5 : 1 }}
                     >−</button>
                     <div style={{ flex: 1, height: 20, background: '#f0f0f0', borderRadius: 10, overflow: 'hidden' }}>
                       <div style={{ width: `${(stats.agility + pendingStats.agility) * 10}%`, height: '100%', background: '#2ecc71', transition: 'width 0.3s' }}></div>
                     </div>
                     <button 
-                      onClick={async () => {
-                        const totalSpent = pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision;
-                        if (totalSpent < stats.statPoints && stats.agility + pendingStats.agility < 10) {
-                          const newPending = { ...pendingStats, agility: pendingStats.agility + 1 };
-                          setPendingStats(newPending);
-                          const allocateStats = (usePlayerStore as any).getState().allocateStats;
-                          await allocateStats({ power: 0, mind: 0, agility: 1, vision: 0 });
-                          setPendingStats({ power: 0, mind: 0, agility: 0, vision: 0 });
-                        }
-                      }}
+                      onClick={() => setPendingStats(p => ({ ...p, agility: p.agility + 1 }))}
                       disabled={stats.agility + pendingStats.agility >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints}
-                      style={{ padding: '4px 12px', fontSize: 16, borderRadius: 6, background: (stats.agility + pendingStats.agility >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? '#ddd' : '#27ae60', color: '#fff', border: 'none', cursor: (stats.agility + pendingStats.agility >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? 'not-allowed' : 'pointer', opacity: (stats.agility + pendingStats.agility >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? 0.5 : 1, animation: stats.statPoints > 0 && (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) === 0 ? 'pulse 2s infinite' : 'none' }}
+                      style={{ padding: '4px 12px', fontSize: 16, borderRadius: 6, background: (stats.agility + pendingStats.agility >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? '#ddd' : '#27ae60', color: '#fff', border: 'none', cursor: (stats.agility + pendingStats.agility >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? 'not-allowed' : 'pointer', opacity: (stats.agility + pendingStats.agility >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? 0.5 : 1 }}
                     >+</button>
                   </div>
                 </div>
@@ -998,24 +1366,15 @@ export default function App() {
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                     <button 
-                      onClick={() => setPendingStats(p => ({ ...p, vision: Math.max(-(stats.vision - 1), p.vision - 1) }))}
-                      disabled={pendingStats.vision <= -(stats.vision - 1)}
-                      style={{ padding: '4px 12px', fontSize: 16, borderRadius: 6, background: pendingStats.vision <= -(stats.vision - 1) ? '#ddd' : '#3498db', color: '#fff', border: 'none', cursor: pendingStats.vision <= -(stats.vision - 1) ? 'not-allowed' : 'pointer', opacity: pendingStats.vision <= -(stats.vision - 1) ? 0.5 : 1 }}
+                      onClick={() => setPendingStats(p => ({ ...p, vision: p.vision - 1 }))}
+                      disabled={pendingStats.vision <= 0}
+                      style={{ padding: '4px 12px', fontSize: 16, borderRadius: 6, background: (pendingStats.vision <= 0) ? '#ddd' : '#3498db', color: '#fff', border: 'none', cursor: (pendingStats.vision <= 0) ? 'not-allowed' : 'pointer', opacity: (pendingStats.vision <= 0) ? 0.5 : 1 }}
                     >−</button>
                     <div style={{ flex: 1, height: 20, background: '#f0f0f0', borderRadius: 10, overflow: 'hidden' }}>
                       <div style={{ width: `${(stats.vision + pendingStats.vision) * 10}%`, height: '100%', background: '#3498db', transition: 'width 0.3s' }}></div>
                     </div>
                     <button 
-                      onClick={async () => {
-                        const totalSpent = pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision;
-                        if (totalSpent < stats.statPoints && stats.vision + pendingStats.vision < 10) {
-                          const newPending = { ...pendingStats, vision: pendingStats.vision + 1 };
-                          setPendingStats(newPending);
-                          const allocateStats = (usePlayerStore as any).getState().allocateStats;
-                          await allocateStats({ power: 0, mind: 0, agility: 0, vision: 1 });
-                          setPendingStats({ power: 0, mind: 0, agility: 0, vision: 0 });
-                        }
-                      }}
+                      onClick={() => setPendingStats(p => ({ ...p, vision: p.vision + 1 }))}
                       disabled={stats.vision + pendingStats.vision >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints}
                       style={{ padding: '4px 12px', fontSize: 16, borderRadius: 6, background: (stats.vision + pendingStats.vision >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? '#ddd' : '#27ae60', color: '#fff', border: 'none', cursor: (stats.vision + pendingStats.vision >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? 'not-allowed' : 'pointer', opacity: (stats.vision + pendingStats.vision >= 10 || (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) >= stats.statPoints) ? 0.5 : 1, animation: stats.statPoints > 0 && (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision) === 0 ? 'pulse 2s infinite' : 'none' }}
                     >+</button>
@@ -1070,10 +1429,10 @@ export default function App() {
                 <h3>Combat Skills</h3>
                 <div style={{ marginBottom: 20 }}>
                   {[
-                    { id: 'clash', name: 'Clash', cost: 1, icon: '🛡️', desc: 'Force enemy back, preventing their attack and second enemy\'s attack' },
-                    { id: 'pivot', name: 'Pivot', cost: 2, icon: '🔄', desc: 'Normal attack + 50% defense boost against second opponent' },
-                    { id: 'feint', name: 'Feint', cost: 2, icon: '🤺', desc: 'Dodge targeted enemy\'s attack AND attack any second enemy' },
-                    { id: 'slash', name: 'Slash', cost: 3, icon: '⚔️💥', desc: 'Attack all front enemies with separate rolls' }
+                    { id: 'clash', name: 'Clash', cost: 1, stamina: 1, icon: '🛡️', desc: 'Force enemy back, preventing their attack and second enemy\'s attack' },
+                    { id: 'pivot', name: 'Pivot', cost: 2, stamina: 2, icon: '🔄', desc: 'Normal attack + 50% defense boost against second opponent' },
+                    { id: 'feint', name: 'Feint', cost: 2, stamina: 2, icon: '🤺', desc: 'Dodge targeted enemy\'s attack AND attack any second enemy' },
+                    { id: 'slash', name: 'Slash', cost: 3, stamina: 3, icon: '⚔️💥', desc: 'Attack all front enemies with separate rolls' }
                   ].map(skill => {
                     const isLearned = combatSkills.includes(skill.id);
                     const canAfford = stats.statPoints >= skill.cost;
@@ -1090,8 +1449,7 @@ export default function App() {
                           display: 'flex',
                           alignItems: 'center',
                           gap: 12,
-                          opacity: isLearned ? 1 : canAfford ? 0.9 : 0.5,
-                          animation: !isLearned && canAfford ? 'pulse 2s infinite' : 'none'
+                          opacity: isLearned ? 1 : canAfford ? 0.9 : 0.5
                         }}
                       >
                         <div style={{ fontSize: 32 }}>{skill.icon}</div>
@@ -1102,19 +1460,20 @@ export default function App() {
                           <div style={{ fontSize: 12, color: isLearned ? '#e8f8f0' : '#666' }}>
                             {skill.desc}
                           </div>
+                          <div style={{ fontSize: 11, color: isLearned ? '#d5f4e6' : '#999', marginTop: 4 }}>
+                            ⚡ Uses {skill.stamina} Stamina in combat
+                          </div>
                         </div>
                         {!isLearned && (
                           <button
                             onClick={() => {
                               if (canAfford) {
-                                if (confirm(`Learn ${skill.name} for ${skill.cost} Stat Point${skill.cost > 1 ? 's' : ''}?`)) {
-                                  const currentState = usePlayerStore.getState();
-                                  const newStats = { ...currentState.stats, statPoints: currentState.stats.statPoints - skill.cost };
-                                  usePlayerStore.setState({ 
-                                    stats: newStats,
-                                    combatSkills: [...(currentState.combatSkills || []), skill.id]
-                                  });
-                                }
+                                const currentState = usePlayerStore.getState();
+                                const newStats = { ...currentState.stats, statPoints: currentState.stats.statPoints - skill.cost };
+                                usePlayerStore.setState({ 
+                                  stats: newStats,
+                                  combatSkills: [...(currentState.combatSkills || []), skill.id]
+                                });
                               }
                             }}
                             disabled={!canAfford}
@@ -1156,7 +1515,7 @@ export default function App() {
                   <div style={{ fontWeight: 'bold' }}>{getPassiveSkills(state).perception}%</div>
                   
                   <div>Melee Defense</div>
-                  <div style={{ fontWeight: 'bold' }}>{getPassiveSkills(state).meleeDefense}</div>
+                  <div style={{ fontWeight: 'bold' }}>{getPassiveSkills(state).meleeDefense}%</div>
                   
                   <div>Ranged Defense</div>
                   <div style={{ fontWeight: 'bold' }}>{getPassiveSkills(state).rangedDefense}%</div>
@@ -1206,14 +1565,12 @@ export default function App() {
                               if (isUnlocked) {
                                 setSpellTreePath(path.id);
                               } else if (canAfford) {
-                                if (confirm(`Unlock ${path.name} path for 1 Stat Point?`)) {
-                                  const currentState = usePlayerStore.getState();
-                                  const newStats = { ...currentState.stats, statPoints: currentState.stats.statPoints - 1 };
-                                  usePlayerStore.setState({ 
-                                    stats: newStats,
-                                    spellPathsUnlocked: [...(currentState.spellPathsUnlocked || []), path.id as any]
-                                  });
-                                }
+                                const currentState = usePlayerStore.getState();
+                                const newStats = { ...currentState.stats, statPoints: currentState.stats.statPoints - 1 };
+                                usePlayerStore.setState({ 
+                                  stats: newStats,
+                                  spellPathsUnlocked: [...(currentState.spellPathsUnlocked || []), path.id as any]
+                                });
                               }
                             }}
                             style={{
@@ -1236,8 +1593,11 @@ export default function App() {
                             <div style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 4, color: isUnlocked ? path.color : '#666' }}>
                               {path.name}
                             </div>
-                            <div style={{ fontSize: 12, color: '#999', marginBottom: 8 }}>
+                            <div style={{ fontSize: 12, color: '#999', marginBottom: 4 }}>
                               {path.desc}
+                            </div>
+                            <div style={{ fontSize: 11, color: '#999', marginBottom: 8 }}>
+                              ⚡ All spells use 1 Stamina
                             </div>
                             {!isUnlocked && (
                               <div style={{ 

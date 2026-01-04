@@ -89,15 +89,21 @@ export function createPlayerStore(storage: KVStorage) {
       set({ 
         currentAreaId: startId, 
         discoveredMap: discovered, 
-        inventory: [], 
-        equipment: {}, 
+        inventory: [
+          { itemId: 'training_sword', qty: 1 },
+          { itemId: 'training_shield', qty: 1 }
+        ], 
+        equipment: { 
+          mainhand: 'training_sword',
+          offhand: 'training_shield'
+        }, 
         spellsKnown: [],
         spellPathsUnlocked: [],
         combatSkills: [],
         stats: { 
           gold: 0,
           power: 1, mind: 1, agility: 1, vision: 1,
-          statPoints: 4
+          statPoints: 5
         },
         health: 100,
         lastCheckpointId: startId,
@@ -326,6 +332,52 @@ export function createPlayerStore(storage: KVStorage) {
       // Autosave
       await storage.setItem(STORAGE_KEY, JSON.stringify(get()));
       console.log('✓ Stats allocated:', { changes, newStats });
+    },
+    resetStats: async () => {
+      // Check if player has Godstone
+      const state = get();
+      const inv = state.inventory || [];
+      const godstone = inv.find(i => i.itemId === 'godstone');
+      if (!godstone || godstone.qty <= 0) {
+        console.error('Godstone required to reset stats');
+        return { success: false, message: 'You need a Godstone to reset your stats!' };
+      }
+      
+      // Consume the Godstone
+      godstone.qty -= 1;
+      if (godstone.qty <= 0) {
+        state.inventory = inv.filter(i => i.itemId !== 'godstone');
+      }
+      
+      // Calculate total points spent (current stats - base 1 for each + base 4 stat points)
+      const currentStats = state.stats;
+      const pointsSpent = (currentStats.power - 1) + (currentStats.mind - 1) + 
+                          (currentStats.agility - 1) + (currentStats.vision - 1);
+      
+      // Reset all stats to 1 and refund all points
+      const resetStats = {
+        ...currentStats,
+        power: 1,
+        mind: 1,
+        agility: 1,
+        vision: 1,
+        statPoints: currentStats.statPoints + pointsSpent
+      };
+      
+      // Recalculate stamina for new stats (1+1+1)*5 = 15
+      const newMaxStamina = getMaxStamina({ stats: resetStats } as any);
+      
+      set({ 
+        stats: resetStats, 
+        inventory: state.inventory,
+        stamina: newMaxStamina,
+        maxStamina: newMaxStamina
+      } as any);
+      
+      // Autosave
+      await storage.setItem(STORAGE_KEY, JSON.stringify(get()));
+      console.log('✓ Stats reset with Godstone. Refunded:', pointsSpent, 'points');
+      return { success: true, message: `Stats reset! Refunded ${pointsSpent} stat points.` };
     },
     startThreat: async (tConfig: any) => {
       if (!tConfig) return;

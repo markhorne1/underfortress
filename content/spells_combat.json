@@ -14,6 +14,30 @@
     "srEffect": "negate"
   },
   {
+    "id": "fireblade",
+    "name": "Fireblade",
+    "path": "fire",
+    "tier": 1,
+    "cost": 1,
+    "targeting": "self",
+    "description": "Engulf your weapon in flames, adding +2 damage and +25% to melee attack chance for 10 turns.",
+    "effects": {
+      "buff": [
+        {
+          "stat": "attackDamage",
+          "value": 2,
+          "duration": 10
+        },
+        {
+          "stat": "meleeAttack",
+          "value": 25,
+          "duration": 10
+        }
+      ]
+    },
+    "requiresSR": false
+  },
+  {
     "id": "firespray",
     "name": "Firespray",
     "path": "fire",
@@ -78,6 +102,30 @@
     "srEffect": "negate"
   },
   {
+    "id": "iceblade",
+    "name": "Iceblade",
+    "path": "water",
+    "tier": 1,
+    "cost": 1,
+    "targeting": "self",
+    "description": "Coat your weapon in freezing ice, adding +2 damage and +25% to melee attack chance for 10 turns.",
+    "effects": {
+      "buff": [
+        {
+          "stat": "attackDamage",
+          "value": 2,
+          "duration": 10
+        },
+        {
+          "stat": "meleeAttack",
+          "value": 25,
+          "duration": 10
+        }
+      ]
+    },
+    "requiresSR": false
+  },
+  {
     "id": "frost_cone",
     "name": "Frost Cone",
     "path": "water",
@@ -135,12 +183,12 @@
     "tier": 1,
     "cost": 1,
     "targeting": "self",
-    "description": "Harden your skin like stone, gaining +10 Armour Rating for 3 turns.",
+    "description": "Harden your skin like stone, gaining +30% Armour Rating for 10 turns.",
     "effects": {
       "buff": {
         "stat": "ar",
-        "value": 10,
-        "duration": 3
+        "value": 30,
+        "duration": 10
       }
     },
     "requiresSR": false

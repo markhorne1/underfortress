@@ -81,6 +81,7 @@ export type EnemyInstance = {
   equipment: Record<string, string | null>;
   spells: string[];
   position: 'front' | 'back';  // Combat positioning
+  deathTimestamp?: number;  // Track when enemy died for UI delay
   statusEffects?: Array<{
     type: string;      // frozen, burning, stunned, etc.
     duration: number;  // Turns remaining
@@ -116,4 +117,9 @@ export type PlayerState = {
   flags?: Record<string, any>;
   quests: Record<string, any>;
   questLog: any[];
+  activeBuffs?: Array<{
+    stat: string;      // The stat being buffed (ar, attackDamage, meleeAttack, etc.)
+    value: number;     // Buff amount
+    duration: number;  // Turns remaining
+  }>;
 };

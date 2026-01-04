@@ -1,5 +1,29 @@
 [
   {
+    "id": "training_sword",
+    "name": "Training Sword",
+    "type": "weapon",
+    "slot": "mainhand",
+    "damageRating": 2,
+    "attackBonus": 20,
+    "stackable": false,
+    "value": 1,
+    "description": "A child's wooden practice sword. Light and easy to wield, but barely better than your fists. (+20% melee attack)",
+    "icon": "/icons/training_sword.svg"
+  },
+  {
+    "id": "training_shield",
+    "name": "Training Shield",
+    "type": "armor",
+    "slot": "offhand",
+    "armourRating": 0,
+    "defenseBonus": 20,
+    "stackable": false,
+    "value": 1,
+    "description": "A small round wooden shield used for practice. Provides basic protection. (+20% melee defense)",
+    "icon": "/icons/training_shield.svg"
+  },
+  {
     "id": "rusty_sword",
     "name": "Rusty Sword",
     "type": "weapon",
