@@ -148,6 +148,23 @@ export function createPlayerStore(storage: KVStorage) {
           set({ lastCheckpointId: nextAreaId } as any);
         }
         
+        // Handle onEnter combat initialization BEFORE other effects
+        const onEnter = (areaObj as any).onEnter;
+        if (onEnter && Array.isArray(onEnter)) {
+          for (const action of onEnter) {
+            if (action.type === 'initiateCombat' && action.enemyIds && Array.isArray(action.enemyIds)) {
+              // Import initiateCombat dynamically to avoid circular deps
+              const { initiateCombat } = await import('../engine/combatNew');
+              const currentState = get() as any;
+              const combatResult = initiateCombat(action.enemyIds, currentState);
+              set({ combat: combatResult.combat } as any);
+              // Combat initiated, stop further processing and save
+              await storage.setItem(STORAGE_KEY, JSON.stringify(get()));
+              return;
+            }
+          }
+        }
+        
         const currentState = (get() as any) as any;
         const res = performEnterEffects(areaObj, currentState);
         // apply keys from res.state back to store (only common fields changed by effects)

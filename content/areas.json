@@ -2194,7 +2194,8 @@
         ],
         "goToAreaId": "br_barracks_react"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "br_barracks_react",
@@ -2230,7 +2231,8 @@
         "label": "Bring the matter to the council immediately.",
         "goToAreaId": "br_council_banner"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "br_council_banner",
@@ -2242,7 +2244,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, council chamber with black banner bundle on map table, officials arguing, cinematic, no text",
-    "description": "Vayne’s eyes flick to the banner.\n\n\"Symbols are weapons,\" she says.\n\n\"Decide how we wield this one.\"",
+    "description": "Vayne\u2019s eyes flick to the banner.\n\n\"Symbols are weapons,\" she says.\n\n\"Decide how we wield this one.\"",
     "choices": [
       {
         "id": "set_policy",
@@ -2335,7 +2337,8 @@
           }
         ]
       }
-    }
+    },
+    "z": 0
   },
   {
     "id": "br_mage_warning",
@@ -2378,7 +2381,8 @@
         ],
         "goToAreaId": "ga_battlements_start"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "e_battle_horns",
@@ -2390,7 +2394,7 @@
     "cover": "none",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, city gate in storm rain, horns blowing, soldiers rushing, cinematic, no text",
-    "description": "A horn bellows from the wall — then another answers from the fields.\n\nRain turns to needles. Somewhere beyond sight, something huge moves.\n\nCaptain Roth shouts: \"TO YOUR POSTS! THIS IS IT!\"",
+    "description": "A horn bellows from the wall \u2014 then another answers from the fields.\n\nRain turns to needles. Somewhere beyond sight, something huge moves.\n\nCaptain Roth shouts: \"TO YOUR POSTS! THIS IS IT!\"",
     "choices": [
       {
         "id": "to_barricade",
@@ -2407,7 +2411,8 @@
         "label": "Climb to the parapet post to support archers.",
         "goToAreaId": "e_parapet_volley"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "e_barricade_hold",
@@ -2419,7 +2424,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, defenders behind barricade, goblins charging in rain, torchlight, cinematic, no text",
-    "description": "The first wave hits like a thrown sack of knives.\n\nYour barricade teams look to you — not because you’re in charge, but because you’re still standing.",
+    "description": "The first wave hits like a thrown sack of knives.\n\nYour barricade teams look to you \u2014 not because you\u2019re in charge, but because you\u2019re still standing.",
     "choices": [
       {
         "id": "start_hold",
@@ -2440,7 +2445,8 @@
         ],
         "goToAreaId": "e_barricade_choices"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "e_barricade_choices",
@@ -2452,7 +2458,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, close combat at barricade, arrows and shields, chaos, cinematic, no text",
-    "description": "The enemy closes. Archers fire past your shoulder.\n\nIf your preparations mattered, you’ll feel it now.",
+    "description": "The enemy closes. Archers fire past your shoulder.\n\nIf your preparations mattered, you\u2019ll feel it now.",
     "choices": [
       {
         "id": "volley_support",
@@ -2565,7 +2571,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, defenders pushing back goblins, broken shields, victory moment, cinematic, no text",
-    "description": "The first press breaks — not cleanly, not kindly — but it breaks.\n\nCaptain Roth’s runner screams over the din: \"SAPPERS! AT THE WARD PLINTH!\"",
+    "description": "The first press breaks \u2014 not cleanly, not kindly \u2014 but it breaks.\n\nCaptain Roth\u2019s runner screams over the din: \"SAPPERS! AT THE WARD PLINTH!\"",
     "effectsOnEnter": [
       {
         "type": "flag",
@@ -2770,7 +2776,8 @@
         "label": "Return to the parapet for the next wave.",
         "goToAreaId": "e_parapet_volley"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "e_parapet_volley",
@@ -2782,7 +2789,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, archers firing from parapet into storm, enemies below as silhouettes, cinematic, no text",
-    "description": "Archers loose volleys into the storm.\n\nIf you stocked the barrels earlier, the firing doesn’t slow. If you didn’t… hands reach for empty air.",
+    "description": "Archers loose volleys into the storm.\n\nIf you stocked the barrels earlier, the firing doesn\u2019t slow. If you didn\u2019t\u2026 hands reach for empty air.",
     "choices": [
       {
         "id": "support_archers",
@@ -2830,7 +2837,8 @@
         ],
         "goToAreaId": "e_triage"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "e_triage",
@@ -2855,7 +2863,8 @@
           }
         ]
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "f_act2_real_push",
@@ -2867,7 +2876,7 @@
     "cover": "none",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, massive enemy wave in rain, drums, torches, silhouettes of orcs and a troll, city gate looming, cinematic, no text",
-    "description": "Drums thud like a second heart.\n\nThe field erupts with torches and black shapes — orcs in tight ranks, and behind them something huge that lumbers as if the world owes it space.\n\nA runner screams: \"THEY’RE PUSHING THE RAM! AND SOMETHING’S INSIDE THE WALLS!\"",
+    "description": "Drums thud like a second heart.\n\nThe field erupts with torches and black shapes \u2014 orcs in tight ranks, and behind them something huge that lumbers as if the world owes it space.\n\nA runner screams: \"THEY\u2019RE PUSHING THE RAM! AND SOMETHING\u2019S INSIDE THE WALLS!\"",
     "effectsOnEnter": [
       {
         "type": "flag",
@@ -3050,7 +3059,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, gate shaking, defenders grimacing, ward glow straining, cinematic, no text",
-    "description": "The ram hits. The ward flares. The gate shudders.\n\nYou hear it — a crack that isn’t wood. It’s certainty.",
+    "description": "The ram hits. The ward flares. The gate shudders.\n\nYou hear it \u2014 a crack that isn\u2019t wood. It\u2019s certainty.",
     "choices": [
       {
         "id": "mechanisms_now",
@@ -3178,7 +3187,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, gate splintering, smoke and rain, defenders retreating, cinematic, no text",
-    "description": "You win seconds — not safety.\n\nThe gate gives a handspan. Then another.\n\nA narrow breach opens. Enough for knives. Enough for screams.",
+    "description": "You win seconds \u2014 not safety.\n\nThe gate gives a handspan. Then another.\n\nA narrow breach opens. Enough for knives. Enough for screams.",
     "choices": [
       {
         "id": "hold_or_fall",
@@ -3209,11 +3218,11 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, iron door to gate mechanisms, guards, sparks, rumbling gate, cinematic, no text",
-    "description": "An iron door set into the inner wall.\n\nA guard blocks you. \"Only the Gatewarden—\"\n\nThe wall shakes. Dust sifts down like slow snow.",
+    "description": "An iron door set into the inner wall.\n\nA guard blocks you. \"Only the Gatewarden\u2014\"\n\nThe wall shakes. Dust sifts down like slow snow.",
     "choices": [
       {
         "id": "use_seal",
-        "label": "Show the Gatewarden’s Seal.",
+        "label": "Show the Gatewarden\u2019s Seal.",
         "requirements": [
           {
             "type": "hasItem",
@@ -3244,7 +3253,7 @@
       },
       {
         "id": "no_access",
-        "label": "No seal—fall back to the inner streets.",
+        "label": "No seal\u2014fall back to the inner streets.",
         "effects": [
           {
             "type": "flag",
@@ -3266,7 +3275,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, gate mechanism room with chains and winch, sparks, defenders straining, cinematic, no text",
-    "description": "Chains groan. A winch screams. The portcullis is half-raised — stuck between fate and physics.\n\nA crewman shouts: \"Something’s cutting the ropes from inside!\"",
+    "description": "Chains groan. A winch screams. The portcullis is half-raised \u2014 stuck between fate and physics.\n\nA crewman shouts: \"Something\u2019s cutting the ropes from inside!\"",
     "choices": [
       {
         "id": "hook_chain",
@@ -3293,7 +3302,7 @@
       },
       {
         "id": "wardseal",
-        "label": "Cast Wardseal to steady the mechanism room’s ward-lines.",
+        "label": "Cast Wardseal to steady the mechanism room\u2019s ward-lines.",
         "requirements": [
           {
             "type": "knowsSpell",
@@ -3314,7 +3323,7 @@
       },
       {
         "id": "rush_infiltrators",
-        "label": "Ignore the chain—hunt whoever is cutting from inside.",
+        "label": "Ignore the chain\u2014hunt whoever is cutting from inside.",
         "goToAreaId": "f_mechanism_infiltration"
       }
     ]
@@ -3329,7 +3338,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow inner-wall tunnel, goblin infiltrators with knives, hanging ropes, cinematic, no text",
-    "description": "A narrow service tunnel runs inside the wall.\n\nGoblin infiltrators — soaked, laughing — slash at rope lines like children ruining toys.\n\nOne drops something that clinks: a key fragment.",
+    "description": "A narrow service tunnel runs inside the wall.\n\nGoblin infiltrators \u2014 soaked, laughing \u2014 slash at rope lines like children ruining toys.\n\nOne drops something that clinks: a key fragment.",
     "choices": [
       {
         "id": "start_infiltrators",
@@ -3362,7 +3371,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, close fight in tunnel, goblins slashing ropes, sparks and rain drip, cinematic, no text",
-    "description": "If they finish cutting, the portcullis drops crooked — and jams open.\n\nYou must stop them now.",
+    "description": "If they finish cutting, the portcullis drops crooked \u2014 and jams open.\n\nYou must stop them now.",
     "choices": [
       {
         "id": "shoot",
@@ -3492,7 +3501,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, inner alley with panicked citizens, guard pointing, shadowy movement, cinematic, no text",
-    "description": "A guard points into an alley. \"They’re inside! They cut ropes and open doors — they want the gate to fail from within!\"",
+    "description": "A guard points into an alley. \"They\u2019re inside! They cut ropes and open doors \u2014 they want the gate to fail from within!\"",
     "choices": [
       {
         "id": "to_tunnel",
@@ -3525,15 +3534,16 @@
       },
       {
         "id": "to_guild",
-        "label": "Visit the Armourers’ Guild for veteran crafting access.",
+        "label": "Visit the Armourers\u2019 Guild for veteran crafting access.",
         "goToAreaId": "ce_armourers_guild"
       },
       {
         "id": "to_scribes",
-        "label": "Visit the Scribes’ Conclave for veteran spell access.",
+        "label": "Visit the Scribes\u2019 Conclave for veteran spell access.",
         "goToAreaId": "ce_scribes_conclave"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "ce_council_afterbattle",
@@ -3545,7 +3555,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, council chamber with scorched maps and wax seals, morning light, cinematic, no text",
-    "description": "The council speaks in numbers:\n\nCasualties.\nSupplies.\nRepair time.\n\nVayne speaks in outcomes:\n\n\"They retreated. They will return—unless we make retreat expensive.\"",
+    "description": "The council speaks in numbers:\n\nCasualties.\nSupplies.\nRepair time.\n\nVayne speaks in outcomes:\n\n\"They retreated. They will return\u2014unless we make retreat expensive.\"",
     "actionsAvailable": {
       "talk": {
         "text": "Politics begins the moment the swords stop.",
@@ -3619,7 +3629,8 @@
         ],
         "goToAreaId": "pa_outside_gate"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "ce_barracks_report",
@@ -3631,7 +3642,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, barracks desk with casualty lists, soot-stained captain, cinematic, no text",
-    "description": "Captain Harl’s desk is a battlefield of paper.\n\nA city can be saved and still wounded.\n\nHe looks up as you arrive.",
+    "description": "Captain Harl\u2019s desk is a battlefield of paper.\n\nA city can be saved and still wounded.\n\nHe looks up as you arrive.",
     "actionsAvailable": {
       "talk": {
         "text": "Harl speaks plainly: consequences are a kind of enemy.",
@@ -3655,11 +3666,12 @@
         "label": "Return to the council.",
         "goToAreaId": "ce_council_afterbattle"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "ce_armourers_guild",
-    "title": "Armourers’ Guild: Veteran Work",
+    "title": "Armourers\u2019 Guild: Veteran Work",
     "x": 0,
     "y": -1,
     "floorId": "city",
@@ -3667,10 +3679,10 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, busy forge with armor pieces and guildmaster, sparks, cinematic, no text",
-    "description": "The guild doesn’t applaud.\n\nIt measures.\n\nHammer marks. Stitch lines. Fit.\n\nThis is where veterans become harder to kill.",
+    "description": "The guild doesn\u2019t applaud.\n\nIt measures.\n\nHammer marks. Stitch lines. Fit.\n\nThis is where veterans become harder to kill.",
     "actionsAvailable": {
       "talk": {
-        "text": "Orrow judges you with a craftsman’s eyes.",
+        "text": "Orrow judges you with a craftsman\u2019s eyes.",
         "choices": [
           {
             "id": "orrow",
@@ -3691,11 +3703,12 @@
         "label": "Return to Dawn Square.",
         "goToAreaId": "ce_dawn_square"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "ce_scribes_conclave",
-    "title": "Scribes’ Conclave: Ink That Bites",
+    "title": "Scribes\u2019 Conclave: Ink That Bites",
     "x": 0,
     "y": 0,
     "floorId": "city",
@@ -3703,7 +3716,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, scribe hall with scroll racks and glowing runes, quiet intensity, cinematic, no text",
-    "description": "The air smells like ink and burnt lavender.\n\nQuiet people doing loud work.\n\nLuvara doesn’t waste words.",
+    "description": "The air smells like ink and burnt lavender.\n\nQuiet people doing loud work.\n\nLuvara doesn\u2019t waste words.",
     "actionsAvailable": {
       "talk": {
         "text": "Luvara offers sanctioned power.",
@@ -3727,7 +3740,8 @@
         "label": "Return to Dawn Square.",
         "goToAreaId": "ce_dawn_square"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "c_council_hall",
@@ -3739,10 +3753,10 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, medieval council war room, candlelit map table, tired officials, cinematic, no text",
-    "description": "Candles gutter over a map scratched with siege lines.\n\nA clerk dips his quill in ink like it’s blood.\n\nCouncilor Vayne gestures you in. \"Report.\"",
+    "description": "Candles gutter over a map scratched with siege lines.\n\nA clerk dips his quill in ink like it\u2019s blood.\n\nCouncilor Vayne gestures you in. \"Report.\"",
     "actionsAvailable": {
       "talk": {
-        "text": "Vayne’s gaze is a blade.",
+        "text": "Vayne\u2019s gaze is a blade.",
         "choices": [
           {
             "id": "vayne",
@@ -3770,7 +3784,8 @@
     "exits": {
       "s": "c_market_square",
       "e": "c_gate_inner_yard"
-    }
+    },
+    "z": 0
   },
   {
     "id": "c_quartermaster_depot",
@@ -3782,7 +3797,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, crate-stacked depot, soldiers hauling bundles, quartermaster with ledger, cinematic, no text",
-    "description": "Crates rise like walls.\n\nQuartermaster Brevin barks numbers at runners.\n\nA sign reads: WORK EARNS WHAT COIN CAN’T.",
+    "description": "Crates rise like walls.\n\nQuartermaster Brevin barks numbers at runners.\n\nA sign reads: WORK EARNS WHAT COIN CAN\u2019T.",
     "actionsAvailable": {
       "talk": {
         "text": "Brevin looks up without smiling.",
@@ -3831,11 +3846,12 @@
       "e": "c_market_square",
       "n": "c_battlements_post",
       "w": "c_armoury_workroom"
-    }
+    },
+    "z": 0
   },
   {
     "id": "c_mage_tower_scribes",
-    "title": "Mage Tower: Scribes’ Room",
+    "title": "Mage Tower: Scribes\u2019 Room",
     "x": 3,
     "y": 0,
     "floorId": "city",
@@ -3873,7 +3889,8 @@
     },
     "exits": {
       "w": "c_market_square"
-    }
+    },
+    "z": 0
   },
   {
     "id": "c_armoury_workroom",
@@ -3906,7 +3923,8 @@
     "exits": {
       "e": "c_quartermaster_depot",
       "n": "c_gate_inner_yard"
-    }
+    },
+    "z": 0
   },
   {
     "id": "c_battlements_post",
@@ -3946,11 +3964,12 @@
     ],
     "exits": {
       "s": "c_quartermaster_depot"
-    }
+    },
+    "z": 0
   },
   {
     "id": "c_sewer_gate_descent",
-    "title": "Sewer Gate: Below the City’s Breath",
+    "title": "Sewer Gate: Below the City\u2019s Breath",
     "x": 1,
     "y": -1,
     "floorId": "sewer",
@@ -3971,7 +3990,8 @@
         ],
         "goToAreaId": "c_sewer_junction"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "c_sewer_junction",
@@ -3983,7 +4003,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, sewer junction with three channels, drifting debris, lantern reflections, cinematic, no text",
-    "description": "Three channels diverge.\n\nOne smells of rot.\n\nOne smells of mushrooms.\n\nOne smells… clean. Too clean.",
+    "description": "Three channels diverge.\n\nOne smells of rot.\n\nOne smells of mushrooms.\n\nOne smells\u2026 clean. Too clean.",
     "choices": [
       {
         "id": "rats",
@@ -4006,10 +4026,11 @@
       },
       {
         "id": "meet_pella",
-        "label": "Follow the ‘too clean’ channel (someone lives down here).",
+        "label": "Follow the \u2018too clean\u2019 channel (someone lives down here).",
         "goToAreaId": "c_pella_nook"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "c_sewer_swarm_run",
@@ -4045,7 +4066,8 @@
         ],
         "goToAreaId": "c_pella_nook"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "c_pella_nook",
@@ -4057,7 +4079,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, small sewer nook with dry platform, rat traps, lantern, a figure waiting, cinematic, no text",
-    "description": "A dry platform. Traps. A lantern that doesn’t flicker.\n\nPella watches you like you’re the danger.\n\n\"You want the old underways? Then talk.\"",
+    "description": "A dry platform. Traps. A lantern that doesn\u2019t flicker.\n\nPella watches you like you\u2019re the danger.\n\n\"You want the old underways? Then talk.\"",
     "actionsAvailable": {
       "talk": {
         "text": "Pella taps a hooked pole on stone.",
@@ -4097,7 +4119,8 @@
         ],
         "goToAreaId": "c_underway_threshold"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "c_underway_threshold",
@@ -4109,7 +4132,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, ancient stone archway under city, faint glowing ward lines, cinematic, no text",
-    "description": "An archway cut with precise stonework.\n\nFaint ward-lines shimmer when your lantern passes.\n\nPella whispers: \"Don’t step on the bright lines.\"",
+    "description": "An archway cut with precise stonework.\n\nFaint ward-lines shimmer when your lantern passes.\n\nPella whispers: \"Don\u2019t step on the bright lines.\"",
     "choices": [
       {
         "id": "use_salt",
@@ -4150,7 +4173,8 @@
         ],
         "goToAreaId": "c_echo_caves"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "c_echo_caves",
@@ -4162,11 +4186,11 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, cavern where every drip echoes, chalky stone, distant shapes, cinematic, no text",
-    "description": "Every step echoes too long.\n\nSomething hears you.\n\nSomething moves where echoes don’t reach.",
+    "description": "Every step echoes too long.\n\nSomething hears you.\n\nSomething moves where echoes don\u2019t reach.",
     "choices": [
       {
         "id": "spore_pack",
-        "label": "Shadows resolve into thralls—avoid or fight.",
+        "label": "Shadows resolve into thralls\u2014avoid or fight.",
         "effects": [
           {
             "type": "startThreat",
@@ -4195,7 +4219,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, glowing fungi grove, spores in air like dust motes, eerie beauty, cinematic, no text",
-    "description": "Glowing fungi like lanterns that hate you.\n\nSpores drift.\n\nPella’s advice returns: hold your breath.",
+    "description": "Glowing fungi like lanterns that hate you.\n\nSpores drift.\n\nPella\u2019s advice returns: hold your breath.",
     "choices": [
       {
         "id": "fight",
@@ -4232,7 +4256,8 @@
         ],
         "goToAreaId": "c_fragment_shrine"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "c_fragment_shrine",
@@ -4244,7 +4269,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, small shrine with glowing crystal fragment embedded, old ward carvings, cinematic, no text",
-    "description": "A small shrine. Wards carved like handwriting.\n\nA crystal fragment sits in the center—part of a key.\n\nTaking it may wake the shrine’s guardians.",
+    "description": "A small shrine. Wards carved like handwriting.\n\nA crystal fragment sits in the center\u2014part of a key.\n\nTaking it may wake the shrine\u2019s guardians.",
     "choices": [
       {
         "id": "take_fragment",
@@ -4267,7 +4292,8 @@
         ],
         "goToAreaId": "c_underfortress_steps"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "c_underfortress_steps",
@@ -4283,7 +4309,7 @@
     "choices": [
       {
         "id": "warder",
-        "label": "A warder blocks the way—fight.",
+        "label": "A warder blocks the way\u2014fight.",
         "effects": [
           {
             "type": "startCombat",
@@ -4344,7 +4370,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, fortress gallery with hanging charms and bones, shaman silhouette, crystal glint, cinematic, no text",
-    "description": "Charms sway without wind.\n\nA shaman’s eye glints like glass.\n\n\"You come for the city’s sight,\" it says.\n\n\"Then pay in fear.\"",
+    "description": "Charms sway without wind.\n\nA shaman\u2019s eye glints like glass.\n\n\"You come for the city\u2019s sight,\" it says.\n\n\"Then pay in fear.\"",
     "choices": [
       {
         "id": "boss",
@@ -4362,11 +4388,12 @@
         ],
         "goToAreaId": "c_shaman_loot"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "c_shaman_loot",
-    "title": "Shaman’s Relics: Third Fragment and Shard",
+    "title": "Shaman\u2019s Relics: Third Fragment and Shard",
     "x": 11,
     "y": -1,
     "floorId": "underfortress",
@@ -4374,7 +4401,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, fallen shaman, crystal shard and key fragment on cloth, eerie blue glow, cinematic, no text",
-    "description": "The shaman’s charms fall silent.\n\nYou take the third fragment.\n\nYou also take a shard of scrying crystal—proof the vault holds the real prize.",
+    "description": "The shaman\u2019s charms fall silent.\n\nYou take the third fragment.\n\nYou also take a shard of scrying crystal\u2014proof the vault holds the real prize.",
     "effectsOnEnter": [
       {
         "type": "addItem",
@@ -4408,7 +4435,8 @@
         ],
         "goToAreaId": "c_lumen_vault_door"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "c_lumen_vault_door",
@@ -4442,14 +4470,15 @@
       },
       {
         "id": "not_ready",
-        "label": "You lack fragments—retreat and search for more.",
+        "label": "You lack fragments\u2014retreat and search for more.",
         "goToAreaId": "c_underway_threshold"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "c_lumen_vault_core",
-    "title": "Lumen Vault: The City’s Sight",
+    "title": "Lumen Vault: The City\u2019s Sight",
     "x": 13,
     "y": -1,
     "floorId": "underfortress",
@@ -4457,7 +4486,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, glowing crystal vault chamber, crystal ball on pedestal, ward light swirling, cinematic, no text",
-    "description": "The crystal ball sits on a pedestal like a calm moon.\n\nWhen you touch it, you feel the city above—like a heartbeat through stone.\n\nThis will change the war.",
+    "description": "The crystal ball sits on a pedestal like a calm moon.\n\nWhen you touch it, you feel the city above\u2014like a heartbeat through stone.\n\nThis will change the war.",
     "choices": [
       {
         "id": "take_ball",
@@ -4522,14 +4551,14 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, dockside tarpaulins over crates, rain, lantern reflections, suspicious figures, cinematic, no text",
-    "description": "Tarps flap over stacked crates. A gull shrieks, and somewhere a chain rattles — too quick to be the tide.\n\nThis is where supplies vanish before they ever reach the walls.",
+    "description": "Tarps flap over stacked crates. A gull shrieks, and somewhere a chain rattles \u2014 too quick to be the tide.\n\nThis is where supplies vanish before they ever reach the walls.",
     "exits": {
       "w": "c_docks_ward",
       "s": "c_quay_steps"
     },
     "actionsAvailable": {
       "investigate": {
-        "text": "You spot a crate brand that doesn’t match any city ledger mark.",
+        "text": "You spot a crate brand that doesn\u2019t match any city ledger mark.",
         "choices": [
           {
             "id": "search_with_warrant",
@@ -4564,7 +4593,8 @@
           }
         ]
       }
-    }
+    },
+    "z": 0
   },
   {
     "id": "c_quay_steps",
@@ -4576,7 +4606,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, stone quay steps descending to dark water, lantern on hook, hidden nook, cinematic, no text",
-    "description": "Stone steps descend to black water. Here the dock noise thins — perfect for whispers.\n\nYou hear it: ‘…move it through the grate. Tonight.’",
+    "description": "Stone steps descend to black water. Here the dock noise thins \u2014 perfect for whispers.\n\nYou hear it: \u2018\u2026move it through the grate. Tonight.\u2019",
     "exits": {
       "n": "c_tarpaulin_row",
       "w": "c_docks_ward",
@@ -4614,7 +4644,8 @@
         ],
         "goToAreaId": "c_drain_grate"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "c_docks_standoff",
@@ -4626,7 +4657,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, tense dock standoff, hooded smugglers, one raising a bow, rain and lanterns, cinematic, no text",
-    "description": "Hooded figures freeze. One’s hand goes to a bow. Another shifts a crate as if it weighs nothing.\n\nThey’re ready to run — or kill.",
+    "description": "Hooded figures freeze. One\u2019s hand goes to a bow. Another shifts a crate as if it weighs nothing.\n\nThey\u2019re ready to run \u2014 or kill.",
     "choices": [
       {
         "id": "shoot",
@@ -4720,7 +4751,8 @@
     "exits": {
       "n": "c_quay_steps",
       "w": "c_docks_ward"
-    }
+    },
+    "z": 0
   },
   {
     "id": "c_contraband_cache",
@@ -4732,7 +4764,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, hidden dock warehouse cache, cracked crate revealing rune-metal shards, lantern glow, cinematic, no text",
-    "description": "Inside the crate: rune-metal shards wrapped in oiled cloth. Not food. Not arrows.\n\nWard shards — the kind used to reinforce gate wards.\n\nSomeone is stealing the city’s protection.",
+    "description": "Inside the crate: rune-metal shards wrapped in oiled cloth. Not food. Not arrows.\n\nWard shards \u2014 the kind used to reinforce gate wards.\n\nSomeone is stealing the city\u2019s protection.",
     "exits": {
       "w": "c_tarpaulin_row"
     },
@@ -4778,7 +4810,8 @@
         ],
         "goToAreaId": "c_drain_grate"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "f_postern_return",
@@ -4806,7 +4839,8 @@
     ],
     "exits": {
       "n": "v_council_chamber"
-    }
+    },
+    "z": 0
   },
   {
     "id": "f_council_return_debrief",
@@ -4818,7 +4852,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, council chamber with codebook on table, exhausted officials leaning in, cinematic, no text",
-    "description": "The stolen codebook thuds onto the council table.\n\nVayne’s mouth tightens in approval.\n\n\"Good. Now we can make them mishear themselves.\"",
+    "description": "The stolen codebook thuds onto the council table.\n\nVayne\u2019s mouth tightens in approval.\n\n\"Good. Now we can make them mishear themselves.\"",
     "choices": [
       {
         "id": "deliver",
@@ -4906,7 +4940,8 @@
     ],
     "exits": {
       "s": "g_inner_gate_yard"
-    }
+    },
+    "z": 0
   },
   {
     "id": "f_mage_tower_brief",
@@ -4921,7 +4956,7 @@
     "description": "Archivist Salenne spreads a thin map of underways.\n\n\"There is a crystal ball taken from the city long ago,\" she says.\n\n\"With it, we can see enemy movements before they become screams.\"",
     "actionsAvailable": {
       "talk": {
-        "text": "Salenne speaks quickly—like time is a leaking cup.",
+        "text": "Salenne speaks quickly\u2014like time is a leaking cup.",
         "choices": [
           {
             "id": "salenne",
@@ -4949,7 +4984,7 @@
     "choices": [
       {
         "id": "to_false_dawn",
-        "label": "A horn sounds—another push at ‘false dawn’. Go to the signal tower.",
+        "label": "A horn sounds\u2014another push at \u2018false dawn\u2019. Go to the signal tower.",
         "effects": [
           {
             "type": "startJob",
@@ -4958,11 +4993,12 @@
         ],
         "goToAreaId": "f_signal_tower"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "f_signal_tower",
-    "title": "Signal Tower: Dawn That Isn’t Dawn",
+    "title": "Signal Tower: Dawn That Isn\u2019t Dawn",
     "x": 2,
     "y": 0,
     "floorId": "city",
@@ -4970,7 +5006,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, city signal tower with lantern shutters and horns, pre-dawn mist, cinematic, no text",
-    "description": "The sky is dark—but the enemy horns say ‘dawn push’.\n\nThis is a trick.\n\nOr an opportunity.\n\nIf you can lie in their signal language, you can turn their coordination into confusion.",
+    "description": "The sky is dark\u2014but the enemy horns say \u2018dawn push\u2019.\n\nThis is a trick.\n\nOr an opportunity.\n\nIf you can lie in their signal language, you can turn their coordination into confusion.",
     "choices": [
       {
         "id": "counter_signal",
@@ -5027,7 +5063,8 @@
     ],
     "exits": {
       "w": "g_battlements_wallwalk"
-    }
+    },
+    "z": 0
   },
   {
     "id": "f_battlements_false_dawn",
@@ -5043,7 +5080,7 @@
     "choices": [
       {
         "id": "weakened_wave",
-        "label": "If counter-signal succeeded, their timing is off—press the advantage.",
+        "label": "If counter-signal succeeded, their timing is off\u2014press the advantage.",
         "requirements": [
           {
             "type": "flagEquals",
@@ -5093,7 +5130,8 @@
     ],
     "exits": {
       "s": "f_inner_yard_dawn"
-    }
+    },
+    "z": 0
   },
   {
     "id": "f_false_dawn_fight",
@@ -5105,7 +5143,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, melee at battlements edge, sapper reaching for charge, signalman horn raised, cinematic, no text",
-    "description": "Stop the sapper or the wall cracks.\n\nStop the signalman or the push stays coordinated.\n\nChoose your target first—and live with it.",
+    "description": "Stop the sapper or the wall cracks.\n\nStop the signalman or the push stays coordinated.\n\nChoose your target first\u2014and live with it.",
     "choices": [
       {
         "id": "shoot_sapper",
@@ -5154,7 +5192,8 @@
         ],
         "goToAreaId": "f_false_dawn_resolution"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "f_inner_yard_dawn",
@@ -5166,7 +5205,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, inner yard with runners and smoke, dawn light barely starting, cinematic, no text",
-    "description": "Runners shout conflicting reports.\n\nIf the enemy still has a drains route, knives may already be inside the city.\n\nYou can’t be everywhere—so your choices matter.",
+    "description": "Runners shout conflicting reports.\n\nIf the enemy still has a drains route, knives may already be inside the city.\n\nYou can\u2019t be everywhere\u2014so your choices matter.",
     "choices": [
       {
         "id": "drains_complication",
@@ -5191,7 +5230,8 @@
         "label": "Ignore reports and stay focused on the battlements.",
         "goToAreaId": "f_false_dawn_fight"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "f_drains_knifers",
@@ -5203,7 +5243,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow sewer tunnel, lantern reflections, knife glint in darkness, cinematic, no text",
-    "description": "A knife flashes.\n\nA whisper in the wet.\n\nThey aren’t here to win a fight—they’re here to start fires and fear.",
+    "description": "A knife flashes.\n\nA whisper in the wet.\n\nThey aren\u2019t here to win a fight\u2014they\u2019re here to start fires and fear.",
     "choices": [
       {
         "id": "fight",
@@ -5234,7 +5274,8 @@
         ],
         "goToAreaId": "f_false_dawn_resolution"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "f_false_dawn_resolution",
@@ -5246,7 +5287,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, dawn light finally arriving, broken sapper tools, defenders leaning on walls, cinematic, no text",
-    "description": "The push falters.\n\nThe horn pattern stutters.\n\nFor once, dawn arrives after the fighting—not during it.",
+    "description": "The push falters.\n\nThe horn pattern stutters.\n\nFor once, dawn arrives after the fighting\u2014not during it.",
     "effectsOnEnter": [
       {
         "type": "flag",
@@ -5288,7 +5329,7 @@
       },
       {
         "id": "begin_descent",
-        "label": "Salenne’s map calls: descend to retrieve the crystal ball.",
+        "label": "Salenne\u2019s map calls: descend to retrieve the crystal ball.",
         "requirements": [
           {
             "type": "flagEquals",
@@ -5305,7 +5346,8 @@
         ],
         "goToAreaId": "c_sewer_gate_descent"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "fb_prebattle_council",
@@ -5351,7 +5393,8 @@
         "label": "Go to the battlements for lane assignment.",
         "goToAreaId": "fb_lane_assignment"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "fb_lane_assignment",
@@ -5363,10 +5406,10 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, battlement staging area, arrows stacked, smoke, serjeant pointing, cinematic, no text",
-    "description": "Mara shouts over the roar.\n\nThe enemy surges like a tide.\n\nPick where you fight, and accept what you can’t save.",
+    "description": "Mara shouts over the roar.\n\nThe enemy surges like a tide.\n\nPick where you fight, and accept what you can\u2019t save.",
     "actionsAvailable": {
       "talk": {
-        "text": "Mara’s eyes don’t blink.",
+        "text": "Mara\u2019s eyes don\u2019t blink.",
         "choices": [
           {
             "id": "mara",
@@ -5433,7 +5476,8 @@
         ],
         "goToAreaId": "fb_streets_start"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "fb_wall_start",
@@ -5445,7 +5489,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, wall line with smoke and ladders, distant siege tower silhouette, cinematic, no text",
-    "description": "The wall shakes with impact.\n\nA troll wallbreaker heaves stone.\n\nIf the tower wheels were sabotaged, the tower arrives late—or breaks.\n\nIf pitch pits were ruined, fewer burning pours reach the parapet.",
+    "description": "The wall shakes with impact.\n\nA troll wallbreaker heaves stone.\n\nIf the tower wheels were sabotaged, the tower arrives late\u2014or breaks.\n\nIf pitch pits were ruined, fewer burning pours reach the parapet.",
     "choices": [
       {
         "id": "apply_engine_effects",
@@ -5502,7 +5546,8 @@
         ],
         "goToAreaId": "fb_wall_fight"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "fb_wall_fight",
@@ -5548,7 +5593,8 @@
         ],
         "goToAreaId": "fb_wall_wave"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "fb_wall_wave",
@@ -5560,7 +5606,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, massive wall melee, ladders, shields, rain, cinematic, no text",
-    "description": "The wave hits.\n\nIf the banner is missing, some enemy fighters glance behind them—looking for courage that isn’t there.\n\nNow is where legends happen.",
+    "description": "The wave hits.\n\nIf the banner is missing, some enemy fighters glance behind them\u2014looking for courage that isn\u2019t there.\n\nNow is where legends happen.",
     "choices": [
       {
         "id": "fight_wave",
@@ -5581,7 +5627,8 @@
         ],
         "goToAreaId": "fb_final_consolidation"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "fb_gate_start",
@@ -5593,7 +5640,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, gatehouse under ram assault, chains, splinters, berserkers, cinematic, no text",
-    "description": "The gate trembles.\n\nIf the ram chain was stolen, the ram hits wrong—less force, more rage.\n\nIf not, the gate must survive on courage and wood.",
+    "description": "The gate trembles.\n\nIf the ram chain was stolen, the ram hits wrong\u2014less force, more rage.\n\nIf not, the gate must survive on courage and wood.",
     "choices": [
       {
         "id": "apply_ram_effect",
@@ -5626,7 +5673,8 @@
         ],
         "goToAreaId": "fb_gate_fight"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "fb_gate_fight",
@@ -5705,7 +5753,8 @@
         ],
         "goToAreaId": "fb_final_consolidation"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "fb_streets_start",
@@ -5717,7 +5766,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, dark streets with lanterns, citizens running, shadowy infiltrators, cinematic, no text",
-    "description": "Even if the wall holds, the city can burn.\n\nInfiltrators slip through gaps.\n\nArson starts small.\n\nIf too many get away, the council will later say: ‘We won the battle and lost the city.’",
+    "description": "Even if the wall holds, the city can burn.\n\nInfiltrators slip through gaps.\n\nArson starts small.\n\nIf too many get away, the council will later say: \u2018We won the battle and lost the city.\u2019",
     "choices": [
       {
         "id": "chase_1",
@@ -5768,7 +5817,8 @@
         ],
         "goToAreaId": "fb_streets_resolution"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "fb_alley_chase",
@@ -5838,7 +5888,8 @@
         ],
         "goToAreaId": "fb_streets_resolution"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "fb_streets_resolution",
@@ -5857,11 +5908,12 @@
         "label": "Return to final consolidation.",
         "goToAreaId": "fb_final_consolidation"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "fb_final_consolidation",
-    "title": "Final Consolidation: Victory’s Price",
+    "title": "Final Consolidation: Victory\u2019s Price",
     "x": 4,
     "y": -1,
     "floorId": "city",
@@ -5869,7 +5921,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, exhausted defenders at dawn, banner torn, wounded tended, city skyline smoking, cinematic, no text",
-    "description": "Dawn arrives.\n\nNot gentle.\n\nBut real.\n\nThe enemy’s final push breaks or stalls depending on what you sabotaged and what you chose to defend.\n\nNow the war shifts from survival to pursuit: the enemy retreats to deeper holds… and something older stirs beneath them.",
+    "description": "Dawn arrives.\n\nNot gentle.\n\nBut real.\n\nThe enemy\u2019s final push breaks or stalls depending on what you sabotaged and what you chose to defend.\n\nNow the war shifts from survival to pursuit: the enemy retreats to deeper holds\u2026 and something older stirs beneath them.",
     "effectsOnEnter": [
       {
         "type": "flag",
@@ -5931,7 +5983,8 @@
           }
         ]
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "fwh_departure",
@@ -6320,7 +6373,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, hero holding warlord helm trophy, dawn light through cracked stone, cinematic, no text",
-    "description": "The Warlord falls.\n\nThe host breaks.\n\nYou stand in the quiet after violence.\n\nThe war does not end in one room…\n\nBut it can tilt hard enough that the next battle becomes survivable.\n\nYou take the Warlord’s helm.\n\nProof.\n\nWeight.\n\nEnding.",
+    "description": "The Warlord falls.\n\nThe host breaks.\n\nYou stand in the quiet after violence.\n\nThe war does not end in one room\u2026\n\nBut it can tilt hard enough that the next battle becomes survivable.\n\nYou take the Warlord\u2019s helm.\n\nProof.\n\nWeight.\n\nEnding.",
     "effectsOnEnter": [
       {
         "type": "flag",
@@ -6351,7 +6404,8 @@
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, city skyline at sunrise, banners repaired, smoke fading, cinematic, no text",
     "description": "Your choices decide what the city becomes next:\n\n- a brave city,\n- a clever city,\n- a cruel city,\n- or a broken city pretending.\n\n(Use endings_matrix.json to compute your outcome.)",
-    "choices": []
+    "choices": [],
+    "z": 0
   },
   {
     "id": "g_battlements_wallwalk",
@@ -6363,7 +6417,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, rain-slick battlements, archers, ladders below, siege fires beyond, cinematic, no text",
-    "description": "Rain slicks the stones.\n\nBelow, ladders shift into place like the legs of insects.\n\nCaptain Harl’s voice cuts through the wind: \"Hold. The. Wall.\"",
+    "description": "Rain slicks the stones.\n\nBelow, ladders shift into place like the legs of insects.\n\nCaptain Harl\u2019s voice cuts through the wind: \"Hold. The. Wall.\"",
     "actionsAvailable": {
       "talk": {
         "text": "Harl points to the parapet edge.",
@@ -6394,7 +6448,7 @@
     "choices": [
       {
         "id": "begin_wave_1",
-        "label": "The first ladders bite the stone…",
+        "label": "The first ladders bite the stone\u2026",
         "effects": [
           {
             "type": "flag",
@@ -6419,7 +6473,8 @@
     ],
     "exits": {
       "s": "g_inner_gate_yard"
-    }
+    },
+    "z": 0
   },
   {
     "id": "g_gate_wave_loop",
@@ -6524,7 +6579,8 @@
         ],
         "goToAreaId": "g_inner_gate_yard"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "g_between_waves",
@@ -6536,7 +6592,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, brief lull on battlements, bodies cleared, distant horns, cinematic, no text",
-    "description": "A lull—only a lull.\n\nThe next horn will come.\n\nA runner shouts from below: \"Small ones slipped through!\"",
+    "description": "A lull\u2014only a lull.\n\nThe next horn will come.\n\nA runner shouts from below: \"Small ones slipped through!\"",
     "choices": [
       {
         "id": "wave_2",
@@ -6586,7 +6642,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, orc brutes cresting ladders, shields up, goblins behind, cinematic, no text",
-    "description": "Wave II hits harder.\n\nBrutes crest the ladder tops with shields raised.\n\nYou can keep them off—if you don’t split your attention too far.",
+    "description": "Wave II hits harder.\n\nBrutes crest the ladder tops with shields raised.\n\nYou can keep them off\u2014if you don\u2019t split your attention too far.",
     "choices": [
       {
         "id": "fight",
@@ -6601,7 +6657,7 @@
       },
       {
         "id": "hold_but_slip",
-        "label": "Hold the wall—accept that some goblins slip below.",
+        "label": "Hold the wall\u2014accept that some goblins slip below.",
         "effects": [
           {
             "type": "addToCounter",
@@ -6627,7 +6683,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, orc sergeant with banner roaring, final push at the ladders, cinematic, no text",
-    "description": "A heavier horn.\n\nA banner rises—orc sergeant at its heart.\n\nIf that banner reaches the wall, the line breaks.",
+    "description": "A heavier horn.\n\nA banner rises\u2014orc sergeant at its heart.\n\nIf that banner reaches the wall, the line breaks.",
     "choices": [
       {
         "id": "start_wave_3",
@@ -6718,7 +6774,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, inner gate yard with panicked runners, lanterns, smoke plume, cinematic, no text",
-    "description": "Runners collide in the yard.\n\nA guard points into the streets: \"They’re in the alleys!\"\n\nAnother shouts: \"Smoke by the granary!\"\n\nIf too many slipped through, tonight becomes fire… and then screams.",
+    "description": "Runners collide in the yard.\n\nA guard points into the streets: \"They\u2019re in the alleys!\"\n\nAnother shouts: \"Smoke by the granary!\"\n\nIf too many slipped through, tonight becomes fire\u2026 and then screams.",
     "actionsAvailable": {
       "talk": {
         "text": "Serjeant Mara is rallying patrols.",
@@ -6832,7 +6888,8 @@
     "exits": {
       "n": "g_battlements_wallwalk",
       "e": "g_market_square_panic"
-    }
+    },
+    "z": 0
   },
   {
     "id": "g_back_alley_fork",
@@ -6844,7 +6901,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow wet alley splitting left and right, lantern swinging, footprints, cinematic, no text",
-    "description": "Wet stones. Tight walls.\n\nYou hear a match-scratch somewhere ahead.\n\nThis is where chase work is done — fast choices, dirty corners.",
+    "description": "Wet stones. Tight walls.\n\nYou hear a match-scratch somewhere ahead.\n\nThis is where chase work is done \u2014 fast choices, dirty corners.",
     "choices": [
       {
         "id": "open_fire",
@@ -6952,7 +7009,8 @@
     "exits": {
       "w": "g_inner_gate_yard",
       "e": "g_chase_distance_loop"
-    }
+    },
+    "z": 0
   },
   {
     "id": "g_chase_distance_loop",
@@ -7015,7 +7073,7 @@
       },
       {
         "id": "lose_them",
-        "label": "You hesitate… and they slip away into the dark.",
+        "label": "You hesitate\u2026 and they slip away into the dark.",
         "effects": [
           {
             "type": "addToCounter",
@@ -7030,7 +7088,8 @@
         ],
         "goToAreaId": "g_escalation_reports"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "g_chase_fire_scene",
@@ -7089,7 +7148,8 @@
         ],
         "goToAreaId": "g_chase_aftermath"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "g_chase_aftermath",
@@ -7101,7 +7161,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, alley aftermath, dropped tinder pouch, guard lanterns arriving, cinematic, no text",
-    "description": "The chase ends in wet stone and hard breathing.\n\nYou gather proof: tinder pouches and black tokens.\n\nSerjeant Mara arrives with lanterns. \"Good. Now—how many got away?\"",
+    "description": "The chase ends in wet stone and hard breathing.\n\nYou gather proof: tinder pouches and black tokens.\n\nSerjeant Mara arrives with lanterns. \"Good. Now\u2014how many got away?\"",
     "effectsOnEnter": [
       {
         "type": "flag",
@@ -7128,7 +7188,8 @@
         "label": "Return to the Inner Gate Yard.",
         "goToAreaId": "g_inner_gate_yard"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "g_escalation_reports",
@@ -7140,7 +7201,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, guard runner delivering report in rainy street, worried faces, cinematic, no text",
-    "description": "A runner arrives soaked.\n\nIf you let infiltrators slip by, the city’s pain spreads in stages.\n\nFirst fire. Then blood.",
+    "description": "A runner arrives soaked.\n\nIf you let infiltrators slip by, the city\u2019s pain spreads in stages.\n\nFirst fire. Then blood.",
     "choices": [
       {
         "id": "arson_stage",
@@ -7215,7 +7276,8 @@
     ],
     "exits": {
       "w": "g_inner_gate_yard"
-    }
+    },
+    "z": 0
   },
   {
     "id": "g_market_square_panic",
@@ -7250,7 +7312,7 @@
       },
       {
         "id": "resolve",
-        "label": "If you’ve stopped enough packs, declare the streets secured.",
+        "label": "If you\u2019ve stopped enough packs, declare the streets secured.",
         "effects": [
           {
             "type": "flag",
@@ -7271,7 +7333,8 @@
     ],
     "exits": {
       "w": "g_inner_gate_yard"
-    }
+    },
+    "z": 0
   },
   {
     "id": "g_tenements_lane",
@@ -7283,7 +7346,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, cramped tenement street, shuttered windows, blood on cobbles, lantern light, cinematic, no text",
-    "description": "Shutters slam.\n\nA child cries somewhere above.\n\nA goblin laughs—then stops when it hears your boots.",
+    "description": "Shutters slam.\n\nA child cries somewhere above.\n\nA goblin laughs\u2014then stops when it hears your boots.",
     "choices": [
       {
         "id": "fight",
@@ -7299,7 +7362,8 @@
     ],
     "exits": {
       "s": "g_market_square_panic"
-    }
+    },
+    "z": 0
   },
   {
     "id": "g_infiltrator_cleanup",
@@ -7311,7 +7375,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, guards arriving, lanterns, captured goblin token, weary civilians, cinematic, no text",
-    "description": "Guards arrive in numbers.\n\nThe immediate threat is gone.\n\nThe consequences remain—but you kept them from becoming worse.",
+    "description": "Guards arrive in numbers.\n\nThe immediate threat is gone.\n\nThe consequences remain\u2014but you kept them from becoming worse.",
     "effectsOnEnter": [
       {
         "type": "addStatPoints",
@@ -7333,7 +7397,8 @@
         "label": "Return to report in the Inner Gate Yard.",
         "goToAreaId": "g_inner_gate_yard"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "g_drains_junction",
@@ -7345,7 +7410,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, sewer junction with rushing water, lantern reflections, shadowy figures, cinematic, no text",
-    "description": "If the enemy kept a ‘second mouth,’ this is where it bites.\n\nYou hear splashing that isn’t water.\n\nSomething is moving upstream.",
+    "description": "If the enemy kept a \u2018second mouth,\u2019 this is where it bites.\n\nYou hear splashing that isn\u2019t water.\n\nSomething is moving upstream.",
     "choices": [
       {
         "id": "resolve_breach",
@@ -7382,8 +7447,12 @@
       }
     ],
     "exits": {
-      "n": "k_city_drain_return"
-    }
+      "n": {
+        "target": "k_city_drain_return",
+        "label": "North (Down)"
+      }
+    },
+    "z": 0
   },
   {
     "id": "c_gate_inner_yard",
@@ -7395,7 +7464,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, inner gate yard with barricade materials, soldiers, carts, tense preparation, cinematic, no text",
-    "description": "Carts creak. Ropes tighten. Soldiers hammer planks into place. The gate is a throat — and the city is swallowing fear.\n\nA captain shouts: \"Timber here! Grain there! Arrows to the parapet!\"",
+    "description": "Carts creak. Ropes tighten. Soldiers hammer planks into place. The gate is a throat \u2014 and the city is swallowing fear.\n\nA captain shouts: \"Timber here! Grain there! Arrows to the parapet!\"",
     "exits": {
       "n": "a_outer_gate",
       "e": "c_barricade_line",
@@ -7404,7 +7473,7 @@
     },
     "actionsAvailable": {
       "talk": {
-        "text": "A captain eyes your gear. \"If you’ve got council backing, you’re not just a runner — you’re a fix.\"",
+        "text": "A captain eyes your gear. \"If you\u2019ve got council backing, you\u2019re not just a runner \u2014 you\u2019re a fix.\"",
         "choices": [
           {
             "id": "unlock_prebattle",
@@ -7426,7 +7495,8 @@
           }
         ]
       }
-    }
+    },
+    "z": 0
   },
   {
     "id": "c_barricade_line",
@@ -7438,7 +7508,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, barricade line being built, stacked timber, nails, engineers, torchlight, cinematic, no text",
-    "description": "Timber stacks become walls in fast hands. Nail buckets clatter. Engineers argue angles like it’s religion.\n\nThis line will decide how much blood reaches the gate.",
+    "description": "Timber stacks become walls in fast hands. Nail buckets clatter. Engineers argue angles like it\u2019s religion.\n\nThis line will decide how much blood reaches the gate.",
     "exits": {
       "w": "c_gate_inner_yard"
     },
@@ -7480,7 +7550,7 @@
         ]
       },
       "investigate": {
-        "text": "A foreman points at empty nail buckets. \"We’re building walls with wishes at this rate.\"",
+        "text": "A foreman points at empty nail buckets. \"We\u2019re building walls with wishes at this rate.\"",
         "choices": [
           {
             "id": "nail_help",
@@ -7495,7 +7565,8 @@
           }
         ]
       }
-    }
+    },
+    "z": 0
   },
   {
     "id": "c_granary_checkpoint",
@@ -7507,14 +7578,14 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, granary checkpoint with grain sacks, armed clerks, ration ledgers, cinematic, no text",
-    "description": "Clerks with spears guard sacks like jewels. Hunger makes thieves of honest folk.\n\nThe city’s stomach must be full before its fist can swing.",
+    "description": "Clerks with spears guard sacks like jewels. Hunger makes thieves of honest folk.\n\nThe city\u2019s stomach must be full before its fist can swing.",
     "exits": {
       "e": "c_gate_inner_yard",
       "n": "a_grain_store"
     },
     "actionsAvailable": {
       "talk": {
-        "text": "\"If you’ve brought grain, stack it. If you’ve brought trouble, sign the ledger first.\"",
+        "text": "\"If you\u2019ve brought grain, stack it. If you\u2019ve brought trouble, sign the ledger first.\"",
         "choices": [
           {
             "id": "deliver_grain",
@@ -7549,7 +7620,8 @@
           }
         ]
       }
-    }
+    },
+    "z": 0
   },
   {
     "id": "c_ward_installation",
@@ -7614,7 +7686,8 @@
           }
         ]
       }
-    }
+    },
+    "z": 0
   },
   {
     "id": "c_parapet_post",
@@ -7692,7 +7765,8 @@
           }
         ]
       }
-    }
+    },
+    "z": 0
   },
   {
     "id": "b_gate_approach",
@@ -7704,7 +7778,7 @@
     "cover": "none",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, road facing the city gate from outside, muddy ruts, distant barricades, storm clouds, cinematic, no text",
-    "description": "The road outside the walls is a wound in the earth. From here, you can see the gate’s outline — and imagine it broken.\n\nMovement flickers at the far field line.",
+    "description": "The road outside the walls is a wound in the earth. From here, you can see the gate\u2019s outline \u2014 and imagine it broken.\n\nMovement flickers at the far field line.",
     "exits": {
       "n": "a_outer_gate",
       "s": "b_farm_road_edge"
@@ -7729,7 +7803,8 @@
         ],
         "goToAreaId": "b_probe_contact"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "b_probe_contact",
@@ -7741,7 +7816,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, field line with goblin silhouettes and bows, tension, rain, cinematic, no text",
-    "description": "A goblin probe spreads out like stains in the grass. One raises a horn — another nocks an arrow.\n\nIf this is only a probe, the real wave is close behind.",
+    "description": "A goblin probe spreads out like stains in the grass. One raises a horn \u2014 another nocks an arrow.\n\nIf this is only a probe, the real wave is close behind.",
     "exits": {
       "n": "b_gate_approach",
       "w": "b_ditch_path",
@@ -7888,7 +7963,8 @@
           }
         ]
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "ga_battlements_start",
@@ -7900,7 +7976,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, massive siege lines, siege tower rolling, ram at gate, arrows, smoke, cinematic, no text",
-    "description": "It begins.\n\nSiege tower wheels forward.\n\nA ram pounds the gate.\n\nSomewhere below, water churns under streets.\n\nYou can’t stop everything. Choose.",
+    "description": "It begins.\n\nSiege tower wheels forward.\n\nA ram pounds the gate.\n\nSomewhere below, water churns under streets.\n\nYou can\u2019t stop everything. Choose.",
     "actionsAvailable": {
       "talk": {
         "text": "Serjeant Mara grips your shoulder.",
@@ -7950,7 +8026,7 @@
       },
       {
         "id": "no_prep",
-        "label": "No time—choose a front now.",
+        "label": "No time\u2014choose a front now.",
         "goToAreaId": "ga_choice_page"
       }
     ]
@@ -8037,7 +8113,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, siege tower nearing wall, ladders rising, defenders shouting, cinematic, no text",
-    "description": "Ladders bite the stone.\n\nThe siege tower rolls like an oncoming house.\n\nIf the enemy lacks their standard, their courage wavers—if you push them hard enough.",
+    "description": "Ladders bite the stone.\n\nThe siege tower rolls like an oncoming house.\n\nIf the enemy lacks their standard, their courage wavers\u2014if you push them hard enough.",
     "choices": [
       {
         "id": "counter_signal_wall",
@@ -8239,7 +8315,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, melee at gate, orc ram crew roaring, sparks and smoke, cinematic, no text",
-    "description": "The ram crew fights like they’ve been promised glory.\n\nWithout the banner, that promise rings hollow.\n\nMake it ring.",
+    "description": "The ram crew fights like they\u2019ve been promised glory.\n\nWithout the banner, that promise rings hollow.\n\nMake it ring.",
     "choices": [
       {
         "id": "start_gate_threat",
@@ -8272,7 +8348,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, gate still standing, broken ram pieces, exhausted defenders, cinematic, no text",
-    "description": "If the gate holds, the city keeps its spine.\n\nIf it fails, the streets become a slaughterhouse.\n\nThe assault still rages elsewhere—run if you must.",
+    "description": "If the gate holds, the city keeps its spine.\n\nIf it fails, the streets become a slaughterhouse.\n\nThe assault still rages elsewhere\u2014run if you must.",
     "choices": [
       {
         "id": "to_end",
@@ -8291,7 +8367,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, sewer entry with churning water and shadows, lantern reflection, cinematic, no text",
-    "description": "Water churns like something breathing.\n\nIf the ‘second mouth’ still lives, it can vomit enemies into the city.\n\nStop them now—or stop the mouth forever later.",
+    "description": "Water churns like something breathing.\n\nIf the \u2018second mouth\u2019 still lives, it can vomit enemies into the city.\n\nStop them now\u2014or stop the mouth forever later.",
     "choices": [
       {
         "id": "seal_with_pitch",
@@ -8346,7 +8422,8 @@
         ],
         "goToAreaId": "ga_end"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "ga_end",
@@ -8358,7 +8435,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, defenders regrouping, wounded treated, smoke thinning, dawn light, cinematic, no text",
-    "description": "Hours later, the city still stands.\n\nNot whole. Not safe.\n\nBut standing.\n\nNow you decide what ends this war faster:\n\n- Keep striking the enemy’s command.\n- Or seal the drains route forever.",
+    "description": "Hours later, the city still stands.\n\nNot whole. Not safe.\n\nBut standing.\n\nNow you decide what ends this war faster:\n\n- Keep striking the enemy\u2019s command.\n- Or seal the drains route forever.",
     "effectsOnEnter": [
       {
         "type": "flag",
@@ -8460,7 +8537,8 @@
         ],
         "goToAreaId": "mf_goat_path"
       }
-    ]
+    ],
+    "z": -2
   },
   {
     "id": "mf_narrow_pass",
@@ -8472,7 +8550,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow cliff pass, goblin archers above, wind whipping cloak, cinematic, no text",
-    "description": "The path is one body wide.\n\nAbove, goblin archers test range.\n\nThis is where veterans use distance like a weapon:\nshoot, retreat, reposition — and make the enemy chase on bad footing.",
+    "description": "The path is one body wide.\n\nAbove, goblin archers test range.\n\nThis is where veterans use distance like a weapon:\nshoot, retreat, reposition \u2014 and make the enemy chase on bad footing.",
     "choices": [
       {
         "id": "shoot_and_fall_back",
@@ -8547,7 +8625,8 @@
         ],
         "goToAreaId": "mf_fortress_outworks"
       }
-    ]
+    ],
+    "z": -2
   },
   {
     "id": "mf_pass_skirmish",
@@ -8580,7 +8659,8 @@
         ],
         "goToAreaId": "mf_fortress_outworks"
       }
-    ]
+    ],
+    "z": -2
   },
   {
     "id": "mf_goat_path",
@@ -8623,7 +8703,8 @@
         ],
         "goToAreaId": "mf_fortress_outworks"
       }
-    ]
+    ],
+    "z": -2
   },
   {
     "id": "mf_fortress_outworks",
@@ -8706,7 +8787,8 @@
         "label": "Ambush a patrol for keys.",
         "goToAreaId": "mf_patrol_fight"
       }
-    ]
+    ],
+    "z": -2
   },
   {
     "id": "mf_patrol_fight",
@@ -8739,7 +8821,8 @@
         ],
         "goToAreaId": "mf_service_corridor"
       }
-    ]
+    ],
+    "z": -2
   },
   {
     "id": "mf_kitchens",
@@ -8805,11 +8888,12 @@
         "label": "Slip into the service corridor.",
         "goToAreaId": "mf_service_corridor"
       }
-    ]
+    ],
+    "z": -2
   },
   {
     "id": "mf_service_corridor",
-    "title": "Service Corridor: The Fortress’s Veins",
+    "title": "Service Corridor: The Fortress\u2019s Veins",
     "x": 66,
     "y": -30,
     "floorId": "fortress",
@@ -8817,7 +8901,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow corridor with pipes and doors, damp stone, cinematic, no text",
-    "description": "The fortress has two hearts:\n\n- the upper halls where orders are shouted,\n- and the lower stone where old things listen.\n\nA cistern hatch is marked with older runes.\n\nYou hear distant water… like a waterfall that shouldn’t be inside a mountain.",
+    "description": "The fortress has two hearts:\n\n- the upper halls where orders are shouted,\n- and the lower stone where old things listen.\n\nA cistern hatch is marked with older runes.\n\nYou hear distant water\u2026 like a waterfall that shouldn\u2019t be inside a mountain.",
     "choices": [
       {
         "id": "cistern",
@@ -8873,7 +8957,8 @@
         ],
         "goToAreaId": "wf_outer_falls"
       }
-    ]
+    ],
+    "z": -2
   },
   {
     "id": "o_city_gate_outside",
@@ -8885,7 +8970,7 @@
     "cover": "none",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, city gate behind, muddy road ahead, distant farms and tree line, cinematic, no text",
-    "description": "The gate closes behind you with a sound like finality.\n\nAhead: farms, timber lines, and the uneasy quiet of a land pretending it isn’t at war.\n\nA militia runner hands you a slate: FOOD and WOOD. \"Bring both. Fast.\"",
+    "description": "The gate closes behind you with a sound like finality.\n\nAhead: farms, timber lines, and the uneasy quiet of a land pretending it isn\u2019t at war.\n\nA militia runner hands you a slate: FOOD and WOOD. \"Bring both. Fast.\"",
     "choices": [
       {
         "id": "to_farms",
@@ -8909,7 +8994,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, farm lane with hedges, distant barn, scarecrow, overcast, cinematic, no text",
-    "description": "Hedges line the lane. A barn sits like a tired animal.\n\nA farmer waves frantically from behind a cart. \"They’ve been skimming our stores at night.\"",
+    "description": "Hedges line the lane. A barn sits like a tired animal.\n\nA farmer waves frantically from behind a cart. \"They\u2019ve been skimming our stores at night.\"",
     "actionsAvailable": {
       "take": {
         "text": "You can load grain sacks onto a cart.",
@@ -8960,7 +9045,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, barnyard with stacked sacks, chickens scattering, muddy footprints, cinematic, no text",
-    "description": "Sacks are stacked under tarp.\n\nSmall muddy footprints lead away toward the hedge line.\n\nYou hear distant yips — too organized for foxes.",
+    "description": "Sacks are stacked under tarp.\n\nSmall muddy footprints lead away toward the hedge line.\n\nYou hear distant yips \u2014 too organized for foxes.",
     "choices": [
       {
         "id": "ambush_trigger",
@@ -8996,7 +9081,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, forest edge with tall trunks, fog, axe stump, cinematic, no text",
-    "description": "Tall trunks and damp fog.\n\nFresh stumps show someone already worked here—recently.\n\nA crow calls once. Then stops.",
+    "description": "Tall trunks and damp fog.\n\nFresh stumps show someone already worked here\u2014recently.\n\nA crow calls once. Then stops.",
     "actionsAvailable": {
       "take": {
         "text": "You can cut and bundle timber.",
@@ -9022,7 +9107,7 @@
     "choices": [
       {
         "id": "raid_trigger",
-        "label": "You hear yips in the trees… ready yourself.",
+        "label": "You hear yips in the trees\u2026 ready yourself.",
         "effects": [
           {
             "type": "startThreat",
@@ -9043,7 +9128,8 @@
     "exits": {
       "s": "o_city_gate_outside",
       "n": "o_forest_track"
-    }
+    },
+    "z": 0
   },
   {
     "id": "o_goblin_raid_contact",
@@ -9055,7 +9141,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, goblin raiding party emerging from hedge/trees, spears and bows, cinematic, no text",
-    "description": "A goblin raiding party approaches.\n\nThey’re not charging blindly — they’re spreading, trying to surround.\n\nYou can manage distance if you act fast.",
+    "description": "A goblin raiding party approaches.\n\nThey\u2019re not charging blindly \u2014 they\u2019re spreading, trying to surround.\n\nYou can manage distance if you act fast.",
     "choices": [
       {
         "id": "open_fire",
@@ -9148,7 +9234,8 @@
         ],
         "goToAreaId": "o_raid_aftermath"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "o_raid_retreat_menu",
@@ -9160,7 +9247,7 @@
     "cover": "none",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, adventurer backing away through muddy field, goblins closing, cinematic, no text",
-    "description": "Retreat buys distance — but not forever.\n\nChoose a direction and keep your weapon ready.",
+    "description": "Retreat buys distance \u2014 but not forever.\n\nChoose a direction and keep your weapon ready.",
     "choices": [
       {
         "id": "ret_s",
@@ -9195,7 +9282,8 @@
         ],
         "goToAreaId": "o_farm_barnyard"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "o_raid_distance_loop",
@@ -9207,7 +9295,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, arrows flying across open ground, goblins weaving, cinematic, no text",
-    "description": "You can keep them at range for a moment longer.\n\nIf you keep backing up and firing, you might break their nerve — or run out of space.",
+    "description": "You can keep them at range for a moment longer.\n\nIf you keep backing up and firing, you might break their nerve \u2014 or run out of space.",
     "choices": [
       {
         "id": "fire_again",
@@ -9256,7 +9344,8 @@
         ],
         "goToAreaId": "o_raid_aftermath"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "o_raid_aftermath",
@@ -9268,7 +9357,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, goblin bodies and discarded gear in mud, quiet after fight, cinematic, no text",
-    "description": "The field goes quiet.\n\nIf you survived, you’ve earned something more valuable than timber: confidence.\n\nNow you must carry the supplies back before another party finds you.",
+    "description": "The field goes quiet.\n\nIf you survived, you\u2019ve earned something more valuable than timber: confidence.\n\nNow you must carry the supplies back before another party finds you.",
     "effectsOnEnter": [
       {
         "type": "flag",
@@ -9291,7 +9380,8 @@
         "label": "Press deeper into the countryside (dangerous).",
         "goToAreaId": "o_forest_track"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "o_forest_track",
@@ -9303,11 +9393,11 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow forest track, fog, broken cart wheel, ominous, cinematic, no text",
-    "description": "A broken cart wheel lies half-buried.\n\nThe track has been used recently — too recently.\n\nSomewhere ahead, you hear metal tapping stone: a signal, not an accident.",
+    "description": "A broken cart wheel lies half-buried.\n\nThe track has been used recently \u2014 too recently.\n\nSomewhere ahead, you hear metal tapping stone: a signal, not an accident.",
     "choices": [
       {
         "id": "next_stage_tease",
-        "label": "Follow the signal toward the raiders’ field camp (next stage).",
+        "label": "Follow the signal toward the raiders\u2019 field camp (next stage).",
         "effects": [
           {
             "type": "flag",
@@ -9319,7 +9409,8 @@
     ],
     "exits": {
       "s": "o_woodline_edge"
-    }
+    },
+    "z": 0
   },
   {
     "id": "o_field_camp_edge",
@@ -9331,7 +9422,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, hidden view of goblin camp through trees, smoke from cookfires, crude palisade, cinematic, no text",
-    "description": "Through the trees you see it: a forward camp.\n\nLow palisade. Cookfires. Crates.\n\nNot a fortress—just a mouth feeding the siege.",
+    "description": "Through the trees you see it: a forward camp.\n\nLow palisade. Cookfires. Crates.\n\nNot a fortress\u2014just a mouth feeding the siege.",
     "choices": [
       {
         "id": "stealth_in",
@@ -9369,7 +9460,8 @@
     "exits": {
       "w": "o_forest_track",
       "e": "o_camp_inner_lane"
-    }
+    },
+    "z": 0
   },
   {
     "id": "o_camp_inner_lane",
@@ -9381,11 +9473,11 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, muddy lane between crude tents, goblin scouts, lanterns, cinematic, no text",
-    "description": "Tents sag in the rain. Goblins trot with bundles.\n\nA patrol whistles a crude rhythm.\n\nYou can still turn this into a quiet victory—or a loud one.",
+    "description": "Tents sag in the rain. Goblins trot with bundles.\n\nA patrol whistles a crude rhythm.\n\nYou can still turn this into a quiet victory\u2014or a loud one.",
     "choices": [
       {
         "id": "patrol",
-        "label": "A patrol turns in—avoid or fight.",
+        "label": "A patrol turns in\u2014avoid or fight.",
         "effects": [
           {
             "type": "startThreat",
@@ -9422,7 +9514,8 @@
         "label": "Climb toward the signal post.",
         "goToAreaId": "o_signal_post"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "o_camp_patrol_contact",
@@ -9434,7 +9527,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, goblin patrol with lantern catching an intruder, tense moment, cinematic, no text",
-    "description": "A goblin scout’s lantern swings your way.\n\nIt inhales—about to whistle.\n\nYou have one clean moment.",
+    "description": "A goblin scout\u2019s lantern swings your way.\n\nIt inhales\u2014about to whistle.\n\nYou have one clean moment.",
     "choices": [
       {
         "id": "shoot",
@@ -9518,10 +9611,10 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, supply tents with crates, sacks of grain, stacked arrows, torchlight, cinematic, no text",
-    "description": "Crates. Grain sacks. Spare spearheads.\n\nThis camp’s purpose is simple: keep the siege alive.\n\nBurning this would save lives. But it would also light you up like a beacon.",
+    "description": "Crates. Grain sacks. Spare spearheads.\n\nThis camp\u2019s purpose is simple: keep the siege alive.\n\nBurning this would save lives. But it would also light you up like a beacon.",
     "actionsAvailable": {
       "investigate": {
-        "text": "A crate is marked with charcoal: ‘TUNNEL—TOOLS’ and ‘TRANSFER—HOLD.’",
+        "text": "A crate is marked with charcoal: \u2018TUNNEL\u2014TOOLS\u2019 and \u2018TRANSFER\u2014HOLD.\u2019",
         "choices": [
           {
             "id": "take_map",
@@ -9600,7 +9693,8 @@
         "label": "Leave quietly.",
         "goToAreaId": "o_camp_inner_lane"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "o_mess_kettle",
@@ -9680,7 +9774,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, crude cages with frightened farmers, orc taskmaster, rain and mud, cinematic, no text",
-    "description": "Cages. People.\n\nAn orc taskmaster paces with a cudgel.\n\nA farmer meets your eyes—defiant, not broken.",
+    "description": "Cages. People.\n\nAn orc taskmaster paces with a cudgel.\n\nA farmer meets your eyes\u2014defiant, not broken.",
     "actionsAvailable": {
       "talk": {
         "text": "The captive whispers through the bars.",
@@ -9755,7 +9849,8 @@
         ],
         "goToAreaId": "o_taskmaster_fight"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "o_taskmaster_fight",
@@ -9767,7 +9862,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, orc taskmaster raising cudgel, goblins swarming, muddy camp, cinematic, no text",
-    "description": "The taskmaster bellows and charges.\n\nIf you drop him, you’ll have time to free the cages.\n\nIf you don’t, you’ll be the next lesson.",
+    "description": "The taskmaster bellows and charges.\n\nIf you drop him, you\u2019ll have time to free the cages.\n\nIf you don\u2019t, you\u2019ll be the next lesson.",
     "choices": [
       {
         "id": "fight",
@@ -9780,7 +9875,8 @@
         ],
         "goToAreaId": "o_taskmaster_after"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "o_taskmaster_after",
@@ -9792,7 +9888,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, fallen orc, keys in mud, cages behind, cinematic, no text",
-    "description": "The taskmaster falls.\n\nA key glints in the mud.\n\nThe cages rattle—not with begging, but with readiness.",
+    "description": "The taskmaster falls.\n\nA key glints in the mud.\n\nThe cages rattle\u2014not with begging, but with readiness.",
     "effectsOnEnter": [
       {
         "type": "addItem",
@@ -9830,7 +9926,8 @@
         "label": "Leave before the alarm rises.",
         "goToAreaId": "o_alarm_rising"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "o_farmer_escape_lane",
@@ -9842,7 +9939,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, hedgerow lane with fleeing captives, distant camp fires, cinematic, no text",
-    "description": "The freed farmers slip into hedgerows like ghosts.\n\nRill whispers: \"There’s an overlook on the ridge. You’ll see the siege lines from there.\"\n\n\"And the sinkholes—those are real. The map you took… it’s a death road.\"",
+    "description": "The freed farmers slip into hedgerows like ghosts.\n\nRill whispers: \"There\u2019s an overlook on the ridge. You\u2019ll see the siege lines from there.\"\n\n\"And the sinkholes\u2014those are real. The map you took\u2026 it\u2019s a death road.\"",
     "choices": [
       {
         "id": "to_overlook",
@@ -9861,7 +9958,8 @@
         ],
         "goToAreaId": "o_city_gate_outside"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "o_signal_post",
@@ -9919,7 +10017,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, camp in chaos, torches flaring, goblins shouting, smoke, cinematic, no text",
-    "description": "Somewhere a whistle shrieks.\n\nTorches flare.\n\nThe camp wakes like a kicked hive.\n\nYou must choose: slip away now—or risk a last look at the siege line itself.",
+    "description": "Somewhere a whistle shrieks.\n\nTorches flare.\n\nThe camp wakes like a kicked hive.\n\nYou must choose: slip away now\u2014or risk a last look at the siege line itself.",
     "choices": [
       {
         "id": "to_overlook",
@@ -9943,7 +10041,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, high ridge overlooking siege lines, campfires like stars, city walls distant, cinematic, no text",
-    "description": "From the ridge you see it: the siege line.\n\nLadders stacked like teeth. Fires in long rows. Shapes moving with purpose.\n\nYour city is a dark shape beyond—still standing.\n\nFor now.",
+    "description": "From the ridge you see it: the siege line.\n\nLadders stacked like teeth. Fires in long rows. Shapes moving with purpose.\n\nYour city is a dark shape beyond\u2014still standing.\n\nFor now.",
     "choices": [
       {
         "id": "start_recon",
@@ -9968,7 +10066,8 @@
     ],
     "exits": {
       "w": "o_forest_track"
-    }
+    },
+    "z": 0
   },
   {
     "id": "o_siege_skirmish_prompt",
@@ -9980,7 +10079,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, skirmish breaking out near siege stores, sentries turning, cinematic, no text",
-    "description": "A small supply knot sits apart from the main line—guarded lightly.\n\nIf you strike it, you’ll thin tomorrow’s push.\n\nBut you might not walk away.",
+    "description": "A small supply knot sits apart from the main line\u2014guarded lightly.\n\nIf you strike it, you\u2019ll thin tomorrow\u2019s push.\n\nBut you might not walk away.",
     "choices": [
       {
         "id": "skirmish",
@@ -10013,7 +10112,8 @@
         ],
         "goToAreaId": "o_city_gate_outside"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "o_siege_skirmish_loop",
@@ -10025,7 +10125,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, arrows exchanged near siege stores, smoke rising, cinematic, no text",
-    "description": "You can fight and retreat—buying distance square by square.\n\nIf you break them quickly, you escape.\n\nIf you linger, the full line notices.",
+    "description": "You can fight and retreat\u2014buying distance square by square.\n\nIf you break them quickly, you escape.\n\nIf you linger, the full line notices.",
     "choices": [
       {
         "id": "fire_retreat",
@@ -10086,7 +10186,7 @@
     "cover": "none",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, adventurer sprinting through grass, city walls far away, pursuit behind, cinematic, no text",
-    "description": "Distance is your friend.\n\nChoose a direction and don’t stop moving.",
+    "description": "Distance is your friend.\n\nChoose a direction and don\u2019t stop moving.",
     "choices": [
       {
         "id": "to_forest",
@@ -10122,7 +10222,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, burned supply knot, fallen spears, smoke drifting, cinematic, no text",
-    "description": "You leave them in the grass.\n\nSmoke rises from a small supply knot.\n\nIt isn’t a victory the bards will sing—but it’s one the city will feel.",
+    "description": "You leave them in the grass.\n\nSmoke rises from a small supply knot.\n\nIt isn\u2019t a victory the bards will sing\u2014but it\u2019s one the city will feel.",
     "effectsOnEnter": [
       {
         "type": "flag",
@@ -10164,7 +10264,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, exhausted defenders in gate yard, rain easing, broken shields, cinematic, no text",
-    "description": "The yard is mud, blood, and splintered courage.\n\nThe enemy recoils — not defeated, only delayed.\n\nA messenger finds you: \"Councilor Vayne wants you. Now.\"",
+    "description": "The yard is mud, blood, and splintered courage.\n\nThe enemy recoils \u2014 not defeated, only delayed.\n\nA messenger finds you: \"Councilor Vayne wants you. Now.\"",
     "choices": [
       {
         "id": "to_council",
@@ -10173,7 +10273,7 @@
       },
       {
         "id": "forge_seal",
-        "label": "If you have 3 key fragments, bind them into a Gatewarden’s Seal.",
+        "label": "If you have 3 key fragments, bind them into a Gatewarden\u2019s Seal.",
         "requirements": [
           {
             "type": "hasItem",
@@ -10201,7 +10301,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, councilor leaning over map with candles, urgent whispers, cinematic, no text",
-    "description": "Vayne speaks without ceremony.\n\n\"They tested the gate — and they tested our inside.\n\nThere is another way in: old sewers that lead into limestone caves. From there, a forgotten under-fortress sits like a thorn.\n\nIf they hold it, they can pour into the city behind the gate. We need a knife in the dark.\"",
+    "description": "Vayne speaks without ceremony.\n\n\"They tested the gate \u2014 and they tested our inside.\n\nThere is another way in: old sewers that lead into limestone caves. From there, a forgotten under-fortress sits like a thorn.\n\nIf they hold it, they can pour into the city behind the gate. We need a knife in the dark.\"",
     "choices": [
       {
         "id": "accept",
@@ -10251,7 +10351,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow medieval street barricade, citizens fleeing, defenders forming line, cinematic, no text",
-    "description": "A narrow street becomes a funnel. Barrels roll. Planks slam down.\n\nIf the gate spill widens, this is where the city dies — or holds.",
+    "description": "A narrow street becomes a funnel. Barrels roll. Planks slam down.\n\nIf the gate spill widens, this is where the city dies \u2014 or holds.",
     "choices": [
       {
         "id": "hold_short",
@@ -10293,14 +10393,15 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, hidden sewer hatch with lantern, rainwater running into darkness, cinematic, no text",
-    "description": "A hatch hidden behind a collapsed brick screen.\n\nWarm air breathes up from below — carrying rot, old water, and something like wet fur.\n\nThis route predates the city’s current walls. That’s why it’s dangerous. That’s why it matters.",
+    "description": "A hatch hidden behind a collapsed brick screen.\n\nWarm air breathes up from below \u2014 carrying rot, old water, and something like wet fur.\n\nThis route predates the city\u2019s current walls. That\u2019s why it\u2019s dangerous. That\u2019s why it matters.",
     "choices": [
       {
         "id": "down",
         "label": "Descend.",
         "goToAreaId": "h_sewer_run_1"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "h_sewer_run_1",
@@ -10376,7 +10477,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, brick sewer with lantern light ahead, shadowy figures, tense stealth, cinematic, no text",
-    "description": "Lantern light ahead.\n\nVoices — not guards. Too harsh. Too amused.\n\nSmugglers… or something worse wearing their confidence.",
+    "description": "Lantern light ahead.\n\nVoices \u2014 not guards. Too harsh. Too amused.\n\nSmugglers\u2026 or something worse wearing their confidence.",
     "choices": [
       {
         "id": "sneak",
@@ -10415,7 +10516,8 @@
         ],
         "goToAreaId": "h_cave_mouth"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "h_stone_drop",
@@ -10427,7 +10529,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, rough stone tunnel descending, water dripping, claw marks, cinematic, no text",
-    "description": "The stone route slopes down.\n\nClaw marks rake the wall. Something uses this as a corridor — not a home.\n\nHomes are safer than corridors.",
+    "description": "The stone route slopes down.\n\nClaw marks rake the wall. Something uses this as a corridor \u2014 not a home.\n\nHomes are safer than corridors.",
     "choices": [
       {
         "id": "rats",
@@ -10457,7 +10559,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, limestone cave mouth beyond sewer arch, mist, faint crystals, cinematic, no text",
-    "description": "The sewer ends in a limestone throat.\n\nMist curls from fissures. In the distance, faint crystals catch your lantern like eyes.\n\nSomewhere deeper, stone echoes with bootsteps — disciplined, not animal.\n\nThe under-fortress is real.",
+    "description": "The sewer ends in a limestone throat.\n\nMist curls from fissures. In the distance, faint crystals catch your lantern like eyes.\n\nSomewhere deeper, stone echoes with bootsteps \u2014 disciplined, not animal.\n\nThe under-fortress is real.",
     "choices": [
       {
         "id": "continue",
@@ -10476,7 +10578,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, cave junction with two tunnels, one with faint torch soot, one with crystal glimmer, cinematic, no text",
-    "description": "Two tunnels.\n\nLeft: soot on stone — torches. People.\nRight: crystal glimmer — natural… or bait.\n\nIf you want the fortress, you follow people. If you want answers, you follow the earth.",
+    "description": "Two tunnels.\n\nLeft: soot on stone \u2014 torches. People.\nRight: crystal glimmer \u2014 natural\u2026 or bait.\n\nIf you want the fortress, you follow people. If you want answers, you follow the earth.",
     "choices": [
       {
         "id": "soot",
@@ -10488,7 +10590,8 @@
         "label": "Follow the crystal glimmer (side loot / ward shards).",
         "goToAreaId": "i_crystal_grotto"
       }
-    ]
+    ],
+    "z": -2
   },
   {
     "id": "i_crystal_grotto",
@@ -10500,7 +10603,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, crystal grotto with glowing shards, shallow pool, eerie beauty, cinematic, no text",
-    "description": "Crystals stud the walls like frozen lightning.\n\nIn the pool, something metallic gleams — rune-metal, broken into familiar shapes.\n\nWard shards. Enough to make another stone… or strengthen a seal.",
+    "description": "Crystals stud the walls like frozen lightning.\n\nIn the pool, something metallic gleams \u2014 rune-metal, broken into familiar shapes.\n\nWard shards. Enough to make another stone\u2026 or strengthen a seal.",
     "choices": [
       {
         "id": "take_shards",
@@ -10518,7 +10621,8 @@
         ],
         "goToAreaId": "i_cave_junction_1"
       }
-    ]
+    ],
+    "z": -2
   },
   {
     "id": "i_underfortress_outer",
@@ -10530,20 +10634,24 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, ancient underground fortress wall carved into rock, torchlight, skull motifs, cinematic, no text",
-    "description": "Stonework rises from rock as if it grew there.\n\nAn under-fortress — old as the first wars.\n\nYou hear orders in guttural tongues.\n\nIf this place feeds the invasion, cutting it will save the city more than any heroics at the gate.",
+    "description": "Stonework rises from rock as if it grew there.\n\nAn under-fortress \u2014 old as the first wars.\n\nYou hear orders in guttural tongues.\n\nIf this place feeds the invasion, cutting it will save the city more than any heroics at the gate.",
     "choices": [
       {
         "id": "approach",
         "label": "Approach the under-fortress entrance.",
         "goToAreaId": "i_underfortress_entry"
       }
-    ]
+    ],
+    "z": -2
   },
   {
     "id": "i_underfortress_entry",
     "title": "Under-Fortress Entry",
     "isCheckpoint": true,
-    "tags": ["fortress", "checkpoint"],
+    "tags": [
+      "fortress",
+      "checkpoint"
+    ],
     "x": 5,
     "y": -8,
     "floorId": "caves",
@@ -10551,7 +10659,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, underground fortress gate with iron bars, torch sconces, guards in silhouette, cinematic, no text",
-    "description": "A barred entry with two sentries.\n\nBeyond the bars: a corridor, disciplined footsteps, and the smell of oil.\n\nThis is where your city questing becomes war.",
+    "description": "You have answered the call to fight for your city.\n\nBut first you must prove yourself in the Under-Fortress.\n\nTwo sentries stand aside allowing you to enter.",
     "choices": [
       {
         "id": "next",
@@ -10565,7 +10673,8 @@
         ],
         "goToAreaId": "u_entry_corridor"
       }
-    ]
+    ],
+    "z": -2
   },
   {
     "id": "pb_sewer_tunnel",
@@ -10593,12 +10702,13 @@
           }
         ]
       }
-    ]
+    ],
+    "z": -2
   },
   {
     "id": "pb_flooded_chamber",
     "title": "Flooded Chamber",
-    "text": "A low chamber yawns, half-drowned in oily water. Something moves under the surface — a shadow or a machine — and the air feels wrong.",
+    "text": "A low chamber yawns, half-drowned in oily water. Something moves under the surface \u2014 a shadow or a machine \u2014 and the air feels wrong.",
     "imagePrompt": "A half-submerged stone chamber with oily water, scattered wreckage and a faint glint of metal beneath the surface.",
     "choices": [
       {
@@ -10625,7 +10735,8 @@
           }
         ]
       }
-    ]
+    ],
+    "z": -2
   },
   {
     "id": "pb_collapsed_gallery",
@@ -10654,12 +10765,13 @@
           }
         ]
       }
-    ]
+    ],
+    "z": -2
   },
   {
     "id": "pb_underfort_gate",
     "title": "Underfortress Gate",
-    "text": "An inner gate bars the way — iron long corroded, its frame carved with warding sigils. Beyond, darkness promises secrets and danger.",
+    "text": "An inner gate bars the way \u2014 iron long corroded, its frame carved with warding sigils. Beyond, darkness promises secrets and danger.",
     "imagePrompt": "A heavy inner gate with rusted iron and glowing sigils, the small gap beyond swallowed by shadow.",
     "choices": [
       {
@@ -10686,7 +10798,8 @@
           }
         ]
       }
-    ]
+    ],
+    "z": -2
   },
   {
     "id": "pb_reliquary_approach",
@@ -10719,7 +10832,8 @@
           }
         ]
       }
-    ]
+    ],
+    "z": -2
   },
   {
     "id": "pa_outside_gate",
@@ -10731,7 +10845,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, city gate behind, muddy road ahead with retreat tracks, dawn haze, cinematic, no text",
-    "description": "The enemy retreats.\n\nNot fleeing.\n\nRetreating.\n\nThere’s discipline in the tracks—until there isn’t.\n\nKess kneels, reading mud like scripture.",
+    "description": "The enemy retreats.\n\nNot fleeing.\n\nRetreating.\n\nThere\u2019s discipline in the tracks\u2014until there isn\u2019t.\n\nKess kneels, reading mud like scripture.",
     "actionsAvailable": {
       "talk": {
         "text": "Kess offers two immediate priorities.",
@@ -10900,7 +11014,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, misty hills, warg eyes glowing, sparse trees, cinematic, no text",
-    "description": "The trail bends into hills.\n\nYou hear breathing that isn’t yours.\n\nWargs scout the flank—testing you.",
+    "description": "The trail bends into hills.\n\nYou hear breathing that isn\u2019t yours.\n\nWargs scout the flank\u2014testing you.",
     "choices": [
       {
         "id": "fight_wargs",
@@ -10962,7 +11076,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow rock crack shaped like a doorway, old carvings like teeth, lantern glow, cinematic, no text",
-    "description": "The hills split.\n\nA doorway shaped like old teeth waits in shadow.\n\nIf the runner escaped, you hear distant horns below.\n\nIf not, the under-fortress is unaware… for now.",
+    "description": "The hills split.\n\nA doorway shaped like old teeth waits in shadow.\n\nIf the runner escaped, you hear distant horns below.\n\nIf not, the under-fortress is unaware\u2026 for now.",
     "choices": [
       {
         "id": "enter",
@@ -10981,7 +11095,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, forest ravine with yawning sinkhole, mist rising, broken roots, cinematic, no text",
-    "description": "The ground here has collapsed into a ragged throat.\n\nCold air breathes up from below.\n\nThe tunnel survey map’s charcoal lines match the landscape too well for comfort.",
+    "description": "The ground here has collapsed into a ragged throat.\n\nCold air breathes up from below.\n\nThe tunnel survey map\u2019s charcoal lines match the landscape too well for comfort.",
     "choices": [
       {
         "id": "enter",
@@ -11028,8 +11142,12 @@
       }
     ],
     "exits": {
-      "w": "o_forest_track"
-    }
+      "w": {
+        "target": "o_forest_track",
+        "label": "West (Up)"
+      }
+    },
+    "z": -2
   },
   {
     "id": "r_chalk_caverns_entrance",
@@ -11041,7 +11159,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, chalk-white cavern walls, dripping water, footprints, torch glow, cinematic, no text",
-    "description": "The cave walls are chalk-white and damp.\n\nFootprints crisscross the powder like scribbles.\n\nSome prints are barefoot—prisoners.",
+    "description": "The cave walls are chalk-white and damp.\n\nFootprints crisscross the powder like scribbles.\n\nSome prints are barefoot\u2014prisoners.",
     "exits": {
       "s": "r_sinkhole_ravine",
       "n": "r_chalk_caverns_fork"
@@ -11077,7 +11195,8 @@
           }
         ]
       }
-    }
+    },
+    "z": -2
   },
   {
     "id": "r_chalk_caverns_fork",
@@ -11094,7 +11213,8 @@
       "s": "r_chalk_caverns_entrance",
       "w": "r_mip_hide",
       "e": "r_patrol_gallery"
-    }
+    },
+    "z": -2
   },
   {
     "id": "r_mip_hide",
@@ -11106,7 +11226,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, small goblin hiding behind chalk pillar, terrified eyes, cinematic, no text",
-    "description": "A small figure trembles behind a chalk pillar.\n\nIt raises both hands in surrender.\n\n\"Mip,\" it whispers. \"I don’t want the Red Knife to win.\"",
+    "description": "A small figure trembles behind a chalk pillar.\n\nIt raises both hands in surrender.\n\n\"Mip,\" it whispers. \"I don\u2019t want the Red Knife to win.\"",
     "actionsAvailable": {
       "talk": {
         "text": "Mip glances down the tunnel like it expects death to arrive on schedule.",
@@ -11126,7 +11246,8 @@
     },
     "exits": {
       "e": "r_chalk_caverns_fork"
-    }
+    },
+    "z": -2
   },
   {
     "id": "r_patrol_gallery",
@@ -11163,7 +11284,7 @@
       },
       {
         "id": "patrol_threat",
-        "label": "A patrol turns in—avoid or fight.",
+        "label": "A patrol turns in\u2014avoid or fight.",
         "effects": [
           {
             "type": "startThreat",
@@ -11183,7 +11304,8 @@
     ],
     "exits": {
       "w": "r_chalk_caverns_fork"
-    }
+    },
+    "z": -2
   },
   {
     "id": "r_patrol_contact",
@@ -11244,7 +11366,8 @@
         ],
         "goToAreaId": "r_redknife_outer"
       }
-    ]
+    ],
+    "z": -2
   },
   {
     "id": "r_redknife_outer",
@@ -11265,7 +11388,7 @@
     },
     "actionsAvailable": {
       "investigate": {
-        "text": "You spot iron wedges hammered into support beams—temporary, rushed construction.",
+        "text": "You spot iron wedges hammered into support beams\u2014temporary, rushed construction.",
         "choices": [
           {
             "id": "focus",
@@ -11291,7 +11414,8 @@
           }
         ]
       }
-    }
+    },
+    "z": -2
   },
   {
     "id": "r_hostage_vault",
@@ -11334,7 +11458,7 @@
     "choices": [
       {
         "id": "swap_offer",
-        "label": "The handler offers a swap: ‘Leave the second mouth untouched, and she walks.’",
+        "label": "The handler offers a swap: \u2018Leave the second mouth untouched, and she walks.\u2019",
         "effects": [
           {
             "type": "flag",
@@ -11363,7 +11487,8 @@
     ],
     "exits": {
       "e": "r_redknife_outer"
-    }
+    },
+    "z": -2
   },
   {
     "id": "r_hostage_vault_after",
@@ -11375,7 +11500,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, broken chain, hostage standing, torchlight, cinematic, no text",
-    "description": "The handler falls.\n\nThe key is crude, but the chain gives.\n\nLady Seren exhales once—like she’s been holding her breath for days.",
+    "description": "The handler falls.\n\nThe key is crude, but the chain gives.\n\nLady Seren exhales once\u2014like she\u2019s been holding her breath for days.",
     "choices": [
       {
         "id": "free",
@@ -11405,7 +11530,8 @@
     ],
     "exits": {
       "e": "r_redknife_outer"
-    }
+    },
+    "z": -2
   },
   {
     "id": "r_swap_decision",
@@ -11417,7 +11543,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, hostage handler holding token, shadows, tense negotiation, cinematic, no text",
-    "description": "A ransom token flips between fingers.\n\n\"Trade,\" the handler whispers. \"No collapse. No fire. No heroics. Take her and go.\"\n\nYou understand the cost: if you accept, the enemy keeps a ‘second mouth’ into the city drains.\n\nIf you refuse, you can stop the infiltration—but she may die in the chaos.",
+    "description": "A ransom token flips between fingers.\n\n\"Trade,\" the handler whispers. \"No collapse. No fire. No heroics. Take her and go.\"\n\nYou understand the cost: if you accept, the enemy keeps a \u2018second mouth\u2019 into the city drains.\n\nIf you refuse, you can stop the infiltration\u2014but she may die in the chaos.",
     "choices": [
       {
         "id": "accept_swap",
@@ -11493,7 +11619,8 @@
         ],
         "goToAreaId": "r_double_play"
       }
-    ]
+    ],
+    "z": -2
   },
   {
     "id": "r_double_play",
@@ -11560,7 +11687,8 @@
         ],
         "goToAreaId": "r_second_mouth_choke"
       }
-    ]
+    ],
+    "z": -2
   },
   {
     "id": "r_transfer_tunnels",
@@ -11572,11 +11700,11 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow tunnel with carts and ropes, torchlight, guards, cinematic, no text",
-    "description": "Carts. Ropes. Drag marks.\n\nThe transfer route is active.\n\nIf you let it run, the enemy gets what it wants—hostages moved beyond reach.",
+    "description": "Carts. Ropes. Drag marks.\n\nThe transfer route is active.\n\nIf you let it run, the enemy gets what it wants\u2014hostages moved beyond reach.",
     "choices": [
       {
         "id": "detail",
-        "label": "A guard detail approaches—avoid or fight.",
+        "label": "A guard detail approaches\u2014avoid or fight.",
         "effects": [
           {
             "type": "startThreat",
@@ -11601,7 +11729,8 @@
     ],
     "exits": {
       "s": "r_redknife_outer"
-    }
+    },
+    "z": -2
   },
   {
     "id": "r_transfer_contact",
@@ -11613,7 +11742,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, orc guard with goblins in tunnel, lantern glare, cinematic, no text",
-    "description": "A lantern flares.\n\nAn orc squints. \"Smell… human.\"",
+    "description": "A lantern flares.\n\nAn orc squints. \"Smell\u2026 human.\"",
     "choices": [
       {
         "id": "shoot_retreat",
@@ -11662,11 +11791,12 @@
         ],
         "goToAreaId": "r_transfer_tunnels"
       }
-    ]
+    ],
+    "z": -2
   },
   {
     "id": "r_captain_den",
-    "title": "Captain’s Den: Red Knife Varg",
+    "title": "Captain\u2019s Den: Red Knife Varg",
     "x": 18,
     "y": -7,
     "floorId": "caves",
@@ -11674,7 +11804,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, goblin captain with red cord, crude table with maps and tokens, torch smoke, cinematic, no text",
-    "description": "A goblin captain stands over a map scratched into stone.\n\nA red cord hangs at his throat.\n\n\"You’re late,\" he says. \"Good. Late means desperate.\"",
+    "description": "A goblin captain stands over a map scratched into stone.\n\nA red cord hangs at his throat.\n\n\"You\u2019re late,\" he says. \"Good. Late means desperate.\"",
     "choices": [
       {
         "id": "boss",
@@ -11714,7 +11844,8 @@
     ],
     "exits": {
       "w": "r_transfer_tunnels"
-    }
+    },
+    "z": -2
   },
   {
     "id": "r_captain_loot",
@@ -11726,7 +11857,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, fallen goblin captain, red cord and orders on stone table, cinematic, no text",
-    "description": "Varg collapses, still smiling.\n\nYou take the red cord and the transfer orders.\n\nThe orders mention the city drains like a lover’s name.",
+    "description": "Varg collapses, still smiling.\n\nYou take the red cord and the transfer orders.\n\nThe orders mention the city drains like a lover\u2019s name.",
     "effectsOnEnter": [
       {
         "type": "addItem",
@@ -11749,7 +11880,8 @@
         "label": "Move to the second mouth choke-point.",
         "goToAreaId": "r_second_mouth_choke"
       }
-    ]
+    ],
+    "z": -2
   },
   {
     "id": "r_second_mouth_choke",
@@ -11761,7 +11893,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow choke tunnel with heavy supports, iron wedges, marked pillars, cinematic, no text",
-    "description": "A narrow choke tunnel held by thick supports.\n\nThree pillars carry the roof—‘breath pillars,’ as Mip called them.\n\nIf this collapses, the enemy loses its second mouth.\n\nBut collapse is never polite.",
+    "description": "A narrow choke tunnel held by thick supports.\n\nThree pillars carry the roof\u2014\u2018breath pillars,\u2019 as Mip called them.\n\nIf this collapses, the enemy loses its second mouth.\n\nBut collapse is never polite.",
     "actionsAvailable": {
       "investigate": {
         "text": "The supports show stress cracks in the chalk dust.",
@@ -11834,7 +11966,7 @@
       },
       {
         "id": "collapse_manual",
-        "label": "Use the ‘breath pillars’ hint to collapse the tunnel (luck check).",
+        "label": "Use the \u2018breath pillars\u2019 hint to collapse the tunnel (luck check).",
         "requirements": [
           {
             "type": "flagEquals",
@@ -11884,7 +12016,7 @@
       },
       {
         "id": "do_nothing",
-        "label": "Don’t collapse it—leave quietly (enemy keeps the second mouth).",
+        "label": "Don\u2019t collapse it\u2014leave quietly (enemy keeps the second mouth).",
         "effects": [
           {
             "type": "flag",
@@ -11902,7 +12034,8 @@
     "exits": {
       "w": "r_redknife_outer",
       "n": "k_city_drain_return"
-    }
+    },
+    "z": -2
   },
   {
     "id": "r_escape_choice",
@@ -11914,7 +12047,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, fleeing through chalk tunnel, distant collapse dust, torchlight fading, cinematic, no text",
-    "description": "You move fast, because caves remember footsteps.\n\nIf the second mouth stands, the enemy can slip into the drains later.\n\nIf it fell, the enemy will be furious—and blind in that direction.\n\nEither way: the city must be told.",
+    "description": "You move fast, because caves remember footsteps.\n\nIf the second mouth stands, the enemy can slip into the drains later.\n\nIf it fell, the enemy will be furious\u2014and blind in that direction.\n\nEither way: the city must be told.",
     "choices": [
       {
         "id": "return_city",
@@ -11932,7 +12065,8 @@
         ],
         "goToAreaId": "k_city_drain_return"
       }
-    ]
+    ],
+    "z": -2
   },
   {
     "id": "c_powder_magazine",
@@ -11967,7 +12101,8 @@
           }
         ]
       }
-    }
+    },
+    "z": 0
   },
   {
     "id": "c_magazine_inside",
@@ -11979,7 +12114,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, powder kegs stacked in rows, dim lantern behind shuttered glass, suspicious shadow, cinematic, no text",
-    "description": "Rows of kegs. The air is dry and wrong.\n\nA shadow moves between stacks — too careful for a guard.\n\nYou catch the faint smell of burned cord: fuse.",
+    "description": "Rows of kegs. The air is dry and wrong.\n\nA shadow moves between stacks \u2014 too careful for a guard.\n\nYou catch the faint smell of burned cord: fuse.",
     "exits": {
       "n": "c_powder_magazine"
     },
@@ -12019,7 +12154,8 @@
         ],
         "goToAreaId": "c_magazine_standoff"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "c_magazine_standoff",
@@ -12031,11 +12167,11 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, saboteur with flint and fuse near powder kegs, tense close quarters, cinematic, no text",
-    "description": "The intruder turns — a city man, not a goblin. He holds flint and cord like holy objects.\n\n\"You shouldn’t be here,\" he says. \"This is bigger than you.\"",
+    "description": "The intruder turns \u2014 a city man, not a goblin. He holds flint and cord like holy objects.\n\n\"You shouldn\u2019t be here,\" he says. \"This is bigger than you.\"",
     "choices": [
       {
         "id": "talk_down",
-        "label": "Talk: \"Who’s paying you?\"",
+        "label": "Talk: \"Who\u2019s paying you?\"",
         "effects": [
           {
             "type": "flag",
@@ -12105,7 +12241,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, close-up parley in dim warehouse, nervous saboteur, fuse cord, cinematic, no text",
-    "description": "His eyes flick to the kegs.\n\n\"It’s not the goblins,\" he whispers. \"It’s… a ‘friend of the docks’. They said the city must ‘change hands’ to survive. They said the gate wards are a lie.\"",
+    "description": "His eyes flick to the kegs.\n\n\"It\u2019s not the goblins,\" he whispers. \"It\u2019s\u2026 a \u2018friend of the docks\u2019. They said the city must \u2018change hands\u2019 to survive. They said the gate wards are a lie.\"",
     "choices": [
       {
         "id": "accept_surrender",
@@ -12161,14 +12297,14 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, sealed powder kegs with fresh wax seals, guards arriving, relief and tension, cinematic, no text",
-    "description": "Guards arrive, breathless. You point to scraped seals, the fuse cord, the ledger page.\n\nThe captain’s messenger blanches. \"If this had gone off…\"\n\nIt didn’t. Not today.",
+    "description": "Guards arrive, breathless. You point to scraped seals, the fuse cord, the ledger page.\n\nThe captain\u2019s messenger blanches. \"If this had gone off\u2026\"\n\nIt didn\u2019t. Not today.",
     "exits": {
       "n": "c_powder_magazine",
       "w": "c_gate_inner_yard"
     },
     "actionsAvailable": {
       "talk": {
-        "text": "A guard captain nods grimly. \"Report this to the council. And don’t leave the gate yard once the horns start.\"",
+        "text": "A guard captain nods grimly. \"Report this to the council. And don\u2019t leave the gate yard once the horns start.\"",
         "choices": [
           {
             "id": "report_council",
@@ -12195,11 +12331,12 @@
           }
         ]
       }
-    }
+    },
+    "z": 0
   },
   {
     "id": "c_dock_factor_office",
-    "title": "Factor’s Office",
+    "title": "Factor\u2019s Office",
     "x": 7,
     "y": 2,
     "floorId": "city",
@@ -12207,13 +12344,13 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, dock office with ledgers, sealing wax, fine chair, rain at window, cinematic, no text",
-    "description": "The office smells of wax, ink, and expensive soap. A man smiles like he’s never been hungry.\n\nFactor Merris stands behind a ledger stack as if it’s a fortress.",
+    "description": "The office smells of wax, ink, and expensive soap. A man smiles like he\u2019s never been hungry.\n\nFactor Merris stands behind a ledger stack as if it\u2019s a fortress.",
     "exits": {
       "s": "c_tarpaulin_row"
     },
     "actionsAvailable": {
       "talk": {
-        "text": "Merris’s smile is practiced. \"I’m very busy.\"",
+        "text": "Merris\u2019s smile is practiced. \"I\u2019m very busy.\"",
         "choices": [
           {
             "id": "warrant",
@@ -12248,7 +12385,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, guards seizing ledgers, factor losing composure, wax seals, cinematic, no text",
-    "description": "His composure fractures when the warrant seal catches the light.\n\n\"This is absurd—\" he begins.\n\nA guard’s hand closes on his shoulder. The ledger pages you take feel heavier than coin.",
+    "description": "His composure fractures when the warrant seal catches the light.\n\n\"This is absurd\u2014\" he begins.\n\nA guard\u2019s hand closes on his shoulder. The ledger pages you take feel heavier than coin.",
     "exits": {
       "n": "c_dock_factor_office",
       "w": "c_docks_ward"
@@ -12287,7 +12424,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, crystal ball on pedestal in mage chamber, light swirling, anxious scribes, cinematic, no text",
-    "description": "The crystal ball hums like a held breath.\n\nSalenne steadies it with both hands.\n\nImages appear: smoke, a door, water… and a ring stamping black wax on stolen orders.",
+    "description": "The crystal ball hums like a held breath.\n\nSalenne steadies it with both hands.\n\nImages appear: smoke, a door, water\u2026 and a ring stamping black wax on stolen orders.",
     "choices": [
       {
         "id": "start_scry",
@@ -12319,7 +12456,8 @@
         ],
         "goToAreaId": "s_council_emergency"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "s_council_emergency",
@@ -12334,7 +12472,7 @@
     "description": "The council marks three points on the city map:\n\n- Granary quarter.\n- Postern gate.\n- Drains junction.\n\n\"They hit all three at once,\" Vayne says.\n\n\"And someone inside stamped the orders.\"",
     "actionsAvailable": {
       "talk": {
-        "text": "Vayne’s finger rests on the map like a blade.",
+        "text": "Vayne\u2019s finger rests on the map like a blade.",
         "choices": [
           {
             "id": "vayne",
@@ -12408,10 +12546,11 @@
       },
       {
         "id": "investigate_quartermaster",
-        "label": "Investigate the quartermaster’s ledgers for blackwax seals.",
+        "label": "Investigate the quartermaster\u2019s ledgers for blackwax seals.",
         "goToAreaId": "s_stores_ledger_room"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "s_stores_ledger_room",
@@ -12423,10 +12562,10 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, ledger room with keys, wax seals, shelves of supplies, tense mood, cinematic, no text",
-    "description": "Ledgers. Keys. Wax.\n\nMaster of Stores Rell watches you like you’re the thief.\n\nBut the scrying showed a ring… and a seal no honest hand should hold.",
+    "description": "Ledgers. Keys. Wax.\n\nMaster of Stores Rell watches you like you\u2019re the thief.\n\nBut the scrying showed a ring\u2026 and a seal no honest hand should hold.",
     "actionsAvailable": {
       "talk": {
-        "text": "Rell’s mouth is polite; his eyes are not.",
+        "text": "Rell\u2019s mouth is polite; his eyes are not.",
         "choices": [
           {
             "id": "rell",
@@ -12481,7 +12620,8 @@
         "label": "Leave and focus on the night assault.",
         "goToAreaId": "s_council_emergency"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "s_traitor_confrontation",
@@ -12493,7 +12633,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, tense confrontation in ledger room doorway, guard lanterns, a ring glint, cinematic, no text",
-    "description": "The ring glints.\n\nA bodyguard shifts closer.\n\nRell’s voice stays calm: \"You’re exhausted. You’re seeing enemies everywhere.\"\n\nBut you can smell pitch on the wax—fresh.",
+    "description": "The ring glints.\n\nA bodyguard shifts closer.\n\nRell\u2019s voice stays calm: \"You\u2019re exhausted. You\u2019re seeing enemies everywhere.\"\n\nBut you can smell pitch on the wax\u2014fresh.",
     "choices": [
       {
         "id": "arrest",
@@ -12562,7 +12702,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, guards seizing a ring and wax seal, lanterns, grim faces, cinematic, no text",
-    "description": "The ring is taken.\n\nBlack wax crumbles under a guard’s thumb.\n\nWhether confession or force, the city has one less knife behind its back.",
+    "description": "The ring is taken.\n\nBlack wax crumbles under a guard\u2019s thumb.\n\nWhether confession or force, the city has one less knife behind its back.",
     "effectsOnEnter": [
       {
         "type": "flag",
@@ -12591,10 +12731,11 @@
     "choices": [
       {
         "id": "back",
-        "label": "Return to the council’s triage choice.",
+        "label": "Return to the council\u2019s triage choice.",
         "goToAreaId": "s_council_emergency"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "s_granary_quarter",
@@ -12627,7 +12768,8 @@
         ],
         "goToAreaId": "s_granary_fight"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "s_granary_fight",
@@ -12639,7 +12781,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, close fight at granary door, flames starting, goblins fleeing, cinematic, no text",
-    "description": "You can fight them—or smother the flames first.\n\nIf you spend time on one, the other worsens.",
+    "description": "You can fight them\u2014or smother the flames first.\n\nIf you spend time on one, the other worsens.",
     "choices": [
       {
         "id": "fight",
@@ -12687,7 +12829,8 @@
         ],
         "goToAreaId": "s_night_resolution"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "s_postern_night",
@@ -12699,7 +12842,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, postern gate at night, orc with ram and tools, torches, cinematic, no text",
-    "description": "The small gate shudders.\n\nAn orc breaker works like a craftsman of destruction.\n\nIf this door opens, the city’s back becomes its throat.",
+    "description": "The small gate shudders.\n\nAn orc breaker works like a craftsman of destruction.\n\nIf this door opens, the city\u2019s back becomes its throat.",
     "choices": [
       {
         "id": "start_postern_threat",
@@ -12720,7 +12863,8 @@
         ],
         "goToAreaId": "s_postern_fight"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "s_postern_fight",
@@ -12745,7 +12889,8 @@
         ],
         "goToAreaId": "s_night_resolution"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "s_postern_to_field",
@@ -12764,7 +12909,8 @@
         "label": "Approach the enemy siege camp.",
         "goToAreaId": "p_siege_camp_approach"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "s_night_resolution",
@@ -12776,7 +12922,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, exhausted guards at dawn edge, smoke thinning, lanterns dying, cinematic, no text",
-    "description": "The night assault fades.\n\nWhatever you saved stands.\n\nWhatever you failed to save will hurt later.\n\nAnd now the question becomes: do you keep reacting… or do you take the war to them?",
+    "description": "The night assault fades.\n\nWhatever you saved stands.\n\nWhatever you failed to save will hurt later.\n\nAnd now the question becomes: do you keep reacting\u2026 or do you take the war to them?",
     "effectsOnEnter": [
       {
         "type": "flag",
@@ -12805,7 +12951,8 @@
         ],
         "goToAreaId": "p_siege_camp_approach"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "smf_descent",
@@ -12817,11 +12964,11 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, descending sewer stairs, black water below, rune marks, cinematic, no text",
-    "description": "The city’s stone sweats above you.\n\nThe deeper tunnels feel… shaped.\n\nAs if a throat was carved into the earth.",
+    "description": "The city\u2019s stone sweats above you.\n\nThe deeper tunnels feel\u2026 shaped.\n\nAs if a throat was carved into the earth.",
     "choices": [
       {
         "id": "pack",
-        "label": "Shadows move—something hunts these tunnels.",
+        "label": "Shadows move\u2014something hunts these tunnels.",
         "effects": [
           {
             "type": "startThreat",
@@ -12838,7 +12985,8 @@
         ],
         "goToAreaId": "smf_tunnel_clash"
       }
-    ]
+    ],
+    "z": -2
   },
   {
     "id": "smf_tunnel_clash",
@@ -12850,7 +12998,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, tight sewer fight, clawed creature on wall, lantern glare, cinematic, no text",
-    "description": "A crawler clings to the wall like a spider.\n\nA fanatic laughs behind it.\n\nIf you’re here, you finish this—no more half measures.",
+    "description": "A crawler clings to the wall like a spider.\n\nA fanatic laughs behind it.\n\nIf you\u2019re here, you finish this\u2014no more half measures.",
     "choices": [
       {
         "id": "fight",
@@ -12863,7 +13011,8 @@
         ],
         "goToAreaId": "smf_mouth_chamber"
       }
-    ]
+    ],
+    "z": -2
   },
   {
     "id": "smf_mouth_chamber",
@@ -12893,7 +13042,8 @@
         ],
         "goToAreaId": "smf_choice"
       }
-    ]
+    ],
+    "z": -2
   },
   {
     "id": "smf_choice",
@@ -12905,7 +13055,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, cracked stone throat with ward lines glowing, player holding chalk and tools, cinematic, no text",
-    "description": "The mouth shudders without the priest’s chant.\n\nYou can collapse it with brute force.\n\nOr sanctify it with wardwork so it cannot be reopened.\n\nBoth are risky. Both are final.",
+    "description": "The mouth shudders without the priest\u2019s chant.\n\nYou can collapse it with brute force.\n\nOr sanctify it with wardwork so it cannot be reopened.\n\nBoth are risky. Both are final.",
     "choices": [
       {
         "id": "collapse",
@@ -13020,11 +13170,12 @@
         ],
         "goToAreaId": "smf_return"
       }
-    ]
+    ],
+    "z": -2
   },
   {
     "id": "smf_return",
-    "title": "Return: The City’s Veins Quiet",
+    "title": "Return: The City\u2019s Veins Quiet",
     "x": 0,
     "y": -2,
     "floorId": "sewer",
@@ -13045,7 +13196,8 @@
         ],
         "goToAreaId": "ga_end"
       }
-    ]
+    ],
+    "z": -2
   },
   {
     "id": "p_siege_camp_approach",
@@ -13208,7 +13360,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, trench line with crude boards, lanterns, muffled voices, cinematic, no text",
-    "description": "The trench smells of pitch and wet wool.\n\nOrders travel here like disease.\n\nSomewhere below is the ‘vault’ and its banner.",
+    "description": "The trench smells of pitch and wet wool.\n\nOrders travel here like disease.\n\nSomewhere below is the \u2018vault\u2019 and its banner.",
     "choices": [
       {
         "id": "to_command_tent",
@@ -13286,7 +13438,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, orc drillmaster entering tent, goblin behind, torch flare, cinematic, no text",
-    "description": "The drillmaster fills the entrance.\n\nYou don’t have room to run.\n\nYou have room to win.",
+    "description": "The drillmaster fills the entrance.\n\nYou don\u2019t have room to run.\n\nYou have room to win.",
     "choices": [
       {
         "id": "fight",
@@ -13311,7 +13463,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow tunnels under camp, dripping earth, lanterns, chalk marks, cinematic, no text",
-    "description": "Earth tunnels beneath the trench.\n\nIf you get lost, you die quietly.\n\nA vault waits ahead—guarded by something that believes in the banner.",
+    "description": "Earth tunnels beneath the trench.\n\nIf you get lost, you die quietly.\n\nA vault waits ahead\u2014guarded by something that believes in the banner.",
     "choices": [
       {
         "id": "mark",
@@ -13376,7 +13528,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, player lifting heavy black banner, torchlight, shattered rack, cinematic, no text",
-    "description": "You take the war standard.\n\nIt feels like lifting a piece of the enemy’s spine.\n\nAbove, the camp still thinks it is winning.\n\nNot for long.",
+    "description": "You take the war standard.\n\nIt feels like lifting a piece of the enemy\u2019s spine.\n\nAbove, the camp still thinks it is winning.\n\nNot for long.",
     "effectsOnEnter": [
       {
         "type": "addItem",
@@ -13498,7 +13650,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, enemy engine yard with siege tower wheel frames, pulleys, guards, cinematic, no text",
-    "description": "Everything creaks.\n\nRopes, frames, wheel hubs.\n\nA patrol circles.\n\nTo the left: the wheelhouse.\nTo the right: the pitch pits.\nAhead: cages and a foreman’s platform.",
+    "description": "Everything creaks.\n\nRopes, frames, wheel hubs.\n\nA patrol circles.\n\nTo the left: the wheelhouse.\nTo the right: the pitch pits.\nAhead: cages and a foreman\u2019s platform.",
     "choices": [
       {
         "id": "avoid_patrol",
@@ -13590,7 +13742,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, wooden wheelhouse interior, massive wheel hub, grease, lantern, cinematic, no text",
-    "description": "The siege tower’s wheel hub is the heart of the machine.\n\nA wedge in the wrong place does nothing.\n\nA wedge in the right place makes a monster limp.",
+    "description": "The siege tower\u2019s wheel hub is the heart of the machine.\n\nA wedge in the wrong place does nothing.\n\nA wedge in the right place makes a monster limp.",
     "choices": [
       {
         "id": "plant_wedge",
@@ -13735,7 +13887,7 @@
   },
   {
     "id": "se_cage_row",
-    "title": "Cage Row: The Enemy’s Labor",
+    "title": "Cage Row: The Enemy\u2019s Labor",
     "x": 31,
     "y": -7,
     "floorId": "camp",
@@ -13780,14 +13932,14 @@
       },
       {
         "id": "to_foreman",
-        "label": "Approach the foreman’s platform.",
+        "label": "Approach the foreman\u2019s platform.",
         "goToAreaId": "se_foreman_platform"
       }
     ]
   },
   {
     "id": "se_foreman_platform",
-    "title": "Foreman’s Platform: The Key and the Chain",
+    "title": "Foreman\u2019s Platform: The Key and the Chain",
     "x": 30,
     "y": -7,
     "floorId": "camp",
@@ -13855,7 +14007,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, shed with massive ram head, chains, tools, wet metal shine, cinematic, no text",
-    "description": "The ram head sits like a beast’s skull.\n\nIts chain is thick.\n\nIf you take it, the gate has a better chance.\n\nIf you’re caught, the camp will chase you to the walls.",
+    "description": "The ram head sits like a beast\u2019s skull.\n\nIts chain is thick.\n\nIf you take it, the gate has a better chance.\n\nIf you\u2019re caught, the camp will chase you to the walls.",
     "choices": [
       {
         "id": "steal_chain",
@@ -13905,7 +14057,7 @@
       },
       {
         "id": "escape_anyway",
-        "label": "You’ve done enough—escape now.",
+        "label": "You\u2019ve done enough\u2014escape now.",
         "goToAreaId": "se_escape"
       }
     ]
@@ -13920,7 +14072,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, sprinting through fog with stolen chain over shoulder, lanterns behind, cinematic, no text",
-    "description": "Whistles rise behind you.\n\nBoots splash.\n\nIf you make it back with even one sabotage, the final battle changes.\n\nIf you made all three… the war might end today.",
+    "description": "Whistles rise behind you.\n\nBoots splash.\n\nIf you make it back with even one sabotage, the final battle changes.\n\nIf you made all three\u2026 the war might end today.",
     "effectsOnEnter": [
       {
         "type": "conditional",
@@ -14018,7 +14170,7 @@
       },
       {
         "id": "investigate",
-        "label": "Investigate whispers of ‘a princess’ and ‘a crystal key’.",
+        "label": "Investigate whispers of \u2018a princess\u2019 and \u2018a crystal key\u2019.",
         "effects": [
           {
             "type": "flag",
@@ -14074,7 +14226,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, underground crossroads with two carved doorways, rune-lit paths, cinematic, no text",
-    "description": "Two paths are offered by rumor and necessity:\n\n1) Prisoner Vault — captives (and a princess) used as leverage.\n2) Crystal Nexus — the enemy’s war-sight, their hidden advantage.\n\nBoth matter.\n\nBut you can’t do everything before they adapt.",
+    "description": "Two paths are offered by rumor and necessity:\n\n1) Prisoner Vault \u2014 captives (and a princess) used as leverage.\n2) Crystal Nexus \u2014 the enemy\u2019s war-sight, their hidden advantage.\n\nBoth matter.\n\nBut you can\u2019t do everything before they adapt.",
     "choices": [
       {
         "id": "to_prison",
@@ -14098,7 +14250,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, underground prison corridor, iron doors, muffled cries, lantern reflection, cinematic, no text",
-    "description": "Iron doors. Old locks.\n\nYou smell fear.\n\nIf you promised to look for captives, this is where promises become real—or become shame.",
+    "description": "Iron doors. Old locks.\n\nYou smell fear.\n\nIf you promised to look for captives, this is where promises become real\u2014or become shame.",
     "choices": [
       {
         "id": "open_cells",
@@ -14146,7 +14298,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, prison junction with two doors, one ornate, one crowded with hands through bars, cinematic, no text",
-    "description": "Two doors:\n\n- The crowded cells (many captives).\n- The ornate cell (a high-value prisoner — ‘princess’ by rumor).\n\nTime is a weapon.\n\nChoose.",
+    "description": "Two doors:\n\n- The crowded cells (many captives).\n- The ornate cell (a high-value prisoner \u2014 \u2018princess\u2019 by rumor).\n\nTime is a weapon.\n\nChoose.",
     "choices": [
       {
         "id": "many",
@@ -14184,7 +14336,7 @@
   },
   {
     "id": "uf_nexus_entry",
-    "title": "Crystal Nexus: The Enemy’s Sight",
+    "title": "Crystal Nexus: The Enemy\u2019s Sight",
     "x": 43,
     "y": -21,
     "floorId": "under",
@@ -14317,7 +14469,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, climbing back through tunnels toward faint daylight, lantern low, cinematic, no text",
-    "description": "You return with something the enemy didn’t expect:\n\n- freed captives,\n- political leverage,\n- or a stolen advantage made of crystal.\n\nYou are no longer a novice.\n\nYou are a factor.",
+    "description": "You return with something the enemy didn\u2019t expect:\n\n- freed captives,\n- political leverage,\n- or a stolen advantage made of crystal.\n\nYou are no longer a novice.\n\nYou are a factor.",
     "effectsOnEnter": [
       {
         "type": "flag",
@@ -14336,7 +14488,7 @@
     "choices": [
       {
         "id": "unlock_next",
-        "label": "Begin the next chapter: Mountain Fortress and the War’s True Heart.",
+        "label": "Begin the next chapter: Mountain Fortress and the War\u2019s True Heart.",
         "effects": [
           {
             "type": "flag",
@@ -14379,7 +14531,7 @@
   {
     "id": "uf_reliquary_chamber",
     "title": "Reliquary Chamber",
-    "text": "The chamber hums with low power. On a central plinth an iron-latticed reliquary holds a pale, humming artifact — its glow a living thing.",
+    "text": "The chamber hums with low power. On a central plinth an iron-latticed reliquary holds a pale, humming artifact \u2014 its glow a living thing.",
     "imagePrompt": "A circular reliquary chamber with a central plinth holding a glowing artifact encased in iron, sigils etched into the stone.",
     "choices": [
       {
@@ -14411,7 +14563,7 @@
   {
     "id": "uf_archon_vault",
     "title": "Archon Vault",
-    "text": "A sealed vault stands sentry beneath gears and warding runes. Something moves in the dark — a warding construct waking to its old purpose.",
+    "text": "A sealed vault stands sentry beneath gears and warding runes. Something moves in the dark \u2014 a warding construct waking to its old purpose.",
     "imagePrompt": "A sealed stone vault guarded by a mechanical warding archon: gears, arcane filaments and a brooding, metallic silhouette.",
     "choices": [
       {
@@ -14480,10 +14632,16 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, underground fortress corridor, iron sconces, damp stone, distant marching, cinematic, no text",
-    "description": "The corridor is built for marching, not living.\n\nTorch soot stains the ceiling. The stonework is older than the current war — and it remembers other wars.\n\nAhead: a junction and a prison bell.",
+    "description": "The corridor is built for marching, not living.\n\nTorch soot stains the ceiling. The stonework is older than the current war \u2014 and it remembers other wars.\n\nAhead: a junction and a prison bell.",
     "exits": {
-      "n": "u_guard_junction",
-      "s": "i_underfortress_entry"
+      "n": {
+        "target": "u_guard_junction",
+        "label": "North (Up)"
+      },
+      "s": {
+        "target": "i_underfortress_entry",
+        "label": "South (Up)"
+      }
     },
     "actions": [
       {
@@ -14497,9 +14655,10 @@
             "value": true
           }
         ],
-        "failureText": "You search the corridor but find nothing of particular interest—just old stonework and torch soot."
+        "failureText": "You search the corridor but find nothing of particular interest\u2014just old stonework and torch soot."
       }
-    ]
+    ],
+    "z": -1
   },
   {
     "id": "u_guard_junction",
@@ -14511,11 +14670,52 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, underground junction with two paths, torch sconces, shadows, cinematic, no text",
-    "description": "Two corridors split.\n\nLeft: louder — voices, keys, the stink of prisoners.\nRight: quieter — a drip, a cistern echo, and the smell of damp rope.",
+    "description": "Two corridors split.\n\nLeft: louder \u2014 voices, keys, the stink of prisoners.\nRight: quieter \u2014 a drip, a cistern echo, and the smell of damp rope.\n\nA patrol turns the corner\u2014prepare for trouble.",
     "exits": {
-      "s": "u_entry_corridor",
-      "w": "u_prison_antechamber",
-      "e": "u_cistern_run"
+      "s": {
+        "target": "u_entry_corridor",
+        "label": "South (Down)"
+      },
+      "w": {
+        "target": "u_prison_antechamber",
+        "label": "Go to: Prison Antechamber",
+        "hoverMessage": "The enemy approaches",
+        "requirements": [
+          {
+            "type": "or",
+            "conditions": [
+              {
+                "type": "hasCombatSkill",
+                "skill": "muffle_steps"
+              },
+              {
+                "type": "threatDefeated",
+                "threatId": "t_prison_patrol_01"
+              }
+            ]
+          }
+        ]
+      },
+      "e": {
+        "target": "u_cistern_run",
+        "label": "Go to: Cistern Run",
+        "hoverMessage": "The enemy approaches",
+        "requirements": [
+          {
+            "type": "or",
+            "conditions": [
+              {
+                "type": "hasCombatSkill",
+                "skill": "muffle_steps"
+              },
+              {
+                "type": "threatDefeated",
+                "threatId": "t_prison_patrol_01"
+              }
+            ]
+          }
+        ]
+      }
     },
     "choices": [
       {
@@ -14537,7 +14737,7 @@
       },
       {
         "id": "start_patrol",
-        "label": "A patrol turns the corner—prepare for trouble.",
+        "label": "A patrol turns the corner\u2014prepare for trouble.",
         "effects": [
           {
             "type": "startThreat",
@@ -14634,7 +14834,8 @@
         ],
         "goToAreaId": "u_guard_junction"
       }
-    ]
+    ],
+    "z": -1
   },
   {
     "id": "u_prison_antechamber",
@@ -14646,7 +14847,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, prison antechamber with key hooks, barred door, dripping stone, cinematic, no text",
-    "description": "Hooks on the wall where keys should hang.\n\nA barred door ahead. A ledger desk to the side.\n\nInk stains and a faint wax seal imprint — recent.",
+    "description": "Hooks on the wall where keys should hang.\n\nA barred door ahead. A ledger desk to the side.\n\nInk stains and a faint wax seal imprint \u2014 recent.",
     "exits": {
       "e": "u_guard_junction",
       "w": "u_prison_cells",
@@ -14654,7 +14855,7 @@
     },
     "actionsAvailable": {
       "investigate": {
-        "text": "The desk ledger lists prisoners by number, not name. One entry is circled twice: ‘VALE — transfer pending.’",
+        "text": "The desk ledger lists prisoners by number, not name. One entry is circled twice: \u2018VALE \u2014 transfer pending.\u2019",
         "choices": [
           {
             "id": "take_clue",
@@ -14725,7 +14926,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, dungeon cell corridor, barred cells, prisoners in shadow, torchlight, cinematic, no text",
-    "description": "Barred doors line the corridor.\n\nA woman’s voice cuts through the dark: \"Don’t rattle the bars. Listen first.\"",
+    "description": "Barred doors line the corridor.\n\nA woman\u2019s voice cuts through the dark: \"Don\u2019t rattle the bars. Listen first.\"",
     "exits": {
       "e": "u_prison_antechamber",
       "w": "u_cell_end"
@@ -14757,7 +14958,7 @@
         ]
       },
       "open": {
-        "text": "Liora’s cell is locked.",
+        "text": "Liora\u2019s cell is locked.",
         "choices": [
           {
             "id": "pick",
@@ -14848,10 +15049,13 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, end of prison corridor, cracked stone, old drain slit, cinematic, no text",
-    "description": "The corridor ends in cracked stone and an old drain slit.\n\nIt’s narrow — but it goes somewhere.\n\nYou hear drums deeper in the fortress. Not here. Not yet.",
+    "description": "The corridor ends in cracked stone and an old drain slit.\n\nIt\u2019s narrow \u2014 but it goes somewhere.\n\nYou hear drums deeper in the fortress. Not here. Not yet.",
     "exits": {
       "e": "u_prison_cells",
-      "w": "u_drain_slit"
+      "w": {
+        "target": "u_drain_slit",
+        "label": "West (Down)"
+      }
     }
   },
   {
@@ -14866,9 +15070,13 @@
     "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow maintenance slit behind cistern, squeezing through stone gap, cinematic, no text",
     "description": "You squeeze sideways through stone.\n\nCold water runs over your boots.\n\nBeyond: a maintenance passage that smells of rope and iron.",
     "exits": {
-      "e": "u_cell_end",
+      "e": {
+        "target": "u_cell_end",
+        "label": "East (Up)"
+      },
       "w": "u_chain_gallery"
-    }
+    },
+    "z": -1
   },
   {
     "id": "u_chain_gallery",
@@ -14880,11 +15088,17 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, underground chain gallery with pulleys, massive chains, dripping water, cinematic, no text",
-    "description": "Massive chains run through pulleys.\n\nA chalk mark: ‘TRANSFER ROUTE →’ and a crude skull.\n\nThis is infrastructure — and infrastructure is always guarded.",
+    "description": "Massive chains run through pulleys.\n\nA chalk mark: \u2018TRANSFER ROUTE \u2192\u2019 and a crude skull.\n\nThis is infrastructure \u2014 and infrastructure is always guarded.",
     "exits": {
       "e": "u_drain_slit",
-      "n": "u_jailer_gallery",
-      "w": "u_supply_lift"
+      "n": {
+        "target": "u_jailer_gallery",
+        "label": "North (Up)"
+      },
+      "w": {
+        "target": "u_supply_lift",
+        "label": "West (Up)"
+      }
     },
     "choices": [
       {
@@ -14909,7 +15123,7 @@
       },
       {
         "id": "hound_risk",
-        "label": "A troll-hound sniffs the air…",
+        "label": "A troll-hound sniffs the air\u2026",
         "effects": [
           {
             "type": "startThreat",
@@ -14926,7 +15140,8 @@
         ],
         "goToAreaId": "u_hound_contact"
       }
-    ]
+    ],
+    "z": -1
   },
   {
     "id": "u_hound_contact",
@@ -14978,7 +15193,7 @@
   },
   {
     "id": "u_jailer_gallery",
-    "title": "Jailer’s Gallery",
+    "title": "Jailer\u2019s Gallery",
     "x": 4,
     "y": -11,
     "floorId": "underfortress",
@@ -14986,10 +15201,13 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, jailer station with keyrings and whip, prisoner ledger, torchlight, cinematic, no text",
-    "description": "Keyrings hang like trophies.\n\nA heavy orc in a stained apron turns slowly.\n\n\"Lost?\" the jailer rumbles. \"Everyone’s lost down here. It’s why we keep them.\"",
+    "description": "Keyrings hang like trophies.\n\nA heavy orc in a stained apron turns slowly.\n\n\"Lost?\" the jailer rumbles. \"Everyone\u2019s lost down here. It\u2019s why we keep them.\"",
     "exits": {
       "s": "u_prison_antechamber",
-      "w": "u_chain_gallery"
+      "w": {
+        "target": "u_chain_gallery",
+        "label": "West (Down)"
+      }
     },
     "choices": [
       {
@@ -15044,7 +15262,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, fallen jailer, keys spilled, torchlight, cinematic, no text",
-    "description": "The jailer drops like a sack of iron.\n\nYou take the key — and a small black-stone splinter humming with ward energy.\n\nSomewhere deeper, a horn answers another horn.",
+    "description": "The jailer drops like a sack of iron.\n\nYou take the key \u2014 and a small black-stone splinter humming with ward energy.\n\nSomewhere deeper, a horn answers another horn.",
     "effectsOnEnter": [
       {
         "type": "addItem",
@@ -15078,8 +15296,14 @@
     "imagePrompt": "fantasy illustration, inked linework + painterly color, creaking lift platform over dark shaft, chains, torchlight, cinematic, no text",
     "description": "A lift platform hangs over a black shaft.\n\nCrates are marked with crude runes: FOOD. IRON. PRISON.\n\nOne mark is newer: RELIQUARY.",
     "exits": {
-      "e": "u_chain_gallery",
-      "n": "u_reliquary_stairs"
+      "e": {
+        "target": "u_chain_gallery",
+        "label": "East (Down)"
+      },
+      "n": {
+        "target": "u_reliquary_stairs",
+        "label": "North (Down)"
+      }
     },
     "actionsAvailable": {
       "take": {
@@ -15159,7 +15383,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, descending stairs with old carvings, relic motifs, torch soot, cinematic, no text",
-    "description": "Stairs descend into older stone.\n\nCarvings show a sphere held over a battlefield — armies moving like pieces.\n\nThe ‘sight orb’ isn’t a rumor. It’s a weapon.",
+    "description": "Stairs descend into older stone.\n\nCarvings show a sphere held over a battlefield \u2014 armies moving like pieces.\n\nThe \u2018sight orb\u2019 isn\u2019t a rumor. It\u2019s a weapon.",
     "choices": [
       {
         "id": "seed_rumor",
@@ -15192,7 +15416,8 @@
           }
         ]
       }
-    ]
+    ],
+    "z": -1
   },
   {
     "id": "u_reliquary_antechamber",
@@ -15204,11 +15429,17 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, ancient reliquary antechamber, carved sphere motifs, ward lines glowing faintly, cinematic, no text",
-    "description": "The stone here is older and cleaner. Carvings show a sphere hovering over battle lines.\n\nThin ward lines thread the walls like veins.\n\nA plaque in rough script: ‘SIGHT MAKES KINGS.’",
+    "description": "The stone here is older and cleaner. Carvings show a sphere hovering over battle lines.\n\nThin ward lines thread the walls like veins.\n\nA plaque in rough script: \u2018SIGHT MAKES KINGS.\u2019",
     "exits": {
-      "s": "u_reliquary_stairs",
+      "s": {
+        "target": "u_reliquary_stairs",
+        "label": "South (Down)"
+      },
       "n": "u_ward_hall",
-      "e": "u_reliquary_cells",
+      "e": {
+        "target": "u_reliquary_cells",
+        "label": "East (Down)"
+      },
       "w": "u_service_sluice"
     },
     "actionsAvailable": {
@@ -15349,11 +15580,14 @@
     "imagePrompt": "fantasy illustration, inked linework + painterly color, small cells near reliquary, runes on bars, mage in chains, cinematic, no text",
     "description": "Smaller cells, newer bars, better locks.\n\nA young mage apprentice looks up. Runes glow on her wrists like shackles made of light.",
     "exits": {
-      "w": "u_reliquary_antechamber"
+      "w": {
+        "target": "u_reliquary_antechamber",
+        "label": "West (Up)"
+      }
     },
     "actionsAvailable": {
       "talk": {
-        "text": "The apprentice’s eyes flash with stubborn clarity.",
+        "text": "The apprentice\u2019s eyes flash with stubborn clarity.",
         "choices": [
           {
             "id": "dialogue",
@@ -15439,7 +15673,8 @@
           }
         ]
       }
-    }
+    },
+    "z": -1
   },
   {
     "id": "u_service_sluice",
@@ -15451,10 +15686,13 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, hidden sluice tunnel with trickling water, narrow ledge, maintenance hooks, cinematic, no text",
-    "description": "A narrow maintenance sluice runs beside trickling water.\n\nIt bypasses the ward hall — but it’s cramped and loud if you slip.",
+    "description": "A narrow maintenance sluice runs beside trickling water.\n\nIt bypasses the ward hall \u2014 but it\u2019s cramped and loud if you slip.",
     "exits": {
       "e": "u_reliquary_antechamber",
-      "n": "u_orb_convoy_intercept"
+      "n": {
+        "target": "u_orb_convoy_intercept",
+        "label": "North (Down)"
+      }
     },
     "choices": [
       {
@@ -15513,14 +15751,17 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, reliquary chamber with orb cradle pedestal, rune rings, guards, eerie glow, cinematic, no text",
-    "description": "A pedestal holds an empty cradle — ringed by runes.\n\nThe orb was here. Recently.\n\nA wax smear on the rim suggests it was sealed for transport.",
+    "description": "A pedestal holds an empty cradle \u2014 ringed by runes.\n\nThe orb was here. Recently.\n\nA wax smear on the rim suggests it was sealed for transport.",
     "exits": {
       "s": "u_ward_hall",
-      "e": "u_orb_convoy_intercept"
+      "e": {
+        "target": "u_orb_convoy_intercept",
+        "label": "East (Down)"
+      }
     },
     "actionsAvailable": {
       "investigate": {
-        "text": "The cradle’s ring is cracked in one spot—intentional weak point, like a hinge for removal.",
+        "text": "The cradle\u2019s ring is cracked in one spot\u2014intentional weak point, like a hinge for removal.",
         "choices": [
           {
             "id": "take_wax",
@@ -15584,7 +15825,8 @@
         ],
         "goToAreaId": "u_defector_meet"
       }
-    ]
+    ],
+    "z": -1
   },
   {
     "id": "u_defector_meet",
@@ -15596,7 +15838,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, nervous adept stepping from shadow, ward charm cracking, cinematic, no text",
-    "description": "A hooded figure steps from a recess.\n\n\"If you’re going to strike,\" he whispers, \"do it clean. They’ll kill me when it’s moved.\"",
+    "description": "A hooded figure steps from a recess.\n\n\"If you\u2019re going to strike,\" he whispers, \"do it clean. They\u2019ll kill me when it\u2019s moved.\"",
     "actionsAvailable": {
       "talk": {
         "text": "He glances both ways, shaking.",
@@ -15632,7 +15874,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, ambush moment, canvas-covered cart, guard lantern swinging, cinematic, no text",
-    "description": "The cart is within reach.\n\nThe ward adept’s eyes flick to the floor, counting steps. The guards’ grips tighten.\n\nYou can take the orb… or make sure nobody uses it soon.",
+    "description": "The cart is within reach.\n\nThe ward adept\u2019s eyes flick to the floor, counting steps. The guards\u2019 grips tighten.\n\nYou can take the orb\u2026 or make sure nobody uses it soon.",
     "choices": [
       {
         "id": "shoot_adept",
@@ -15712,7 +15954,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, canvas pulled back revealing crystal orb glowing, reflections like armies, cinematic, no text",
-    "description": "Under the canvas: the crystal orb.\n\nInside it, lights move like troops on a map.\n\nYou feel the urge to look longer — and the fear that it’s looking back.",
+    "description": "Under the canvas: the crystal orb.\n\nInside it, lights move like troops on a map.\n\nYou feel the urge to look longer \u2014 and the fear that it\u2019s looking back.",
     "choices": [
       {
         "id": "take_orb",
@@ -15737,7 +15979,7 @@
       },
       {
         "id": "leave_and_mark",
-        "label": "Don’t carry it—take proof and flee (orb remains, but you have evidence).",
+        "label": "Don\u2019t carry it\u2014take proof and flee (orb remains, but you have evidence).",
         "effects": [
           {
             "type": "addItem",
@@ -15760,7 +16002,7 @@
   },
   {
     "id": "u_commander_chamber",
-    "title": "Commander’s Chamber",
+    "title": "Commander\u2019s Chamber",
     "x": 1,
     "y": -16,
     "floorId": "underfortress",
@@ -15822,7 +16064,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, fallen commander, signet ring gleaming, torn route map, cinematic, no text",
-    "description": "Kargan falls hard.\n\nYou take his signet and a torn route sketch.\n\nOne scribble stands out: ‘BREAKWATER TUNNEL → CAVES → CITY DRAINS.’\n\nA way out.",
+    "description": "Kargan falls hard.\n\nYou take his signet and a torn route sketch.\n\nOne scribble stands out: \u2018BREAKWATER TUNNEL \u2192 CAVES \u2192 CITY DRAINS.\u2019\n\nA way out.",
     "effectsOnEnter": [
       {
         "type": "addItem",
@@ -15857,7 +16099,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, rushing underground water tunnel, narrow ledges, torchlight fading, cinematic, no text",
-    "description": "A water tunnel roars like an animal.\n\nThe ledge is narrow. The air tastes like wet stone.\n\nIf you’re carrying the orb, every step feels louder.",
+    "description": "A water tunnel roars like an animal.\n\nThe ledge is narrow. The air tastes like wet stone.\n\nIf you\u2019re carrying the orb, every step feels louder.",
     "choices": [
       {
         "id": "mark_route",
@@ -15910,7 +16152,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, cave mouth with fresher air, distant city glow, exhausted adventurer, cinematic, no text",
-    "description": "You emerge into caves again.\n\nSomewhere far above: a city clinging to its walls.\n\nIf the orb is with you, you’re carrying the future. If not, you’re carrying proof and a plan.",
+    "description": "You emerge into caves again.\n\nSomewhere far above: a city clinging to its walls.\n\nIf the orb is with you, you\u2019re carrying the future. If not, you\u2019re carrying proof and a plan.",
     "choices": [
       {
         "id": "return_city",
@@ -15924,7 +16166,8 @@
         ],
         "goToAreaId": "k_city_drain_return"
       }
-    ]
+    ],
+    "z": -2
   },
   {
     "id": "k_city_drain_return",
@@ -15949,7 +16192,8 @@
           }
         ]
       }
-    ]
+    ],
+    "z": -2
   },
   {
     "id": "ul_threshold",
@@ -15961,7 +16205,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, ancient threshold with runes, cavern beyond, torchlight, cinematic, no text",
-    "description": "The door closes behind you with the patience of stone.\n\nThis place is older than the war.\n\nBut it has learned the war’s language.\n\nYou feel watched—not by eyes, but by outcomes.",
+    "description": "The door closes behind you with the patience of stone.\n\nThis place is older than the war.\n\nBut it has learned the war\u2019s language.\n\nYou feel watched\u2014not by eyes, but by outcomes.",
     "choices": [
       {
         "id": "start",
@@ -16071,7 +16315,7 @@
   },
   {
     "id": "ul_oracle_antechamber",
-    "title": "Oracle Antechamber: The War’s Quiet Room",
+    "title": "Oracle Antechamber: The War\u2019s Quiet Room",
     "x": 83,
     "y": -51,
     "floorId": "lair",
@@ -16079,7 +16323,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, quiet chamber with hanging chains and crystal reflections, eerie calm, cinematic, no text",
-    "description": "Silence here isn’t peace.\n\nIt’s a held breath.\n\nA crystal reflection shows you moving a half-second before you do.\n\nThat’s when you understand: the enemy isn’t only strong.\n\nIt’s *informed*.",
+    "description": "Silence here isn\u2019t peace.\n\nIt\u2019s a held breath.\n\nA crystal reflection shows you moving a half-second before you do.\n\nThat\u2019s when you understand: the enemy isn\u2019t only strong.\n\nIt\u2019s *informed*.",
     "choices": [
       {
         "id": "investigate",
@@ -16127,7 +16371,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, boss chamber with war map tablet, overseer with crystal-studded staff, oracle chains in background, cinematic, no text",
-    "description": "The Overseer doesn’t roar.\n\nIt *calculates*.\n\nA Heartspike relic hums in its grip.\n\nBehind it, chains descend into a deeper chamber.\n\nThat’s where the oracle is kept.",
+    "description": "The Overseer doesn\u2019t roar.\n\nIt *calculates*.\n\nA Heartspike relic hums in its grip.\n\nBehind it, chains descend into a deeper chamber.\n\nThat\u2019s where the oracle is kept.",
     "choices": [
       {
         "id": "bossfight",
@@ -16157,7 +16401,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, chained oracle fused with crystal, runes glowing, water dripping, solemn mood, cinematic, no text",
-    "description": "The oracle is not a treasure.\n\nIt is a prisoner forced to make wars efficient.\n\nIf you claimed or retuned the Crystal Nexus earlier, the chamber responds to you.\n\nIf you shattered it, the chamber feels… blind.\n\nThe oracle lifts its eyes.",
+    "description": "The oracle is not a treasure.\n\nIt is a prisoner forced to make wars efficient.\n\nIf you claimed or retuned the Crystal Nexus earlier, the chamber responds to you.\n\nIf you shattered it, the chamber feels\u2026 blind.\n\nThe oracle lifts its eyes.",
     "actionsAvailable": {
       "talk": {
         "text": "The oracle offers truth with a cost.",
@@ -16178,7 +16422,7 @@
     "choices": [
       {
         "id": "destroy",
-        "label": "1) Destroy the oracle’s war-sight (end the advantage forever).",
+        "label": "1) Destroy the oracle\u2019s war-sight (end the advantage forever).",
         "effects": [
           {
             "type": "conditional",
@@ -16441,7 +16685,7 @@
   },
   {
     "id": "vcf_vayne_hearing",
-    "title": "Vayne’s Hearing: Choose Two Before Dawn",
+    "title": "Vayne\u2019s Hearing: Choose Two Before Dawn",
     "x": 6,
     "y": 5,
     "floorId": "city",
@@ -16452,7 +16696,7 @@
     "description": "Vayne leans on the table.\n\n\"You can do only two things before dawn.\n\n- Prepare the Warlord Hunt.\n- Root out the traitor.\n- Stabilise the streets.\n\nPick.\n\nAnd live with it.\"",
     "actionsAvailable": {
       "talk": {
-        "text": "The council is a battlefield without blood—until there is.",
+        "text": "The council is a battlefield without blood\u2014until there is.",
         "choices": [
           {
             "id": "vayne",
@@ -16645,7 +16889,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, tense city street at night, watch lanterns, frightened crowd, cinematic, no text",
-    "description": "The city hasn’t slept since the siege.\n\nRumours run faster than messengers.\n\nA spark in the wrong district becomes a riot.\n\nMirelda offers a decree.\n\nThe streets wait to see if you’ll be kind—or strong.",
+    "description": "The city hasn\u2019t slept since the siege.\n\nRumours run faster than messengers.\n\nA spark in the wrong district becomes a riot.\n\nMirelda offers a decree.\n\nThe streets wait to see if you\u2019ll be kind\u2014or strong.",
     "actionsAvailable": {
       "talk": {
         "text": "Mirelda wants authority to keep order.",
@@ -16764,7 +17008,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, council doors with dawn light leaking under, cinematic, no text",
-    "description": "You return to the war room.\n\nDawn is not gentle.\n\nIt exposes what you chose—and what you didn’t.",
+    "description": "You return to the war room.\n\nDawn is not gentle.\n\nIt exposes what you chose\u2014and what you didn\u2019t.",
     "choices": [
       {
         "id": "finalize",
@@ -16943,7 +17187,8 @@
     "exits": {
       "s": "g_inner_gate_yard",
       "e": "v_infirmary_triage"
-    }
+    },
+    "z": 0
   },
   {
     "id": "v_infirmary_triage",
@@ -16955,7 +17200,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, crowded infirmary, healers working by lantern light, raincoats steaming, cinematic, no text",
-    "description": "Bandages, lanterns, and prayers.\n\nSister Elin doesn’t look up. \"If you’re not bleeding, you’re useful.\"",
+    "description": "Bandages, lanterns, and prayers.\n\nSister Elin doesn\u2019t look up. \"If you\u2019re not bleeding, you\u2019re useful.\"",
     "actionsAvailable": {
       "talk": {
         "text": "Elin points to a slate of locations marked in charcoal.",
@@ -17005,7 +17250,8 @@
     "exits": {
       "w": "v_council_chamber",
       "s": "g_inner_gate_yard"
-    }
+    },
+    "z": 0
   },
   {
     "id": "v_burnt_quarter",
@@ -17017,7 +17263,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, smoky street with burning timber, civilians carrying buckets, guards shouting, cinematic, no text",
-    "description": "Smoke stings your eyes.\n\nIf infiltrators slipped through, they left tinder behind.\n\nYou can save buildings—or chase shadows.",
+    "description": "Smoke stings your eyes.\n\nIf infiltrators slipped through, they left tinder behind.\n\nYou can save buildings\u2014or chase shadows.",
     "choices": [
       {
         "id": "smother_fires",
@@ -17041,7 +17287,7 @@
       },
       {
         "id": "fail_spread",
-        "label": "You arrive too late — the fire spreads (city damage increases).",
+        "label": "You arrive too late \u2014 the fire spreads (city damage increases).",
         "effects": [
           {
             "type": "addToCounter",
@@ -17056,7 +17302,8 @@
         ],
         "goToAreaId": "v_memorial_square"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "v_hold_cells",
@@ -17163,7 +17410,8 @@
     "exits": {
       "n": "v_infirmary_triage",
       "e": "v_memorial_square"
-    }
+    },
+    "z": 0
   },
   {
     "id": "v_memorial_square",
@@ -17205,7 +17453,8 @@
     "exits": {
       "w": "v_hold_cells",
       "s": "g_market_square_panic"
-    }
+    },
+    "z": 0
   },
   {
     "id": "v_postern_gate",
@@ -17217,7 +17466,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, small hidden city gate at night, guards with lanterns, beyond is foggy field, cinematic, no text",
-    "description": "A small gate—barely more than a slit.\n\nThe confession names a relay point: a captured watchfort beyond the siege line.\n\nStrike it, and the enemy’s coordination falters.\n\nFail, and you won’t make it back to this door.",
+    "description": "A small gate\u2014barely more than a slit.\n\nThe confession names a relay point: a captured watchfort beyond the siege line.\n\nStrike it, and the enemy\u2019s coordination falters.\n\nFail, and you won\u2019t make it back to this door.",
     "choices": [
       {
         "id": "depart",
@@ -17237,11 +17486,12 @@
         ],
         "goToAreaId": "w_no_mans_land"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "w_no_mans_land",
-    "title": "No-Man’s Land: Low Fog and Old Stakes",
+    "title": "No-Man\u2019s Land: Low Fog and Old Stakes",
     "x": 10,
     "y": -1,
     "floorId": "overland",
@@ -17292,7 +17542,8 @@
     ],
     "exits": {
       "w": "v_postern_gate"
-    }
+    },
+    "z": 0
   },
   {
     "id": "w_watchfort_approach",
@@ -17326,7 +17577,7 @@
       },
       {
         "id": "patrol",
-        "label": "A patrol turns—avoid or fight.",
+        "label": "A patrol turns\u2014avoid or fight.",
         "effects": [
           {
             "type": "startThreat",
@@ -17343,7 +17594,8 @@
         ],
         "goToAreaId": "w_patrol_contact"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "w_patrol_contact",
@@ -17404,7 +17656,8 @@
         ],
         "goToAreaId": "w_outer_gatehouse"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "w_outer_wall_top",
@@ -17435,7 +17688,8 @@
         ],
         "goToAreaId": "w_courtyard"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "w_outer_gatehouse",
@@ -17447,7 +17701,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, gatehouse interior, broken portcullis, guard benches, torchlight, cinematic, no text",
-    "description": "The portcullis is half-lowered—jammed.\n\nA good place to open from within.\n\nA bad place to be discovered.",
+    "description": "The portcullis is half-lowered\u2014jammed.\n\nA good place to open from within.\n\nA bad place to be discovered.",
     "choices": [
       {
         "id": "inner_patrol",
@@ -17473,7 +17727,8 @@
         "label": "Slip into the courtyard.",
         "goToAreaId": "w_courtyard"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "w_gatehouse_contact",
@@ -17498,7 +17753,8 @@
         ],
         "goToAreaId": "w_courtyard"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "w_courtyard",
@@ -17510,11 +17766,11 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, muddy courtyard, stacked crates, prisoners' pen visible, relay tower looming, cinematic, no text",
-    "description": "Crates stamped with siege marks.\n\nA prisoners’ pen sits under a torch.\n\nThe relay tower rises above it all—where signals become slaughter.",
+    "description": "Crates stamped with siege marks.\n\nA prisoners\u2019 pen sits under a torch.\n\nThe relay tower rises above it all\u2014where signals become slaughter.",
     "choices": [
       {
         "id": "to_prison",
-        "label": "Go to the prisoners’ pen.",
+        "label": "Go to the prisoners\u2019 pen.",
         "goToAreaId": "w_prison_pen"
       },
       {
@@ -17549,11 +17805,12 @@
           }
         ]
       }
-    }
+    },
+    "z": 0
   },
   {
     "id": "w_prison_pen",
-    "title": "Prisoners’ Pen: Chain and Breath",
+    "title": "Prisoners\u2019 Pen: Chain and Breath",
     "x": 11,
     "y": -3,
     "floorId": "watchfort",
@@ -17561,7 +17818,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, prisoners behind bars, huge chained troll guarding, torch smoke, cinematic, no text",
-    "description": "A troll on a chain.\n\nIt doesn’t look smart.\n\nIt looks patient.\n\nBehind it: prisoners—alive, barely.",
+    "description": "A troll on a chain.\n\nIt doesn\u2019t look smart.\n\nIt looks patient.\n\nBehind it: prisoners\u2014alive, barely.",
     "actionsAvailable": {
       "talk": {
         "text": "A sergeant grips the bars.",
@@ -17693,7 +17950,8 @@
         "label": "Go to the relay tower.",
         "goToAreaId": "w_relay_tower_base"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "w_armory",
@@ -17705,7 +17963,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, cramped armory with racks, city-made hinges, hidden hatch outline, cinematic, no text",
-    "description": "Racks of mixed gear.\n\nCity-made hinges—old quality.\n\nBehind a rack, you see it: an outline of a sally hatch.",
+    "description": "Racks of mixed gear.\n\nCity-made hinges\u2014old quality.\n\nBehind a rack, you see it: an outline of a sally hatch.",
     "choices": [
       {
         "id": "open_hatch",
@@ -17728,7 +17986,8 @@
         "label": "Return to the courtyard.",
         "goToAreaId": "w_courtyard"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "w_relay_tower_base",
@@ -17758,7 +18017,8 @@
         "label": "Climb to the top.",
         "goToAreaId": "w_relay_tower_top"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "w_relay_tower_top",
@@ -17836,7 +18096,8 @@
         ],
         "goToAreaId": "w_tower_loot"
       }
-    ]
+    ],
+    "z": 0
   },
   {
     "id": "w_tower_loot",
@@ -17848,7 +18109,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, fallen banner captain, codebook in hand, lanterns dimmed, cinematic, no text",
-    "description": "The tower feels quieter.\n\nNot peaceful—just less coordinated.\n\nYou take the codebook. You take the future away from their hands.",
+    "description": "The tower feels quieter.\n\nNot peaceful\u2014just less coordinated.\n\nYou take the codebook. You take the future away from their hands.",
     "effectsOnEnter": [
       {
         "type": "flag",
@@ -17919,7 +18180,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow escape tunnel, distant torchlight behind, breath fog, cinematic, no text",
-    "description": "A thin tunnel leading back toward the fog field.\n\nIf you’re quick, you vanish.\n\nIf you’re slow, you become a lesson.",
+    "description": "A thin tunnel leading back toward the fog field.\n\nIf you\u2019re quick, you vanish.\n\nIf you\u2019re slow, you become a lesson.",
     "choices": [
       {
         "id": "return_city",
@@ -18000,7 +18261,8 @@
         ],
         "goToAreaId": "wf_ledge_entry"
       }
-    ]
+    ],
+    "z": -2
   },
   {
     "id": "wf_ledge_entry",
@@ -18012,7 +18274,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow ledge behind waterfall, hands gripping stone, spray, cinematic, no text",
-    "description": "The ledge is thin.\n\nThe drop is honest.\n\nYou can move carefully, or move fast and risk it.\n\nA faint vibration in the stone suggests something ‘listens’ deeper in.",
+    "description": "The ledge is thin.\n\nThe drop is honest.\n\nYou can move carefully, or move fast and risk it.\n\nA faint vibration in the stone suggests something \u2018listens\u2019 deeper in.",
     "choices": [
       {
         "id": "careful",
@@ -18067,7 +18329,8 @@
         ],
         "goToAreaId": "wf_echo_chamber"
       }
-    ]
+    ],
+    "z": -2
   },
   {
     "id": "wf_echo_chamber",
@@ -18114,7 +18377,8 @@
         "label": "Proceed without a distraction.",
         "goToAreaId": "wf_guardian_turn"
       }
-    ]
+    ],
+    "z": -2
   },
   {
     "id": "wf_guardian_turn",
@@ -18176,7 +18440,8 @@
         ],
         "goToAreaId": "wf_hidden_door"
       }
-    ]
+    ],
+    "z": -2
   },
   {
     "id": "wf_hidden_door",
@@ -18188,7 +18453,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, hidden stone door with faint seams, crystal shard glow, cinematic, no text",
-    "description": "A door disguised as rock.\n\nIf you have a Shard of Listening, it vibrates at the seam.\n\nBeyond it: old air, and the sense you’re about to step into the war’s true heart.",
+    "description": "A door disguised as rock.\n\nIf you have a Shard of Listening, it vibrates at the seam.\n\nBeyond it: old air, and the sense you\u2019re about to step into the war\u2019s true heart.",
     "choices": [
       {
         "id": "open",
@@ -18245,7 +18510,8 @@
         ],
         "goToAreaId": "ul_threshold"
       }
-    ]
+    ],
+    "z": -2
   },
   {
     "id": "c_market_square",
@@ -18262,7 +18528,8 @@
       "w": "c_quartermaster_depot",
       "e": "c_mage_tower_scribes",
       "n": "c_council_hall"
-    }
+    },
+    "z": 0
   },
   {
     "id": "c_docks_ward",
@@ -18274,12 +18541,13 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, rainy medieval docks ward, tarpaulins, lantern light, wary dockhands, cinematic, no text",
-    "description": "The docks never sleep — they just change what they’re guilty of.\n\nTarpaulins snap in the wind. Lanterns show too many shadows moving in the wrong direction.",
+    "description": "The docks never sleep \u2014 they just change what they\u2019re guilty of.\n\nTarpaulins snap in the wind. Lanterns show too many shadows moving in the wrong direction.",
     "exits": {
       "e": "c_tarpaulin_row",
       "n": "c_quay_steps",
       "w": "c_factor_outcome"
-    }
+    },
+    "z": 0
   },
   {
     "id": "c_drain_grate",
@@ -18291,10 +18559,11 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, iron drain grate in cobbles, runoff water, faint green light below, cinematic, no text",
-    "description": "The grate is newer than the stones around it. Someone has been here recently — the bolts are scratched and the iron is warm.\n\nA smell rises: rot, river-mud, and secrets.",
+    "description": "The grate is newer than the stones around it. Someone has been here recently \u2014 the bolts are scratched and the iron is warm.\n\nA smell rises: rot, river-mud, and secrets.",
     "exits": {
       "w": "c_quay_steps"
-    }
+    },
+    "z": 0
   },
   {
     "id": "a_outer_gate",
@@ -18306,11 +18575,12 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, massive city outer gate with iron bands, soldiers and barricades, storm clouds, cinematic, no text",
-    "description": "The outer gate is a mouth held shut by fear and iron.\n\nBeyond it: fields, farms, timber tracks — and whatever is bold enough to test the walls.",
+    "description": "The outer gate is a mouth held shut by fear and iron.\n\nBeyond it: fields, farms, timber tracks \u2014 and whatever is bold enough to test the walls.",
     "exits": {
       "n": "b_gate_approach",
       "s": "c_gate_inner_yard"
-    }
+    },
+    "z": 0
   },
   {
     "id": "a_grain_store",
@@ -18325,7 +18595,8 @@
     "description": "Sacks are stacked like miniature fortifications. A clerk watches you as if you might steal the concept of bread.\n\nOutside, someone shouts that another cart is overdue.",
     "exits": {
       "e": "c_granary_checkpoint"
-    }
+    },
+    "z": 0
   },
   {
     "id": "b_farm_road_edge",
@@ -18353,10 +18624,11 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow ditch path with wet reeds, footprints, low fog, cinematic, no text",
-    "description": "A narrow path runs along a drainage ditch. The reeds are bent the wrong way — like something pushed through in a hurry.\n\nIt’s good cover. It’s also a good place to get cornered.",
+    "description": "A narrow path runs along a drainage ditch. The reeds are bent the wrong way \u2014 like something pushed through in a hurry.\n\nIt\u2019s good cover. It\u2019s also a good place to get cornered.",
     "exits": {
       "e": "b_probe_contact"
-    }
+    },
+    "z": 0
   },
   {
     "id": "b_timber_track",
@@ -18368,7 +18640,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, timber track with cut logs, axe marks, distant treeline, cinematic, no text",
-    "description": "The track is chewed up by carts. Fresh axe chips glitter like pale coins.\n\nIf raiders wanted lumber, they’d come this way. If you wanted to ambush someone, you’d wait here.",
+    "description": "The track is chewed up by carts. Fresh axe chips glitter like pale coins.\n\nIf raiders wanted lumber, they\u2019d come this way. If you wanted to ambush someone, you\u2019d wait here.",
     "exits": {
       "w": "b_probe_contact"
     }
@@ -18383,7 +18655,7 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, hedgerow gap with broken branches, muddy bootprints, crows watching, cinematic, no text",
-    "description": "A break in the hedge — too neat to be natural.\n\nThe ground is churned by boots. Whoever came through wasn’t strolling.",
+    "description": "A break in the hedge \u2014 too neat to be natural.\n\nThe ground is churned by boots. Whoever came through wasn\u2019t strolling.",
     "exits": {
       "s": "b_farm_road_edge",
       "n": "o_farm_lane"
@@ -18399,7 +18671,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, siege workshop with winches, gears, pitch pots, carpenters and smiths, cinematic, no text",
-    "description": "Every tool here is a reply to a future scream.\n\nWinches, beams, pitch pots — the city’s hands are building what its mouth refuses to say out loud.",
+    "description": "Every tool here is a reply to a future scream.\n\nWinches, beams, pitch pots \u2014 the city\u2019s hands are building what its mouth refuses to say out loud.",
     "exits": {
       "e": "c_powder_magazine"
     }
@@ -18407,46 +18679,59 @@
   {
     "id": "u_crawlspace_entrance",
     "title": "Crawlspace Entrance",
-    "x": 6,
-    "y": -10,
+    "x": 5,
+    "y": -11,
     "floorId": "underfortress",
     "tileStyle": "fortress",
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, narrow stone crawlspace entrance, dusty, forgotten passage, torch light fading, cinematic, no text",
-    "description": "Your silent footsteps led you past the patrol. Ahead, a narrow gap in the stonework—barely wide enough for a person.\n\nDust swirls as you approach. This passage hasn't been used in years.",
+    "description": "Your silent footsteps led you past the patrol. Ahead, a narrow gap in the stonework\u2014barely wide enough for a person.\n\nDust swirls as you approach. This passage hasn't been used in years.",
     "exits": {
-      "s": "u_guard_junction",
-      "n": "u_tight_crawl"
-    }
+      "s": {
+        "target": "u_guard_junction",
+        "label": "South (Up)"
+      },
+      "n": {
+        "target": "u_tight_crawl",
+        "label": "North (Up)"
+      }
+    },
+    "z": -1
   },
   {
     "id": "u_tight_crawl",
     "title": "Tight Crawl",
-    "x": 6,
-    "y": -11,
+    "x": 5,
+    "y": -12,
     "floorId": "underfortress",
     "tileStyle": "cavern",
     "cover": "none",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, very narrow stone tunnel, claustrophobic, rough walls, darkness ahead, cinematic, no text",
-    "description": "The walls press close. Stone scrapes your shoulders as you squeeze through.\n\nYou hear skittering sounds ahead—something lives down here.",
+    "description": "The walls press close. Stone scrapes your shoulders as you squeeze through.\n\nYou hear skittering sounds ahead\u2014something lives down here.",
     "exits": {
-      "s": "u_crawlspace_entrance",
+      "s": {
+        "target": "u_crawlspace_entrance",
+        "label": "South (Down)"
+      },
       "n": "u_forgotten_cavern"
     },
     "onEnter": [
       {
         "type": "initiateCombat",
-        "enemyIds": ["cave_rat", "cave_rat"]
+        "enemyIds": [
+          "cave_rat",
+          "cave_rat"
+        ]
       }
     ]
   },
   {
     "id": "u_forgotten_cavern",
     "title": "Forgotten Cavern",
-    "x": 6,
-    "y": -12,
+    "x": 5,
+    "y": -13,
     "floorId": "underfortress",
     "tileStyle": "cavern",
     "cover": "high",
@@ -18460,7 +18745,7 @@
     "actions": [
       {
         "type": "search",
-        "label": "🔍 Search the bone pile",
+        "label": "\ud83d\udd0d Search the bone pile",
         "successChance": 80,
         "successText": "You find some useful items hidden among the remains!",
         "effects": [
@@ -18487,14 +18772,14 @@
   {
     "id": "u_snake_lair",
     "title": "Blind Cave Snake Lair",
-    "x": 6,
-    "y": -13,
+    "x": 5,
+    "y": -14,
     "floorId": "underfortress",
     "tileStyle": "cavern",
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, dark cave with massive pale snake coiled on rocks, blind white eyes, menacing, cinematic, no text",
-    "description": "A massive pale serpent lies coiled in the darkness. Its milky eyes are blind, but it senses your vibrations.\n\nIt raises its head and hisses—a guardian that has killed many who sought the treasure beyond.",
+    "description": "A massive pale serpent lies coiled in the darkness. Its milky eyes are blind, but it senses your vibrations.\n\nIt raises its head and hisses\u2014a guardian that has killed many who sought the treasure beyond.",
     "exits": {
       "s": "u_forgotten_cavern",
       "n": "u_treasure_chamber"
@@ -18502,7 +18787,9 @@
     "onEnter": [
       {
         "type": "initiateCombat",
-        "enemyIds": ["blind_cave_snake"]
+        "enemyIds": [
+          "blind_cave_snake"
+        ]
       }
     ]
   },
@@ -18516,14 +18803,14 @@
     "cover": "none",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, small cave chamber with ancient chest, coins, weapons, magical glow, cinematic, no text",
-    "description": "Beyond the snake's lair lies a small chamber. An ancient chest sits open, already looted by whoever left those bones behind.\n\nBut there's still treasure here—a small leather bag containing smoke pellets, a short bow, and a quiver of arrows.",
+    "description": "Beyond the snake's lair lies a small chamber. An ancient chest sits open, already looted by whoever left those bones behind.\n\nBut there's still treasure here\u2014a small leather bag containing smoke pellets, a short bow, and a quiver of arrows.",
     "exits": {
       "s": "u_snake_lair"
     },
     "actions": [
       {
         "type": "search",
-        "label": "🔍 Take the treasure",
+        "label": "\ud83d\udd0d Take the treasure",
         "successChance": 100,
         "successText": "You collect the smoke pellets, bow, and arrows!",
         "effects": [
@@ -18562,14 +18849,14 @@
   {
     "id": "u_cistern_run",
     "title": "Cistern Run",
-    "x": 1,
-    "y": 1,
+    "x": 6,
+    "y": -10,
     "floorId": "underfortress",
     "tileStyle": "cistern",
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, ancient cistern tunnel, knee-deep water, mossy stone, torch reflections, cinematic, no text",
-    "description": "Water whispers along stonework older than the city.\n\nFootprints smear in the algae — recent. Someone has been using the cistern runs as a road.",
+    "description": "Water whispers along stonework older than the city.\n\nFootprints smear in the algae \u2014 recent. Someone has been using the cistern runs as a road.",
     "exits": {
       "w": "u_guard_junction"
     }

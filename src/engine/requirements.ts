@@ -36,6 +36,21 @@ export function evaluateRequirement(req: any, state: PlayerState): boolean {
       if (!skillId) return false;
       return !!(state.combatSkills && state.combatSkills.includes(skillId));
     }
+    case 'threatDefeated': {
+      const threatId = req.threatId || req.key;
+      if (!threatId) return false;
+      return !!(state.flags && state.flags[`threat:${threatId}:defeated`]);
+    }
+    case 'or': {
+      // Evaluates to true if ANY condition is met
+      const conditions = req.conditions || [];
+      return conditions.some((cond: any) => evaluateRequirement(cond, state));
+    }
+    case 'and': {
+      // Evaluates to true if ALL conditions are met
+      const conditions = req.conditions || [];
+      return conditions.every((cond: any) => evaluateRequirement(cond, state));
+    }
     default:
       console.warn('Unknown requirement type', t);
       return false;

@@ -38,6 +38,7 @@ export const AreaSchema = z.object({
   description: z.string().optional(), // main area text
   x: z.number().optional(),
   y: z.number().optional(),
+  z: z.number().optional(),
   floorId: z.string().optional(),
   tileStyle: z.string().optional(),
   cover: z.string().optional(), // combat cover type
@@ -47,7 +48,17 @@ export const AreaSchema = z.object({
   text: z.string().optional(), // legacy field, prefer description
   actionsAvailable: z.record(z.any()).optional(), // legacy field, prefer actions
   actions: z.array(ActionSchema).optional(), // new action system
-  exits: z.record(z.string()).optional(),
+  exits: z.record(
+    z.union([
+      z.string(), // simple string target
+      z.object({
+        target: z.string(),
+        label: z.string().optional(),
+        hoverMessage: z.string().optional(),
+        requirements: z.array(RequirementSchema).optional()
+      }).passthrough()
+    ])
+  ).optional(),
   choices: z.array(ChoiceSchema).optional(),
   effectsOnEnter: z.array(EffectSchema).optional()
 }).passthrough();

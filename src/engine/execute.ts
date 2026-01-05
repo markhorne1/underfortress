@@ -87,8 +87,10 @@ export function performSearch(areaId: string, action: any, state: PlayerState): 
   // Apply effects and get result text
   if (success) {
     if (action.successText) log.push(action.successText);
-    if (action.successEffects) {
-      const res = executeEffects(action.successEffects, newState);
+    // Check for successEffects or fall back to effects
+    const effectsToApply = action.successEffects || action.effects;
+    if (effectsToApply) {
+      const res = executeEffects(effectsToApply, newState);
       Object.assign(newState, res.state);
       log.push(...res.log);
     }
@@ -176,8 +178,18 @@ export function performEnterEffects(area: any, state: PlayerState): EffectResult
   const seedState: PlayerState = JSON.parse(JSON.stringify(state));
   seedState.currentAreaId = area.id;
   seedState.discoveredMap = { ...(seedState.discoveredMap || {}), [area.id]: true } as any;
-  // now apply the area's on-enter effects
-  const res = executeEffects(area.effectsOnEnter || area.enterEffects || [], seedState);
+  
+  // Handle onEnter array with actions like initiateCombat
+  // Note: Combat initialization happens in the store/App.tsx, not here
+  // This function only processes standard effects, combat is handled separately
+  const effects = area.effectsOnEnter || area.enterEffects || [];
+  const res = executeEffects(effects, seedState);
+  
+  // Store onEnter actions for the App to process (like initiateCombat)
+  if (area.onEnter && Array.isArray(area.onEnter)) {
+    (res.state as any).pendingOnEnter = area.onEnter;
+  }
+  
   return res;
 }
 

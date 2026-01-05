@@ -8,6 +8,49 @@ import { initiateCombat, playerAttack, enemyTurn, selectEnemy, castSpell, intimi
 export default function App() {
   const [page, setPage] = useState<'title'|'menu'|'game'>('title');
   const [loading, setLoading] = useState(true);
+  const [mapZLevel, setMapZLevel] = useState<number>(0);
+  
+  // Add responsive CSS for health bar visibility
+  useEffect(() => {
+    const style = document.createElement('style');
+    style.textContent = `
+      /* Desktop: Show health in topNav, hide separate mobile bar */
+      @media (min-width: 768px) {
+        .desktop-health-bar {
+          display: flex !important;
+        }
+        .mobile-health-bar {
+          display: none !important;
+        }
+        .desktop-return-text {
+          display: inline !important;
+        }
+        .mobile-close-x {
+          display: none !important;
+        }
+      }
+      
+      /* Mobile: Hide health in topNav, show separate mobile bar */
+      @media (max-width: 767px) {
+        .desktop-health-bar {
+          display: none !important;
+        }
+        .mobile-health-bar {
+          display: block !important;
+        }
+        .desktop-return-text {
+          display: none !important;
+        }
+        .mobile-close-x {
+          display: inline !important;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
   const [modalPage, setModalPage] = useState<'inventory'|'equipment'|'skills'|'spells'|'quests'|'map'|'settings'|null>(null);
   const [statAllocMode, setStatAllocMode] = useState(false); // Stat allocation modal
   const [spellTreePath, setSpellTreePath] = useState<string | null>(null); // Which path's spell tree to show
@@ -128,8 +171,23 @@ export default function App() {
     }
     
     const exits = area.exits || {};
-    for (const [dir, aid] of Object.entries(exits)) {
-      orderedChoices.push({ id: `exit_${dir}`, label: `Go to: ${getAreaById(aid as string)?.title ?? aid}`, goToAreaId: aid });
+    for (const [dir, exitData] of Object.entries(exits)) {
+      // Handle both string and object exit formats
+      if (typeof exitData === 'string') {
+        orderedChoices.push({ 
+          id: `exit_${dir}`, 
+          label: `Go to: ${getAreaById(exitData)?.title ?? exitData}`, 
+          goToAreaId: exitData 
+        });
+      } else if (exitData && typeof exitData === 'object') {
+        orderedChoices.push({ 
+          id: `exit_${dir}`, 
+          label: exitData.label || `Go to: ${getAreaById(exitData.target)?.title ?? exitData.target}`,
+          hoverMessage: exitData.hoverMessage,
+          requirements: exitData.requirements,
+          goToAreaId: exitData.target 
+        });
+      }
     }
   }
 
@@ -139,7 +197,9 @@ export default function App() {
       await (usePlayerStore as any).getState().moveTo?.((area as any).continueToAreaId);
       return;
     }
-    const exIds = Object.values(area.exits || {});
+    const exIds = Object.values(area.exits || {}).map((e: any) => 
+      typeof e === 'string' ? e : e.target
+    );
     if (exIds.length === 1) {
       await (usePlayerStore as any).getState().moveTo?.(exIds[0]);
       return;
@@ -150,19 +210,91 @@ export default function App() {
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       {/* Top Navigation */}
-      <div style={{ height: 56, display: 'flex', alignItems: 'center', justifyContent: 'space-around', backgroundColor: '#faf6ef', borderBottom: '1px solid #eee' }}>
-        <button onClick={() => setModalPage('inventory')} style={{ background: 'transparent', border: 'none', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>Inventory</button>
-        <button onClick={() => setModalPage('equipment')} style={{ background: 'transparent', border: 'none', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>Equipment</button>
-        <button onClick={() => setModalPage('skills')} style={{ background: 'transparent', border: 'none', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>Skills</button>
-        <button onClick={() => setModalPage('spells')} style={{ background: 'transparent', border: 'none', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>Spells</button>
-        <button onClick={() => setModalPage('quests')} style={{ background: 'transparent', border: 'none', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>Quests</button>
-        <button onClick={() => setModalPage('map')} style={{ background: 'transparent', border: 'none', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>Map</button>
-        <button onClick={() => setModalPage('settings')} title="Settings" style={{ background: 'transparent', border: 'none', fontSize: 16, cursor: 'pointer', marginLeft: 'auto', marginRight: 20 }}>⚙️</button>
+      <div style={{ 
+        minHeight: 56, 
+        display: 'flex', 
+        alignItems: 'center', 
+        backgroundColor: '#faf6ef', 
+        borderBottom: '1px solid #eee',
+        padding: '8px 12px',
+        gap: 12,
+        flexWrap: 'wrap'
+      }}>
+        {/* Navigation Buttons */}
+        <div 
+          className="nav-buttons-container"
+          style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: 8,
+            justifyContent: 'space-around',
+            flex: '0.67 1 auto',
+            minWidth: 0
+          }}>
+          <button onClick={() => setModalPage('inventory')} style={{ background: 'transparent', border: 'none', fontSize: 12, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}>Inventory</button>
+          <button onClick={() => setModalPage('equipment')} style={{ background: 'transparent', border: 'none', fontSize: 12, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}>Equipment</button>
+          <button onClick={() => setModalPage('skills')} style={{ background: 'transparent', border: 'none', fontSize: 12, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}>Skills</button>
+          <button onClick={() => setModalPage('spells')} style={{ background: 'transparent', border: 'none', fontSize: 12, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}>Spells</button>
+          <button onClick={() => setModalPage('quests')} style={{ background: 'transparent', border: 'none', fontSize: 12, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}>Quests</button>
+          <button onClick={() => setModalPage('map')} style={{ background: 'transparent', border: 'none', fontSize: 12, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}>Map</button>
+        </div>
+        
+        {/* Health Bar (Desktop Only) */}
+        {page === 'game' && (
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: 8,
+            flex: '1 1 auto',
+            minWidth: 300,
+            maxWidth: 600
+          }}
+          className="desktop-health-bar"
+          >
+            <span style={{ fontSize: 12, fontWeight: 'bold', whiteSpace: 'nowrap' }}>Health:</span>
+            <div style={{ flex: 1, height: 20, background: '#e0e0e0', borderRadius: 10, overflow: 'hidden', position: 'relative', minWidth: 100 }}>
+              <div style={{ 
+                width: `${health}%`, 
+                height: '100%', 
+                background: health > 50 ? '#2ecc71' : health > 25 ? '#f39c12' : '#e74c3c',
+                transition: 'width 0.3s ease, background 0.3s ease'
+              }}></div>
+              <span style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)', fontSize: 11, fontWeight: 'bold', color: '#333' }}>
+                {health}/100
+              </span>
+            </div>
+            {stats.statPoints > 0 && (
+              <button 
+                onClick={() => {
+                  setModalPage('skills');
+                  setPendingStats({ power: 0, mind: 0, agility: 0, vision: 0 });
+                }}
+                style={{ 
+                  padding: '4px 12px', 
+                  fontSize: 11, 
+                  fontWeight: 'bold',
+                  borderRadius: 6, 
+                  background: 'linear-gradient(135deg, #f39c12, #e67e22)', 
+                  color: '#fff', 
+                  border: '2px solid #d68910',
+                  cursor: 'pointer',
+                  boxShadow: '0 2px 8px rgba(243, 156, 18, 0.4)',
+                  whiteSpace: 'nowrap'
+                }}
+              >
+                ⚡ Spend {stats.statPoints} Stat Point{stats.statPoints !== 1 ? 's' : ''}
+              </button>
+            )}
+          </div>
+        )}
+        
+        {/* Settings Button */}
+        <button onClick={() => setModalPage('settings')} title="Settings" style={{ background: 'transparent', border: 'none', fontSize: 16, cursor: 'pointer' }}>⚙️</button>
       </div>
       
-      {/* Health Bar */}
+      {/* Health Bar (Mobile Only) */}
       {page === 'game' && (
-        <div style={{ padding: '8px 20px', background: '#f8f8f8', borderBottom: '1px solid #ddd' }}>
+        <div className="mobile-health-bar" style={{ padding: '8px 20px', background: '#f8f8f8', borderBottom: '1px solid #ddd' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, maxWidth: 1200, margin: '0 auto' }}>
             <span style={{ fontSize: 14, fontWeight: 'bold', minWidth: 60 }}>Health:</span>
             <div style={{ flex: 1, height: 24, background: '#e0e0e0', borderRadius: 12, overflow: 'hidden', position: 'relative' }}>
@@ -1124,13 +1256,46 @@ export default function App() {
       <div style={{ borderTop: '1px solid #eee', padding: 20, display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
         {orderedChoices.length > 0 ? (
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center', maxWidth: 800 }}>
-            {orderedChoices.map((c:any, idx:number) => (
-              <button key={c.id ?? idx} onClick={async () => {
-                // Use universal handleChoice
-                const handleChoice = (usePlayerStore as any).getState().handleChoice;
-                await handleChoice(c);
-              }} style={{ minWidth: 160, padding: 12, borderRadius: 8, background: '#222', color: '#fff', cursor: 'pointer', border: 'none', fontSize: 14 }}>{c.label}</button>
-            ))}
+            {orderedChoices.map((c:any, idx:number) => {
+              // Check requirements
+              const meetsRequirements = !c.requirements || (() => {
+                try {
+                  const { evaluateRequirements } = require('./engine/requirements');
+                  return evaluateRequirements(c.requirements, stats);
+                } catch {
+                  return true; // If requirements check fails, allow the choice
+                }
+              })();
+              
+              const isDisabled = !meetsRequirements;
+              const hoverText = isDisabled && c.hoverMessage ? c.hoverMessage : c.label;
+              
+              return (
+                <button 
+                  key={c.id ?? idx} 
+                  onClick={async () => {
+                    if (isDisabled) return;
+                    const handleChoice = (usePlayerStore as any).getState().handleChoice;
+                    await handleChoice(c);
+                  }} 
+                  title={hoverText}
+                  disabled={isDisabled}
+                  style={{ 
+                    minWidth: 160, 
+                    padding: 12, 
+                    borderRadius: 8, 
+                    background: isDisabled ? '#666' : '#222', 
+                    color: isDisabled ? '#999' : '#fff', 
+                    cursor: isDisabled ? 'not-allowed' : 'pointer', 
+                    border: 'none', 
+                    fontSize: 14,
+                    opacity: isDisabled ? 0.6 : 1
+                  }}
+                >
+                  {c.label}
+                </button>
+              );
+            })}
           </div>
         ) : (
           <button aria-label="Next page" onClick={onNextPage} style={{ position: 'absolute', right: 20, bottom: 12, padding: 12, borderRadius: 28, background: '#222', color: '#fff', cursor: 'pointer', border: 'none' }}>⤷</button>
@@ -1143,7 +1308,10 @@ export default function App() {
           <div style={{ maxWidth: 1200, margin: '0 auto', padding: 40 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 30, paddingBottom: 20, borderBottom: '2px solid #eee' }}>
               <h2 style={{ margin: 0, fontSize: 32, color: '#2c3e50' }}>{modalPage.charAt(0).toUpperCase() + modalPage.slice(1)}</h2>
-              <button onClick={() => setModalPage(null)} style={{ background: '#e74c3c', border: 'none', fontSize: 18, cursor: 'pointer', color: '#fff', width: 40, height: 40, borderRadius: '50%', fontWeight: 'bold' }}>×</button>
+              <button onClick={() => setModalPage(null)} style={{ background: '#e74c3c', border: 'none', fontSize: 14, cursor: 'pointer', color: '#fff', padding: '8px 16px', borderRadius: 6, fontWeight: 'bold', whiteSpace: 'nowrap' }}>
+                <span className="desktop-return-text">Return ↩</span>
+                <span className="mobile-close-x">×</span>
+              </button>
             </div>
             
             {modalPage === 'inventory' && (
@@ -2314,41 +2482,385 @@ export default function App() {
               </div>
             )}
             
-            {modalPage === 'map' && (
-              <div>
-                <p>Current Area: {currentAreaId}</p>
-                <p>Map system coming soon...</p>
-              </div>
-            )}
+            {modalPage === 'map' && (() => {
+              // Get all discovered areas with their coordinates
+              const discoveredAreas = Object.keys(discoveredMap || {})
+                .map(areaId => getAreaById(areaId))
+                .filter(area => area && typeof area.x === 'number' && typeof area.y === 'number');
+              
+              if (discoveredAreas.length === 0) {
+                return (
+                  <div>
+                    <h3 style={{ marginTop: 0, marginBottom: 20 }}>Map</h3>
+                    <div style={{ padding: 40, textAlign: 'center', color: '#6c757d' }}>
+                      <p style={{ fontSize: 16, marginBottom: 8 }}>🗺️ No areas discovered yet</p>
+                      <p style={{ fontSize: 14 }}>Explore the world to reveal the map</p>
+                    </div>
+                  </div>
+                );
+              }
+              
+              // Assign z-level based on y-coordinate (deeper = lower z)
+              // Group areas into z-levels for multi-floor display
+              const areasWithZ = discoveredAreas.map(area => ({
+                ...area,
+                z: area.z !== undefined ? area.z : Math.floor(area.y / 10) // Auto-assign z based on y depth
+              }));
+              
+              // Get unique z-levels
+              const zLevels = [...new Set(areasWithZ.map(a => a.z))].sort((a, b) => b - a); // Highest first
+              
+              // Set initial z-level if not already set
+              if (!zLevels.includes(mapZLevel)) {
+                setMapZLevel(zLevels[0]);
+              }
+              
+              const currentZ = mapZLevel;
+              
+              // Filter areas for current z-level
+              const currentLevelAreas = areasWithZ.filter(a => a.z === currentZ);
+              const currentArea = getAreaById(currentAreaId);
+              const currentAreaZ = currentArea && typeof currentArea.z === 'number' 
+                ? currentArea.z 
+                : currentArea ? Math.floor(currentArea.y / 10) : currentZ;
+              
+              // Calculate bounds of the current z-level
+              const minX = Math.min(...currentLevelAreas.map(a => a.x));
+              const maxX = Math.max(...currentLevelAreas.map(a => a.x));
+              const minY = Math.min(...currentLevelAreas.map(a => a.y));
+              const maxY = Math.max(...currentLevelAreas.map(a => a.y));
+              
+              // Create a grid
+              const cellSize = 60;
+              const gap = 2;
+              const padding = 40;
+              
+              // Build area lookup by coordinates for current z-level
+              const areaByCoords: Record<string, any> = {};
+              currentLevelAreas.forEach(area => {
+                areaByCoords[`${area.x},${area.y}`] = area;
+              });
+              
+              const gridWidth = (maxX - minX + 1) * (cellSize + gap) + padding * 2;
+              const gridHeight = (maxY - minY + 1) * (cellSize + gap) + padding * 2;
+              
+              return (
+                <div>
+                  <h3 style={{ marginTop: 0, marginBottom: 20 }}>Map</h3>
+                      {/* Z-Level Controls */}
+                      {zLevels.length > 1 && (
+                        <div style={{ 
+                          marginBottom: 20, 
+                          padding: 16, 
+                          background: '#fff',
+                          borderRadius: 8,
+                          border: '2px solid #dee2e6',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          gap: 12
+                        }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                            <span style={{ fontSize: 14, fontWeight: 'bold', color: '#2c3e50' }}>Floor Level:</span>
+                            <div style={{ display: 'flex', gap: 8 }}>
+                              {zLevels.map(z => (
+                                <button
+                                  key={z}
+                                  onClick={() => setMapZLevel(z)}
+                                  style={{
+                                    padding: '6px 12px',
+                                    fontSize: 12,
+                                    fontWeight: 'bold',
+                                    borderRadius: 6,
+                                    background: z === currentZ 
+                                      ? 'linear-gradient(135deg, #3498db, #2980b9)'
+                                      : z === currentAreaZ
+                                        ? 'linear-gradient(135deg, #f39c12, #e67e22)'
+                                        : '#ecf0f1',
+                                    color: z === currentZ || z === currentAreaZ ? '#fff' : '#2c3e50',
+                                    border: z === currentAreaZ ? '2px solid #f39c12' : 'none',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.2s'
+                                  }}
+                                  onMouseOver={(e) => {
+                                    if (z !== currentZ) {
+                                      e.currentTarget.style.background = '#d5dbdb';
+                                    }
+                                  }}
+                                  onMouseOut={(e) => {
+                                    if (z !== currentZ) {
+                                      e.currentTarget.style.background = z === currentAreaZ 
+                                        ? 'linear-gradient(135deg, #f39c12, #e67e22)'
+                                        : '#ecf0f1';
+                                    }
+                                  }}
+                                >
+                                  {z > 0 ? `+${z}` : z}
+                                  {z === currentAreaZ && ' 📍'}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                          <div style={{ fontSize: 12, color: '#6c757d', fontStyle: 'italic' }}>
+                            {currentZ > 0 ? '⬆️ Upper Level' : currentZ < 0 ? '⬇️ Lower Level' : '➡️ Ground Level'}
+                          </div>
+                        </div>
+                      )}
+                      
+                      <div style={{ 
+                        overflowX: 'auto', 
+                        overflowY: 'auto', 
+                        maxHeight: 'calc(100vh - 300px)',
+                        border: '2px solid #dee2e6',
+                        borderRadius: 8,
+                        background: '#f8f9fa'
+                      }}>
+                        <div style={{ 
+                          position: 'relative', 
+                          width: gridWidth, 
+                          height: gridHeight,
+                          margin: '20px auto',
+                          minWidth: 'fit-content'
+                        }}>
+                          {/* Render grid cells for discovered areas */}
+                          {Array.from({ length: maxY - minY + 1 }, (_, yi) => {
+                            const y = maxY - yi; // Start from top (max Y)
+                            return Array.from({ length: maxX - minX + 1 }, (_, xi) => {
+                              const x = minX + xi;
+                              const area = areaByCoords[`${x},${y}`];
+                              
+                              if (!area) return null;
+                              
+                              const isCurrentArea = area.id === currentAreaId;
+                              
+                              // Check if there are areas above or below this position
+                              const hasAreaAbove = areasWithZ.some(a => a.x === x && a.y === y && a.z > currentZ);
+                              const hasAreaBelow = areasWithZ.some(a => a.x === x && a.y === y && a.z < currentZ);
+                              
+                              // Determine tile color based on floorId or tileStyle
+                            let bgColor = '#95a5a6';
+                            if (area.floorId === 'underfortress') bgColor = '#7f8c8d';
+                            if (area.floorId === 'battle') bgColor = '#e74c3c';
+                            if (area.tileStyle === 'cavern') bgColor = '#5d6d7e';
+                            if (area.tileStyle === 'cistern') bgColor = '#3498db';
+                            if (isCurrentArea) bgColor = '#f39c12';
+                            
+                            return (
+                              <div
+                                key={`${x},${y}`}
+                                title={area.title || area.id}
+                                style={{
+                                  position: 'absolute',
+                                  left: padding + (x - minX) * (cellSize + gap),
+                                  top: padding + (maxY - y) * (cellSize + gap),
+                                  width: cellSize,
+                                  height: cellSize,
+                                  backgroundColor: bgColor,
+                                  border: isCurrentArea ? '3px solid #fff' : '2px solid rgba(0,0,0,0.2)',
+                                  borderRadius: 4,
+                                  boxShadow: isCurrentArea 
+                                    ? '0 0 12px rgba(243, 156, 18, 0.8)' 
+                                    : '0 2px 4px rgba(0,0,0,0.1)',
+                                  cursor: 'pointer',
+                                  display: 'flex',
+                                  flexDirection: 'column',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  transition: 'all 0.2s',
+                                  fontSize: 24
+                                }}
+                                onMouseEnter={(e) => {
+                                  e.currentTarget.style.transform = 'scale(1.1)';
+                                  e.currentTarget.style.zIndex = '10';
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.currentTarget.style.transform = 'scale(1)';
+                                  e.currentTarget.style.zIndex = '1';
+                                }}
+                              >
+                                {isCurrentArea ? '📍' : '▪'}
+                                {/* Z-level indicators */}
+                                {(hasAreaAbove || hasAreaBelow) && (
+                                  <div style={{ 
+                                    position: 'absolute',
+                                    top: 2,
+                                    right: 2,
+                                    fontSize: 10,
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: 1
+                                  }}>
+                                    {hasAreaAbove && <span>⬆️</span>}
+                                    {hasAreaBelow && <span>⬇️</span>}
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          });
+                        }).flat()}
+                        
+                        {/* Draw connection lines between areas with exits */}
+                        <svg style={{
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
+                          width: '100%',
+                          height: '100%',
+                          pointerEvents: 'none'
+                        }}>
+                          {currentLevelAreas.map(area => {
+                            if (!area.exits) return null;
+                            
+                            const fromX = padding + (area.x - minX) * (cellSize + gap) + cellSize / 2;
+                            const fromY = padding + (maxY - area.y) * (cellSize + gap) + cellSize / 2;
+                            
+                            return Object.entries(area.exits).map(([dir, targetId]) => {
+                              const targetAreaObj = getAreaById(targetId as string);
+                              if (!targetAreaObj) return null;
+                              const targetArea = areaByCoords[`${targetAreaObj.x},${targetAreaObj.y}`];
+                              if (!targetArea) return null;
+                              
+                              const toX = padding + (targetArea.x - minX) * (cellSize + gap) + cellSize / 2;
+                              const toY = padding + (maxY - targetArea.y) * (cellSize + gap) + cellSize / 2;
+                              
+                              return (
+                                <line
+                                  key={`${area.id}-${dir}-${targetId}`}
+                                  x1={fromX}
+                                  y1={fromY}
+                                  x2={toX}
+                                  y2={toY}
+                                  stroke="rgba(52, 73, 94, 0.3)"
+                                  strokeWidth="2"
+                                  strokeDasharray="4,4"
+                                />
+                              );
+                            });
+                          }).flat()}
+                        </svg>
+                      </div>
+                      
+                      {/* Legend */}
+                      <div style={{ 
+                        padding: 20, 
+                        borderTop: '2px solid #dee2e6',
+                        background: '#fff',
+                        display: 'flex',
+                        gap: 20,
+                        flexWrap: 'wrap',
+                        justifyContent: 'center',
+                        fontSize: 12
+                      }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                          <div style={{ width: 20, height: 20, background: '#f39c12', border: '2px solid #333', borderRadius: 2 }}></div>
+                          <span>Current Location</span>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                          <div style={{ width: 20, height: 20, background: '#7f8c8d', border: '2px solid #333', borderRadius: 2 }}></div>
+                          <span>Underfortress</span>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                          <div style={{ width: 20, height: 20, background: '#5d6d7e', border: '2px solid #333', borderRadius: 2 }}></div>
+                          <span>Cavern</span>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                          <div style={{ width: 20, height: 20, background: '#3498db', border: '2px solid #333', borderRadius: 2 }}></div>
+                          <span>Cistern</span>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                          <div style={{ width: 20, height: 20, background: '#e74c3c', border: '2px solid #333', borderRadius: 2 }}></div>
+                          <span>Battle</span>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                          <span style={{ fontSize: 10 }}>⬆️ Above</span>
+                          <span style={{ fontSize: 10 }}>⬇️ Below</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })()}
             
             {modalPage === 'settings' && (
               <div>
                 <h3 style={{ marginTop: 0, marginBottom: 20 }}>Settings</h3>
                 
-                {/* Test Combat Button */}
+                {/* Test Combat Templates */}
                 <div style={{ marginBottom: 20 }}>
-                  <h4 style={{ marginBottom: 12, color: '#2c3e50' }}>Debug Tools</h4>
-                  <button 
-                    onClick={() => {
-                      const currentState = usePlayerStore.getState();
-                      const newState = initiateCombat(['test_goblin', 'test_goblin', 'test_goblin', 'test_goblin'], currentState);
-                      usePlayerStore.setState({ combat: newState.combat });
-                      setModalPage(null);
-                    }}
-                    style={{ 
-                      padding: '12px 24px', 
-                      fontSize: 14, 
-                      fontWeight: 'bold',
-                      borderRadius: 8, 
-                      background: 'linear-gradient(135deg, #e74c3c, #c0392b)', 
-                      color: '#fff', 
-                      border: '2px solid #a93226',
-                      cursor: 'pointer',
-                      boxShadow: '0 4px 12px rgba(231, 76, 60, 0.4)'
-                    }}
-                  >
-                    ⚔️ Test Combat
-                  </button>
+                  <h4 style={{ marginBottom: 12, color: '#2c3e50' }}>Debug: Combat Templates</h4>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
+                    {/* Test Goblins */}
+                    <button 
+                      onClick={() => {
+                        const currentState = usePlayerStore.getState();
+                        const newState = initiateCombat(['test_goblin', 'test_goblin', 'test_goblin', 'test_goblin'], currentState);
+                        usePlayerStore.setState({ combat: newState.combat });
+                        setModalPage(null);
+                      }}
+                      style={{ 
+                        padding: '10px 16px', 
+                        fontSize: 13, 
+                        fontWeight: 'bold',
+                        borderRadius: 6, 
+                        background: 'linear-gradient(135deg, #e74c3c, #c0392b)', 
+                        color: '#fff', 
+                        border: '2px solid #a93226',
+                        cursor: 'pointer',
+                        boxShadow: '0 2px 8px rgba(231, 76, 60, 0.3)'
+                      }}
+                    >
+                      👹 Test Goblins (4x)
+                    </button>
+                    
+                    {/* Cave Rats */}
+                    <button 
+                      onClick={() => {
+                        const currentState = usePlayerStore.getState();
+                        const newState = initiateCombat(['cave_rat', 'cave_rat'], currentState);
+                        usePlayerStore.setState({ combat: newState.combat });
+                        setModalPage(null);
+                      }}
+                      style={{ 
+                        padding: '10px 16px', 
+                        fontSize: 13, 
+                        fontWeight: 'bold',
+                        borderRadius: 6, 
+                        background: 'linear-gradient(135deg, #95a5a6, #7f8c8d)', 
+                        color: '#fff', 
+                        border: '2px solid #5d6d7e',
+                        cursor: 'pointer',
+                        boxShadow: '0 2px 8px rgba(149, 165, 166, 0.3)'
+                      }}
+                    >
+                      🐀 Cave Rats (2x)
+                    </button>
+                    
+                    {/* Blind Cave Snake Boss */}
+                    <button 
+                      onClick={() => {
+                        const currentState = usePlayerStore.getState();
+                        const newState = initiateCombat(['blind_cave_snake'], currentState);
+                        usePlayerStore.setState({ combat: newState.combat });
+                        setModalPage(null);
+                      }}
+                      style={{ 
+                        padding: '10px 16px', 
+                        fontSize: 13, 
+                        fontWeight: 'bold',
+                        borderRadius: 6, 
+                        background: 'linear-gradient(135deg, #8e44ad, #6c3483)', 
+                        color: '#fff', 
+                        border: '2px solid #5b2c6f',
+                        cursor: 'pointer',
+                        boxShadow: '0 2px 8px rgba(142, 68, 173, 0.3)'
+                      }}
+                    >
+                      🐍 Blind Cave Snake (Boss)
+                    </button>
+                  </div>
+                  <p style={{ fontSize: 12, color: '#6c757d', marginTop: 12, fontStyle: 'italic' }}>
+                    💡 Tip: Combat templates are loaded from enemy definitions. Areas with onEnter: initiateCombat will start combat automatically.
+                  </p>
                 </div>
                 
                 <div style={{ padding: 20, background: '#f8f9fa', borderRadius: 8, border: '2px dashed #dee2e6' }}>
