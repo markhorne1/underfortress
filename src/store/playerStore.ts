@@ -134,6 +134,59 @@ export function createPlayerStore(storage: KVStorage) {
       const discovered = { ...get().discoveredMap, [areaId]: true };
       set({ currentAreaId: areaId, discoveredMap: discovered } as any);
 
+      // Check for pending combat from threat BEFORE processing area effects
+      // This flag is set by forceCombatFromThreat effect from a previous choice
+      const currentState = get() as any;
+      const flags = currentState.flags || {};
+      for (const flagKey of Object.keys(flags)) {
+        if (flagKey.startsWith('_pendingCombat:')) {
+          const threatId = flagKey.replace('_pendingCombat:', '');
+          // Clear the pending flag
+          delete flags[flagKey];
+          set({ flags } as any);
+          
+          console.log('🎯 Pending combat detected for threat:', threatId);
+          
+          // Load enemy group data and initiate combat
+          const { initiateCombat } = await import('../engine/combatNew');
+          const { getContentSnapshot } = await import('../engine/contentLoader');
+          
+          // Find the threat in activeThreats array
+          const threat = (currentState.activeThreats || []).find((t: any) => t.id === threatId || t.threatId === threatId);
+          console.log('🔍 Found threat:', threat);
+          
+          if (threat && threat.enemyGroupId) {
+            const content = getContentSnapshot();
+            const enemies = content.enemies;
+            
+            // Enemy groups are stored in enemies collection
+            const enemyGroup = enemies instanceof Map ? enemies.get(threat.enemyGroupId) : null;
+            console.log('🔍 Found enemy group:', enemyGroup);
+            
+            if (enemyGroup && enemyGroup.kind === 'group' && enemyGroup.members) {
+              // Expand group members into individual enemy IDs
+              const enemyIds: string[] = [];
+              for (const member of enemyGroup.members) {
+                const count = member.count || 1;
+                for (let i = 0; i < count; i++) {
+                  enemyIds.push(member.enemyId);
+                }
+              }
+              
+              console.log('⚔️ Initiating combat with enemies:', enemyIds);
+              
+              // Initiate combat with these enemies
+              const combatResult = initiateCombat(enemyIds, currentState);
+              set({ combat: combatResult.combat } as any);
+              await storage.setItem(STORAGE_KEY, JSON.stringify(get()));
+              return; // Stop further processing
+            }
+          } else {
+            console.warn('⚠️ Threat not found or has no enemyGroupId:', threatId);
+          }
+        }
+      }
+
       // Run area enter effects, allowing for chained teleports but preventing infinite loops
       let loop = 0;
       let nextAreaId = areaId;
@@ -178,6 +231,7 @@ export function createPlayerStore(storage: KVStorage) {
         if (res.state.stats) newState.stats = res.state.stats;
         if (res.state.health !== undefined) newState.health = res.state.health;
         if (res.state.lastCheckpointId) newState.lastCheckpointId = res.state.lastCheckpointId;
+        
         set(newState);
 
         // run any active quest stage onEnterEffects
@@ -246,6 +300,7 @@ export function createPlayerStore(storage: KVStorage) {
       if ((result.state as any).flags) updates.flags = (result.state as any).flags;
       if ((result.state as any).quests) updates.quests = (result.state as any).quests;
       if ((result.state as any).questLog) updates.questLog = (result.state as any).questLog;
+      if ((result.state as any).activeThreats) updates.activeThreats = (result.state as any).activeThreats;
       if (result.state.spellsKnown) updates.spellsKnown = result.state.spellsKnown;
       if (result.state.equipment) updates.equipment = result.state.equipment;
       if (result.state.health !== undefined) updates.health = result.state.health;

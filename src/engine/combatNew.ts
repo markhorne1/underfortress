@@ -17,12 +17,34 @@ function getEnemyById(enemyId: string): Enemy | null {
     return null;
   }
   // enemies is a Map, not an array
+  let enemy: any = null;
   if (content.enemies instanceof Map) {
-    return content.enemies.get(enemyId) || null;
+    enemy = content.enemies.get(enemyId);
+  } else {
+    // Fallback for array (shouldn't happen but be safe)
+    const enemies = Array.isArray(content.enemies) ? content.enemies : [];
+    enemy = enemies.find((e: any) => e.id === enemyId);
   }
-  // Fallback for array (shouldn't happen but be safe)
-  const enemies = Array.isArray(content.enemies) ? content.enemies : [];
-  return enemies.find((e: Enemy) => e.id === enemyId) || null;
+  
+  if (!enemy) return null;
+  
+  // Convert legacy format (skill/stamina) to new format (stats/maxHealth) if needed
+  if (enemy.skill !== undefined && !enemy.stats) {
+    const power = Math.floor(enemy.skill / 2) || 1;
+    const agility = Math.floor(enemy.skill / 2) || 1;
+    enemy = {
+      ...enemy,
+      stats: {
+        power: power,
+        mind: 1,
+        agility: agility,
+        vision: 1
+      },
+      maxHealth: enemy.stamina * 10 || 10
+    };
+  }
+  
+  return enemy;
 }
 
 function isEnemyWeakened(enemy: EnemyInstance): boolean {
@@ -114,18 +136,16 @@ export function initiateCombat(enemyIds: string[], state: PlayerState): PlayerSt
   const newState = JSON.parse(JSON.stringify(state));
   const enemyInstances: EnemyInstance[] = [];
   
-  console.log('initiateCombat called with:', enemyIds);
+  console.log('🎮 initiateCombat called with enemyIds:', enemyIds);
   const content = getContentSnapshot();
-  console.log('Content snapshot:', content ? 'loaded' : 'NOT LOADED');
-  if (content) {
-    console.log('Enemies type:', typeof content.enemies, 'IsArray:', Array.isArray(content.enemies));
-    if (Array.isArray(content.enemies)) {
-      console.log('Enemy count:', content.enemies.length);
-    }
+  console.log('📦 Content snapshot:', content ? 'loaded' : 'NOT LOADED');
+  if (content && content.enemies instanceof Map) {
+    console.log('👹 Enemies Map size:', content.enemies.size);
   }
   
   for (let i = 0; i < enemyIds.length; i++) {
     const enemyDef = getEnemyById(enemyIds[i]);
+    console.log(`🔍 Loading enemy ${i}: ${enemyIds[i]}`, enemyDef ? 'Found' : 'NOT FOUND');
     if (!enemyDef) continue;
     
     const instance: EnemyInstance = {

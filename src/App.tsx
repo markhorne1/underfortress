@@ -335,22 +335,41 @@ export default function App() {
       )}
       
       {/* Main Content - Centered */}
-      <div style={{ flex: 1, padding: 20, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', overflowY: 'auto' }}>
+      <div style={{ flex: 1, padding: 20, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', overflowY: 'auto', position: 'relative' }}>
         {area ? (
           <div style={{ maxWidth: 800, width: '100%' }}>
             <h1 style={{ marginBottom: 20, textAlign: 'center' }}>{area.title ?? area.id}</h1>
             <p style={{ whiteSpace: 'pre-wrap', lineHeight: 1.6, textAlign: 'center' }}>{area.description}</p>
             
-            {/* Combat UI - Positioned ABOVE continuing text */}
+            {/* Combat UI - Fixed Overlay Beneath TopNav */}
             {combat && (combat.active || combat.victoryScreen || combat.defeatScreen) && (
-              <div style={{ 
-                marginTop: 20, 
-                padding: 20, 
-                background: 'linear-gradient(135deg, #2c3e50 0%, #34495e 100%)', 
-                borderRadius: 12, 
-                border: '3px solid #e74c3c',
-                boxShadow: '0 8px 24px rgba(0,0,0,0.3)'
-              }}>
+              <>
+                {/* Blocker overlay to prevent clicking area buttons */}
+                <div style={{
+                  position: 'fixed',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  background: 'rgba(0, 0, 0, 0.7)',
+                  zIndex: 9998
+                }} />
+                
+                {/* Combat Window */}
+                <div style={{ 
+                  position: 'fixed',
+                  top: 60,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  overflowY: 'auto',
+                  padding: 20,
+                  background: 'linear-gradient(135deg, #2c3e50 0%, #34495e 100%)',
+                  border: '3px solid #e74c3c',
+                  borderTop: 'none',
+                  boxShadow: '0 -4px 24px rgba(0,0,0,0.5)',
+                  zIndex: 9999
+                }}>
                 {/* Victory Screen Overlay */}
                 {combat.victoryScreen && (
                   <div style={{
@@ -967,7 +986,7 @@ export default function App() {
 
                     {/* Pivot Button - Attack + Defense Boost */}
                     {(() => {
-                      const pivotCost = 2;
+                      const pivotCost = 1;
                       const hasSkill = combatSkills?.includes('pivot');
                       const hasStamina = stamina >= pivotCost;
                       if (!hasSkill) return null;
@@ -1245,6 +1264,7 @@ export default function App() {
                   })}
                 </div>
               </div>
+              </>
             )}
           </div>
         ) : (
@@ -2102,7 +2122,7 @@ export default function App() {
                 <div style={{ marginBottom: 20 }}>
                   {[
                     { id: 'clash', name: 'Clash', cost: 1, stamina: 1, icon: '🛡️', desc: 'Force enemy back, preventing their attack and second enemy\'s attack' },
-                    { id: 'pivot', name: 'Pivot', cost: 2, stamina: 2, icon: '🔄', desc: 'Normal attack + 50% defense boost against second opponent' },
+                    { id: 'pivot', name: 'Pivot', cost: 2, stamina: 1, icon: '🔄', desc: 'Normal attack + 50% defense boost against second opponent' },
                     { id: 'feint', name: 'Feint', cost: 2, stamina: 2, icon: '🤺', desc: 'Dodge targeted enemy\'s attack AND attack any second enemy' },
                     { id: 'slash', name: 'Slash', cost: 3, stamina: 3, icon: '⚔️💥', desc: 'Attack all front enemies with separate rolls' }
                   ].map(skill => {

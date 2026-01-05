@@ -230,6 +230,19 @@ export function applyEffects(effects: any[] | undefined, state: PlayerState): Ef
         log.push(`equipItem ${itemId} equipped to ${slot}`);
         break;
       }
+      case 'forceCombatFromThreat': {
+        // This effect triggers combat based on a threat's enemy group
+        // The actual combat initialization must happen in playerStore after navigation
+        // We just set a flag here that playerStore will check
+        const threatId = e.threatId;
+        if (!threatId) { log.push('forceCombatFromThreat missing threatId'); break; }
+        
+        // Set a flag that playerStore will detect and handle
+        next.flags = next.flags || {};
+        next.flags[`_pendingCombat:${threatId}`] = true;
+        log.push(`forceCombatFromThreat ${threatId} - Combat will initiate`);
+        break;
+      }
       default:
         console.warn('Unknown effect type', e.type);
         log.push(`unknownEffect ${e.type}`);
