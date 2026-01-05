@@ -1846,6 +1846,33 @@
     ]
   },
   {
+    "id": "wounded_goblin_runner",
+    "name": "Wounded Goblin Runner",
+    "kind": "humanoid",
+    "skill": 6,
+    "stamina": 3,
+    "meta": {
+      "ranged": false,
+      "wounded": true
+    },
+    "loot": [
+      {
+        "itemId": "prison_ring_token",
+        "min": 0,
+        "max": 1
+      },
+      {
+        "itemId": "gold_coin",
+        "min": 0,
+        "max": 4
+      }
+    ],
+    "tags": [
+      "goblin",
+      "wounded"
+    ]
+  },
+  {
     "id": "warg_scout",
     "name": "Warg Scout",
     "kind": "monster",
@@ -2854,6 +2881,34 @@
       "mixed",
       "group",
       "pursuit"
+    ]
+  },
+  {
+    "id": "prison_pursuit",
+    "name": "Prison Pursuit Team",
+    "kind": "group",
+    "members": [
+      {
+        "enemyId": "orc_sentry",
+        "count": 1
+      },
+      {
+        "enemyId": "orc_raider",
+        "count": 3
+      }
+    ],
+    "meta": {
+      "pursuit": {
+        "speed": 2,
+        "startDistance": 5,
+        "morale": 10
+      }
+    },
+    "tags": [
+      "orc",
+      "group",
+      "pursuit",
+      "elite"
     ]
   },
   {

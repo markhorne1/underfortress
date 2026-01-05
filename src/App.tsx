@@ -180,12 +180,13 @@ export default function App() {
           goToAreaId: exitData 
         });
       } else if (exitData && typeof exitData === 'object') {
+        const exit = exitData as any;
         orderedChoices.push({ 
           id: `exit_${dir}`, 
-          label: exitData.label || `Go to: ${getAreaById(exitData.target)?.title ?? exitData.target}`,
-          hoverMessage: exitData.hoverMessage,
-          requirements: exitData.requirements,
-          goToAreaId: exitData.target 
+          label: exit.label || `Go to: ${getAreaById(exit.target)?.title ?? exit.target}`,
+          hoverMessage: exit.hoverMessage,
+          requirements: exit.requirements,
+          goToAreaId: exit.target 
         });
       }
     }
@@ -344,10 +345,10 @@ export default function App() {
             {/* Combat UI - Fixed Overlay Beneath TopNav */}
             {combat && (combat.active || combat.victoryScreen || combat.defeatScreen) && (
               <>
-                {/* Blocker overlay to prevent clicking area buttons */}
+                {/* Blocker overlay to prevent clicking area buttons (starts beneath topNav) */}
                 <div style={{
                   position: 'fixed',
-                  top: 0,
+                  top: 60,
                   left: 0,
                   right: 0,
                   bottom: 0,
@@ -505,8 +506,77 @@ export default function App() {
                       {/* Continue Button */}
                       <button
                         onClick={() => {
-                          // Clear combat state
-                          usePlayerStore.setState({ combat: undefined });
+                          const currentState = usePlayerStore.getState();
+                          const newFlags = { ...currentState.flags };
+                          
+                          // Mark threat as defeated if combat was triggered by a threat
+                          if (combat.threatId && combat.threatId !== 'direct_combat') {
+                            newFlags[`threat:${combat.threatId}:defeated`] = true;
+                            console.log(`✅ Marked threat ${combat.threatId} as defeated`);
+                            
+                            // Check if this was the prison patrol
+                            if (combat.threatId === 't_prison_patrol_01') {
+                              // If goblin was shot, redirect to hunt it down
+                              if (newFlags['goblin_shot'] && !newFlags['goblin_finished']) {
+                                console.log('🩸 Goblin was shot - must hunt it down!');
+                                usePlayerStore.setState({ 
+                                  combat: undefined,
+                                  flags: newFlags
+                                });
+                                // Navigate to wounded goblin area
+                                (usePlayerStore as any).getState().moveTo?.('u_wounded_goblin_trail');
+                                return;
+                              }
+                              
+                              // If goblin wasn't shot at all, spawn pursuit patrol
+                              if (!newFlags['goblin_shot']) {
+                                console.log('⚠️ Goblin was not shot - starting pursuit patrol!');
+                                const newActiveThreats = [...((currentState as any).activeThreats || [])];
+                                newActiveThreats.push({
+                                  id: 't_prison_pursuit_01',
+                                  threatId: 't_prison_pursuit_01',
+                                  enemyGroupId: 'prison_pursuit',
+                                  distance: 5,
+                                  direction: 'n',
+                                  speed: 2,
+                                  targetAreaId: currentState.currentAreaId,
+                                  hazards: []
+                                });
+                                usePlayerStore.setState({ 
+                                  combat: undefined,
+                                  flags: newFlags,
+                                  activeThreats: newActiveThreats
+                                } as any);
+                                return;
+                              }
+                            }
+                          }
+                          
+                          // Check if this was the wounded goblin - mark as finished and cancel pursuit
+                          if (combat.threatId === 'direct_combat' && combat.enemies && 
+                              combat.enemies.some((e: any) => e.enemyId === 'wounded_goblin_runner')) {
+                            newFlags['goblin_finished'] = true;
+                            console.log('✅ Wounded goblin finished - pursuit cancelled');
+                            
+                            // Remove pursuit threat if it exists
+                            const activeThreats = ((currentState as any).activeThreats || []);
+                            const filteredThreats = activeThreats.filter((t: any) => 
+                              t.id !== 't_prison_pursuit_01' && t.threatId !== 't_prison_pursuit_01'
+                            );
+                            
+                            usePlayerStore.setState({ 
+                              combat: undefined,
+                              flags: newFlags,
+                              activeThreats: filteredThreats
+                            } as any);
+                            return;
+                          }
+                          
+                          // Clear combat state and update flags
+                          usePlayerStore.setState({ 
+                            combat: undefined,
+                            flags: newFlags
+                          });
                         }}
                         style={{
                           width: '100%',
@@ -1324,7 +1394,7 @@ export default function App() {
       
       {/* Modal Overlay */}
       {modalPage && (
-        <div style={{ position: 'fixed', top: 56, left: 0, right: 0, bottom: 0, background: '#fff', zIndex: 1000, overflow: 'auto' }}>
+        <div style={{ position: 'fixed', top: 56, left: 0, right: 0, bottom: 0, background: '#fff', zIndex: 10000, overflow: 'auto' }}>
           <div style={{ maxWidth: 1200, margin: '0 auto', padding: 40 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 30, paddingBottom: 20, borderBottom: '2px solid #eee' }}>
               <h2 style={{ margin: 0, fontSize: 32, color: '#2c3e50' }}>{modalPage.charAt(0).toUpperCase() + modalPage.slice(1)}</h2>

@@ -138,6 +138,27 @@ export function createPlayerStore(storage: KVStorage) {
       // This flag is set by forceCombatFromThreat effect from a previous choice
       const currentState = get() as any;
       const flags = currentState.flags || {};
+      
+      // Check for direct combat first (forceCombat effect)
+      if (flags['_pendingDirectCombat']) {
+        const enemyIds = JSON.parse(flags['_pendingDirectCombat']);
+        delete flags['_pendingDirectCombat'];
+        set({ flags } as any);
+        
+        console.log('⚔️ Pending direct combat detected with enemies:', enemyIds);
+        
+        const { initiateCombat } = await import('../engine/combatNew');
+        const combatResult = initiateCombat(enemyIds, currentState);
+        // For direct combat, we can optionally store a marker
+        if (combatResult.combat) {
+          combatResult.combat.threatId = 'direct_combat';
+        }
+        set({ combat: combatResult.combat } as any);
+        await storage.setItem(STORAGE_KEY, JSON.stringify(get()));
+        return; // Stop further processing
+      }
+      
+      // Check for threat-based combat
       for (const flagKey of Object.keys(flags)) {
         if (flagKey.startsWith('_pendingCombat:')) {
           const threatId = flagKey.replace('_pendingCombat:', '');
@@ -177,6 +198,10 @@ export function createPlayerStore(storage: KVStorage) {
               
               // Initiate combat with these enemies
               const combatResult = initiateCombat(enemyIds, currentState);
+              // Store the threat ID in combat state so we can mark it defeated later
+              if (combatResult.combat) {
+                combatResult.combat.threatId = threatId;
+              }
               set({ combat: combatResult.combat } as any);
               await storage.setItem(STORAGE_KEY, JSON.stringify(get()));
               return; // Stop further processing
@@ -331,10 +356,10 @@ export function createPlayerStore(storage: KVStorage) {
       // Route to appropriate action handler
       if (actionType === 'search') {
         const { performSearch } = await import('../engine/execute');
-        result = performSearch(currentAreaId, action, currentState);
+        result = await performSearch(currentAreaId, action, currentState);
       } else if (actionType === 'investigate') {
         const { performInvestigate } = await import('../engine/execute');
-        result = performInvestigate(currentAreaId, action, currentState);
+        result = await performInvestigate(currentAreaId, action, currentState);
       } else {
         // Unknown action type
         return { success: false, log: [`Unknown action type: ${actionType}`] };

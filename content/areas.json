@@ -14797,6 +14797,11 @@
           {
             "type": "advanceThreat",
             "threatId": "t_prison_patrol_01"
+          },
+          {
+            "type": "setFlag",
+            "flag": "goblin_shot",
+            "value": true
           }
         ]
       },
@@ -14826,10 +14831,108 @@
       {
         "id": "fight",
         "label": "Fight.",
+        "requirements": [
+          {
+            "type": "not",
+            "condition": {
+              "type": "threatDefeated",
+              "threatId": "t_prison_patrol_01"
+            }
+          }
+        ],
         "effects": [
           {
             "type": "forceCombatFromThreat",
             "threatId": "t_prison_patrol_01"
+          }
+        ],
+        "goToAreaId": "u_guard_junction"
+      },
+      {
+        "id": "track_goblin",
+        "label": "Follow the blood trail east to finish the wounded goblin.",
+        "requirements": [
+          {
+            "type": "hasFlag",
+            "key": "goblin_shot"
+          },
+          {
+            "type": "threatDefeated",
+            "threatId": "t_prison_patrol_01"
+          },
+          {
+            "type": "not",
+            "condition": {
+              "type": "hasFlag",
+              "key": "goblin_finished"
+            }
+          }
+        ],
+        "goToAreaId": "u_wounded_goblin_trail"
+      }
+    ],
+    "z": -1
+  },
+  {
+    "id": "u_wounded_goblin_trail",
+    "title": "Blood Trail",
+    "x": 6,
+    "y": -11,
+    "floorId": "underfortress",
+    "tileStyle": "fortress",
+    "cover": "low",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, wounded goblin limping in dark corridor, blood trail, desperate escape, cinematic, no text",
+    "description": "A trail of dark blood leads down the corridor.\n\nYou hear labored breathing and the scrape of claws on stone ahead.\n\nThe wounded goblin limps forward, clutching its side.",
+    "exits": {
+      "w": "u_patrol_contact"
+    },
+    "choices": [
+      {
+        "id": "finish_goblin",
+        "label": "Finish the wounded goblin before it escapes.",
+        "requirements": [
+          {
+            "type": "hasFlag",
+            "key": "goblin_shot"
+          },
+          {
+            "type": "not",
+            "condition": {
+              "type": "hasFlag",
+              "key": "goblin_finished"
+            }
+          }
+        ],
+        "effects": [
+          {
+            "type": "forceCombat",
+            "enemyIds": ["wounded_goblin_runner"]
+          }
+        ],
+        "goToAreaId": "u_guard_junction"
+      },
+      {
+        "id": "let_escape",
+        "label": "Let it escape.",
+        "requirements": [
+          {
+            "type": "hasFlag",
+            "key": "goblin_shot"
+          },
+          {
+            "type": "not",
+            "condition": {
+              "type": "hasFlag",
+              "key": "goblin_finished"
+            }
+          }
+        ],
+        "effects": [
+          {
+            "type": "setFlag",
+            "flag": "goblin_escaped",
+            "value": true
           }
         ],
         "goToAreaId": "u_guard_junction"

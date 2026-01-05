@@ -243,6 +243,20 @@ export function applyEffects(effects: any[] | undefined, state: PlayerState): Ef
         log.push(`forceCombatFromThreat ${threatId} - Combat will initiate`);
         break;
       }
+      case 'forceCombat': {
+        // This effect triggers immediate combat with specific enemy IDs
+        const enemyIds = e.enemyIds;
+        if (!enemyIds || !Array.isArray(enemyIds)) { 
+          log.push('forceCombat missing enemyIds array'); 
+          break; 
+        }
+        
+        // Set a flag that playerStore will detect and handle
+        next.flags = next.flags || {};
+        next.flags[`_pendingDirectCombat`] = JSON.stringify(enemyIds);
+        log.push(`forceCombat - Combat will initiate with ${enemyIds.length} enemies`);
+        break;
+      }
       default:
         console.warn('Unknown effect type', e.type);
         log.push(`unknownEffect ${e.type}`);

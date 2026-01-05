@@ -42,18 +42,18 @@ function rollD100(): number {
 }
 
 // Get Perception skill percentage from player state
-function getPerceptionSkill(state: PlayerState): number {
-  const { getPerception } = require('./skillCalculations');
+async function getPerceptionSkill(state: PlayerState): Promise<number> {
+  const { getPerception } = await import('./skillCalculations');
   return getPerception(state);
 }
 
 // Get Investigation skill percentage from player state
-function getInvestigationSkill(state: PlayerState): number {
-  const { getInvestigate } = require('./skillCalculations');
+async function getInvestigationSkill(state: PlayerState): Promise<number> {
+  const { getInvestigate } = await import('./skillCalculations');
   return getInvestigate(state);
 }
 
-export function performSearch(areaId: string, action: any, state: PlayerState): { state: PlayerState; log: string[]; success: boolean } {
+export async function performSearch(areaId: string, action: any, state: PlayerState): Promise<{ state: PlayerState; log: string[]; success: boolean }> {
   const newState = JSON.parse(JSON.stringify(state));
   const searchFlag = `area:${areaId}:searched`;
   
@@ -67,7 +67,7 @@ export function performSearch(areaId: string, action: any, state: PlayerState): 
   }
   
   // Get Search skill percentage (Vision × 10)
-  const searchSkill = getPerceptionSkill(newState);
+  const searchSkill = await getPerceptionSkill(newState);
   
   // Add bonuses from items/flags
   let bonusPercent = 0;
@@ -94,6 +94,9 @@ export function performSearch(areaId: string, action: any, state: PlayerState): 
       Object.assign(newState, res.state);
       log.push(...res.log);
     }
+    // Mark as searched only on success
+    if (!newState.flags) newState.flags = {};
+    (newState.flags as any)[searchFlag] = true;
   } else {
     if (action.failureText) log.push(action.failureText);
     if (action.failureEffects) {
@@ -101,11 +104,8 @@ export function performSearch(areaId: string, action: any, state: PlayerState): 
       Object.assign(newState, res.state);
       log.push(...res.log);
     }
+    // Don't mark as searched on failure - allow retry
   }
-  
-  // Mark as searched
-  if (!newState.flags) newState.flags = {};
-  (newState.flags as any)[searchFlag] = true;
   
   return { state: newState, log, success };
 }
@@ -126,7 +126,7 @@ function getInvestigationBonus(state: PlayerState): number {
   return bonus;
 }
 
-export function performInvestigate(areaId: string, action: any, state: PlayerState): { state: PlayerState; log: string[]; success: boolean } {
+export async function performInvestigate(areaId: string, action: any, state: PlayerState): Promise<{ state: PlayerState; log: string[]; success: boolean }> {
   const newState = JSON.parse(JSON.stringify(state));
   const investigateFlag = `area:${areaId}:investigated:${action.targetId || 'default'}`;
   
@@ -140,7 +140,7 @@ export function performInvestigate(areaId: string, action: any, state: PlayerSta
   }
   
   // Get Investigate skill percentage (Mind × 10)
-  const investigateSkill = getInvestigationSkill(newState);
+  const investigateSkill = await getInvestigationSkill(newState);
   const bonusPercent = getInvestigationBonus(newState);
   const totalSkill = Math.min(100, investigateSkill + bonusPercent);
   const roll = rollD100();

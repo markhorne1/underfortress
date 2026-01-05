@@ -51,6 +51,12 @@ export function evaluateRequirement(req: any, state: PlayerState): boolean {
       const conditions = req.conditions || [];
       return conditions.every((cond: any) => evaluateRequirement(cond, state));
     }
+    case 'not': {
+      // Evaluates to true if condition is NOT met
+      const condition = req.condition;
+      if (!condition) return false;
+      return !evaluateRequirement(condition, state);
+    }
     default:
       console.warn('Unknown requirement type', t);
       return false;

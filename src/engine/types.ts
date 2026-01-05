@@ -97,6 +97,7 @@ export type CombatState = {
   playerTurn: boolean;
   turnNumber: number;
   combatLog: string[];
+  threatId?: string; // ID of the threat that triggered this combat (if any)
   intimidationAttempts?: Record<string, number>; // Track intimidation attempts per enemy instanceId
   pivotDefenseBonus?: { active: boolean; targetId: string }; // Track pivot defense bonus for current turn
   victoryScreen?: {
