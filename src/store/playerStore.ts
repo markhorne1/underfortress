@@ -162,6 +162,17 @@ export function createPlayerStore(storage: KVStorage) {
       for (const flagKey of Object.keys(flags)) {
         if (flagKey.startsWith('_pendingCombat:')) {
           const threatId = flagKey.replace('_pendingCombat:', '');
+          
+          // Check if this area's combat has already been defeated
+          const combatDefeatedFlag = `area:${currentState.currentAreaId}:combat_defeated`;
+          if (flags[combatDefeatedFlag]) {
+            console.log(`✅ Skipping combat - area ${currentState.currentAreaId} already cleared`);
+            // Clear the pending flag and continue
+            delete flags[flagKey];
+            set({ flags } as any);
+            continue;
+          }
+          
           // Clear the pending flag
           delete flags[flagKey];
           set({ flags } as any);
@@ -198,9 +209,10 @@ export function createPlayerStore(storage: KVStorage) {
               
               // Initiate combat with these enemies
               const combatResult = initiateCombat(enemyIds, currentState);
-              // Store the threat ID in combat state so we can mark it defeated later
+              // Store the threat ID and origin area ID in combat state
               if (combatResult.combat) {
                 combatResult.combat.threatId = threatId;
+                combatResult.combat.originAreaId = currentState.currentAreaId;
               }
               set({ combat: combatResult.combat } as any);
               await storage.setItem(STORAGE_KEY, JSON.stringify(get()));
@@ -231,10 +243,26 @@ export function createPlayerStore(storage: KVStorage) {
         if (onEnter && Array.isArray(onEnter)) {
           for (const action of onEnter) {
             if (action.type === 'initiateCombat' && action.enemyIds && Array.isArray(action.enemyIds)) {
+              // Check if this area's combat has already been defeated
+              const currentState = get() as any;
+              const combatDefeatedFlag = `area:${nextAreaId}:combat_defeated`;
+              console.log(`🔍 Combat check for ${nextAreaId}: flag=${combatDefeatedFlag}, value=${currentState.flags?.[combatDefeatedFlag]}`);
+              
+              if (currentState.flags && currentState.flags[combatDefeatedFlag]) {
+                console.log(`✅ Skipping onEnter combat - area ${nextAreaId} already cleared`);
+                continue; // Skip this combat, continue with other onEnter actions
+              }
+              
+              console.log(`⚔️ Initiating onEnter combat for area ${nextAreaId} with enemies:`, action.enemyIds);
+              
               // Import initiateCombat dynamically to avoid circular deps
               const { initiateCombat } = await import('../engine/combatNew');
-              const currentState = get() as any;
               const combatResult = initiateCombat(action.enemyIds, currentState);
+              // Store the origin area ID for respawn prevention
+              if (combatResult.combat) {
+                combatResult.combat.originAreaId = nextAreaId;
+                console.log(`📍 Set combat.originAreaId = ${nextAreaId}`);
+              }
               set({ combat: combatResult.combat } as any);
               // Combat initiated, stop further processing and save
               await storage.setItem(STORAGE_KEY, JSON.stringify(get()));
@@ -299,6 +327,10 @@ export function createPlayerStore(storage: KVStorage) {
       const choiceId = choice.id || choice.label || 'unknown';
       
       console.log('🎯 handleChoice CALLED:', { currentAreaId, choiceId, choice });
+      console.log('🎯 Choice has effects:', choice.effects);
+      console.log('🎯 Choice has requirements:', choice.requirements);
+      console.log('🎯 Current flags:', currentState.flags);
+      console.log('🎯 Current inventory:', currentState.inventory);
       
       // Check if this is an action (search, etc) that needs special handling
       if (choice.rawAction && choice.actionType) {
@@ -315,8 +347,9 @@ export function createPlayerStore(storage: KVStorage) {
       }
       
       // Full choice execution with effects
+      console.log('→ Executing choice with effects...');
       const result = executeChoice(choice, currentState);
-      console.log('→ Choice executed:', { nextAreaId: result.goToAreaId, log: result.log });
+      console.log('→ Choice executed:', { nextAreaId: result.goToAreaId, log: result.log, newFlags: (result.state as any).flags });
       
       // Apply state mutations from effects
       const updates: any = {};

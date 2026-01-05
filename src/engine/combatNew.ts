@@ -680,9 +680,9 @@ export function endCombat(victory: boolean, state: PlayerState): { state: Player
   if (victory) {
     log.push(`🎉 Victory! All enemies defeated!`);
     
-    // Restore stamina to max after combat
-    newState.stamina = getMaxStamina(newState);
-    newState.maxStamina = getMaxStamina(newState);
+    // Restore stamina to max after combat (don't recalculate maxStamina, only restore current stamina)
+    const maxStam = newState.maxStamina || getMaxStamina(newState);
+    newState.stamina = maxStam;
     
     let totalGold = 0;
     let totalStatPoints = 0;

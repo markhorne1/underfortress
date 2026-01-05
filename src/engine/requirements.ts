@@ -3,17 +3,24 @@ import { PlayerState } from './types';
 
 export function evaluateRequirement(req: any, state: PlayerState): boolean {
   const t = req.type;
+  let result: boolean;
   switch (t) {
     case 'hasFlag':
-      return !!(state.flags && state.flags[req.key]);
+      result = !!(state.flags && state.flags[req.key]);
+      console.log(`📋 Req hasFlag '${req.key}':`, result, '| flags:', state.flags);
+      return result;
     case 'flagEquals':
-      return !!(state.flags && state.flags[req.key] === req.value);
+      result = !!(state.flags && state.flags[req.key] === req.value);
+      console.log(`📋 Req flagEquals '${req.key}'=${req.value}:`, result, '| actual:', state.flags?.[req.key]);
+      return result;
     case 'hasItem': {
       const qty = req.qty || req.qty === 0 ? req.qty : 1;
       const itemId = req.key || req.itemId || req.id;
       if (!itemId) return false;
       const found = (state.inventory || []).find(i => i.itemId === itemId);
-      return !!(found && found.qty >= qty);
+      result = !!(found && found.qty >= qty);
+      console.log(`📋 Req hasItem '${itemId}' qty=${qty}:`, result, '| found:', found);
+      return result;
     }
     case 'statAtLeast': {
       const val = (state.stats as any)[req.key];
@@ -54,8 +61,14 @@ export function evaluateRequirement(req: any, state: PlayerState): boolean {
     case 'not': {
       // Evaluates to true if condition is NOT met
       const condition = req.condition;
-      if (!condition) return false;
-      return !evaluateRequirement(condition, state);
+      if (!condition) {
+        console.log('📋 Req not: no condition provided');
+        return false;
+      }
+      const innerResult = evaluateRequirement(condition, state);
+      result = !innerResult;
+      console.log(`📋 Req not (inner=${innerResult}):`, result);
+      return result;
     }
     default:
       console.warn('Unknown requirement type', t);

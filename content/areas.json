@@ -14774,13 +14774,13 @@
         "requirements": [
           {
             "type": "hasItem",
-            "itemId": "training_bow",
+            "itemId": "short_bow",
             "qty": 1
           },
           {
-            "type": "hasAmmo",
-            "ammoType": "arrow",
-            "minCount": 1
+            "type": "hasItem",
+            "itemId": "quiver_arrows",
+            "qty": 1
           }
         ],
         "effects": [
@@ -14811,14 +14811,14 @@
         "requirements": [
           {
             "type": "hasItem",
-            "itemId": "smoke_pellet",
+            "itemId": "smoke_pellets",
             "qty": 1
           }
         ],
         "effects": [
           {
             "type": "removeItem",
-            "itemId": "smoke_pellet",
+            "itemId": "smoke_pellets",
             "qty": 1
           },
           {
@@ -18910,12 +18910,10 @@
     "exits": {
       "s": "u_snake_lair"
     },
-    "actions": [
+    "choices": [
       {
-        "type": "search",
-        "label": "\ud83d\udd0d Take the treasure",
-        "successChance": 100,
-        "successText": "You collect the smoke pellets, bow, and arrows!",
+        "id": "take_treasure",
+        "label": "\ud83c\udf81 Take the treasure",
         "effects": [
           {
             "type": "giveItem",
@@ -18936,16 +18934,22 @@
             "type": "setFlag",
             "key": "treasure_chamber_looted",
             "value": true
+          },
+          {
+            "type": "message",
+            "text": "\ud83c\udf81 You found:\n\u2022 Smoke Pellets x10\n\u2022 Short Bow\n\u2022 Quiver of Arrows"
           }
         ],
         "requirements": [
           {
-            "type": "flagEquals",
-            "key": "treasure_chamber_looted",
-            "value": false
+            "type": "not",
+            "condition": {
+              "type": "flagEquals",
+              "key": "treasure_chamber_looted",
+              "value": true
+            }
           }
-        ],
-        "failureText": "You've already taken everything valuable from this chamber."
+        ]
       }
     ]
   },

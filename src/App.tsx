@@ -56,6 +56,7 @@ export default function App() {
   const [spellTreePath, setSpellTreePath] = useState<string | null>(null); // Which path's spell tree to show
   const [selectedSpell, setSelectedSpell] = useState<string | null>(null); // Selected spell for casting
   const [pendingStats, setPendingStats] = useState({ power: 0, mind: 0, agility: 0, vision: 0 }); // Pending changes
+  const [actionResult, setActionResult] = useState<{ title: string; logs: string[]; success: boolean } | null>(null); // Action result popup
   const combatLogRef = useRef<HTMLDivElement>(null); // Ref for auto-scrolling combat log
   const newGame = usePlayerStore(s => s.newGame);
   const loadState = usePlayerStore(s => s.loadState);
@@ -509,6 +510,14 @@ export default function App() {
                           const currentState = usePlayerStore.getState();
                           const newFlags = { ...currentState.flags };
                           
+                          console.log(`🏁 Victory Continue clicked. combat.originAreaId=${combat.originAreaId}, combat.threatId=${combat.threatId}`);
+                          
+                          // Mark area as combat defeated if this was triggered by entering the area
+                          if (combat.originAreaId) {
+                            newFlags[`area:${combat.originAreaId}:combat_defeated`] = true;
+                            console.log(`✅ Marked area ${combat.originAreaId} as combat defeated`);
+                          }
+                          
                           // Mark threat as defeated if combat was triggered by a threat
                           if (combat.threatId && combat.threatId !== 'direct_combat') {
                             newFlags[`threat:${combat.threatId}:defeated`] = true;
@@ -577,6 +586,12 @@ export default function App() {
                             combat: undefined,
                             flags: newFlags
                           });
+                          // Trigger autosave by accessing the store's save mechanism
+                          const storage = localStorage;
+                          if (storage) {
+                            storage.setItem('underfortress_save_v1', JSON.stringify(usePlayerStore.getState()));
+                            console.log('💾 Saved after combat victory');
+                          }
                         }}
                         style={{
                           width: '100%',
@@ -1351,7 +1366,8 @@ export default function App() {
               const meetsRequirements = !c.requirements || (() => {
                 try {
                   const { evaluateRequirements } = require('./engine/requirements');
-                  return evaluateRequirements(c.requirements, stats);
+                  const fullState = usePlayerStore.getState();
+                  return evaluateRequirements(c.requirements, fullState);
                 } catch {
                   return true; // If requirements check fails, allow the choice
                 }
@@ -1365,8 +1381,21 @@ export default function App() {
                   key={c.id ?? idx} 
                   onClick={async () => {
                     if (isDisabled) return;
-                    const handleChoice = (usePlayerStore as any).getState().handleChoice;
-                    await handleChoice(c);
+                    // Check if this is an action that returns a result
+                    if (c.actionType && c.rawAction) {
+                      const handleAction = (usePlayerStore as any).getState().handleAction;
+                      const result = await handleAction(c.actionType, c.rawAction);
+                      if (result && result.log) {
+                        setActionResult({
+                          title: result.success ? '✅ Success!' : '❌ Failed',
+                          logs: result.log,
+                          success: result.success
+                        });
+                      }
+                    } else {
+                      const handleChoice = (usePlayerStore as any).getState().handleChoice;
+                      await handleChoice(c);
+                    }
                   }} 
                   title={hoverText}
                   disabled={isDisabled}
@@ -1391,6 +1420,67 @@ export default function App() {
           <button aria-label="Next page" onClick={onNextPage} style={{ position: 'absolute', right: 20, bottom: 12, padding: 12, borderRadius: 28, background: '#222', color: '#fff', cursor: 'pointer', border: 'none' }}>⤷</button>
         )}
       </div>
+      
+      {/* Action Result Popup */}
+      {actionResult && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(0,0,0,0.6)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 10001
+        }}>
+          <div style={{
+            background: '#fff',
+            borderRadius: 12,
+            padding: 24,
+            maxWidth: 400,
+            width: '90%',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.3)'
+          }}>
+            <h3 style={{ 
+              margin: '0 0 16px 0', 
+              color: actionResult.success ? '#27ae60' : '#e74c3c',
+              fontSize: 20
+            }}>
+              {actionResult.title}
+            </h3>
+            <div style={{ marginBottom: 20 }}>
+              {actionResult.logs.map((log, i) => (
+                <div key={i} style={{ 
+                  padding: '6px 0', 
+                  borderBottom: i < actionResult.logs.length - 1 ? '1px solid #eee' : 'none',
+                  fontSize: 14,
+                  color: '#333'
+                }}>
+                  {log}
+                </div>
+              ))}
+            </div>
+            <button
+              onClick={() => setActionResult(null)}
+              style={{
+                width: '100%',
+                padding: 12,
+                fontSize: 16,
+                fontWeight: 'bold',
+                borderRadius: 8,
+                background: actionResult.success ? '#27ae60' : '#e74c3c',
+                color: '#fff',
+                border: 'none',
+                cursor: 'pointer'
+              }}
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
       
       {/* Modal Overlay */}
       {modalPage && (

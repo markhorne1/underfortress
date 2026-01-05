@@ -42,7 +42,8 @@ export function applyEffects(effects: any[] | undefined, state: PlayerState): Ef
         next.flags[e.key] = (next.flags[e.key] || 0) + (e.qty || 1);
         log.push(`incFlag ${e.key} -> ${next.flags[e.key]}`);
         break;
-      case 'addItem': {
+      case 'addItem':
+      case 'giveItem': {
         const qty = e.qty || 1;
         const itemId = e.key || e.itemId || e.id;
         const inv: InvItem[] = next.inventory || [];
@@ -50,7 +51,13 @@ export function applyEffects(effects: any[] | undefined, state: PlayerState): Ef
         const found = inv.find(i => i.itemId === itemId);
         if (found) found.qty += qty; else inv.push({ itemId, qty });
         next.inventory = inv;
-        log.push(`addItem ${itemId} x${qty}`);
+        log.push(`+${qty} ${itemId}`);
+        break;
+      }
+      case 'message': {
+        // Display a message to the player (just add to log)
+        const text = e.text || e.message || e.value || '';
+        if (text) log.push(text);
         break;
       }
       case 'removeItem': {
@@ -243,18 +250,34 @@ export function applyEffects(effects: any[] | undefined, state: PlayerState): Ef
         log.push(`forceCombatFromThreat ${threatId} - Combat will initiate`);
         break;
       }
-      case 'forceCombat': {
+      case 'forceCombat':
+      case 'startCombat':
+      case 'initiateCombat': {
         // This effect triggers immediate combat with specific enemy IDs
-        const enemyIds = e.enemyIds;
-        if (!enemyIds || !Array.isArray(enemyIds)) { 
-          log.push('forceCombat missing enemyIds array'); 
+        // Supports both enemyIds array and enemyGroup format
+        let enemyIds: string[] = [];
+        
+        if (e.enemyIds && Array.isArray(e.enemyIds)) {
+          enemyIds = e.enemyIds;
+        } else if (e.enemyGroup && Array.isArray(e.enemyGroup)) {
+          // Expand enemyGroup format: [{ enemyId: "orc_jailer", count: 1 }]
+          for (const member of e.enemyGroup) {
+            const count = member.count || 1;
+            for (let i = 0; i < count; i++) {
+              enemyIds.push(member.enemyId);
+            }
+          }
+        }
+        
+        if (enemyIds.length === 0) { 
+          log.push('startCombat missing enemyIds or enemyGroup'); 
           break; 
         }
         
         // Set a flag that playerStore will detect and handle
         next.flags = next.flags || {};
         next.flags[`_pendingDirectCombat`] = JSON.stringify(enemyIds);
-        log.push(`forceCombat - Combat will initiate with ${enemyIds.length} enemies`);
+        log.push(`Combat will initiate with ${enemyIds.length} enemies`);
         break;
       }
       default:
