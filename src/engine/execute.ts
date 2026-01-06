@@ -57,16 +57,9 @@ export async function performSearch(areaId: string, action: any, state: PlayerSt
   const newState = JSON.parse(JSON.stringify(state));
   const searchFlag = `area:${areaId}:searched`;
   
-  console.log(`🔍 performSearch called for ${areaId}`);
-  console.log(`   - searchFlag: ${searchFlag}`);
-  console.log(`   - already searched: ${!!(newState.flags as any)?.[searchFlag]}`);
-  console.log(`   - action.successChance: ${action.successChance}`);
-  console.log(`   - action.label: ${action.label}`);
-  
   // Check if already searched (can't farm), unless this is a guaranteed success action (like taking treasure)
   const isGuaranteedSuccess = action.successChance === 100;
   if ((newState.flags as any)?.[searchFlag] && !isGuaranteedSuccess) {
-    console.log(`⚠️ Area already searched, blocking retry`);
     return { 
       state: newState, 
       log: ['You have already searched this area thoroughly.'], 
@@ -90,8 +83,6 @@ export async function performSearch(areaId: string, action: any, state: PlayerSt
     : Math.min(100, searchSkill + bonusPercent);
   const roll = rollD100();
   const success = roll <= totalSkill;
-  
-  console.log(`🎲 Search roll: ${roll} vs ${totalSkill}% = ${success ? 'SUCCESS' : 'FAIL'}`);
   
   const log: string[] = [
     `Search Check: d100(${roll}) vs ${totalSkill}% → ${success ? 'SUCCESS' : 'FAILURE'}`

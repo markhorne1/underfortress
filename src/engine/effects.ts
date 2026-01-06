@@ -280,6 +280,174 @@ export function applyEffects(effects: any[] | undefined, state: PlayerState): Ef
         log.push(`Combat will initiate with ${enemyIds.length} enemies`);
         break;
       }
+      case 'advanceThreat': {
+        // Advance a threat (reduce distance by its speed)
+        const threatId = e.threatId || e.key;
+        if (!threatId) { log.push('advanceThreat missing threatId'); break; }
+        next.activeThreats = next.activeThreats || [];
+        const idx = next.activeThreats.findIndex((t: any) => t.id === threatId);
+        if (idx >= 0) {
+          const threat = next.activeThreats[idx];
+          const res = advanceThreatFn(threat, 1);
+          next.activeThreats[idx] = res.threat;
+          log.push(...res.log);
+        } else {
+          log.push(`advanceThreat: threat ${threatId} not found`);
+        }
+        break;
+      }
+      case 'breakLOS': {
+        // Break line of sight (for escaping/hiding)
+        const durationTurns = e.durationTurns || 1;
+        next.flags = next.flags || {};
+        next.flags['_losBlocked'] = true;
+        next.flags['_losBlockedTurns'] = durationTurns;
+        log.push(`Line of sight broken for ${durationTurns} turns`);
+        break;
+      }
+      case 'takeDamage': {
+        // Apply damage to player
+        const amount = e.amount || e.value || e.damage || 0;
+        next.health = Math.max((next.health || 100) - amount, 0);
+        log.push(`Took ${amount} damage (health: ${next.health}/100)`);
+        handleDeath(next, log);
+        break;
+      }
+      case 'addGold': {
+        // Add gold to player
+        const amount = e.amount || e.value || 0;
+        next.stats.gold = (next.stats.gold || 0) + amount;
+        log.push(`+${amount} gold (total: ${next.stats.gold})`);
+        break;
+      }
+      case 'addToCounter': {
+        // Add to a counter flag
+        const key = e.key || e.counter;
+        const amount = e.amount || e.value || e.qty || 1;
+        if (!key) { log.push('addToCounter missing key'); break; }
+        next.flags = next.flags || {};
+        next.flags[key] = (next.flags[key] || 0) + amount;
+        log.push(`addToCounter ${key} += ${amount} (now: ${next.flags[key]})`);
+        break;
+      }
+      case 'enemyReturnFireIfInRange': {
+        // Enemy returns fire - apply damage if conditions met
+        const damage = e.damage || e.amount || 0;
+        const minDistance = e.minDistance || 0;
+        // For now, just apply damage as the enemy shoots back
+        if (damage > 0) {
+          next.health = Math.max((next.health || 100) - damage, 0);
+          log.push(`Enemy returns fire! Took ${damage} damage`);
+          handleDeath(next, log);
+        }
+        break;
+      }
+      case 'castSpell': {
+        // Cast a spell (consume mana, apply effects)
+        const spellId = e.spellId || e.spell || e.key;
+        const manaCost = e.manaCost || e.cost || 0;
+        if (!spellId) { log.push('castSpell missing spellId'); break; }
+        // Deduct mana if tracking it
+        if (manaCost > 0 && next.stats.mana !== undefined) {
+          next.stats.mana = Math.max((next.stats.mana || 0) - manaCost, 0);
+        }
+        log.push(`Cast spell: ${spellId}`);
+        // Spell effects would be handled by looking up the spell definition
+        break;
+      }
+      case 'threatMoraleDelta': {
+        // Modify threat morale
+        const threatId = e.threatId || e.key;
+        const delta = e.delta || e.amount || 0;
+        if (!threatId) { log.push('threatMoraleDelta missing threatId'); break; }
+        next.activeThreats = next.activeThreats || [];
+        const idx = next.activeThreats.findIndex((t: any) => t.id === threatId);
+        if (idx >= 0) {
+          const threat = next.activeThreats[idx];
+          threat.morale = (threat.morale || 100) + delta;
+          log.push(`Threat ${threatId} morale changed by ${delta} (now: ${threat.morale})`);
+        }
+        break;
+      }
+      case 'threatRetreat': {
+        // Increase threat distance (they retreat)
+        const threatId = e.threatId || e.key;
+        const amount = e.amount || e.distance || 1;
+        if (!threatId) { log.push('threatRetreat missing threatId'); break; }
+        next.activeThreats = next.activeThreats || [];
+        const idx = next.activeThreats.findIndex((t: any) => t.id === threatId);
+        if (idx >= 0) {
+          const threat = next.activeThreats[idx];
+          threat.distance = (threat.distance || 0) + amount;
+          log.push(`Threat ${threatId} retreats (distance: ${threat.distance})`);
+        }
+        break;
+      }
+      case 'move': {
+        // Move player (change distance to threat or navigate)
+        const direction = e.direction || 'back';
+        const amount = e.amount || e.distance || 1;
+        log.push(`Player moves ${direction} ${amount} spaces`);
+        // Movement effects handled by navigation system
+        break;
+      }
+      case 'openDialogue': {
+        // Open a dialogue with an NPC
+        const dialogueId = e.dialogueId || e.key;
+        const npcId = e.npcId || e.npc;
+        if (!dialogueId && !npcId) { log.push('openDialogue missing dialogueId or npcId'); break; }
+        // Set a flag for the dialogue system to detect
+        next.flags = next.flags || {};
+        next.flags['_pendingDialogue'] = dialogueId || npcId;
+        log.push(`Opening dialogue: ${dialogueId || npcId}`);
+        break;
+      }
+      case 'skillCheck': {
+        // Skill check effect - would be handled by skill system
+        const skill = e.skill || e.key;
+        const difficulty = e.difficulty || e.dc || 10;
+        log.push(`Skill check: ${skill} (DC ${difficulty})`);
+        // Actual skill check logic would be implemented in the skill system
+        break;
+      }
+      case 'conditional': {
+        // Conditional effect - evaluate condition and apply effects
+        const condition = e.condition;
+        const thenEffects = e.then || e.thenEffects || [];
+        const elseEffects = e.else || e.elseEffects || [];
+        // For now, just log - actual conditional logic needs requirements evaluation
+        log.push(`Conditional effect (condition: ${JSON.stringify(condition)})`);
+        break;
+      }
+      case 'craft': {
+        // Crafting effect
+        const recipeId = e.recipeId || e.recipe || e.key;
+        if (!recipeId) { log.push('craft missing recipeId'); break; }
+        log.push(`Crafting: ${recipeId}`);
+        // Actual crafting would be handled by crafting system
+        break;
+      }
+      case 'consumeAmmo': {
+        // Consume ammunition
+        const ammoType = e.ammoType || 'arrow';
+        const amount = e.amount || e.qty || 1;
+        const ammoItemMap: Record<string, string> = {
+          'arrow': 'quiver_arrows',
+          'bolt': 'crossbow_bolts',
+          'bullet': 'sling_bullets'
+        };
+        const itemId = ammoItemMap[ammoType] || ammoType;
+        const inv: InvItem[] = next.inventory || [];
+        const found = inv.find(i => i.itemId === itemId);
+        if (found) {
+          found.qty -= amount;
+          if (found.qty <= 0) next.inventory = inv.filter(i => i.itemId !== itemId);
+          log.push(`Consumed ${amount} ${ammoType}`);
+        } else {
+          log.push(`No ${ammoType} to consume`);
+        }
+        break;
+      }
       default:
         console.warn('Unknown effect type', e.type);
         log.push(`unknownEffect ${e.type}`);

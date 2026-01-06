@@ -3415,14 +3415,14 @@
         "requirements": [
           {
             "type": "hasItem",
-            "itemId": "smoke_pellet",
+            "itemId": "smoke_pellets",
             "qty": 1
           }
         ],
         "effects": [
           {
             "type": "removeItem",
-            "itemId": "smoke_pellet",
+            "itemId": "smoke_pellets",
             "qty": 1
           },
           {
@@ -6202,7 +6202,7 @@
         "requirements": [
           {
             "type": "hasItem",
-            "itemId": "spikes_bundle",
+            "itemId": "spike_bundle",
             "qty": 1
           }
         ],
@@ -11604,7 +11604,7 @@
           {
             "type": "hasAnyItem",
             "itemIds": [
-              "smoke_pellet",
+              "smoke_pellets",
               "smoke_jar"
             ],
             "qty": 1
@@ -12203,14 +12203,14 @@
         "requirements": [
           {
             "type": "hasItem",
-            "itemId": "smoke_pellet",
+            "itemId": "smoke_pellets",
             "qty": 1
           }
         ],
         "effects": [
           {
             "type": "removeItem",
-            "itemId": "smoke_pellet",
+            "itemId": "smoke_pellets",
             "qty": 1
           },
           {
@@ -16137,14 +16137,14 @@
         "requirements": [
           {
             "type": "hasItem",
-            "itemId": "smoke_pellet",
+            "itemId": "smoke_pellets",
             "qty": 1
           }
         ],
         "effects": [
           {
             "type": "removeItem",
-            "itemId": "smoke_pellet",
+            "itemId": "smoke_pellets",
             "qty": 1
           },
           {

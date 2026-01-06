@@ -3,24 +3,28 @@ import { PlayerState } from './types';
 
 export function evaluateRequirement(req: any, state: PlayerState): boolean {
   const t = req.type;
-  let result: boolean;
   switch (t) {
     case 'hasFlag':
-      result = !!(state.flags && state.flags[req.key]);
-      console.log(`📋 Req hasFlag '${req.key}':`, result, '| flags:', state.flags);
-      return result;
+      return !!(state.flags && state.flags[req.key]);
     case 'flagEquals':
-      result = !!(state.flags && state.flags[req.key] === req.value);
-      console.log(`📋 Req flagEquals '${req.key}'=${req.value}:`, result, '| actual:', state.flags?.[req.key]);
-      return result;
+      return !!(state.flags && state.flags[req.key] === req.value);
     case 'hasItem': {
       const qty = req.qty || req.qty === 0 ? req.qty : 1;
-      const itemId = req.key || req.itemId || req.id;
+      let itemId = req.key || req.itemId || req.id;
       if (!itemId) return false;
-      const found = (state.inventory || []).find(i => i.itemId === itemId);
-      result = !!(found && found.qty >= qty);
-      console.log(`📋 Req hasItem '${itemId}' qty=${qty}:`, result, '| found:', found);
-      return result;
+      
+      // Expand bow aliases - if checking for a bow, accept any bow type
+      const bowTypes = ['training_bow', 'hunting_bow', 'short_bow', 'bow_wallwhisper', 'heirloom_wallwhisper_sunsteel'];
+      const inv = state.inventory || [];
+      
+      if (bowTypes.includes(itemId)) {
+        // Check for any bow type
+        const found = inv.find(i => bowTypes.includes(i.itemId) && i.qty >= qty);
+        return !!found;
+      }
+      
+      const found = inv.find(i => i.itemId === itemId);
+      return !!(found && found.qty >= qty);
     }
     case 'statAtLeast': {
       const val = (state.stats as any)[req.key];
@@ -48,6 +52,66 @@ export function evaluateRequirement(req: any, state: PlayerState): boolean {
       if (!threatId) return false;
       return !!(state.flags && state.flags[`threat:${threatId}:defeated`]);
     }
+    case 'hasAmmo': {
+      // Check if player has ammo of the specified type
+      const ammoType = req.ammoType || req.key;
+      const minCount = req.minCount || req.qty || 1;
+      if (!ammoType) return false;
+      // Map ammo types to item IDs
+      const ammoItemMap: Record<string, string[]> = {
+        'arrow': ['quiver_arrows', 'arrows', 'arrow'],
+        'bolt': ['crossbow_bolts', 'bolts', 'bolt'],
+        'bullet': ['sling_bullets', 'bullets', 'bullet'],
+        'throwing': ['throwing_knives', 'throwing_knife', 'javelins', 'javelin']
+      };
+      const possibleItems = ammoItemMap[ammoType] || [ammoType];
+      const inv = state.inventory || [];
+      const hasAmmo = possibleItems.some(itemId => {
+        const found = inv.find(i => i.itemId === itemId);
+        return found && found.qty >= minCount;
+      });
+      return hasAmmo;
+    }
+    case 'hasAnyItem': {
+      // Check if player has ANY of the specified items
+      let itemIds = req.itemIds || req.items || [];
+      const inv = state.inventory || [];
+      
+      // Expand bow aliases - if checking for any bow type, include all bows
+      const bowTypes = ['training_bow', 'hunting_bow', 'short_bow', 'bow_wallwhisper', 'heirloom_wallwhisper_sunsteel'];
+      const hasBowCheck = itemIds.some((id: string) => bowTypes.includes(id));
+      if (hasBowCheck) {
+        // Expand to include all bow types
+        const expandedIds = new Set(itemIds);
+        bowTypes.forEach(bow => expandedIds.add(bow));
+        itemIds = Array.from(expandedIds);
+      }
+      
+      return itemIds.some((itemId: string) => {
+        const found = inv.find(i => i.itemId === itemId);
+        return found && found.qty >= 1;
+      });
+    }
+    case 'knowsSpell': {
+      // Check if player knows the specified spell
+      const spellId = req.spellId || req.spell || req.key;
+      if (!spellId) return false;
+      return !!(state.spellsKnown && state.spellsKnown.includes(spellId));
+    }
+    case 'counterAtLeast': {
+      // Check if a counter flag is at least a certain value
+      const key = req.key || req.counter;
+      const value = req.value ?? 0;
+      if (!key) return false;
+      const current = (state.flags && state.flags[key]) || 0;
+      return typeof current === 'number' && current >= value;
+    }
+    case 'notFlag': {
+      // Shorthand for not having a flag set
+      const key = req.key;
+      if (!key) return false;
+      return !(state.flags && state.flags[key]);
+    }
     case 'or': {
       // Evaluates to true if ANY condition is met
       const conditions = req.conditions || [];
@@ -61,14 +125,8 @@ export function evaluateRequirement(req: any, state: PlayerState): boolean {
     case 'not': {
       // Evaluates to true if condition is NOT met
       const condition = req.condition;
-      if (!condition) {
-        console.log('📋 Req not: no condition provided');
-        return false;
-      }
-      const innerResult = evaluateRequirement(condition, state);
-      result = !innerResult;
-      console.log(`📋 Req not (inner=${innerResult}):`, result);
-      return result;
+      if (!condition) return false;
+      return !evaluateRequirement(condition, state);
     }
     default:
       console.warn('Unknown requirement type', t);

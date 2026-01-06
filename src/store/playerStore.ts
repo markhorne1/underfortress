@@ -145,8 +145,6 @@ export function createPlayerStore(storage: KVStorage) {
         delete flags['_pendingDirectCombat'];
         set({ flags } as any);
         
-        console.log('⚔️ Pending direct combat detected with enemies:', enemyIds);
-        
         const { initiateCombat } = await import('../engine/combatNew');
         const combatResult = initiateCombat(enemyIds, currentState);
         // For direct combat, we can optionally store a marker
@@ -166,7 +164,6 @@ export function createPlayerStore(storage: KVStorage) {
           // Check if this area's combat has already been defeated
           const combatDefeatedFlag = `area:${currentState.currentAreaId}:combat_defeated`;
           if (flags[combatDefeatedFlag]) {
-            console.log(`✅ Skipping combat - area ${currentState.currentAreaId} already cleared`);
             // Clear the pending flag and continue
             delete flags[flagKey];
             set({ flags } as any);
@@ -177,15 +174,12 @@ export function createPlayerStore(storage: KVStorage) {
           delete flags[flagKey];
           set({ flags } as any);
           
-          console.log('🎯 Pending combat detected for threat:', threatId);
-          
           // Load enemy group data and initiate combat
           const { initiateCombat } = await import('../engine/combatNew');
           const { getContentSnapshot } = await import('../engine/contentLoader');
           
           // Find the threat in activeThreats array
           const threat = (currentState.activeThreats || []).find((t: any) => t.id === threatId || t.threatId === threatId);
-          console.log('🔍 Found threat:', threat);
           
           if (threat && threat.enemyGroupId) {
             const content = getContentSnapshot();
@@ -193,7 +187,6 @@ export function createPlayerStore(storage: KVStorage) {
             
             // Enemy groups are stored in enemies collection
             const enemyGroup = enemies instanceof Map ? enemies.get(threat.enemyGroupId) : null;
-            console.log('🔍 Found enemy group:', enemyGroup);
             
             if (enemyGroup && enemyGroup.kind === 'group' && enemyGroup.members) {
               // Expand group members into individual enemy IDs
@@ -204,8 +197,6 @@ export function createPlayerStore(storage: KVStorage) {
                   enemyIds.push(member.enemyId);
                 }
               }
-              
-              console.log('⚔️ Initiating combat with enemies:', enemyIds);
               
               // Initiate combat with these enemies
               const combatResult = initiateCombat(enemyIds, currentState);
@@ -246,14 +237,10 @@ export function createPlayerStore(storage: KVStorage) {
               // Check if this area's combat has already been defeated
               const currentState = get() as any;
               const combatDefeatedFlag = `area:${nextAreaId}:combat_defeated`;
-              console.log(`🔍 Combat check for ${nextAreaId}: flag=${combatDefeatedFlag}, value=${currentState.flags?.[combatDefeatedFlag]}`);
               
               if (currentState.flags && currentState.flags[combatDefeatedFlag]) {
-                console.log(`✅ Skipping onEnter combat - area ${nextAreaId} already cleared`);
                 continue; // Skip this combat, continue with other onEnter actions
               }
-              
-              console.log(`⚔️ Initiating onEnter combat for area ${nextAreaId} with enemies:`, action.enemyIds);
               
               // Import initiateCombat dynamically to avoid circular deps
               const { initiateCombat } = await import('../engine/combatNew');
@@ -261,7 +248,6 @@ export function createPlayerStore(storage: KVStorage) {
               // Store the origin area ID for respawn prevention
               if (combatResult.combat) {
                 combatResult.combat.originAreaId = nextAreaId;
-                console.log(`📍 Set combat.originAreaId = ${nextAreaId}`);
               }
               set({ combat: combatResult.combat } as any);
               // Combat initiated, stop further processing and save
@@ -324,32 +310,21 @@ export function createPlayerStore(storage: KVStorage) {
     handleChoice: async (choice: any) => {
       const currentState = get();
       const currentAreaId = currentState.currentAreaId;
-      const choiceId = choice.id || choice.label || 'unknown';
-      
-      console.log('🎯 handleChoice CALLED:', { currentAreaId, choiceId, choice });
-      console.log('🎯 Choice has effects:', choice.effects);
-      console.log('🎯 Choice has requirements:', choice.requirements);
-      console.log('🎯 Current flags:', currentState.flags);
-      console.log('🎯 Current inventory:', currentState.inventory);
       
       // Check if this is an action (search, etc) that needs special handling
       if (choice.rawAction && choice.actionType) {
-        console.log('→ Routing to handleAction:', choice.actionType);
         await get().handleAction(choice.actionType, choice.rawAction);
         return;
       }
       
       // Simple navigation via goToAreaId
       if (choice.goToAreaId && !choice.effects && !choice.requirements) {
-        console.log('→ Simple navigation to:', choice.goToAreaId);
         await get().moveTo(choice.goToAreaId, true);
         return;
       }
       
       // Full choice execution with effects
-      console.log('→ Executing choice with effects...');
       const result = executeChoice(choice, currentState);
-      console.log('→ Choice executed:', { nextAreaId: result.goToAreaId, log: result.log, newFlags: (result.state as any).flags });
       
       // Apply state mutations from effects
       const updates: any = {};
@@ -370,19 +345,15 @@ export function createPlayerStore(storage: KVStorage) {
       // Navigate if choice resolves to a new area
       // Skip exit check because choices can teleport anywhere
       if (result.goToAreaId) {
-        console.log('→ Navigating to:', result.goToAreaId);
         await get().moveTo(result.goToAreaId, true);
       }
       
       // Autosave
       await storage.setItem(STORAGE_KEY, JSON.stringify(get()));
-      console.log('✓ handleChoice COMPLETE');
     },
     handleAction: async (actionType: string, action: any) => {
       const currentState = get();
       const currentAreaId = currentState.currentAreaId;
-      
-      console.log('🎬 handleAction CALLED:', { actionType, currentAreaId, action });
       
       let result: { state: PlayerState; log: string[]; success: boolean };
       
@@ -397,8 +368,6 @@ export function createPlayerStore(storage: KVStorage) {
         // Unknown action type
         return { success: false, log: [`Unknown action type: ${actionType}`] };
       }
-      
-      console.log('→ Action executed:', { success: result.success, log: result.log });
       
       // Apply state mutations
       const updates: any = {};
@@ -417,7 +386,6 @@ export function createPlayerStore(storage: KVStorage) {
       
       // Autosave
       await storage.setItem(STORAGE_KEY, JSON.stringify(get()));
-      console.log('✓ handleAction COMPLETE');
       
       return { success: result.success, log: result.log };
     },
