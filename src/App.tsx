@@ -5,9 +5,136 @@ import { executeChoice } from './engine/execute';
 import { getActiveSkills, getPassiveSkills, getTotalArmourRating } from './engine/skillCalculations';
 import { initiateCombat, playerAttack, enemyTurn, selectEnemy, castSpell, intimidateEnemy, playerSlash, playerPivot } from './engine/combatNew';
 
+function normalizeContentImagePath(raw?: string | null): string | null {
+  if (!raw || typeof raw !== 'string') return null;
+  const trimmed = raw.trim();
+  if (!trimmed) return null;
+
+  if (/^(https?:|data:|blob:)/i.test(trimmed)) return trimmed;
+  if (trimmed.startsWith('/')) return trimmed;
+  if (trimmed.startsWith('content/')) return `/${trimmed}`;
+  if (trimmed.startsWith('./content/')) return `/${trimmed.replace(/^\.\//, '')}`;
+
+  return `/content/${trimmed.replace(/^\.\//, '').replace(/^\/+/, '')}`;
+}
+
+function candidateFromManifestValue(value: any, preferMobile: boolean): string[] {
+  if (!value) return [];
+  if (typeof value === 'string') {
+    const normalized = normalizeContentImagePath(value);
+    return normalized ? [normalized] : [];
+  }
+  if (Array.isArray(value)) {
+    return value.flatMap((v) => candidateFromManifestValue(v, preferMobile));
+  }
+  if (typeof value === 'object') {
+    const out: string[] = [];
+    const preferred = preferMobile ? [value.mobile, value.mobileUrl, value.mobilePath, value.mobileImage] : [value.desktop, value.desktopUrl, value.desktopPath, value.desktopImage];
+    const alternate = preferMobile ? [value.desktop, value.desktopUrl, value.desktopPath, value.desktopImage] : [value.mobile, value.mobileUrl, value.mobilePath, value.mobileImage];
+    for (const v of [...preferred, ...alternate]) {
+      const normalized = normalizeContentImagePath(v);
+      if (normalized) out.push(normalized);
+    }
+    const direct = [value.uri, value.url, value.path, value.file, value.filename, value.src, value.imageUrl, value.imagePath];
+    for (const v of direct) {
+      const normalized = normalizeContentImagePath(v);
+      if (normalized) out.push(normalized);
+    }
+    if (Array.isArray(value.files)) out.push(...value.files.flatMap((f: any) => candidateFromManifestValue(f, preferMobile)));
+    if (Array.isArray(value.images)) out.push(...value.images.flatMap((i: any) => candidateFromManifestValue(i, preferMobile)));
+    return out;
+  }
+  return [];
+}
+
+function getAreaImageCandidates(area: any, pageManifest: any): string[] {
+  if (!area) return [];
+
+  const candidates: string[] = [];
+  const add = (v?: string | null) => {
+    const normalized = normalizeContentImagePath(v);
+    if (normalized) candidates.push(normalized);
+  };
+
+  const directCandidates = [
+    area.image,
+    area.imageUrl,
+    area.imageURI,
+    area.imagePath,
+    area.backgroundImage,
+    area.coverImage,
+    area.art,
+    area.illustration
+  ];
+
+  for (const candidate of directCandidates) {
+    add(candidate);
+  }
+
+  // Support both { pages: { id: ... } } and { id: ... } manifest shapes.
+  const manifestEntry = pageManifest?.pages?.[area.id] ?? pageManifest?.[area.id];
+  const preferMobile = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(max-width: 767px)').matches;
+  candidates.push(...candidateFromManifestValue(manifestEntry, preferMobile));
+
+  // Fallback: try deterministic local filenames if manifest is absent/stale.
+  const localBases = [
+    `/content/leonardo/pages/${area.id}`,
+    `/content/leonardo/generated/${area.id}`,
+    `/content/leonardo/${area.id}`
+  ];
+  const localExts = ['.png', '.jpg', '.jpeg', '.webp'];
+  for (const base of localBases) {
+    for (const ext of localExts) {
+      candidates.push(`${base}${ext}`);
+    }
+  }
+
+  // De-dupe while preserving order.
+  return Array.from(new Set(candidates));
+}
+
+function getEnemyImageCandidates(enemy: any, enemyDef: any): string[] {
+  const candidates: string[] = [];
+  const add = (v?: string | null) => {
+    const normalized = normalizeContentImagePath(v);
+    if (normalized) candidates.push(normalized);
+  };
+
+  const directCandidates = [
+    enemyDef?.image,
+    enemyDef?.imageUrl,
+    enemyDef?.imageURI,
+    enemyDef?.imagePath,
+    enemyDef?.icon,
+    enemyDef?.portrait,
+    enemy?.image,
+    enemy?.imageUrl,
+    enemy?.imagePath
+  ];
+  for (const c of directCandidates) add(c);
+
+  const id = `${enemy?.enemyId || ''}`.toLowerCase();
+  const name = `${enemy?.name || enemyDef?.name || ''}`.toLowerCase();
+  const isGoblinLike = id.includes('goblin') || name.includes('goblin');
+  const isOrcLike = id.includes('orc') || name.includes('orc');
+  const isGoblinLeader = isGoblinLike && (
+    id.includes('chief') || id.includes('captain') || id.includes('commander') || id.includes('warlord') || id.includes('foreman') ||
+    name.includes('chief') || name.includes('captain') || name.includes('commander') || name.includes('warlord') || name.includes('foreman')
+  );
+
+  if (isGoblinLeader) add('/content/creatures/lg_goblin_chief.png');
+  if (isGoblinLike) add('/content/creatures/lg_goblin.png');
+  if (isOrcLike) add('/content/creatures/lg_orc.png');
+
+  return Array.from(new Set(candidates));
+}
+
 export default function App() {
   const [page, setPage] = useState<'title'|'menu'|'game'>('title');
   const [loading, setLoading] = useState(true);
+  const [pageManifest, setPageManifest] = useState<any>({ pages: {} });
+  const [areaImageAttemptIndex, setAreaImageAttemptIndex] = useState<Record<string, number>>({});
+  const [failedEnemyPortraits, setFailedEnemyPortraits] = useState<Record<string, true>>({});
   const [mapZLevel, setMapZLevel] = useState<number>(0);
   
   // Add responsive CSS for health bar visibility
@@ -81,6 +208,15 @@ export default function App() {
   useEffect(() => {
     async function init() {
       await loadContent();
+      try {
+        const res = await fetch('/content/leonardo/generatedManifest.json');
+        if (res.ok) {
+          const manifest = await res.json();
+          setPageManifest(manifest || { pages: {} });
+        }
+      } catch (err) {
+        // Keep running without generated art manifest.
+      }
       setLoading(false);
     }
     init();
@@ -135,6 +271,10 @@ export default function App() {
   const content = getContentSnapshot();
   const areas = getAllAreas();
   const area = getAreaById(currentAreaId as string);
+  const areaImageCandidates = getAreaImageCandidates(area, pageManifest);
+  const currentAttempt = area ? (areaImageAttemptIndex[area.id] || 0) : 0;
+  const areaImageSrc = areaImageCandidates[currentAttempt] || null;
+  const canShowAreaImage = !!(area && areaImageSrc);
 
   const execute = (choice: any) => {
     const res = executeChoice(choice, (usePlayerStore as any).getState());
@@ -340,8 +480,35 @@ export default function App() {
       <div style={{ flex: 1, padding: 20, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', overflowY: 'auto', position: 'relative' }}>
         {area ? (
           <div style={{ maxWidth: 800, width: '100%' }}>
+            {canShowAreaImage ? (
+              <img
+                src={areaImageSrc as string}
+                alt={area.title ?? area.id}
+                style={{
+                  width: '100%',
+                  height: 300,
+                  objectFit: 'cover',
+                  borderRadius: 10,
+                  marginBottom: 16,
+                  border: '1px solid #ddd',
+                  background: '#f3f3f3'
+                }}
+                onError={() => {
+                  setAreaImageAttemptIndex(prev => {
+                    const current = prev[area.id] || 0;
+                    if (current + 1 >= areaImageCandidates.length) return prev;
+                    return { ...prev, [area.id]: current + 1 };
+                  });
+                }}
+              />
+            ) : null}
             <h1 style={{ marginBottom: 20, textAlign: 'center' }}>{area.title ?? area.id}</h1>
             <p style={{ whiteSpace: 'pre-wrap', lineHeight: 1.6, textAlign: 'center' }}>{area.description}</p>
+            {!canShowAreaImage && area.imagePrompt ? (
+              <p style={{ whiteSpace: 'pre-wrap', lineHeight: 1.5, textAlign: 'center', color: '#666', marginTop: 12 }}>
+                {area.imagePrompt}
+              </p>
+            ) : null}
             
             {/* Combat UI - Fixed Overlay Beneath TopNav */}
             {combat && (combat.active || combat.victoryScreen || combat.defeatScreen) && (
@@ -827,6 +994,10 @@ export default function App() {
                         }).map((enemy) => {
                           const isSelected = combat.selectedEnemyId === enemy.instanceId;
                           const isDead = enemy.health <= 0;
+                          const enemyDef = content?.enemies?.get?.(enemy.enemyId);
+                          const enemyPortrait = !isDead && !failedEnemyPortraits[enemy.enemyId]
+                            ? getEnemyImageCandidates(enemy, enemyDef)[0]
+                            : null;
                           
                           return (
                             <div
@@ -860,7 +1031,16 @@ export default function App() {
                                 marginBottom: 8,
                                 filter: isDead ? 'grayscale(100%)' : 'none'
                               }}>
-                                {isDead ? '💀' : '👹'}
+                                {isDead ? '💀' : (
+                                  enemyPortrait ? (
+                                    <img
+                                      src={enemyPortrait}
+                                      alt={enemy.name}
+                                      style={{ width: 56, height: 56, objectFit: 'cover', borderRadius: '50%', border: '2px solid rgba(255,255,255,0.25)' }}
+                                      onError={() => setFailedEnemyPortraits(prev => ({ ...prev, [enemy.enemyId]: true }))}
+                                    />
+                                  ) : '👹'
+                                )}
                               </div>
                               <div style={{ color: '#fff', fontSize: 14, fontWeight: 'bold', textAlign: 'center', marginBottom: 8 }}>
                                 {enemy.name}
@@ -911,7 +1091,13 @@ export default function App() {
                             gap: 12,
                             paddingRight: reserveEnemies.length > 4 ? 8 : 0
                           }}>
-                            {reserveEnemies.map((enemy) => (
+                            {reserveEnemies.map((enemy) => {
+                              const enemyDef = content?.enemies?.get?.(enemy.enemyId);
+                              const enemyPortrait = !failedEnemyPortraits[enemy.enemyId]
+                                ? getEnemyImageCandidates(enemy, enemyDef)[0]
+                                : null;
+
+                              return (
                               <div
                                 key={enemy.instanceId}
                                 style={{
@@ -928,7 +1114,14 @@ export default function App() {
                                   textAlign: 'center', 
                                   marginBottom: 4
                                 }}>
-                                  👹
+                                  {enemyPortrait ? (
+                                    <img
+                                      src={enemyPortrait}
+                                      alt={enemy.name}
+                                      style={{ width: 42, height: 42, objectFit: 'cover', borderRadius: '50%', border: '2px solid rgba(255,255,255,0.2)' }}
+                                      onError={() => setFailedEnemyPortraits(prev => ({ ...prev, [enemy.enemyId]: true }))}
+                                    />
+                                  ) : '👹'}
                                 </div>
                                 <div style={{ color: '#fff', fontSize: 11, fontWeight: 'bold', textAlign: 'center', marginBottom: 6 }}>
                                   {enemy.name}
@@ -952,7 +1145,8 @@ export default function App() {
                                   {Math.max(0, enemy.health)} / {enemy.maxHealth} HP
                                 </div>
                               </div>
-                            ))}
+                              );
+                            })}
                           </div>
                         </div>
                       );

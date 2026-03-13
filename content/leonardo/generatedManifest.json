@@ -1,3 +1,16 @@
 {
-  "pages": {}
+  "pages": {
+    "i_underfortress_entry": {
+      "desktop": "/content/leonardo/nano%20banana%20pro/desktop/i_underfortress_entry.jpg",
+      "mobile": "/content/leonardo/nano%20banana%20pro/mobile/i_underfortress_entry.jpg"
+    },
+    "u_entry_corridor": {
+      "desktop": "/content/leonardo/nano%20banana%20pro/desktop/u_entry_corridor.jpg",
+      "mobile": "/content/leonardo/nano%20banana%20pro/mobile/u_entry_corridor.jpg"
+    },
+    "u_guard_junction": {
+      "desktop": "/content/leonardo/nano%20banana%20pro/desktop/u_guard_junction.jpg",
+      "mobile": "/content/leonardo/nano%20banana%20pro/mobile/u_guard_junction.jpg"
+    }
+  }
 }
