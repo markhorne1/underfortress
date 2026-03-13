@@ -129,6 +129,51 @@ function getEnemyImageCandidates(enemy: any, enemyDef: any): string[] {
   return Array.from(new Set(candidates));
 }
 
+function EnemyPortrait({
+  src,
+  alt,
+  size,
+  onError
+}: {
+  src: string;
+  alt: string;
+  size: number;
+  onError: () => void;
+}) {
+  const isOrcPortrait = /\/lg_orc\.png$/i.test(src);
+
+  if (isOrcPortrait) {
+    const scaled = Math.round(size * 1.22);
+    return (
+      <div style={{ position: 'relative', width: size, height: size, margin: '0 auto', overflow: 'visible' }}>
+        <img
+          src={src}
+          alt={alt}
+          style={{
+            width: scaled,
+            height: scaled,
+            objectFit: 'contain',
+            position: 'absolute',
+            left: Math.round(size * 0.02),
+            top: Math.round(size * -0.1),
+            filter: 'drop-shadow(0 2px 3px rgba(0,0,0,0.35))'
+          }}
+          onError={onError}
+        />
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={src}
+      alt={alt}
+      style={{ width: size, height: size, objectFit: 'cover', borderRadius: '50%', border: '2px solid rgba(255,255,255,0.25)' }}
+      onError={onError}
+    />
+  );
+}
+
 export default function App() {
   const [page, setPage] = useState<'title'|'menu'|'game'>('title');
   const [loading, setLoading] = useState(true);
@@ -1033,10 +1078,10 @@ export default function App() {
                               }}>
                                 {isDead ? '💀' : (
                                   enemyPortrait ? (
-                                    <img
+                                    <EnemyPortrait
                                       src={enemyPortrait}
                                       alt={enemy.name}
-                                      style={{ width: 56, height: 56, objectFit: 'cover', borderRadius: '50%', border: '2px solid rgba(255,255,255,0.25)' }}
+                                      size={56}
                                       onError={() => setFailedEnemyPortraits(prev => ({ ...prev, [enemy.enemyId]: true }))}
                                     />
                                   ) : '👹'
@@ -1115,10 +1160,10 @@ export default function App() {
                                   marginBottom: 4
                                 }}>
                                   {enemyPortrait ? (
-                                    <img
+                                    <EnemyPortrait
                                       src={enemyPortrait}
                                       alt={enemy.name}
-                                      style={{ width: 42, height: 42, objectFit: 'cover', borderRadius: '50%', border: '2px solid rgba(255,255,255,0.2)' }}
+                                      size={42}
                                       onError={() => setFailedEnemyPortraits(prev => ({ ...prev, [enemy.enemyId]: true }))}
                                     />
                                   ) : '👹'}
