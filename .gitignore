@@ -38,6 +38,16 @@ web-build/
 logs/
 *.log
 coverage/
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Scratch files
+Untitled-*
 coverage-final.json
 
 # Editor directories and files
