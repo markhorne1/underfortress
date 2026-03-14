@@ -398,7 +398,7 @@
     "choices": [
       {
         "id": "next",
-        "label": "Proceed into Under-Fortress Scenario I (next chapter).",
+        "label": "Proceed into Under-Fortress Scenario I",
         "effects": [
           {
             "type": "flag",

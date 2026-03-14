@@ -9,7 +9,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, underground fortress corridor, iron sconces, damp stone, distant marching, cinematic, no text",
-    "description": "The corridor is built for marching, not living.\n\nTorch soot stains the ceiling. The stonework is older than the current war — and it remembers other wars.\n\nAhead: a junction and a prison bell.",
+    "description": "The corridor is built for marching, not living.\n\nTorch soot stains the ceiling. The stonework is older than the current war — and it remembers other wars.\n\nNorth: a junction and a prison bell.",
     "exits": {
       "n": "u_guard_junction",
       "s": "i_underfortress_entry"
@@ -56,7 +56,17 @@
     "description": "Two corridors split.\n\nLeft: louder — voices, keys, the stink of prisoners.\nRight: quieter — a drip, a cistern echo, and the smell of damp rope.",
     "exits": {
       "s": "u_entry_corridor",
-      "w": "u_prison_antechamber",
+      "w": {
+        "target": "u_prison_antechamber",
+        "labelWhenUnmet": "Go to: Prison Antechamber",
+        "labelWhenMet": "The route is clear. Move through to the prison antechamber",
+        "requirements": [
+          {
+            "type": "threatDefeated",
+            "threatId": "t_prison_patrol_01"
+          }
+        ]
+      },
       "e": "u_cistern_run"
     },
     "choices": [
@@ -80,6 +90,15 @@
       {
         "id": "start_patrol",
         "label": "A patrol turns the corner—prepare for trouble.",
+        "requirements": [
+          {
+            "type": "not",
+            "condition": {
+              "type": "threatDefeated",
+              "threatId": "t_prison_patrol_01"
+            }
+          }
+        ],
         "effects": [
           {
             "type": "startThreat",

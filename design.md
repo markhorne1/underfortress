@@ -158,7 +158,7 @@ Pick a patron: temple, thieves’ guild, militia, or scholar.
 Fetch quest with moral fork: return stolen medicine or profit.
 
 The Smith and the Oath
-
+ 
 First gear upgrade and crafting intro.
 
 Choose a vow (affects perks/flags): “Protect the helpless”, “Seek the relic”, “Serve the city”.

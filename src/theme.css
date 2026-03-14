@@ -1,0 +1,187 @@
+/* Desktop: Show health in topNav, hide separate mobile bar */
+@media (min-width: 768px) {
+  .desktop-health-bar {
+    display: flex !important;
+  }
+  .mobile-health-bar {
+    display: none !important;
+  }
+  .desktop-return-text {
+    display: inline !important;
+  }
+  .mobile-close-x {
+    display: none !important;
+  }
+}
+
+/* Mobile: Hide health in topNav, show separate mobile bar */
+@media (max-width: 767px) {
+  .desktop-health-bar {
+    display: none !important;
+  }
+  .mobile-health-bar {
+    display: block !important;
+  }
+  .desktop-return-text {
+    display: none !important;
+  }
+  .mobile-close-x {
+    display: inline !important;
+  }
+}
+
+.uf-game {
+  background: #121417;
+}
+
+.uf-glass-panel {
+  background: rgba(26, 29, 34, 0.62) !important;
+  border: 1px solid rgba(207, 170, 92, 0.24) !important;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+  backdrop-filter: blur(9px) saturate(130%);
+  -webkit-backdrop-filter: blur(9px) saturate(130%);
+}
+
+.uf-game button {
+  background: linear-gradient(135deg, rgba(199, 158, 78, 0.7) 0%, rgba(229, 197, 123, 0.72) 46%, rgba(195, 146, 60, 0.68) 100%) !important;
+  color: #2d1c08 !important;
+  border: 1px solid #8a631e !important;
+  border-radius: 10px !important;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 241, 204, 0.55) !important;
+  backdrop-filter: blur(8px) saturate(125%);
+  -webkit-backdrop-filter: blur(8px) saturate(125%);
+  font-family: Cinzel, Georgia, serif !important;
+  font-weight: 700 !important;
+  transition: transform 0.2s ease, filter 0.2s ease !important;
+}
+
+.uf-game button:hover:not(:disabled) {
+  transform: translateY(-1px) scale(1.01);
+  filter: drop-shadow(0 8px 16px rgba(245, 195, 96, 0.25));
+}
+
+.uf-game button:disabled {
+  background: linear-gradient(135deg, #6f5b3a, #8a744a) !important;
+  color: #2f2616 !important;
+  border-color: #5e4b2f !important;
+  opacity: 0.6;
+  cursor: not-allowed !important;
+}
+
+.uf-popup-overlay {
+  background: rgba(0, 0, 0, 0.82) !important;
+}
+
+.uf-popup-card {
+  background: linear-gradient(180deg, rgba(20, 15, 8, 0.72), rgba(5, 5, 5, 0.78)) !important;
+  border: 1px solid rgba(207, 170, 92, 0.55) !important;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+  backdrop-filter: blur(10px) saturate(135%);
+  -webkit-backdrop-filter: blur(10px) saturate(135%);
+  color: #f3e2b6 !important;
+}
+
+.uf-popup-card h2,
+.uf-popup-card h3,
+.uf-modal-overlay h2,
+.uf-modal-overlay h3,
+.uf-modal-overlay h4 {
+  color: #f5d88d !important;
+  font-family: Cinzel, Georgia, serif !important;
+  letter-spacing: 1px;
+}
+
+.uf-modal-overlay {
+  background: rgba(0, 0, 0, 0.9) !important;
+}
+
+.uf-modal-surface {
+  background: linear-gradient(180deg, rgba(24, 27, 32, 0.72), rgba(12, 14, 18, 0.82));
+  border: 1px solid rgba(207, 170, 92, 0.5);
+  border-radius: 14px;
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px) saturate(135%);
+  -webkit-backdrop-filter: blur(12px) saturate(135%);
+  color: #f3e2b6;
+}
+
+.uf-modal-header {
+  border-bottom: 2px solid rgba(207, 170, 92, 0.4) !important;
+}
+
+.uf-top-nav {
+  backdrop-filter: blur(10px) saturate(130%);
+  -webkit-backdrop-filter: blur(10px) saturate(130%);
+  border-bottom: 1px solid rgba(207, 170, 92, 0.35) !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+.uf-top-nav-btn {
+  min-height: 38px;
+  padding: 8px 14px !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  border-radius: 12px !important;
+  letter-spacing: 0.2px;
+}
+
+.uf-top-nav-settings {
+  min-height: 38px;
+  min-width: 42px;
+  padding: 8px 12px !important;
+  font-size: 16px !important;
+  border-radius: 12px !important;
+}
+
+.uf-page-title {
+  font-size: clamp(34px, 4.4vw, 48px) !important;
+  line-height: 1.1;
+  text-shadow: 0 0 10px rgba(247, 202, 119, 0.28), 0 4px 18px rgba(0, 0, 0, 0.55);
+}
+
+.uf-modal-surface p,
+.uf-modal-surface li,
+.uf-modal-surface label,
+.uf-modal-surface small,
+.uf-modal-surface em {
+  color: #eadcb8;
+}
+
+.uf-modal-surface [style*="color: '#666'"],
+.uf-modal-surface [style*="color:'#666'"],
+.uf-modal-surface [style*="color: '#6c757d'"],
+.uf-modal-surface [style*="color:'#6c757d'"],
+.uf-modal-surface [style*="color: '#999'"],
+.uf-modal-surface [style*="color:'#999'"] {
+  color: #d7c79b !important;
+}
+
+/* Broad glassmorphism pass for modal inner cards/panels */
+.uf-modal-surface [style*="background: '#fff'"],
+.uf-modal-surface [style*="background:'#fff'"],
+.uf-modal-surface [style*="background: '#f8f9fa'"],
+.uf-modal-surface [style*="background:'#f8f9fa'"],
+.uf-modal-surface [style*="background: '#f5f5f5'"],
+.uf-modal-surface [style*="background:'#f5f5f5'"],
+.uf-modal-surface [style*="background: '#fafafa'"],
+.uf-modal-surface [style*="background:'#fafafa'"] {
+  background: rgba(26, 29, 34, 0.58) !important;
+  border-color: rgba(207, 170, 92, 0.24) !important;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+  backdrop-filter: blur(8px) saturate(125%);
+  -webkit-backdrop-filter: blur(8px) saturate(125%);
+}
+
+/* Make Core Stats panels match Combat Skills warm palette */
+.uf-modal-surface [style*="background: '#fff5f5'"],
+.uf-modal-surface [style*="background:'#fff5f5'"],
+.uf-modal-surface [style*="background: '#f8f5ff'"],
+.uf-modal-surface [style*="background:'#f8f5ff'"],
+.uf-modal-surface [style*="background: '#f0fff4'"],
+.uf-modal-surface [style*="background:'#f0fff4'"],
+.uf-modal-surface [style*="background: '#f0f8ff'"],
+.uf-modal-surface [style*="background:'#f0f8ff'"] {
+  background: rgba(243, 156, 18, 0.12) !important;
+  border: 2px solid rgba(243, 156, 18, 0.5) !important;
+  border-radius: 8px !important;
+}

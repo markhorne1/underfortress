@@ -10663,7 +10663,7 @@
     "choices": [
       {
         "id": "next",
-        "label": "Proceed into Under-Fortress Scenario I (next chapter).",
+        "label": "Proceed into Under-Fortress Scenario I",
         "effects": [
           {
             "type": "setFlag",
@@ -14632,7 +14632,7 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, underground fortress corridor, iron sconces, damp stone, distant marching, cinematic, no text",
-    "description": "The corridor is built for marching, not living.\n\nTorch soot stains the ceiling. The stonework is older than the current war \u2014 and it remembers other wars.\n\nAhead: a junction and a prison bell.",
+    "description": "The corridor is built for marching, not living.\n\nTorch soot stains the ceiling. The stonework is older than the current war \u2014 and it remembers other wars.\n\nNorth: a junction and a prison bell.",
     "exits": {
       "n": {
         "target": "u_guard_junction",
@@ -14678,43 +14678,18 @@
       },
       "w": {
         "target": "u_prison_antechamber",
-        "label": "Go to: Prison Antechamber",
-        "hoverMessage": "The enemy approaches",
+        "labelWhenUnmet": "Go to: Prison Antechamber",
+        "labelWhenMet": "The route is clear. Move through to the prison antechamber",
         "requirements": [
           {
-            "type": "or",
-            "conditions": [
-              {
-                "type": "hasCombatSkill",
-                "skill": "muffle_steps"
-              },
-              {
-                "type": "threatDefeated",
-                "threatId": "t_prison_patrol_01"
-              }
-            ]
+            "type": "threatDefeated",
+            "threatId": "t_prison_patrol_01"
           }
         ]
       },
       "e": {
         "target": "u_cistern_run",
-        "label": "Go to: Cistern Run",
-        "hoverMessage": "The enemy approaches",
-        "requirements": [
-          {
-            "type": "or",
-            "conditions": [
-              {
-                "type": "hasCombatSkill",
-                "skill": "muffle_steps"
-              },
-              {
-                "type": "threatDefeated",
-                "threatId": "t_prison_patrol_01"
-              }
-            ]
-          }
-        ]
+        "label": "Go to: Cistern Run"
       }
     },
     "choices": [
@@ -14738,6 +14713,15 @@
       {
         "id": "start_patrol",
         "label": "A patrol turns the corner\u2014prepare for trouble.",
+        "requirements": [
+          {
+            "type": "not",
+            "condition": {
+              "type": "threatDefeated",
+              "threatId": "t_prison_patrol_01"
+            }
+          }
+        ],
         "effects": [
           {
             "type": "startThreat",

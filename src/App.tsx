@@ -4,6 +4,7 @@ import { usePlayerStore } from './store/playerStore';
 import { executeChoice } from './engine/execute';
 import { getActiveSkills, getPassiveSkills, getTotalArmourRating } from './engine/skillCalculations';
 import { initiateCombat, playerAttack, enemyTurn, selectEnemy, castSpell, intimidateEnemy, playerSlash, playerPivot } from './engine/combatNew';
+import './theme.css';
 
 function normalizeContentImagePath(raw?: string | null): string | null {
   if (!raw || typeof raw !== 'string') return null;
@@ -182,47 +183,6 @@ export default function App() {
   const [failedEnemyPortraits, setFailedEnemyPortraits] = useState<Record<string, true>>({});
   const [mapZLevel, setMapZLevel] = useState<number>(0);
   
-  // Add responsive CSS for health bar visibility
-  useEffect(() => {
-    const style = document.createElement('style');
-    style.textContent = `
-      /* Desktop: Show health in topNav, hide separate mobile bar */
-      @media (min-width: 768px) {
-        .desktop-health-bar {
-          display: flex !important;
-        }
-        .mobile-health-bar {
-          display: none !important;
-        }
-        .desktop-return-text {
-          display: inline !important;
-        }
-        .mobile-close-x {
-          display: none !important;
-        }
-      }
-      
-      /* Mobile: Hide health in topNav, show separate mobile bar */
-      @media (max-width: 767px) {
-        .desktop-health-bar {
-          display: none !important;
-        }
-        .mobile-health-bar {
-          display: block !important;
-        }
-        .desktop-return-text {
-          display: none !important;
-        }
-        .mobile-close-x {
-          display: inline !important;
-        }
-      }
-    `;
-    document.head.appendChild(style);
-    return () => {
-      document.head.removeChild(style);
-    };
-  }, []);
   const [modalPage, setModalPage] = useState<'inventory'|'equipment'|'skills'|'spells'|'quests'|'map'|'settings'|null>(null);
   const [statAllocMode, setStatAllocMode] = useState(false); // Stat allocation modal
   const [spellTreePath, setSpellTreePath] = useState<string | null>(null); // Which path's spell tree to show
@@ -285,28 +245,183 @@ export default function App() {
     if (st.hasSave) setPage('game'); else alert('No save found');
   };
 
-  if (loading) return <div style={{padding:20}}>Loading content...</div>;
+  if (loading) {
+    return (
+      <div
+        style={{
+          minHeight: '100vh',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: '#121417',
+          color: '#f4d486',
+          letterSpacing: 1,
+          fontFamily: 'Cinzel, Georgia, serif'
+        }}
+      >
+        Loading content...
+      </div>
+    );
+  }
 
   if (page === 'title') {
     return (
-      <div style={{height:'100vh', background:'#f7efe0', display:'flex', alignItems:'center', justifyContent:'center', position:'relative'}}>
-        <div style={{textAlign:'center'}}>
-          <h1 style={{fontSize:48, fontFamily:'serif'}}>Underfortress</h1>
-          <div style={{marginTop:8,color:'#555'}}>A gamebook adventure</div>
+      <div
+        style={{
+          minHeight: '100vh',
+          background: '#121417',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          position: 'relative',
+          overflow: 'hidden'
+        }}
+      >
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'linear-gradient(to bottom, rgba(212, 163, 74, 0.18), rgba(0, 0, 0, 0.75) 45%, rgba(0, 0, 0, 0.95))',
+            pointerEvents: 'none'
+          }}
+        />
+
+        <div style={{ textAlign: 'center', position: 'relative', zIndex: 1, padding: '0 20px' }}>
+          <h1
+            style={{
+              margin: 0,
+              fontSize: 'clamp(48px, 8vw, 96px)',
+              fontFamily: 'Cinzel, Georgia, serif',
+              letterSpacing: 3,
+              textTransform: 'uppercase',
+              color: '#f5d88d',
+              textShadow: '0 0 10px rgba(247, 202, 119, 0.4), 0 4px 30px rgba(0, 0, 0, 0.8)'
+            }}
+          >
+            Underfortress
+          </h1>
+          <div
+            style={{
+              marginTop: 14,
+              color: '#cfaa5c',
+              fontSize: 'clamp(16px, 2.3vw, 24px)',
+              letterSpacing: 2,
+              fontFamily: 'Cinzel, Georgia, serif',
+              textTransform: 'uppercase'
+            }}
+          >
+            A gamebook adventure
+          </div>
+
+          <button
+            aria-label="Enter The Underfortress"
+            onClick={() => setPage('menu')}
+            style={{
+              marginTop: 42,
+              background: 'transparent',
+              border: 0,
+              cursor: 'pointer',
+              padding: 0,
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              filter: 'drop-shadow(0 6px 18px rgba(0, 0, 0, 0.75))',
+              transition: 'transform 0.2s ease, filter 0.2s ease'
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.transform = 'translateY(-2px) scale(1.02)';
+              e.currentTarget.style.filter = 'drop-shadow(0 10px 24px rgba(245, 195, 96, 0.35))';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.transform = 'translateY(0) scale(1)';
+              e.currentTarget.style.filter = 'drop-shadow(0 6px 18px rgba(0, 0, 0, 0.75))';
+            }}
+          >
+            <img
+              src="/content/ui/start_button.png"
+              alt="Enter The Underfortress"
+              style={{ width: 'min(78vw, 380px)', height: 'auto', display: 'block' }}
+            />
+          </button>
         </div>
-        <button aria-label="Next page" onClick={() => setPage('menu')} style={{position:'absolute', right:20, bottom:20, padding:12, borderRadius:28, background:'#222', color:'#fff'}}>⤷</button>
       </div>
     );
   }
 
   if (page === 'menu') {
     return (
-      <div style={{height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
-        <h2 style={{marginBottom: 20}}>Main Menu</h2>
-        <div style={{width:260}}>
-          <button onClick={onNew} style={btnStyle}>New Game</button>
-          <button onClick={onLoad} style={btnStyle}>Load Game</button>
-          <button onClick={() => setPage('title')} style={btnStyle}>Back</button>
+      <div
+        style={{
+          minHeight: '100vh',
+          background: '#121417',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          position: 'relative',
+          overflow: 'hidden'
+        }}
+      >
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'linear-gradient(to bottom, rgba(212, 163, 74, 0.16), rgba(0, 0, 0, 0.76) 45%, rgba(0, 0, 0, 0.95))',
+            pointerEvents: 'none'
+          }}
+        />
+
+        <div
+          style={{
+            width: 'min(92vw, 520px)',
+            padding: '32px 20px',
+            borderRadius: 16,
+            background: 'linear-gradient(180deg, rgba(20, 15, 8, 0.74), rgba(5, 5, 5, 0.82))',
+            border: '1px solid rgba(207, 170, 92, 0.35)',
+            boxShadow: '0 20px 50px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.05)',
+            textAlign: 'center',
+            position: 'relative',
+            zIndex: 1
+          }}
+        >
+          <h2
+            style={{
+              margin: 0,
+              fontSize: 'clamp(30px, 5vw, 46px)',
+              fontFamily: 'Cinzel, Georgia, serif',
+              letterSpacing: 3,
+              textTransform: 'uppercase',
+              color: '#f5d88d',
+              textShadow: '0 0 10px rgba(247, 202, 119, 0.35), 0 4px 24px rgba(0, 0, 0, 0.8)'
+            }}
+          >
+            Main Menu
+          </h2>
+          <div style={{ width: '100%', maxWidth: 340, margin: '0 auto', display: 'grid', gap: 12 }}>
+            <button
+              onClick={onNew}
+              style={btnStyle}
+              onMouseOver={(e) => (e.currentTarget.style.transform = 'translateY(-2px) scale(1.01)')}
+              onMouseOut={(e) => (e.currentTarget.style.transform = 'translateY(0) scale(1)')}
+            >
+              New Game
+            </button>
+            <button
+              onClick={onLoad}
+              style={btnStyle}
+              onMouseOver={(e) => (e.currentTarget.style.transform = 'translateY(-2px) scale(1.01)')}
+              onMouseOut={(e) => (e.currentTarget.style.transform = 'translateY(0) scale(1)')}
+            >
+              Load Game
+            </button>
+            <button
+              onClick={() => setPage('title')}
+              style={btnStyle}
+              onMouseOver={(e) => (e.currentTarget.style.transform = 'translateY(-2px) scale(1.01)')}
+              onMouseOut={(e) => (e.currentTarget.style.transform = 'translateY(0) scale(1)')}
+            >
+              Back
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -369,7 +484,9 @@ export default function App() {
         const exit = exitData as any;
         orderedChoices.push({ 
           id: `exit_${dir}`, 
-          label: exit.label || `Go to: ${getAreaById(exit.target)?.title ?? exit.target}`,
+          label: exit.label || exit.labelWhenUnmet || `Go to: ${getAreaById(exit.target)?.title ?? exit.target}`,
+          labelWhenMet: exit.labelWhenMet,
+          labelWhenUnmet: exit.labelWhenUnmet,
           hoverMessage: exit.hoverMessage,
           requirements: exit.requirements,
           goToAreaId: exit.target 
@@ -395,14 +512,13 @@ export default function App() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <div className="uf-game" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       {/* Top Navigation */}
-      <div style={{ 
+      <div className="uf-glass-panel uf-top-nav" style={{ 
         minHeight: 56, 
         display: 'flex', 
         alignItems: 'center', 
-        backgroundColor: '#faf6ef', 
-        borderBottom: '1px solid #eee',
+        background: '#121417',
         padding: '8px 12px',
         gap: 12,
         flexWrap: 'wrap'
@@ -418,12 +534,12 @@ export default function App() {
             flex: '0.67 1 auto',
             minWidth: 0
           }}>
-          <button onClick={() => setModalPage('inventory')} style={{ background: 'transparent', border: 'none', fontSize: 12, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}>Inventory</button>
-          <button onClick={() => setModalPage('equipment')} style={{ background: 'transparent', border: 'none', fontSize: 12, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}>Equipment</button>
-          <button onClick={() => setModalPage('skills')} style={{ background: 'transparent', border: 'none', fontSize: 12, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}>Skills</button>
-          <button onClick={() => setModalPage('spells')} style={{ background: 'transparent', border: 'none', fontSize: 12, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}>Spells</button>
-          <button onClick={() => setModalPage('quests')} style={{ background: 'transparent', border: 'none', fontSize: 12, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}>Quests</button>
-          <button onClick={() => setModalPage('map')} style={{ background: 'transparent', border: 'none', fontSize: 12, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}>Map</button>
+          <button className="uf-top-nav-btn" onClick={() => setModalPage('inventory')} style={{ whiteSpace: 'nowrap' }}>Inventory</button>
+          <button className="uf-top-nav-btn" onClick={() => setModalPage('equipment')} style={{ whiteSpace: 'nowrap' }}>Equipment</button>
+          <button className="uf-top-nav-btn" onClick={() => setModalPage('skills')} style={{ whiteSpace: 'nowrap' }}>Skills</button>
+          <button className="uf-top-nav-btn" onClick={() => setModalPage('spells')} style={{ whiteSpace: 'nowrap' }}>Spells</button>
+          <button className="uf-top-nav-btn" onClick={() => setModalPage('quests')} style={{ whiteSpace: 'nowrap' }}>Quests</button>
+          <button className="uf-top-nav-btn" onClick={() => setModalPage('map')} style={{ whiteSpace: 'nowrap' }}>Map</button>
         </div>
         
         {/* Health Bar (Desktop Only) */}
@@ -438,7 +554,7 @@ export default function App() {
           }}
           className="desktop-health-bar"
           >
-            <span style={{ fontSize: 12, fontWeight: 'bold', whiteSpace: 'nowrap' }}>Health:</span>
+            <span style={{ fontSize: 12, fontWeight: 'bold', whiteSpace: 'nowrap', color: '#f3d288' }}>Health:</span>
             <div style={{ flex: 1, height: 20, background: '#e0e0e0', borderRadius: 10, overflow: 'hidden', position: 'relative', minWidth: 100 }}>
               <div style={{ 
                 width: `${health}%`, 
@@ -476,14 +592,14 @@ export default function App() {
         )}
         
         {/* Settings Button */}
-        <button onClick={() => setModalPage('settings')} title="Settings" style={{ background: 'transparent', border: 'none', fontSize: 16, cursor: 'pointer' }}>⚙️</button>
+        <button className="uf-top-nav-settings" onClick={() => setModalPage('settings')} title="Settings" style={{ cursor: 'pointer' }}>⚙️</button>
       </div>
       
       {/* Health Bar (Mobile Only) */}
       {page === 'game' && (
-        <div className="mobile-health-bar" style={{ padding: '8px 20px', background: '#f8f8f8', borderBottom: '1px solid #ddd' }}>
+        <div className="mobile-health-bar uf-glass-panel" style={{ padding: '8px 20px', background: 'rgba(6, 6, 6, 0.92)', borderBottom: '1px solid rgba(207, 170, 92, 0.22)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, maxWidth: 1200, margin: '0 auto' }}>
-            <span style={{ fontSize: 14, fontWeight: 'bold', minWidth: 60 }}>Health:</span>
+            <span style={{ fontSize: 14, fontWeight: 'bold', minWidth: 60, color: '#f3d288' }}>Health:</span>
             <div style={{ flex: 1, height: 24, background: '#e0e0e0', borderRadius: 12, overflow: 'hidden', position: 'relative' }}>
               <div style={{ 
                 width: `${health}%`, 
@@ -522,21 +638,20 @@ export default function App() {
       )}
       
       {/* Main Content - Centered */}
-      <div style={{ flex: 1, padding: 20, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', overflowY: 'auto', position: 'relative' }}>
+      <div style={{ flex: 1, padding: 0, display: 'flex', flexDirection: 'column', alignItems: 'stretch', justifyContent: 'flex-start', overflowY: 'auto', position: 'relative' }}>
         {area ? (
-          <div style={{ maxWidth: 800, width: '100%' }}>
+          <div style={{ width: '100%', minHeight: 'calc(100vh - 200px)', position: 'relative', overflow: 'hidden' }}>
             {canShowAreaImage ? (
               <img
                 src={areaImageSrc as string}
                 alt={area.title ?? area.id}
                 style={{
+                  position: 'absolute',
+                  inset: 0,
                   width: '100%',
-                  height: 300,
+                  height: '100%',
                   objectFit: 'cover',
-                  borderRadius: 10,
-                  marginBottom: 16,
-                  border: '1px solid #ddd',
-                  background: '#f3f3f3'
+                  background: '#050505'
                 }}
                 onError={() => {
                   setAreaImageAttemptIndex(prev => {
@@ -546,14 +661,84 @@ export default function App() {
                   });
                 }}
               />
-            ) : null}
-            <h1 style={{ marginBottom: 20, textAlign: 'center' }}>{area.title ?? area.id}</h1>
-            <p style={{ whiteSpace: 'pre-wrap', lineHeight: 1.6, textAlign: 'center' }}>{area.description}</p>
-            {!canShowAreaImage && area.imagePrompt ? (
-              <p style={{ whiteSpace: 'pre-wrap', lineHeight: 1.5, textAlign: 'center', color: '#666', marginTop: 12 }}>
-                {area.imagePrompt}
+            ) : (
+              <div
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  background: '#121417'
+                }}
+              />
+            )}
+            <div
+              style={{
+                position: 'absolute',
+                inset: 0,
+                background: 'linear-gradient(to bottom, rgba(0,0,0,0.38) 0%, rgba(0,0,0,0.58) 38%, rgba(0,0,0,0.8) 75%, rgba(0,0,0,0.9) 100%)'
+              }}
+            />
+            <div
+              style={{
+                position: 'absolute',
+                left: '50%',
+                top: 22,
+                transform: 'translateX(-50%)',
+                zIndex: 1,
+                width: 'min(94vw, 920px)',
+                padding: '0 12px',
+                pointerEvents: 'none'
+              }}
+            >
+              <h1
+                style={{
+                  margin: 0,
+                  textAlign: 'center',
+                  color: '#f5d88d',
+                  textTransform: 'uppercase',
+                  fontFamily: 'Cinzel, Georgia, serif',
+                  letterSpacing: 2,
+                  fontSize: 'clamp(22px, 3.6vw, 40px)',
+                  textShadow: '0 0 10px rgba(247, 202, 119, 0.35), 0 4px 24px rgba(0,0,0,0.85)'
+                }}
+              >
+                {area.title ?? area.id}
+              </h1>
+            </div>
+
+            <div
+              style={{
+                position: 'absolute',
+                left: '50%',
+                bottom: 16,
+                transform: 'translateX(-50%)',
+                zIndex: 1,
+                width: 'min(94vw, 980px)',
+                padding: '0 12px'
+              }}
+            >
+              <p
+                className="uf-glass-panel"
+                style={{
+                  whiteSpace: 'pre-wrap',
+                  lineHeight: 1.7,
+                  textAlign: 'center',
+                  color: '#f3e2b6',
+                  margin: 0,
+                  backgroundColor: 'rgba(5, 5, 5, 0.30)',
+                  border: '1px solid rgba(207, 170, 92, 0.28)',
+                  borderRadius: 12,
+                  padding: '18px 16px',
+                  boxShadow: '0 10px 24px rgba(0,0,0,0.35)'
+                }}
+              >
+                {area.description}
               </p>
-            ) : null}
+              {!canShowAreaImage && area.imagePrompt ? (
+                <p style={{ whiteSpace: 'pre-wrap', lineHeight: 1.5, textAlign: 'center', color: '#cfae6e', marginTop: 10 }}>
+                  {area.imagePrompt}
+                </p>
+              ) : null}
+            </div>
             
             {/* Combat UI - Fixed Overlay Beneath TopNav */}
             {combat && (combat.active || combat.victoryScreen || combat.defeatScreen) && (
@@ -586,7 +771,7 @@ export default function App() {
                 }}>
                 {/* Victory Screen Overlay */}
                 {combat.victoryScreen && (
-                  <div style={{
+                  <div className="uf-popup-overlay" style={{
                     position: 'fixed',
                     top: 0,
                     left: 0,
@@ -598,18 +783,17 @@ export default function App() {
                     justifyContent: 'center',
                     zIndex: 10000
                   }}>
-                    <div style={{
-                      background: 'linear-gradient(135deg, #2c3e50 0%, #34495e 100%)',
+                    <div className="uf-popup-card" style={{
                       borderRadius: 12,
                       padding: 40,
                       maxWidth: 600,
                       width: '90%',
                       boxShadow: '0 16px 48px rgba(0,0,0,0.5)',
-                      border: '3px solid #e74c3c'
+                      border: '3px solid rgba(207, 170, 92, 0.55)'
                     }}>
                       <h2 style={{ 
                         textAlign: 'center', 
-                        color: '#2ecc71', 
+                        color: '#f5d88d', 
                         fontSize: 36, 
                         marginBottom: 24,
                         textShadow: '2px 2px 4px rgba(0,0,0,0.5)'
@@ -721,6 +905,10 @@ export default function App() {
                         onClick={() => {
                           const currentState = usePlayerStore.getState();
                           const newFlags = { ...currentState.flags };
+                          const currentActiveThreats = [...((currentState as any).activeThreats || [])];
+                          const clearedThreats = combat.threatId && combat.threatId !== 'direct_combat'
+                            ? currentActiveThreats.filter((t: any) => t.id !== combat.threatId && t.threatId !== combat.threatId)
+                            : currentActiveThreats;
                           
                           console.log(`🏁 Victory Continue clicked. combat.originAreaId=${combat.originAreaId}, combat.threatId=${combat.threatId}`);
                           
@@ -734,6 +922,7 @@ export default function App() {
                           if (combat.threatId && combat.threatId !== 'direct_combat') {
                             newFlags[`threat:${combat.threatId}:defeated`] = true;
                             console.log(`✅ Marked threat ${combat.threatId} as defeated`);
+                            console.log(`✅ Cleared defeated threat instance ${combat.threatId} from active threats`);
                             
                             // Check if this was the prison patrol
                             if (combat.threatId === 't_prison_patrol_01') {
@@ -742,7 +931,8 @@ export default function App() {
                                 console.log('🩸 Goblin was shot - must hunt it down!');
                                 usePlayerStore.setState({ 
                                   combat: undefined,
-                                  flags: newFlags
+                                  flags: newFlags,
+                                  activeThreats: clearedThreats
                                 });
                                 // Navigate to wounded goblin area
                                 (usePlayerStore as any).getState().moveTo?.('u_wounded_goblin_trail');
@@ -752,7 +942,7 @@ export default function App() {
                               // If goblin wasn't shot at all, spawn pursuit patrol
                               if (!newFlags['goblin_shot']) {
                                 console.log('⚠️ Goblin was not shot - starting pursuit patrol!');
-                                const newActiveThreats = [...((currentState as any).activeThreats || [])];
+                                const newActiveThreats = [...clearedThreats];
                                 newActiveThreats.push({
                                   id: 't_prison_pursuit_01',
                                   threatId: 't_prison_pursuit_01',
@@ -794,10 +984,14 @@ export default function App() {
                           }
                           
                           // Clear combat state and update flags
-                          usePlayerStore.setState({ 
+                          const victoryUpdate: any = {
                             combat: undefined,
                             flags: newFlags
-                          });
+                          };
+                          if (combat.threatId && combat.threatId !== 'direct_combat') {
+                            victoryUpdate.activeThreats = clearedThreats;
+                          }
+                          usePlayerStore.setState(victoryUpdate);
                           // Trigger autosave by accessing the store's save mechanism
                           const storage = localStorage;
                           if (storage) {
@@ -829,7 +1023,7 @@ export default function App() {
                 
                 {/* Defeat Screen Overlay */}
                 {combat.defeatScreen && (
-                  <div style={{
+                  <div className="uf-popup-overlay" style={{
                     position: 'fixed',
                     top: 0,
                     left: 0,
@@ -841,18 +1035,17 @@ export default function App() {
                     justifyContent: 'center',
                     zIndex: 10000
                   }}>
-                    <div style={{
-                      background: 'linear-gradient(135deg, #c0392b 0%, #8e44ad 100%)',
+                    <div className="uf-popup-card" style={{
                       borderRadius: 16,
                       padding: 40,
                       maxWidth: 600,
                       width: '90%',
                       boxShadow: '0 16px 48px rgba(0,0,0,0.7)',
-                      border: '4px solid #e74c3c'
+                      border: '4px solid rgba(207, 170, 92, 0.55)'
                     }}>
                       <h2 style={{ 
                         textAlign: 'center', 
-                        color: '#fff', 
+                        color: '#f5d88d', 
                         fontSize: 42, 
                         marginBottom: 16,
                         textShadow: '3px 3px 6px rgba(0,0,0,0.5)'
@@ -862,7 +1055,7 @@ export default function App() {
                       
                       <p style={{
                         textAlign: 'center',
-                        color: '#ecf0f1',
+                        color: '#f3e2b6',
                         fontSize: 18,
                         marginBottom: 32,
                         lineHeight: 1.6
@@ -965,17 +1158,21 @@ export default function App() {
                       background: 'rgba(241, 196, 15, 0.2)',
                       border: '3px solid #f1c40f',
                       borderRadius: 12,
-                      minWidth: 140,
+                      width: 176,
+                      minHeight: 216,
+                      display: 'flex',
+                      flexDirection: 'column',
                       boxShadow: '0 0 20px rgba(241, 196, 15, 0.4)'
                     }}>
                       <div style={{ 
                         fontSize: 40, 
                         textAlign: 'center', 
-                        marginBottom: 8
+                        marginBottom: 8,
+                        height: 60
                       }}>
                         🛡️
                       </div>
-                      <div style={{ color: '#f1c40f', fontSize: 14, fontWeight: 'bold', textAlign: 'center', marginBottom: 8 }}>
+                      <div style={{ color: '#f1c40f', fontSize: 14, fontWeight: 'bold', textAlign: 'center', marginBottom: 8, minHeight: 34, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         Hero
                       </div>
                       {/* Health Bar */}
@@ -1063,7 +1260,10 @@ export default function App() {
                                     : 'rgba(52, 73, 94, 0.6)',
                                 border: `3px solid ${isDead ? '#7f8c8d' : isSelected ? '#e74c3c' : '#34495e'}`,
                                 borderRadius: 12,
-                                minWidth: 140,
+                                width: 176,
+                                minHeight: 216,
+                                display: 'flex',
+                                flexDirection: 'column',
                                 cursor: isDead || !combat.playerTurn ? 'default' : 'pointer',
                                 transition: 'all 0.2s',
                                 opacity: isDead ? 0.4 : 1,
@@ -1074,6 +1274,7 @@ export default function App() {
                                 fontSize: 40, 
                                 textAlign: 'center', 
                                 marginBottom: 8,
+                                height: 60,
                                 filter: isDead ? 'grayscale(100%)' : 'none'
                               }}>
                                 {isDead ? '💀' : (
@@ -1087,7 +1288,7 @@ export default function App() {
                                   ) : '👹'
                                 )}
                               </div>
-                              <div style={{ color: '#fff', fontSize: 14, fontWeight: 'bold', textAlign: 'center', marginBottom: 8 }}>
+                              <div style={{ color: '#fff', fontSize: 14, fontWeight: 'bold', textAlign: 'center', marginBottom: 8, minHeight: 34, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                 {enemy.name}
                               </div>
                               {/* Health Bar */}
@@ -1597,23 +1798,44 @@ export default function App() {
       </div>
 
       {/* Bottom Buttons - Centered */}
-      <div style={{ borderTop: '1px solid #eee', padding: 20, display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
+      <div className="uf-glass-panel" style={{ borderTop: '1px solid rgba(207, 170, 92, 0.3)', padding: 20, display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative', background: 'rgba(0,0,0,0.88)' }}>
         {orderedChoices.length > 0 ? (
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center', maxWidth: 800 }}>
             {orderedChoices.map((c:any, idx:number) => {
+              const fullState = usePlayerStore.getState() as any;
+
               // Check requirements
               const meetsRequirements = !c.requirements || (() => {
                 try {
                   const { evaluateRequirements } = require('./engine/requirements');
-                  const fullState = usePlayerStore.getState();
                   return evaluateRequirements(c.requirements, fullState);
                 } catch {
                   return true; // If requirements check fails, allow the choice
                 }
               })();
+
+              // Special-case junction prison button so label/enable state always matches patrol status
+              const isGuardJunctionPrisonExit =
+                currentAreaId === 'u_guard_junction' && c.goToAreaId === 'u_prison_antechamber';
+              const patrolDefeated = !!fullState?.flags?.['threat:t_prison_patrol_01:defeated'];
+              const patrolActive = !!(fullState?.activeThreats || []).some(
+                (t: any) => t?.id === 't_prison_patrol_01' || t?.threatId === 't_prison_patrol_01'
+              );
+              const effectiveMeetsRequirements = isGuardJunctionPrisonExit
+                ? (patrolDefeated && !patrolActive)
+                : meetsRequirements;
               
-              const isDisabled = !meetsRequirements;
-              const hoverText = isDisabled && c.hoverMessage ? c.hoverMessage : c.label;
+              const isDisabled = !effectiveMeetsRequirements;
+              const resolvedLabel = effectiveMeetsRequirements
+                ? (c.labelWhenMet || (isGuardJunctionPrisonExit ? 'The route is clear. Move through to the prison antechamber' : c.label))
+                : (c.labelWhenUnmet || (isGuardJunctionPrisonExit ? 'Go to: Prison Antechamber' : c.label));
+              const buttonLabel = typeof resolvedLabel === 'string'
+                ? resolvedLabel.replace(/\.$/, '')
+                : resolvedLabel;
+              const resolvedHoverText = isDisabled && c.hoverMessage ? c.hoverMessage : buttonLabel;
+              const hoverText = typeof resolvedHoverText === 'string'
+                ? resolvedHoverText.replace(/\.$/, '')
+                : resolvedHoverText;
               
               return (
                 <button 
@@ -1638,31 +1860,21 @@ export default function App() {
                   }} 
                   title={hoverText}
                   disabled={isDisabled}
-                  style={{ 
-                    minWidth: 160, 
-                    padding: 12, 
-                    borderRadius: 8, 
-                    background: isDisabled ? '#666' : '#222', 
-                    color: isDisabled ? '#999' : '#fff', 
-                    cursor: isDisabled ? 'not-allowed' : 'pointer', 
-                    border: 'none', 
-                    fontSize: 14,
-                    opacity: isDisabled ? 0.6 : 1
-                  }}
+                  style={{ minWidth: 160, padding: 12, fontSize: 14, opacity: isDisabled ? 0.6 : 1 }}
                 >
-                  {c.label}
+                  {buttonLabel}
                 </button>
               );
             })}
           </div>
         ) : (
-          <button aria-label="Next page" onClick={onNextPage} style={{ position: 'absolute', right: 20, bottom: 12, padding: 12, borderRadius: 28, background: '#222', color: '#fff', cursor: 'pointer', border: 'none' }}>⤷</button>
+          <button aria-label="Next page" onClick={onNextPage} style={{ position: 'absolute', right: 20, bottom: 12, padding: '10px 16px', fontSize: 18 }}>⤷</button>
         )}
       </div>
       
       {/* Action Result Popup */}
       {actionResult && (
-        <div style={{
+        <div className="uf-popup-overlay" style={{
           position: 'fixed',
           top: 0,
           left: 0,
@@ -1674,8 +1886,7 @@ export default function App() {
           justifyContent: 'center',
           zIndex: 10001
         }}>
-          <div style={{
-            background: '#fff',
+          <div className="uf-popup-card" style={{
             borderRadius: 12,
             padding: 24,
             maxWidth: 400,
@@ -1693,9 +1904,9 @@ export default function App() {
               {actionResult.logs.map((log, i) => (
                 <div key={i} style={{ 
                   padding: '6px 0', 
-                  borderBottom: i < actionResult.logs.length - 1 ? '1px solid #eee' : 'none',
+                  borderBottom: i < actionResult.logs.length - 1 ? '1px solid rgba(207, 170, 92, 0.3)' : 'none',
                   fontSize: 14,
-                  color: '#333'
+                  color: '#f3e2b6'
                 }}>
                   {log}
                 </div>
@@ -1723,12 +1934,12 @@ export default function App() {
       
       {/* Modal Overlay */}
       {modalPage && (
-        <div style={{ position: 'fixed', top: 56, left: 0, right: 0, bottom: 0, background: '#fff', zIndex: 10000, overflow: 'auto' }}>
-          <div style={{ maxWidth: 1200, margin: '0 auto', padding: 40 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 30, paddingBottom: 20, borderBottom: '2px solid #eee' }}>
-              <h2 style={{ margin: 0, fontSize: 32, color: '#2c3e50' }}>{modalPage.charAt(0).toUpperCase() + modalPage.slice(1)}</h2>
+        <div className="uf-modal-overlay" style={{ position: 'fixed', top: 56, left: 0, right: 0, bottom: 0, background: '#fff', zIndex: 10000, overflow: 'auto' }}>
+          <div className="uf-modal-surface" style={{ maxWidth: 1200, margin: '20px auto', padding: 40 }}>
+            <div className="uf-modal-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 30, paddingBottom: 20, borderBottom: '2px solid #eee' }}>
+              <h2 className="uf-page-title" style={{ margin: 0, color: '#f5d88d' }}>{modalPage.charAt(0).toUpperCase() + modalPage.slice(1)}</h2>
               <button onClick={() => setModalPage(null)} style={{ background: '#e74c3c', border: 'none', fontSize: 14, cursor: 'pointer', color: '#fff', padding: '8px 16px', borderRadius: 6, fontWeight: 'bold', whiteSpace: 'nowrap' }}>
-                <span className="desktop-return-text">Return ↩</span>
+                <span className="desktop-return-text">Return To Game ↩</span>
                 <span className="mobile-close-x">×</span>
               </button>
             </div>
@@ -2186,9 +2397,9 @@ export default function App() {
               <div>
                 <h3 style={{ marginTop: 0 }}>Core Stats</h3>
                 {stats.statPoints > 0 && (
-                  <div style={{ marginBottom: 16, padding: 12, background: '#fffbea', border: '1px solid #f39c12', borderRadius: 8 }}>
+                  <div style={{ marginBottom: 16, padding: 12, background: 'linear-gradient(135deg, #d8b05a, #e6c87a)', border: '1px solid #8a631e', borderRadius: 8, color: '#2f3439' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                      <strong>⚡ {stats.statPoints - (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision)} Stat Points Available</strong>
+                      <strong style={{ color: '#2f3439' }}>⚡ {stats.statPoints - (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision)} Stat Points Available</strong>
                       {(pendingStats.power !== 0 || pendingStats.mind !== 0 || pendingStats.agility !== 0 || pendingStats.vision !== 0) && (
                         <div style={{ display: 'flex', gap: 8 }}>
                           <button
@@ -2229,7 +2440,7 @@ export default function App() {
                         </div>
                       )}
                     </div>
-                    <div style={{ fontSize: 12, marginTop: 4 }}>Click + to increase stats, − to decrease. Click Confirm to apply changes.</div>
+                    <div style={{ fontSize: 12, marginTop: 4, color: '#2f3439' }}>Click + to increase stats, − to decrease. Click Confirm to apply changes.</div>
                   </div>
                 )}
                 
@@ -2286,10 +2497,10 @@ export default function App() {
                 })()}
                 
                 {/* Power */}
-                <div style={{ marginBottom: 12, padding: 12, background: '#fff5f5', borderRadius: 8, border: '1px solid #ffcdd2' }}>
+                <div style={{ marginBottom: 12, padding: 12, background: 'rgba(243, 156, 18, 0.1)', borderRadius: 8, border: '2px solid #f39c12' }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
                     <div>
-                      <strong style={{ color: '#e74c3c' }}>⚔️ Power</strong>
+                      <strong style={{ color: '#f5d88d' }}>⚔️ Power</strong>
                       <div style={{ fontSize: 11, color: '#666' }}>Melee Attack, Intimidation</div>
                     </div>
                     <div style={{ fontSize: 18, fontWeight: 'bold' }}>{stats.power + pendingStats.power}/10</div>
@@ -2317,10 +2528,10 @@ export default function App() {
                 </div>
                 
                 {/* Mind */}
-                <div style={{ marginBottom: 12, padding: 12, background: '#f8f5ff', borderRadius: 8, border: '1px solid #e1d5ff' }}>
+                <div style={{ marginBottom: 12, padding: 12, background: 'rgba(243, 156, 18, 0.1)', borderRadius: 8, border: '2px solid #f39c12' }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
                     <div>
-                      <strong style={{ color: '#9b59b6' }}>🧠 Mind</strong>
+                      <strong style={{ color: '#f5d88d' }}>🧠 Mind</strong>
                       <div style={{ fontSize: 11, color: '#666' }}>Magic Power, Ranged Attack</div>
                     </div>
                     <div style={{ fontSize: 18, fontWeight: 'bold' }}>{stats.mind + pendingStats.mind}/10</div>
@@ -2348,10 +2559,10 @@ export default function App() {
                 </div>
                 
                 {/* Agility */}
-                <div style={{ marginBottom: 12, padding: 12, background: '#f0fff4', borderRadius: 8, border: '1px solid #c6f6d5' }}>
+                <div style={{ marginBottom: 12, padding: 12, background: 'rgba(243, 156, 18, 0.1)', borderRadius: 8, border: '2px solid #f39c12' }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
                     <div>
-                      <strong style={{ color: '#2ecc71' }}>🏃 Agility</strong>
+                      <strong style={{ color: '#f5d88d' }}>🏃 Agility</strong>
                       <div style={{ fontSize: 11, color: '#666' }}>Dodge, Ranged Attack, Pickpocket</div>
                     </div>
                     <div style={{ fontSize: 18, fontWeight: 'bold' }}>{stats.agility + pendingStats.agility}/10</div>
@@ -2374,10 +2585,10 @@ export default function App() {
                 </div>
                 
                 {/* Vision */}
-                <div style={{ marginBottom: 20, padding: 12, background: '#f0f8ff', borderRadius: 8, border: '1px solid #bee3f8' }}>
+                <div style={{ marginBottom: 20, padding: 12, background: 'rgba(243, 156, 18, 0.1)', borderRadius: 8, border: '2px solid #f39c12' }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
                     <div>
-                      <strong style={{ color: '#3498db' }}>👁️ Vision</strong>
+                      <strong style={{ color: '#f5d88d' }}>👁️ Vision</strong>
                       <div style={{ fontSize: 11, color: '#666' }}>Perception, Ranged Attack</div>
                     </div>
                     <div style={{ fontSize: 18, fontWeight: 'bold' }}>{stats.vision + pendingStats.vision}/10</div>
@@ -2444,7 +2655,7 @@ export default function App() {
                   <span style={{ fontSize: 11, color: '#999', fontStyle: 'italic' }}>(Mind×5 + Agility×5)</span>
                 </div>
                 
-                <h3>Purchasable Skills</h3>
+                <h3 style={{ color: '#2a1f10', textShadow: '0 1px 0 rgba(255, 231, 178, 0.2)' }}>Purchasable Skills</h3>
                 <div style={{ marginBottom: 20 }}>
                   {/* Muffle Steps */}
                   {(() => {
@@ -2517,7 +2728,7 @@ export default function App() {
                   })()}
                 </div>
                 
-                <h3>Combat Skills</h3>
+                <h3 style={{ color: '#2a1f10', textShadow: '0 1px 0 rgba(255, 231, 178, 0.2)' }}>Combat Skills</h3>
                 <div style={{ marginBottom: 20 }}>
                   {[
                     { id: 'clash', name: 'Clash', cost: 1, stamina: 1, icon: '🛡️', desc: 'Force enemy back, preventing their attack and second enemy\'s attack' },
@@ -2545,7 +2756,7 @@ export default function App() {
                       >
                         <div style={{ fontSize: 32 }}>{skill.icon}</div>
                         <div style={{ flex: 1 }}>
-                          <div style={{ fontWeight: 'bold', fontSize: 16, marginBottom: 4, color: isLearned ? '#fff' : '#333' }}>
+                          <div style={{ fontWeight: 'bold', fontSize: 16, marginBottom: 4, color: isLearned ? '#fff' : (skill.id === 'clash' || skill.id === 'pivot' || skill.id === 'feint') ? '#f8e6b2' : '#333' }}>
                             {skill.name}
                           </div>
                           <div style={{ fontSize: 12, color: isLearned ? '#e8f8f0' : '#666' }}>
@@ -2842,7 +3053,7 @@ export default function App() {
                                           {!isLearned && tierUnlocked && (
                                             <button
                                               onClick={() => {
-                                                if (canLearn && confirm(`Learn ${spell.name} for ${spell.cost} Stat Points?`)) {
+                                                if (canLearn) {
                                                   const currentState = usePlayerStore.getState();
                                                   usePlayerStore.setState({
                                                     stats: { ...currentState.stats, statPoints: currentState.stats.statPoints - spell.cost },
@@ -3508,4 +3719,18 @@ export default function App() {
   );
 }
 
-const btnStyle: any = { background:'#222', color:'#fff', padding:12, margin:'8px 0', borderRadius:8, width:260, cursor:'pointer', border:'none', fontSize:14 }
+const btnStyle: any = {
+  background: 'linear-gradient(135deg, #c79e4e 0%, #e5c57b 46%, #c3923c 100%)',
+  color: '#2d1c08',
+  padding: '13px 18px',
+  borderRadius: 10,
+  width: '100%',
+  cursor: 'pointer',
+  border: '1px solid #8a631e',
+  fontSize: 16,
+  fontWeight: 700,
+  letterSpacing: 0.6,
+  fontFamily: 'Cinzel, Georgia, serif',
+  boxShadow: '0 6px 14px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 241, 204, 0.55)',
+  transition: 'transform 0.2s ease, box-shadow 0.2s ease'
+}
