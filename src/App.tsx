@@ -56,7 +56,7 @@ export default function App() {
   const [spellTreePath, setSpellTreePath] = useState<string | null>(null); // Which path's spell tree to show
   const [selectedSpell, setSelectedSpell] = useState<string | null>(null); // Selected spell for casting
   const [pendingStats, setPendingStats] = useState({ power: 0, mind: 0, agility: 0, vision: 0 }); // Pending changes
-  const [actionResult, setActionResult] = useState<{ title: string; logs: string[]; success: boolean } | null>(null); // Action result popup
+
   const combatLogRef = useRef<HTMLDivElement>(null); // Ref for auto-scrolling combat log
   const newGame = usePlayerStore(s => s.newGame);
   const loadState = usePlayerStore(s => s.loadState);
@@ -1450,14 +1450,7 @@ export default function App() {
                     // Check if this is an action that returns a result
                     if (c.actionType && c.rawAction) {
                       const handleAction = (usePlayerStore as any).getState().handleAction;
-                      const result = await handleAction(c.actionType, c.rawAction);
-                      if (result && result.log) {
-                        setActionResult({
-                          title: result.success ? '✅ Success!' : '❌ Failed',
-                          logs: result.log,
-                          success: result.success
-                        });
-                      }
+                      await handleAction(c.actionType, c.rawAction);
                     } else {
                       const handleChoice = (usePlayerStore as any).getState().handleChoice;
                       await handleChoice(c);
@@ -1490,67 +1483,7 @@ export default function App() {
         )}
       </div>
       
-      {/* Action Result Popup */}
-      {actionResult && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'rgba(0,0,0,0.6)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 10001
-        }}>
-          <div style={{
-            background: '#2a2a2a',
-            borderRadius: 12,
-            padding: 24,
-            maxWidth: 400,
-            width: '90%',
-            boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
-            border: '1px solid rgba(201,168,76,0.3)'
-          }}>
-            <h3 style={{ 
-              margin: '0 0 16px 0', 
-              color: actionResult.success ? '#27ae60' : '#e74c3c',
-              fontSize: 20
-            }}>
-              {actionResult.title}
-            </h3>
-            <div style={{ marginBottom: 20 }}>
-              {actionResult.logs.map((log, i) => (
-                <div key={i} style={{ 
-                  padding: '6px 0', 
-                  borderBottom: i < actionResult.logs.length - 1 ? '1px solid rgba(201,168,76,0.15)' : 'none',
-                  fontSize: 14,
-                  color: '#f5e6c8'
-                }}>
-                  {log}
-                </div>
-              ))}
-            </div>
-            <button
-              onClick={() => setActionResult(null)}
-              style={{
-                width: '100%',
-                padding: 12,
-                fontSize: 16,
-                fontWeight: 'bold',
-                borderRadius: 8,
-                background: actionResult.success ? '#27ae60' : '#e74c3c',
-                color: '#fff',
-                border: 'none',
-                cursor: 'pointer'
-              }}
-            >
-              OK
-            </button>
-          </div>
-        </div>
-      )}
+
       
       {/* Modal Overlay */}
       {modalPage && (
