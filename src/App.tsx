@@ -356,9 +356,10 @@ export default function App() {
           );
         })()}
         {area ? (
-          <div style={{ maxWidth: 800, width: '100%', position: 'relative', zIndex: 1, marginTop: 'auto', padding: '20px 20px 0 20px' }}>
+          <div style={{ maxWidth: 800, width: '100%', position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', flex: 1, padding: '20px 20px 0 20px' }}>
+            <h1 style={{ marginTop: 16, marginBottom: 0, textAlign: 'center', fontSize: 22, color: '#f5e6c8', textShadow: '2px 2px 8px rgba(0,0,0,0.8)', letterSpacing: 1 }}>{area.title ?? area.id}</h1>
+            <div style={{ flex: 1 }} />
             <div style={{ background: 'rgba(30,28,24,0.80)', backdropFilter: 'blur(10px)', borderRadius: 12, padding: '20px 28px', border: '1px solid rgba(201,168,76,0.25)', boxShadow: '0 8px 32px rgba(0,0,0,0.5)' }}>
-              <h1 style={{ marginBottom: 16, textAlign: 'center', fontSize: 18, color: '#f5e6c8', textShadow: '1px 1px 4px rgba(0,0,0,0.6)' }}>{area.title ?? area.id}</h1>
               <p style={{ whiteSpace: 'pre-wrap', lineHeight: 1.6, textAlign: 'center', color: '#e8dcc8' }}>{area.description}</p>
             </div>
             
@@ -380,8 +381,8 @@ export default function App() {
                 <div style={{ 
                   position: 'fixed',
                   top: 60,
-                  left: 0,
-                  right: 0,
+                  left: '25%',
+                  right: '25%',
                   bottom: 0,
                   overflowY: 'auto',
                   padding: 20,
@@ -887,7 +888,7 @@ export default function App() {
                             >
                               <div style={{ 
                                 width: 72, height: 72, borderRadius: '50%',
-                                overflow: isOrc ? 'visible' : 'hidden',
+                                overflow: 'visible',
                                 marginBottom: 8,
                                 filter: isDead ? 'grayscale(100%)' : 'none',
                                 position: 'relative',
@@ -897,13 +898,12 @@ export default function App() {
                                   <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 36, background: 'rgba(0,0,0,0.3)', borderRadius: '50%' }}>💀</div>
                                 ) : (
                                   <img src={creatureImg} alt={enemy.name} style={{
-                                    width: isOrc ? 88 : 72,
-                                    height: isOrc ? 88 : 72,
-                                    objectFit: 'cover',
-                                    borderRadius: isOrc ? 0 : '50%',
-                                    position: isOrc ? 'absolute' : 'static',
-                                    top: isOrc ? -8 : undefined,
-                                    left: isOrc ? -8 : undefined
+                                    width: 72,
+                                    height: 72,
+                                    objectFit: 'contain',
+                                    transform: isOrc ? 'scale(1.18)' : 'scale(1)',
+                                    transformOrigin: 'center center',
+                                    display: 'block'
                                   }} />
                                 )}
                               </div>
@@ -977,17 +977,16 @@ export default function App() {
                               >
                                 <div style={{ 
                                   width: 48, height: 48, borderRadius: '50%',
-                                  overflow: isOrc ? 'visible' : 'hidden',
+                                  overflow: 'visible',
                                   marginBottom: 4, position: 'relative', flexShrink: 0
                                 }}>
                                   <img src={creatureImg} alt={enemy.name} style={{
-                                    width: isOrc ? 58 : 48,
-                                    height: isOrc ? 58 : 48,
-                                    objectFit: 'cover',
-                                    borderRadius: isOrc ? 0 : '50%',
-                                    position: isOrc ? 'absolute' : 'static',
-                                    top: isOrc ? -5 : undefined,
-                                    left: isOrc ? -5 : undefined
+                                    width: 48,
+                                    height: 48,
+                                    objectFit: 'contain',
+                                    transform: isOrc ? 'scale(1.18)' : 'scale(1)',
+                                    transformOrigin: 'center center',
+                                    display: 'block'
                                   }} />
                                 </div>
                                 <div style={{ color: '#fff', fontSize: 11, fontWeight: 'bold', textAlign: 'center', marginBottom: 6 }}>
