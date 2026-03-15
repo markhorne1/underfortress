@@ -108,21 +108,23 @@ export default function App() {
 
   if (page === 'title') {
     return (
-      <div style={{height:'100vh', background:'#f7efe0', display:'flex', alignItems:'center', justifyContent:'center', position:'relative'}}>
+      <div style={{height:'100vh', background:'#2a2a2a', display:'flex', alignItems:'center', justifyContent:'center', flexDirection:'column', position:'relative'}}>
         <div style={{textAlign:'center'}}>
-          <h1 style={{fontSize:48, fontFamily:'serif'}}>Underfortress</h1>
-          <div style={{marginTop:8,color:'#555'}}>A gamebook adventure</div>
+          <h1 style={{fontSize:48, fontFamily:'serif', color:'#f5e6c8', textShadow:'2px 2px 8px rgba(0,0,0,0.6)'}}>Underfortress</h1>
+          <div style={{marginTop:8,color:'#c9a84c'}}>A gamebook adventure</div>
         </div>
-        <button aria-label="Next page" onClick={() => setPage('menu')} style={{position:'absolute', right:20, bottom:20, padding:12, borderRadius:28, background:'#222', color:'#fff'}}>⤷</button>
+        <button aria-label="Enter the Underfortress" onClick={() => setPage('menu')} style={{marginTop:32, background:'transparent', border:'none', cursor:'pointer', padding:0}}>
+          <img src="/content/ui/start_button.png" alt="Enter The Underfortress" style={{height:64, filter:'drop-shadow(0 4px 12px rgba(201,168,76,0.5))', transition:'transform 0.2s'}} onMouseOver={e => e.currentTarget.style.transform='scale(1.08)'} onMouseOut={e => e.currentTarget.style.transform='scale(1)'} />
+        </button>
       </div>
     );
   }
 
   if (page === 'menu') {
     return (
-      <div style={{height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
-        <h2 style={{marginBottom: 20}}>Main Menu</h2>
-        <div style={{width:260}}>
+      <div style={{height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', background: '#2a2a2a'}}>
+        <h2 style={{marginBottom: 20, color: '#f5e6c8', fontFamily: 'serif'}}>Main Menu</h2>
+        <div style={{width:260, display:'flex', flexDirection:'column', alignItems:'center'}}>
           <button onClick={onNew} style={btnStyle}>New Game</button>
           <button onClick={onLoad} style={btnStyle}>Load Game</button>
           <button onClick={() => setPage('title')} style={btnStyle}>Back</button>
@@ -216,11 +218,13 @@ export default function App() {
         minHeight: 56, 
         display: 'flex', 
         alignItems: 'center', 
-        backgroundColor: '#faf6ef', 
-        borderBottom: '1px solid #eee',
+        backgroundColor: 'rgba(30,28,24,0.92)', 
+        borderBottom: '1px solid rgba(201,168,76,0.3)',
         padding: '8px 12px',
         gap: 12,
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
+        backdropFilter: 'blur(8px)',
+        zIndex: 100
       }}>
         {/* Navigation Buttons */}
         <div 
@@ -233,12 +237,9 @@ export default function App() {
             flex: '0.67 1 auto',
             minWidth: 0
           }}>
-          <button onClick={() => setModalPage('inventory')} style={{ background: 'transparent', border: 'none', fontSize: 12, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}>Inventory</button>
-          <button onClick={() => setModalPage('equipment')} style={{ background: 'transparent', border: 'none', fontSize: 12, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}>Equipment</button>
-          <button onClick={() => setModalPage('skills')} style={{ background: 'transparent', border: 'none', fontSize: 12, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}>Skills</button>
-          <button onClick={() => setModalPage('spells')} style={{ background: 'transparent', border: 'none', fontSize: 12, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}>Spells</button>
-          <button onClick={() => setModalPage('quests')} style={{ background: 'transparent', border: 'none', fontSize: 12, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}>Quests</button>
-          <button onClick={() => setModalPage('map')} style={{ background: 'transparent', border: 'none', fontSize: 12, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}>Map</button>
+          {(['inventory','equipment','skills','spells','quests','map'] as const).map(pg => (
+            <button key={pg} onClick={() => setModalPage(pg)} style={{ background: 'linear-gradient(135deg, #c9a84c, #a07830)', border: '1px solid #e0c068', fontSize: 12, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap', color: '#1a1000', padding: '6px 12px', borderRadius: 6, textTransform: 'capitalize' }}>{pg}</button>
+          ))}
         </div>
         
         {/* Health Bar (Desktop Only) */}
@@ -253,7 +254,7 @@ export default function App() {
           }}
           className="desktop-health-bar"
           >
-            <span style={{ fontSize: 12, fontWeight: 'bold', whiteSpace: 'nowrap' }}>Health:</span>
+            <span style={{ fontSize: 12, fontWeight: 'bold', whiteSpace: 'nowrap', color: '#f5e6c8' }}>Health:</span>
             <div style={{ flex: 1, height: 20, background: '#e0e0e0', borderRadius: 10, overflow: 'hidden', position: 'relative', minWidth: 100 }}>
               <div style={{ 
                 width: `${health}%`, 
@@ -291,14 +292,14 @@ export default function App() {
         )}
         
         {/* Settings Button */}
-        <button onClick={() => setModalPage('settings')} title="Settings" style={{ background: 'transparent', border: 'none', fontSize: 16, cursor: 'pointer' }}>⚙️</button>
+        <button onClick={() => setModalPage('settings')} title="Settings" style={{ background: 'transparent', border: 'none', fontSize: 16, cursor: 'pointer', color:'#f5e6c8' }}>⚙️</button>
       </div>
       
       {/* Health Bar (Mobile Only) */}
       {page === 'game' && (
-        <div className="mobile-health-bar" style={{ padding: '8px 20px', background: '#f8f8f8', borderBottom: '1px solid #ddd' }}>
+        <div className="mobile-health-bar" style={{ padding: '8px 20px', background: 'rgba(30,28,24,0.92)', borderBottom: '1px solid rgba(201,168,76,0.3)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, maxWidth: 1200, margin: '0 auto' }}>
-            <span style={{ fontSize: 14, fontWeight: 'bold', minWidth: 60 }}>Health:</span>
+            <span style={{ fontSize: 14, fontWeight: 'bold', minWidth: 60, color: '#f5e6c8' }}>Health:</span>
             <div style={{ flex: 1, height: 24, background: '#e0e0e0', borderRadius: 12, overflow: 'hidden', position: 'relative' }}>
               <div style={{ 
                 width: `${health}%`, 
@@ -336,12 +337,30 @@ export default function App() {
         </div>
       )}
       
-      {/* Main Content - Centered */}
-      <div style={{ flex: 1, padding: 20, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', overflowY: 'auto', position: 'relative' }}>
+      {/* Main Content - Centered with fullscreen area background */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', overflowY: 'auto', position: 'relative', background: '#2a2a2a' }}>
+        {/* Fullscreen background image keyed to area */}
+        {area && (() => {
+          const areaId = area.id || currentAreaId || '';
+          const bgPath = `/content/leonardo/nano banana pro/desktop/${areaId}.jpg`;
+          return (
+            <div style={{
+              position: 'absolute',
+              inset: 0,
+              backgroundImage: `url("${bgPath}")`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+              zIndex: 0
+            }} />
+          );
+        })()}
         {area ? (
-          <div style={{ maxWidth: 800, width: '100%' }}>
-            <h1 style={{ marginBottom: 20, textAlign: 'center' }}>{area.title ?? area.id}</h1>
-            <p style={{ whiteSpace: 'pre-wrap', lineHeight: 1.6, textAlign: 'center' }}>{area.description}</p>
+          <div style={{ maxWidth: 800, width: '100%', position: 'relative', zIndex: 1, marginTop: 'auto', padding: '20px 20px 0 20px' }}>
+            <div style={{ background: 'rgba(30,28,24,0.80)', backdropFilter: 'blur(10px)', borderRadius: 12, padding: '20px 28px', border: '1px solid rgba(201,168,76,0.25)', boxShadow: '0 8px 32px rgba(0,0,0,0.5)' }}>
+              <h1 style={{ marginBottom: 16, textAlign: 'center', fontSize: 18, color: '#f5e6c8', textShadow: '1px 1px 4px rgba(0,0,0,0.6)' }}>{area.title ?? area.id}</h1>
+              <p style={{ whiteSpace: 'pre-wrap', lineHeight: 1.6, textAlign: 'center', color: '#e8dcc8' }}>{area.description}</p>
+            </div>
             
             {/* Combat UI - Fixed Overlay Beneath TopNav */}
             {combat && (combat.active || combat.victoryScreen || combat.defeatScreen) && (
@@ -745,7 +764,7 @@ export default function App() {
                 <div style={{ display: 'flex', gap: 24, marginBottom: 20, alignItems: 'flex-start', justifyContent: 'center' }}>
                   {/* Player Display */}
                   <div>
-                    <h3 style={{ color: '#fff', marginBottom: 12, fontSize: 14, textTransform: 'uppercase', letterSpacing: 1 }}>
+                    <h3 style={{ color: '#f5e6c8', marginBottom: 12, fontSize: 14, textTransform: 'uppercase', letterSpacing: 1 }}>
                       You
                     </h3>
                     <div style={{
@@ -753,13 +772,18 @@ export default function App() {
                       background: 'rgba(241, 196, 15, 0.2)',
                       border: '3px solid #f1c40f',
                       borderRadius: 12,
-                      minWidth: 140,
-                      boxShadow: '0 0 20px rgba(241, 196, 15, 0.4)'
+                      width: 160,
+                      minHeight: 220,
+                      boxShadow: '0 0 20px rgba(241, 196, 15, 0.4)',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center'
                     }}>
                       <div style={{ 
-                        fontSize: 40, 
-                        textAlign: 'center', 
-                        marginBottom: 8
+                        width: 72, height: 72, borderRadius: '50%',
+                        background: 'linear-gradient(135deg, #f1c40f, #e67e22)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        fontSize: 36, marginBottom: 8, border: '2px solid #f39c12'
                       }}>
                         🛡️
                       </div>
@@ -814,7 +838,7 @@ export default function App() {
                   <div style={{ display: 'flex', gap: 20, alignItems: 'flex-start' }}>
                     {/* Front Row Enemies */}
                     <div>
-                      <h3 style={{ color: '#fff', marginBottom: 12, fontSize: 14, textTransform: 'uppercase', letterSpacing: 1 }}>
+                      <h3 style={{ color: '#f5e6c8', marginBottom: 12, fontSize: 14, textTransform: 'uppercase', letterSpacing: 1 }}>
                         Front Line
                       </h3>
                       <div style={{ display: 'flex', gap: 16, justifyContent: 'center', alignItems: 'flex-end' }}>
@@ -827,6 +851,9 @@ export default function App() {
                         }).map((enemy) => {
                           const isSelected = combat.selectedEnemyId === enemy.instanceId;
                           const isDead = enemy.health <= 0;
+                          const nameLC = (enemy.name || '').toLowerCase();
+                          const isOrc = nameLC.includes('orc');
+                          const creatureImg = isOrc ? '/content/creatures/orc.png' : '/content/creatures/goblin.png';
                           
                           return (
                             <div
@@ -847,20 +874,38 @@ export default function App() {
                                     : 'rgba(52, 73, 94, 0.6)',
                                 border: `3px solid ${isDead ? '#7f8c8d' : isSelected ? '#e74c3c' : '#34495e'}`,
                                 borderRadius: 12,
-                                minWidth: 140,
+                                width: 160,
+                                minHeight: 220,
                                 cursor: isDead || !combat.playerTurn ? 'default' : 'pointer',
                                 transition: 'all 0.2s',
                                 opacity: isDead ? 0.4 : 1,
-                                boxShadow: isSelected ? '0 0 20px rgba(231, 76, 60, 0.6)' : 'none'
+                                boxShadow: isSelected ? '0 0 20px rgba(231, 76, 60, 0.6)' : 'none',
+                                display: 'flex',
+                                flexDirection: 'column' as const,
+                                alignItems: 'center'
                               }}
                             >
                               <div style={{ 
-                                fontSize: 40, 
-                                textAlign: 'center', 
+                                width: 72, height: 72, borderRadius: '50%',
+                                overflow: isOrc ? 'visible' : 'hidden',
                                 marginBottom: 8,
-                                filter: isDead ? 'grayscale(100%)' : 'none'
+                                filter: isDead ? 'grayscale(100%)' : 'none',
+                                position: 'relative',
+                                flexShrink: 0
                               }}>
-                                {isDead ? '💀' : '👹'}
+                                {isDead ? (
+                                  <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 36, background: 'rgba(0,0,0,0.3)', borderRadius: '50%' }}>💀</div>
+                                ) : (
+                                  <img src={creatureImg} alt={enemy.name} style={{
+                                    width: isOrc ? 88 : 72,
+                                    height: isOrc ? 88 : 72,
+                                    objectFit: 'cover',
+                                    borderRadius: isOrc ? 0 : '50%',
+                                    position: isOrc ? 'absolute' : 'static',
+                                    top: isOrc ? -8 : undefined,
+                                    left: isOrc ? -8 : undefined
+                                  }} />
+                                )}
                               </div>
                               <div style={{ color: '#fff', fontSize: 14, fontWeight: 'bold', textAlign: 'center', marginBottom: 8 }}>
                                 {enemy.name}
@@ -900,7 +945,7 @@ export default function App() {
                       
                       return (
                         <div>
-                          <h3 style={{ color: '#fff', marginBottom: 12, fontSize: 14, textTransform: 'uppercase', letterSpacing: 1 }}>
+                          <h3 style={{ color: '#f5e6c8', marginBottom: 12, fontSize: 14, textTransform: 'uppercase', letterSpacing: 1 }}>
                             Reserve ({reserveEnemies.length})
                           </h3>
                           <div style={{ 
@@ -911,7 +956,11 @@ export default function App() {
                             gap: 12,
                             paddingRight: reserveEnemies.length > 4 ? 8 : 0
                           }}>
-                            {reserveEnemies.map((enemy) => (
+                            {reserveEnemies.map((enemy) => {
+                              const nameLC = (enemy.name || '').toLowerCase();
+                              const isOrc = nameLC.includes('orc');
+                              const creatureImg = isOrc ? '/content/creatures/orc.png' : '/content/creatures/goblin.png';
+                              return (
                               <div
                                 key={enemy.instanceId}
                                 style={{
@@ -919,16 +968,27 @@ export default function App() {
                                   background: 'rgba(52, 73, 94, 0.4)',
                                   border: '2px solid #34495e',
                                   borderRadius: 8,
-                                  minWidth: 100,
-                                  opacity: 0.7
+                                  width: 110,
+                                  opacity: 0.7,
+                                  display: 'flex',
+                                  flexDirection: 'column' as const,
+                                  alignItems: 'center'
                                 }}
                               >
                                 <div style={{ 
-                                  fontSize: 28, 
-                                  textAlign: 'center', 
-                                  marginBottom: 4
+                                  width: 48, height: 48, borderRadius: '50%',
+                                  overflow: isOrc ? 'visible' : 'hidden',
+                                  marginBottom: 4, position: 'relative', flexShrink: 0
                                 }}>
-                                  👹
+                                  <img src={creatureImg} alt={enemy.name} style={{
+                                    width: isOrc ? 58 : 48,
+                                    height: isOrc ? 58 : 48,
+                                    objectFit: 'cover',
+                                    borderRadius: isOrc ? 0 : '50%',
+                                    position: isOrc ? 'absolute' : 'static',
+                                    top: isOrc ? -5 : undefined,
+                                    left: isOrc ? -5 : undefined
+                                  }} />
                                 </div>
                                 <div style={{ color: '#fff', fontSize: 11, fontWeight: 'bold', textAlign: 'center', marginBottom: 6 }}>
                                   {enemy.name}
@@ -952,7 +1012,8 @@ export default function App() {
                                   {Math.max(0, enemy.health)} / {enemy.maxHealth} HP
                                 </div>
                               </div>
-                            ))}
+                            );
+                            })}
                           </div>
                         </div>
                       );
@@ -1353,12 +1414,12 @@ export default function App() {
             )}
           </div>
         ) : (
-          <div>No area loaded.</div>
+          <div style={{ color: '#f5e6c8' }}>No area loaded.</div>
         )}
       </div>
 
       {/* Bottom Buttons - Centered */}
-      <div style={{ borderTop: '1px solid #eee', padding: 20, display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
+      <div style={{ borderTop: '1px solid rgba(201,168,76,0.3)', padding: 20, display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative', background: 'rgba(30,28,24,0.92)', backdropFilter: 'blur(8px)' }}>
         {orderedChoices.length > 0 ? (
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center', maxWidth: 800 }}>
             {orderedChoices.map((c:any, idx:number) => {
@@ -1372,9 +1433,14 @@ export default function App() {
                   return true; // If requirements check fails, allow the choice
                 }
               })();
+
+              // Check if Goto buttons should be locked by active patrol
+              const isExitButton = c.id?.startsWith('exit_');
+              const patrolAlive = combat && combat.active;
+              const patrolLocked = isExitButton && patrolAlive;
               
-              const isDisabled = !meetsRequirements;
-              const hoverText = isDisabled && c.hoverMessage ? c.hoverMessage : c.label;
+              const isDisabled = !meetsRequirements || patrolLocked;
+              const hoverText = patrolLocked ? 'Defeat the patrol first!' : isDisabled && c.hoverMessage ? c.hoverMessage : c.label;
               
               return (
                 <button 
@@ -1403,12 +1469,15 @@ export default function App() {
                     minWidth: 160, 
                     padding: 12, 
                     borderRadius: 8, 
-                    background: isDisabled ? '#666' : '#222', 
-                    color: isDisabled ? '#999' : '#fff', 
+                    background: isDisabled ? '#555' : 'linear-gradient(135deg, #c9a84c, #a07830)', 
+                    color: isDisabled ? '#888' : '#1a1000', 
                     cursor: isDisabled ? 'not-allowed' : 'pointer', 
-                    border: 'none', 
+                    border: isDisabled ? '1px solid #666' : '1px solid #e0c068', 
                     fontSize: 14,
-                    opacity: isDisabled ? 0.6 : 1
+                    fontWeight: 700,
+                    opacity: isDisabled ? 0.5 : 1,
+                    boxShadow: isDisabled ? 'none' : '0 2px 8px rgba(201,168,76,0.3)',
+                    transition: 'all 0.2s ease'
                   }}
                 >
                   {c.label}
@@ -1417,7 +1486,7 @@ export default function App() {
             })}
           </div>
         ) : (
-          <button aria-label="Next page" onClick={onNextPage} style={{ position: 'absolute', right: 20, bottom: 12, padding: 12, borderRadius: 28, background: '#222', color: '#fff', cursor: 'pointer', border: 'none' }}>⤷</button>
+          <button aria-label="Next page" onClick={onNextPage} style={{ position: 'absolute', right: 20, bottom: 12, padding: 12, borderRadius: 28, background: 'linear-gradient(135deg, #c9a84c, #a07830)', color: '#1a1000', cursor: 'pointer', border: '1px solid #e0c068', fontWeight: 700 }}>⤷</button>
         )}
       </div>
       
@@ -3269,4 +3338,4 @@ export default function App() {
   );
 }
 
-const btnStyle: any = { background:'#222', color:'#fff', padding:12, margin:'8px 0', borderRadius:8, width:260, cursor:'pointer', border:'none', fontSize:14 }
+const btnStyle: any = { background:'linear-gradient(135deg, #c9a84c, #a07830)', color:'#1a1000', padding:12, margin:'8px 0', borderRadius:8, width:260, cursor:'pointer', border:'1px solid #e0c068', fontSize:14, fontWeight:700, boxShadow:'0 2px 8px rgba(201,168,76,0.3)', transition:'all 0.2s ease' }
