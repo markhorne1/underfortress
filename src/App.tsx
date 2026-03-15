@@ -1505,12 +1505,13 @@ export default function App() {
           zIndex: 10001
         }}>
           <div style={{
-            background: '#fff',
+            background: '#2a2a2a',
             borderRadius: 12,
             padding: 24,
             maxWidth: 400,
             width: '90%',
-            boxShadow: '0 8px 32px rgba(0,0,0,0.3)'
+            boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
+            border: '1px solid rgba(201,168,76,0.3)'
           }}>
             <h3 style={{ 
               margin: '0 0 16px 0', 
@@ -1523,9 +1524,9 @@ export default function App() {
               {actionResult.logs.map((log, i) => (
                 <div key={i} style={{ 
                   padding: '6px 0', 
-                  borderBottom: i < actionResult.logs.length - 1 ? '1px solid #eee' : 'none',
+                  borderBottom: i < actionResult.logs.length - 1 ? '1px solid rgba(201,168,76,0.15)' : 'none',
                   fontSize: 14,
-                  color: '#333'
+                  color: '#f5e6c8'
                 }}>
                   {log}
                 </div>
@@ -1553,12 +1554,12 @@ export default function App() {
       
       {/* Modal Overlay */}
       {modalPage && (
-        <div style={{ position: 'fixed', top: 56, left: 0, right: 0, bottom: 0, background: '#fff', zIndex: 10000, overflow: 'auto' }}>
+        <div style={{ position: 'fixed', top: 56, left: 0, right: 0, bottom: 0, background: '#2a2a2a', zIndex: 10000, overflow: 'auto' }}>
           <div style={{ maxWidth: 1200, margin: '0 auto', padding: 40 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 30, paddingBottom: 20, borderBottom: '2px solid #eee' }}>
-              <h2 style={{ margin: 0, fontSize: 32, color: '#2c3e50' }}>{modalPage.charAt(0).toUpperCase() + modalPage.slice(1)}</h2>
-              <button onClick={() => setModalPage(null)} style={{ background: '#e74c3c', border: 'none', fontSize: 14, cursor: 'pointer', color: '#fff', padding: '8px 16px', borderRadius: 6, fontWeight: 'bold', whiteSpace: 'nowrap' }}>
-                <span className="desktop-return-text">Return ↩</span>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 30, paddingBottom: 20, borderBottom: '2px solid rgba(201,168,76,0.3)' }}>
+              <h2 style={{ margin: 0, fontSize: 32, color: '#f5e6c8' }}>{modalPage.charAt(0).toUpperCase() + modalPage.slice(1)}</h2>
+              <button onClick={() => setModalPage(null)} style={{ background: 'linear-gradient(135deg, #c9a84c, #a07830)', border: '1px solid #e0c068', fontSize: 14, cursor: 'pointer', color: '#1a1000', padding: '8px 16px', borderRadius: 6, fontWeight: 'bold', whiteSpace: 'nowrap' }}>
+                <span className="desktop-return-text">Return To Game ↩</span>
                 <span className="mobile-close-x">×</span>
               </button>
             </div>
@@ -1578,11 +1579,11 @@ export default function App() {
                 
                 {/* Items Section */}
                 <div>
-                  <h3 style={{ marginTop: 0, marginBottom: 16, color: '#2c3e50', fontSize: 20 }}>Items</h3>
+                  <h3 style={{ marginTop: 0, marginBottom: 16, color: '#f5e6c8', fontSize: 20 }}>Items</h3>
                   {inventory.length === 0 ? (
-                    <div style={{ padding: 40, textAlign: 'center', background: '#f8f9fa', borderRadius: 8, border: '2px dashed #dee2e6' }}>
+                    <div style={{ padding: 40, textAlign: 'center', background: 'rgba(245,230,200,0.08)', borderRadius: 8, border: '2px dashed rgba(201,168,76,0.3)' }}>
                       <div style={{ fontSize: 48, marginBottom: 12, opacity: 0.3 }}>📦</div>
-                      <p style={{ color: '#6c757d', fontSize: 16, margin: 0 }}>No items in inventory</p>
+                      <p style={{ color: '#9aa5b1', fontSize: 16, margin: 0 }}>No items in inventory</p>
                     </div>
                   ) : (
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: 16 }}>
@@ -1595,10 +1596,10 @@ export default function App() {
                           <div key={idx} style={{ 
                             position: 'relative',
                             padding: 12, 
-                            background: '#fff', 
+                            background: 'rgba(245,230,200,0.08)', 
                             borderRadius: 8, 
-                            border: '2px solid #dee2e6',
-                            boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                            border: '1px solid rgba(201,168,76,0.25)',
+                            boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
                             transition: 'transform 0.2s, box-shadow 0.2s',
                             display: 'flex',
                             flexDirection: 'column',
@@ -1608,11 +1609,11 @@ export default function App() {
                             {itemDef?.icon && (
                               <img src={itemDef.icon} alt={itemDef.name} style={{ width: 48, height: 48 }} />
                             )}
-                            <div style={{ fontSize: 12, fontWeight: 'bold', color: '#2c3e50', textAlign: 'center', lineHeight: 1.2 }}>
+                            <div style={{ fontSize: 12, fontWeight: 'bold', color: '#f5e6c8', textAlign: 'center', lineHeight: 1.2 }}>
                               {itemDef?.name || item.itemId}
                             </div>
-                            <div style={{ fontSize: 11, color: '#6c757d' }}>
-                              Qty: <span style={{ fontWeight: 'bold', color: '#3498db' }}>×{item.qty}</span>
+                            <div style={{ fontSize: 11, color: '#9aa5b1' }}>
+                              Qty: <span style={{ fontWeight: 'bold', color: '#c9a84c' }}>×{item.qty}</span>
                             </div>
                             
                             {/* Sell button positioned at bottom right */}
@@ -1650,8 +1651,8 @@ export default function App() {
             {modalPage === 'equipment' && (
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16 }}>
-                  <h3 style={{ margin: 0 }}>Equipment</h3>
-                  <div style={{ fontSize: 18, fontWeight: 'bold', color: '#3498db' }}>
+                  <h3 style={{ margin: 0, color: '#f5e6c8' }}>Equipment</h3>
+                  <div style={{ fontSize: 18, fontWeight: 'bold', color: '#c9a84c' }}>
                     AR: {getTotalArmourRating({ stats, equipment, inventory, currentAreaId, discoveredMap, spellsKnown, spellPathsUnlocked, combatSkills: combatSkills || [], health, stamina: stamina || 0, maxStamina: maxStamina || 0, lastCheckpointId, flags: flags || {}, quests: quests || {}, questLog: questLog || [] })}
                   </div>
                 </div>
@@ -1663,18 +1664,18 @@ export default function App() {
                     width: '100%', 
                     maxWidth: 400,
                     flex: '0 0 auto',
-                    background: 'url(/icons/paper_doll_bg.svg) center center no-repeat, linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%)', 
+                    background: 'url(/icons/paper_doll_bg.svg) center center no-repeat, linear-gradient(180deg, rgba(245,230,200,0.06) 0%, rgba(201,168,76,0.08) 100%)', 
                     backgroundSize: 'contain',
                     borderRadius: 12, 
-                    border: '3px solid #dee2e6', 
+                    border: '3px solid rgba(201,168,76,0.3)', 
                     padding: '24px 20px'
                   }}>
                     {/* Head slot */}
                     <div style={{ 
                       textAlign: 'center', 
                       padding: 12, 
-                      background: equipment.head ? '#d1ecf1' : '#fff', 
-                      border: '3px dashed #6c757d', 
+                      background: equipment.head ? 'rgba(201,168,76,0.2)' : 'rgba(245,230,200,0.06)', 
+                      border: '3px dashed rgba(201,168,76,0.4)', 
                       borderRadius: 8, 
                       fontSize: 14, 
                       fontWeight: 600,
@@ -1692,8 +1693,8 @@ export default function App() {
                     <div style={{ 
                       textAlign: 'center', 
                       padding: 16, 
-                      background: equipment.chest ? '#d1ecf1' : '#fff', 
-                      border: '3px dashed #6c757d', 
+                      background: equipment.chest ? 'rgba(201,168,76,0.2)' : 'rgba(245,230,200,0.06)', 
+                      border: '3px dashed rgba(201,168,76,0.4)', 
                       borderRadius: 8, 
                       fontSize: 14, 
                       fontWeight: 600,
@@ -1714,8 +1715,8 @@ export default function App() {
                         position: 'relative', 
                         textAlign: 'center', 
                         padding: 12, 
-                        background: (equipment.gloves || equipment.offhand) ? '#d1ecf1' : '#fff', 
-                        border: '3px dashed #6c757d', 
+                        background: (equipment.gloves || equipment.offhand) ? 'rgba(201,168,76,0.2)' : 'rgba(245,230,200,0.06)', 
+                        border: '3px dashed rgba(201,168,76,0.4)', 
                         borderRadius: 8, 
                         fontSize: 14, 
                         fontWeight: 600,
@@ -1726,7 +1727,7 @@ export default function App() {
                         alignItems: 'center',
                         justifyContent: 'center'
                       }}>
-                        {equipment.gloves && <div style={{ fontSize: 10, color: '#6c757d', marginBottom: 4 }}>GLOVES</div>}
+                        {equipment.gloves && <div style={{ fontSize: 10, color: '#9aa5b1', marginBottom: 4 }}>GLOVES</div>}
                         {equipment.offhand ? (
                           <div style={{ position: 'relative' }}>
                             {(() => {
@@ -1747,8 +1748,8 @@ export default function App() {
                         position: 'relative', 
                         textAlign: 'center', 
                         padding: 12, 
-                        background: (equipment.gloves || equipment.mainhand) ? '#d1ecf1' : '#fff', 
-                        border: '3px dashed #6c757d', 
+                        background: (equipment.gloves || equipment.mainhand) ? 'rgba(201,168,76,0.2)' : 'rgba(245,230,200,0.06)', 
+                        border: '3px dashed rgba(201,168,76,0.4)', 
                         borderRadius: 8, 
                         fontSize: 14, 
                         fontWeight: 600,
@@ -1759,7 +1760,7 @@ export default function App() {
                         alignItems: 'center',
                         justifyContent: 'center'
                       }}>
-                        {equipment.gloves && <div style={{ fontSize: 10, color: '#6c757d', marginBottom: 4 }}>GLOVES</div>}
+                        {equipment.gloves && <div style={{ fontSize: 10, color: '#9aa5b1', marginBottom: 4 }}>GLOVES</div>}
                         {equipment.mainhand ? (
                           <div style={{ position: 'relative' }}>
                             {(() => {
@@ -1781,8 +1782,8 @@ export default function App() {
                     <div style={{ 
                       textAlign: 'center', 
                       padding: 12, 
-                      background: equipment.legs ? '#d1ecf1' : '#fff', 
-                      border: '3px dashed #6c757d', 
+                      background: equipment.legs ? 'rgba(201,168,76,0.2)' : 'rgba(245,230,200,0.06)', 
+                      border: '3px dashed rgba(201,168,76,0.4)', 
                       borderRadius: 8, 
                       fontSize: 14, 
                       fontWeight: 600,
@@ -1800,8 +1801,8 @@ export default function App() {
                     <div style={{ 
                       textAlign: 'center', 
                       padding: 12, 
-                      background: equipment.boots ? '#d1ecf1' : '#fff', 
-                      border: '3px dashed #6c757d', 
+                      background: equipment.boots ? 'rgba(201,168,76,0.2)' : 'rgba(245,230,200,0.06)', 
+                      border: '3px dashed rgba(201,168,76,0.4)', 
                       borderRadius: 8, 
                       fontSize: 14, 
                       fontWeight: 600,
@@ -1818,7 +1819,7 @@ export default function App() {
                   
                   {/* Equipment Details - Weapons and Armor Sections */}
                   <div style={{ flex: '1 1 400px', minWidth: 300 }}>
-                    <h4 style={{ marginTop: 0, marginBottom: 12, fontSize: 16, color: '#2c3e50' }}>EQUIPPED WEAPONS</h4>
+                    <h4 style={{ marginTop: 0, marginBottom: 12, fontSize: 16, color: '#f5e6c8' }}>EQUIPPED WEAPONS</h4>
                     <div style={{ display: 'flex', gap: 12, marginBottom: 24 }}>
                       {['mainhand', 'offhand'].map(slot => {
                         const itemId = equipment[slot];
@@ -1826,18 +1827,18 @@ export default function App() {
                           <div key={slot} style={{ 
                             flex: 1,
                             padding: '8px 12px', 
-                            background: '#f8f9fa',
-                            border: '2px solid #dee2e6', 
+                            background: 'rgba(245,230,200,0.08)',
+                            border: '1px solid rgba(201,168,76,0.25)', 
                             borderRadius: 6,
                             display: 'flex', 
                             flexDirection: 'column',
                             alignItems: 'center',
                             gap: 4
                           }}>
-                            <div style={{ fontSize: 11, fontWeight: 'bold', textTransform: 'uppercase', color: '#6c757d' }}>
+                            <div style={{ fontSize: 11, fontWeight: 'bold', textTransform: 'uppercase', color: '#9aa5b1' }}>
                               {slot === 'mainhand' ? 'Main Hand' : 'Off Hand'}
                             </div>
-                            <div style={{ fontSize: 13, fontWeight: '600' }}>
+                            <div style={{ fontSize: 13, fontWeight: '600', color: '#f5e6c8' }}>
                               {itemId || <em style={{ color: '#adb5bd' }}>Empty</em>}
                             </div>
                             {itemId && (() => {
@@ -1845,7 +1846,7 @@ export default function App() {
                               const items = content?.items || new Map();
                               const item = items.get(itemId);
                               return (
-                                <div style={{ fontSize: 10, color: '#495057', marginTop: 4 }}>
+                                <div style={{ fontSize: 10, color: '#9aa5b1', marginTop: 4 }}>
                                   {item?.attackBonus && <div>⚔️ +{item.attackBonus}% Attack</div>}
                                   {item?.defenseBonus && <div>🛡️ +{item.defenseBonus}% Defense</div>}
                                   {item?.damageRating && <div>💥 {item.damageRating} Damage</div>}
@@ -1876,33 +1877,33 @@ export default function App() {
                       })}
                     </div>
                     
-                    <h4 style={{ marginTop: 0, marginBottom: 12, fontSize: 16, color: '#2c3e50' }}>ARMOR PIECES</h4>
+                    <h4 style={{ marginTop: 0, marginBottom: 12, fontSize: 16, color: '#f5e6c8' }}>ARMOR PIECES</h4>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: 8 }}>
                       {['head', 'chest', 'gloves', 'legs', 'boots'].map(slot => {
                         const itemId = equipment[slot];
                         return (
                           <div key={slot} style={{ 
                             padding: '8px 12px', 
-                            background: '#f8f9fa',
-                            border: '2px solid #dee2e6', 
+                            background: 'rgba(245,230,200,0.08)',
+                            border: '1px solid rgba(201,168,76,0.25)', 
                             borderRadius: 6,
                             display: 'flex', 
                             flexDirection: 'column',
                             alignItems: 'center',
                             gap: 4
                           }}>
-                            <div style={{ fontSize: 11, fontWeight: 'bold', textTransform: 'uppercase', color: '#6c757d' }}>
+                            <div style={{ fontSize: 11, fontWeight: 'bold', textTransform: 'uppercase', color: '#9aa5b1' }}>
                               {slot}
                             </div>
-                            <div style={{ fontSize: 13, fontWeight: '600' }}>
-                              {itemId || <em style={{ color: '#adb5bd' }}>Empty</em>}
+                            <div style={{ fontSize: 13, fontWeight: '600', color: '#f5e6c8' }}>
+                              {itemId || <em style={{ color: '#9aa5b1' }}>Empty</em>}
                             </div>
                             {itemId && (() => {
                               const content = getContentSnapshot();
                               const items = content?.items || new Map();
                               const item = items.get(itemId);
                               return (
-                                <div style={{ fontSize: 10, color: '#495057', marginTop: 4 }}>
+                                <div style={{ fontSize: 10, color: '#9aa5b1', marginTop: 4 }}>
                                   {item?.armourRating && <div>🛡️ {item.armourRating} AR</div>}
                                   {item?.defenseBonus && <div>🛡️ +{item.defenseBonus}% Defense</div>}
                                 </div>
@@ -1933,7 +1934,7 @@ export default function App() {
                     </div>
                     
                     {/* Available Equipment from Inventory */}
-                    <h4 style={{ marginTop: 24, marginBottom: 12, fontSize: 16, color: '#2c3e50' }}>AVAILABLE EQUIPMENT</h4>
+                    <h4 style={{ marginTop: 24, marginBottom: 12, fontSize: 16, color: '#f5e6c8' }}>AVAILABLE EQUIPMENT</h4>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(100px, 1fr))', gap: 8 }}>
                       {(() => {
                         const content = getContentSnapshot();
@@ -1960,8 +1961,8 @@ export default function App() {
                           return (
                             <div key={invItem.itemId} style={{ 
                               padding: '6px', 
-                              background: isEquipped ? '#e8f8f0' : '#f8f9fa',
-                              border: `2px solid ${isEquipped ? '#2ecc71' : '#dee2e6'}`, 
+                              background: isEquipped ? 'rgba(46,204,113,0.15)' : 'rgba(245,230,200,0.08)',
+                              border: `2px solid ${isEquipped ? '#2ecc71' : 'rgba(201,168,76,0.25)'}`, 
                               borderRadius: 6,
                               display: 'flex', 
                               flexDirection: 'column',
@@ -1972,11 +1973,11 @@ export default function App() {
                               {item.icon && (
                                 <img src={item.icon} alt={item.name} style={{ width: 32, height: 32 }} />
                               )}
-                              <div style={{ fontSize: 10, fontWeight: '600', textAlign: 'center', lineHeight: 1.2 }}>
+                              <div style={{ fontSize: 10, fontWeight: '600', textAlign: 'center', lineHeight: 1.2, color: '#f5e6c8' }}>
                                 {item.name}
                               </div>
                               {invItem.qty > 1 && (
-                                <div style={{ fontSize: 9, color: '#6c757d' }}>×{invItem.qty}</div>
+                                <div style={{ fontSize: 9, color: '#9aa5b1' }}>×{invItem.qty}</div>
                               )}
                               {!isEquipped && item.slot && (
                                 <button
@@ -2014,9 +2015,9 @@ export default function App() {
             
             {modalPage === 'skills' && (
               <div>
-                <h3 style={{ marginTop: 0 }}>Core Stats</h3>
+                <h3 style={{ marginTop: 0, color: '#f5e6c8' }}>Core Stats</h3>
                 {stats.statPoints > 0 && (
-                  <div style={{ marginBottom: 16, padding: 12, background: '#fffbea', border: '1px solid #f39c12', borderRadius: 8 }}>
+                  <div style={{ marginBottom: 16, padding: 12, background: 'rgba(243,156,18,0.12)', border: '1px solid rgba(243,156,18,0.4)', borderRadius: 8 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
                       <strong>⚡ {stats.statPoints - (pendingStats.power + pendingStats.mind + pendingStats.agility + pendingStats.vision)} Stat Points Available</strong>
                       {(pendingStats.power !== 0 || pendingStats.mind !== 0 || pendingStats.agility !== 0 || pendingStats.vision !== 0) && (
@@ -2059,7 +2060,7 @@ export default function App() {
                         </div>
                       )}
                     </div>
-                    <div style={{ fontSize: 12, marginTop: 4 }}>Click + to increase stats, − to decrease. Click Confirm to apply changes.</div>
+                    <div style={{ fontSize: 12, marginTop: 4, color: '#9aa5b1' }}>Click + to increase stats, − to decrease. Click Confirm to apply changes.</div>
                   </div>
                 )}
                 
@@ -2071,11 +2072,11 @@ export default function App() {
                   
                   if (hasGodstone) {
                     return (
-                      <div style={{ marginBottom: 16, padding: 12, background: '#f3e5f5', border: '2px solid #9c27b0', borderRadius: 8 }}>
+                      <div style={{ marginBottom: 16, padding: 12, background: 'rgba(156,39,176,0.12)', border: '2px solid rgba(156,39,176,0.4)', borderRadius: 8 }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                           <div>
                             <strong style={{ color: '#9c27b0' }}>🔮 Godstone of Renewal</strong>
-                            <div style={{ fontSize: 11, color: '#666', marginTop: 4 }}>
+                            <div style={{ fontSize: 11, color: '#9aa5b1', marginTop: 4 }}>
                               Reset all stats to 1 and recover all spent points. The Godstone will be consumed.
                             </div>
                           </div>
@@ -2116,13 +2117,13 @@ export default function App() {
                 })()}
                 
                 {/* Power */}
-                <div style={{ marginBottom: 12, padding: 12, background: '#fff5f5', borderRadius: 8, border: '1px solid #ffcdd2' }}>
+                <div style={{ marginBottom: 12, padding: 12, background: 'rgba(231,76,60,0.1)', borderRadius: 8, border: '1px solid rgba(231,76,60,0.3)' }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
                     <div>
                       <strong style={{ color: '#e74c3c' }}>⚔️ Power</strong>
-                      <div style={{ fontSize: 11, color: '#666' }}>Melee Attack, Intimidation</div>
+                      <div style={{ fontSize: 11, color: '#9aa5b1' }}>Melee Attack, Intimidation</div>
                     </div>
-                    <div style={{ fontSize: 18, fontWeight: 'bold' }}>{stats.power + pendingStats.power}/10</div>
+                    <div style={{ fontSize: 18, fontWeight: 'bold', color: '#f5e6c8' }}>{stats.power + pendingStats.power}/10</div>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                     <button 
@@ -2130,7 +2131,7 @@ export default function App() {
                       disabled={pendingStats.power <= 0}
                       style={{ padding: '4px 12px', fontSize: 16, borderRadius: 6, background: (pendingStats.power <= 0) ? '#ddd' : '#e74c3c', color: '#fff', border: 'none', cursor: (pendingStats.power <= 0) ? 'not-allowed' : 'pointer', opacity: (pendingStats.power <= 0) ? 0.5 : 1 }}
                     >−</button>
-                    <div style={{ flex: 1, height: 20, background: '#f0f0f0', borderRadius: 10, overflow: 'hidden' }}>
+                    <div style={{ flex: 1, height: 20, background: 'rgba(0,0,0,0.3)', borderRadius: 10, overflow: 'hidden' }}>
                       <div style={{ width: `${(stats.power + pendingStats.power) * 10}%`, height: '100%', background: '#e74c3c', transition: 'width 0.3s' }}></div>
                     </div>
                     <button 
@@ -2147,13 +2148,13 @@ export default function App() {
                 </div>
                 
                 {/* Mind */}
-                <div style={{ marginBottom: 12, padding: 12, background: '#f8f5ff', borderRadius: 8, border: '1px solid #e1d5ff' }}>
+                <div style={{ marginBottom: 12, padding: 12, background: 'rgba(155,89,182,0.1)', borderRadius: 8, border: '1px solid rgba(155,89,182,0.3)' }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
                     <div>
                       <strong style={{ color: '#9b59b6' }}>🧠 Mind</strong>
-                      <div style={{ fontSize: 11, color: '#666' }}>Magic Power, Ranged Attack</div>
+                      <div style={{ fontSize: 11, color: '#9aa5b1' }}>Magic Power, Ranged Attack</div>
                     </div>
-                    <div style={{ fontSize: 18, fontWeight: 'bold' }}>{stats.mind + pendingStats.mind}/10</div>
+                    <div style={{ fontSize: 18, fontWeight: 'bold', color: '#f5e6c8' }}>{stats.mind + pendingStats.mind}/10</div>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                     <button 
@@ -2161,7 +2162,7 @@ export default function App() {
                       disabled={pendingStats.mind <= 0}
                       style={{ padding: '4px 12px', fontSize: 16, borderRadius: 6, background: (pendingStats.mind <= 0) ? '#ddd' : '#9b59b6', color: '#fff', border: 'none', cursor: (pendingStats.mind <= 0) ? 'not-allowed' : 'pointer', opacity: (pendingStats.mind <= 0) ? 0.5 : 1 }}
                     >−</button>
-                    <div style={{ flex: 1, height: 20, background: '#f0f0f0', borderRadius: 10, overflow: 'hidden' }}>
+                    <div style={{ flex: 1, height: 20, background: 'rgba(0,0,0,0.3)', borderRadius: 10, overflow: 'hidden' }}>
                       <div style={{ width: `${(stats.mind + pendingStats.mind) * 10}%`, height: '100%', background: '#9b59b6', transition: 'width 0.3s' }}></div>
                     </div>
                     <button 
@@ -2178,13 +2179,13 @@ export default function App() {
                 </div>
                 
                 {/* Agility */}
-                <div style={{ marginBottom: 12, padding: 12, background: '#f0fff4', borderRadius: 8, border: '1px solid #c6f6d5' }}>
+                <div style={{ marginBottom: 12, padding: 12, background: 'rgba(46,204,113,0.1)', borderRadius: 8, border: '1px solid rgba(46,204,113,0.3)' }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
                     <div>
                       <strong style={{ color: '#2ecc71' }}>🏃 Agility</strong>
-                      <div style={{ fontSize: 11, color: '#666' }}>Dodge, Ranged Attack, Pickpocket</div>
+                      <div style={{ fontSize: 11, color: '#9aa5b1' }}>Dodge, Ranged Attack, Pickpocket</div>
                     </div>
-                    <div style={{ fontSize: 18, fontWeight: 'bold' }}>{stats.agility + pendingStats.agility}/10</div>
+                    <div style={{ fontSize: 18, fontWeight: 'bold', color: '#f5e6c8' }}>{stats.agility + pendingStats.agility}/10</div>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                     <button 
@@ -2192,7 +2193,7 @@ export default function App() {
                       disabled={pendingStats.agility <= 0}
                       style={{ padding: '4px 12px', fontSize: 16, borderRadius: 6, background: (pendingStats.agility <= 0) ? '#ddd' : '#2ecc71', color: '#fff', border: 'none', cursor: (pendingStats.agility <= 0) ? 'not-allowed' : 'pointer', opacity: (pendingStats.agility <= 0) ? 0.5 : 1 }}
                     >−</button>
-                    <div style={{ flex: 1, height: 20, background: '#f0f0f0', borderRadius: 10, overflow: 'hidden' }}>
+                    <div style={{ flex: 1, height: 20, background: 'rgba(0,0,0,0.3)', borderRadius: 10, overflow: 'hidden' }}>
                       <div style={{ width: `${(stats.agility + pendingStats.agility) * 10}%`, height: '100%', background: '#2ecc71', transition: 'width 0.3s' }}></div>
                     </div>
                     <button 
@@ -2204,13 +2205,13 @@ export default function App() {
                 </div>
                 
                 {/* Vision */}
-                <div style={{ marginBottom: 20, padding: 12, background: '#f0f8ff', borderRadius: 8, border: '1px solid #bee3f8' }}>
+                <div style={{ marginBottom: 20, padding: 12, background: 'rgba(52,152,219,0.1)', borderRadius: 8, border: '1px solid rgba(52,152,219,0.3)' }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
                     <div>
                       <strong style={{ color: '#3498db' }}>👁️ Vision</strong>
-                      <div style={{ fontSize: 11, color: '#666' }}>Perception, Ranged Attack</div>
+                      <div style={{ fontSize: 11, color: '#9aa5b1' }}>Perception, Ranged Attack</div>
                     </div>
-                    <div style={{ fontSize: 18, fontWeight: 'bold' }}>{stats.vision + pendingStats.vision}/10</div>
+                    <div style={{ fontSize: 18, fontWeight: 'bold', color: '#f5e6c8' }}>{stats.vision + pendingStats.vision}/10</div>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                     <button 
@@ -2218,7 +2219,7 @@ export default function App() {
                       disabled={pendingStats.vision <= 0}
                       style={{ padding: '4px 12px', fontSize: 16, borderRadius: 6, background: (pendingStats.vision <= 0) ? '#ddd' : '#3498db', color: '#fff', border: 'none', cursor: (pendingStats.vision <= 0) ? 'not-allowed' : 'pointer', opacity: (pendingStats.vision <= 0) ? 0.5 : 1 }}
                     >−</button>
-                    <div style={{ flex: 1, height: 20, background: '#f0f0f0', borderRadius: 10, overflow: 'hidden' }}>
+                    <div style={{ flex: 1, height: 20, background: 'rgba(0,0,0,0.3)', borderRadius: 10, overflow: 'hidden' }}>
                       <div style={{ width: `${(stats.vision + pendingStats.vision) * 10}%`, height: '100%', background: '#3498db', transition: 'width 0.3s' }}></div>
                     </div>
                     <button 
@@ -2288,8 +2289,8 @@ export default function App() {
                         style={{
                           padding: 12,
                           marginBottom: 12,
-                          background: hasMuffleSteps ? 'linear-gradient(135deg, #2ecc71, #27ae60)' : canPurchase ? 'rgba(243, 156, 18, 0.1)' : '#f5f5f5',
-                          border: `2px solid ${hasMuffleSteps ? '#27ae60' : canPurchase ? '#f39c12' : '#ddd'}`,
+                          background: hasMuffleSteps ? 'linear-gradient(135deg, #2ecc71, #27ae60)' : canPurchase ? 'rgba(243, 156, 18, 0.1)' : 'rgba(245,230,200,0.05)',
+                          border: `2px solid ${hasMuffleSteps ? '#27ae60' : canPurchase ? '#f39c12' : 'rgba(201,168,76,0.15)'}`,
                           borderRadius: 8,
                           display: 'flex',
                           alignItems: 'center',
@@ -2299,10 +2300,10 @@ export default function App() {
                       >
                         <div style={{ fontSize: 32 }}>🐭</div>
                         <div style={{ flex: 1 }}>
-                          <div style={{ fontWeight: 'bold', fontSize: 16, marginBottom: 4, color: hasMuffleSteps ? '#fff' : '#333' }}>
+                          <div style={{ fontWeight: 'bold', fontSize: 16, marginBottom: 4, color: hasMuffleSteps ? '#fff' : '#f5e6c8' }}>
                             Muffle Steps
                           </div>
-                          <div style={{ fontSize: 12, color: hasMuffleSteps ? '#e8f8f0' : '#666', marginBottom: 4 }}>
+                          <div style={{ fontSize: 12, color: hasMuffleSteps ? '#e8f8f0' : '#9aa5b1', marginBottom: 4 }}>
                             Once purchased your footsteps are like a mouse
                           </div>
                           {!hasMuffleSteps && (
@@ -2347,7 +2348,7 @@ export default function App() {
                   })()}
                 </div>
                 
-                <h3>Combat Skills</h3>
+                <h3 style={{ color: '#f5e6c8' }}>Combat Skills</h3>
                 <div style={{ marginBottom: 20 }}>
                   {[
                     { id: 'clash', name: 'Clash', cost: 1, stamina: 1, icon: '🛡️', desc: 'Force enemy back, preventing their attack and second enemy\'s attack' },
@@ -2364,8 +2365,8 @@ export default function App() {
                         style={{
                           padding: 12,
                           marginBottom: 8,
-                          background: isLearned ? 'linear-gradient(135deg, #2ecc71, #27ae60)' : canAfford ? 'rgba(243, 156, 18, 0.1)' : '#f5f5f5',
-                          border: `2px solid ${isLearned ? '#27ae60' : canAfford ? '#f39c12' : '#ddd'}`,
+                          background: isLearned ? 'linear-gradient(135deg, #2ecc71, #27ae60)' : canAfford ? 'rgba(243, 156, 18, 0.1)' : 'rgba(245,230,200,0.05)',
+                          border: `2px solid ${isLearned ? '#27ae60' : canAfford ? '#f39c12' : 'rgba(201,168,76,0.15)'}`,
                           borderRadius: 8,
                           display: 'flex',
                           alignItems: 'center',
@@ -2375,10 +2376,10 @@ export default function App() {
                       >
                         <div style={{ fontSize: 32 }}>{skill.icon}</div>
                         <div style={{ flex: 1 }}>
-                          <div style={{ fontWeight: 'bold', fontSize: 16, marginBottom: 4, color: isLearned ? '#fff' : '#333' }}>
+                          <div style={{ fontWeight: 'bold', fontSize: 16, marginBottom: 4, color: isLearned ? '#fff' : '#f5e6c8' }}>
                             {skill.name}
                           </div>
-                          <div style={{ fontSize: 12, color: isLearned ? '#e8f8f0' : '#666' }}>
+                          <div style={{ fontSize: 12, color: isLearned ? '#e8f8f0' : '#9aa5b1' }}>
                             {skill.desc}
                           </div>
                           <div style={{ fontSize: 11, color: isLearned ? '#d5f4e6' : '#999', marginTop: 4 }}>
@@ -2430,7 +2431,7 @@ export default function App() {
                   })}
                 </div>
                 
-                <h3>Passive Skills</h3>
+                <h3 style={{ color: '#f5e6c8' }}>Passive Skills</h3>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '8px', fontSize: 14 }}>
                   <div>Perception</div>
                   <div style={{ fontWeight: 'bold' }}>{getPassiveSkills(state).perception}%</div>
@@ -2494,8 +2495,8 @@ export default function App() {
                               padding: 20,
                               background: isUnlocked 
                                 ? `linear-gradient(135deg, ${path.color}22, ${path.color}44)` 
-                                : '#f5f5f5',
-                              border: `3px solid ${isUnlocked ? path.color : '#ddd'}`,
+                                : 'rgba(245,230,200,0.05)',
+                              border: `3px solid ${isUnlocked ? path.color : 'rgba(201,168,76,0.2)'}`,
                               borderRadius: 12,
                               cursor: isUnlocked || canAfford ? 'pointer' : 'default',
                               opacity: isUnlocked ? 1 : canAfford ? 0.7 : 0.4,
@@ -2507,7 +2508,7 @@ export default function App() {
                             <div style={{ fontSize: 48, marginBottom: 8, filter: isUnlocked ? 'none' : 'grayscale(100%)' }}>
                               {path.icon}
                             </div>
-                            <div style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 4, color: isUnlocked ? path.color : '#666' }}>
+                            <div style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 4, color: isUnlocked ? path.color : '#9aa5b1' }}>
                               {path.name}
                             </div>
                             <div style={{ fontSize: 11, color: '#999', marginBottom: 8 }}>
@@ -2546,10 +2547,11 @@ export default function App() {
                             return (
                               <div key={idx} style={{ 
                                 padding: '8px 12px', 
-                                background: '#f9f9f9',
+                                background: 'rgba(245,230,200,0.08)',
                                 borderRadius: 6,
                                 fontSize: 13,
-                                border: '1px solid #ddd'
+                                border: '1px solid rgba(201,168,76,0.25)',
+                                color: '#f5e6c8'
                               }}>
                                 ✨ {spell?.name || spellId}
                               </div>
@@ -2607,11 +2609,12 @@ export default function App() {
                               style={{ 
                                 padding: '8px 16px', 
                                 marginRight: 16,
-                                background: '#f5f5f5',
-                                border: '1px solid #ddd',
+                                background: 'rgba(245,230,200,0.08)',
+                                border: '1px solid rgba(201,168,76,0.25)',
                                 borderRadius: 6,
                                 cursor: 'pointer',
-                                fontSize: 14
+                                fontSize: 14,
+                                color: '#f5e6c8'
                               }}
                             >
                               ← Back
@@ -2654,15 +2657,15 @@ export default function App() {
                                           padding: 16,
                                           background: isLearned 
                                             ? `linear-gradient(135deg, ${pathData.color}11, ${pathData.color}22)` 
-                                            : tierUnlocked ? '#f9f9f9' : '#fafafa',
-                                          border: `2px solid ${isLearned ? pathData.color : '#ddd'}`,
+                                            : tierUnlocked ? 'rgba(245,230,200,0.06)' : 'rgba(245,230,200,0.03)',
+                                          border: `2px solid ${isLearned ? pathData.color : 'rgba(201,168,76,0.2)'}`,
                                           borderRadius: 8,
                                           opacity: tierUnlocked ? 1 : 0.5
                                         }}
                                       >
                                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: 8 }}>
                                           <div>
-                                            <div style={{ fontSize: 16, fontWeight: 'bold', color: isLearned ? pathData.color : '#333' }}>
+                                            <div style={{ fontSize: 16, fontWeight: 'bold', color: isLearned ? pathData.color : '#f5e6c8' }}>
                                               {isLearned && '✓ '}{spell.name}
                                             </div>
                                             <div style={{ fontSize: 12, color: '#999', marginTop: 2 }}>
@@ -2683,7 +2686,7 @@ export default function App() {
                                               disabled={!canLearn}
                                               style={{
                                                 padding: '6px 12px',
-                                                background: canLearn ? pathData.color : '#ddd',
+                                                background: canLearn ? pathData.color : 'rgba(201,168,76,0.2)',
                                                 color: '#fff',
                                                 border: 'none',
                                                 borderRadius: 6,
@@ -2697,7 +2700,7 @@ export default function App() {
                                             </button>
                                           )}
                                         </div>
-                                        <div style={{ fontSize: 14, color: '#666', lineHeight: 1.5 }}>
+                                        <div style={{ fontSize: 14, color: '#9aa5b1', lineHeight: 1.5 }}>
                                           {spell.description}
                                         </div>
                                       </div>
@@ -2718,12 +2721,12 @@ export default function App() {
             {modalPage === 'quests' && (
               <div>
                 {Object.keys(quests).length === 0 ? (
-                  <p>No active quests.</p>
+                  <p style={{ color: '#9aa5b1' }}>No active quests.</p>
                 ) : (
                   <ul style={{ listStyle: 'none', padding: 0 }}>
                     {Object.entries(quests).map(([questId, stageId]) => (
-                      <li key={questId} style={{ padding: '8px 0', borderBottom: '1px solid #eee' }}>
-                        {questId}: {stageId === 'completed' ? 'Completed' : `Stage ${stageId}`}
+                      <li key={questId} style={{ padding: '8px 0', borderBottom: '1px solid rgba(201,168,76,0.2)', color: '#f5e6c8' }}>
+                        {questId}: {stageId === 'completed' ? <span style={{ color: '#2ecc71' }}>Completed</span> : `Stage ${stageId}`}
                       </li>
                     ))}
                   </ul>
@@ -2740,8 +2743,8 @@ export default function App() {
               if (discoveredAreas.length === 0) {
                 return (
                   <div>
-                    <h3 style={{ marginTop: 0, marginBottom: 20 }}>Map</h3>
-                    <div style={{ padding: 40, textAlign: 'center', color: '#6c757d' }}>
+                    <h3 style={{ marginTop: 0, marginBottom: 20, color: '#f5e6c8' }}>Map</h3>
+                    <div style={{ padding: 40, textAlign: 'center', color: '#9aa5b1' }}>
                       <p style={{ fontSize: 16, marginBottom: 8 }}>🗺️ No areas discovered yet</p>
                       <p style={{ fontSize: 14 }}>Explore the world to reveal the map</p>
                     </div>
@@ -2795,22 +2798,22 @@ export default function App() {
               
               return (
                 <div>
-                  <h3 style={{ marginTop: 0, marginBottom: 20 }}>Map</h3>
+                  <h3 style={{ marginTop: 0, marginBottom: 20, color: '#f5e6c8' }}>Map</h3>
                       {/* Z-Level Controls */}
                       {zLevels.length > 1 && (
                         <div style={{ 
                           marginBottom: 20, 
                           padding: 16, 
-                          background: '#fff',
+                          background: 'rgba(245,230,200,0.08)',
                           borderRadius: 8,
-                          border: '2px solid #dee2e6',
+                          border: '1px solid rgba(201,168,76,0.25)',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'space-between',
                           gap: 12
                         }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                            <span style={{ fontSize: 14, fontWeight: 'bold', color: '#2c3e50' }}>Floor Level:</span>
+                            <span style={{ fontSize: 14, fontWeight: 'bold', color: '#f5e6c8' }}>Floor Level:</span>
                             <div style={{ display: 'flex', gap: 8 }}>
                               {zLevels.map(z => (
                                 <button
@@ -2825,22 +2828,22 @@ export default function App() {
                                       ? 'linear-gradient(135deg, #3498db, #2980b9)'
                                       : z === currentAreaZ
                                         ? 'linear-gradient(135deg, #f39c12, #e67e22)'
-                                        : '#ecf0f1',
-                                    color: z === currentZ || z === currentAreaZ ? '#fff' : '#2c3e50',
+                                        : 'rgba(245,230,200,0.1)',
+                                    color: z === currentZ || z === currentAreaZ ? '#fff' : '#f5e6c8',
                                     border: z === currentAreaZ ? '2px solid #f39c12' : 'none',
                                     cursor: 'pointer',
                                     transition: 'all 0.2s'
                                   }}
                                   onMouseOver={(e) => {
                                     if (z !== currentZ) {
-                                      e.currentTarget.style.background = '#d5dbdb';
+                                      e.currentTarget.style.background = 'rgba(245,230,200,0.2)';
                                     }
                                   }}
                                   onMouseOut={(e) => {
                                     if (z !== currentZ) {
                                       e.currentTarget.style.background = z === currentAreaZ 
                                         ? 'linear-gradient(135deg, #f39c12, #e67e22)'
-                                        : '#ecf0f1';
+                                        : 'rgba(245,230,200,0.1)';
                                     }
                                   }}
                                 >
@@ -2850,7 +2853,7 @@ export default function App() {
                               ))}
                             </div>
                           </div>
-                          <div style={{ fontSize: 12, color: '#6c757d', fontStyle: 'italic' }}>
+                          <div style={{ fontSize: 12, color: '#9aa5b1', fontStyle: 'italic' }}>
                             {currentZ > 0 ? '⬆️ Upper Level' : currentZ < 0 ? '⬇️ Lower Level' : '➡️ Ground Level'}
                           </div>
                         </div>
@@ -2860,9 +2863,9 @@ export default function App() {
                         overflowX: 'auto', 
                         overflowY: 'auto', 
                         maxHeight: 'calc(100vh - 300px)',
-                        border: '2px solid #dee2e6',
+                        border: '1px solid rgba(201,168,76,0.25)',
                         borderRadius: 8,
-                        background: '#f8f9fa'
+                        background: 'rgba(245,230,200,0.05)'
                       }}>
                         <div style={{ 
                           position: 'relative', 
@@ -2979,7 +2982,7 @@ export default function App() {
                                   y1={fromY}
                                   x2={toX}
                                   y2={toY}
-                                  stroke="rgba(52, 73, 94, 0.3)"
+                                  stroke="rgba(201, 168, 76, 0.3)"
                                   strokeWidth="2"
                                   strokeDasharray="4,4"
                                 />
@@ -2992,8 +2995,8 @@ export default function App() {
                       {/* Legend */}
                       <div style={{ 
                         padding: 20, 
-                        borderTop: '2px solid #dee2e6',
-                        background: '#fff',
+                        borderTop: '1px solid rgba(201,168,76,0.25)',
+                        background: 'rgba(245,230,200,0.06)',
                         display: 'flex',
                         gap: 20,
                         flexWrap: 'wrap',
@@ -3001,28 +3004,28 @@ export default function App() {
                         fontSize: 12
                       }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                          <div style={{ width: 20, height: 20, background: '#f39c12', border: '2px solid #333', borderRadius: 2 }}></div>
-                          <span>Current Location</span>
+                          <div style={{ width: 20, height: 20, background: '#f39c12', border: '2px solid rgba(201,168,76,0.4)', borderRadius: 2 }}></div>
+                          <span style={{ color: '#f5e6c8' }}>Current Location</span>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                          <div style={{ width: 20, height: 20, background: '#7f8c8d', border: '2px solid #333', borderRadius: 2 }}></div>
-                          <span>Underfortress</span>
+                          <div style={{ width: 20, height: 20, background: '#7f8c8d', border: '2px solid rgba(201,168,76,0.4)', borderRadius: 2 }}></div>
+                          <span style={{ color: '#f5e6c8' }}>Underfortress</span>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                          <div style={{ width: 20, height: 20, background: '#5d6d7e', border: '2px solid #333', borderRadius: 2 }}></div>
-                          <span>Cavern</span>
+                          <div style={{ width: 20, height: 20, background: '#5d6d7e', border: '2px solid rgba(201,168,76,0.4)', borderRadius: 2 }}></div>
+                          <span style={{ color: '#f5e6c8' }}>Cavern</span>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                          <div style={{ width: 20, height: 20, background: '#3498db', border: '2px solid #333', borderRadius: 2 }}></div>
-                          <span>Cistern</span>
+                          <div style={{ width: 20, height: 20, background: '#3498db', border: '2px solid rgba(201,168,76,0.4)', borderRadius: 2 }}></div>
+                          <span style={{ color: '#f5e6c8' }}>Cistern</span>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                          <div style={{ width: 20, height: 20, background: '#e74c3c', border: '2px solid #333', borderRadius: 2 }}></div>
-                          <span>Battle</span>
+                          <div style={{ width: 20, height: 20, background: '#e74c3c', border: '2px solid rgba(201,168,76,0.4)', borderRadius: 2 }}></div>
+                          <span style={{ color: '#f5e6c8' }}>Battle</span>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                          <span style={{ fontSize: 10 }}>⬆️ Above</span>
-                          <span style={{ fontSize: 10 }}>⬇️ Below</span>
+                          <span style={{ fontSize: 10, color: '#9aa5b1' }}>⬆️ Above</span>
+                          <span style={{ fontSize: 10, color: '#9aa5b1' }}>⬇️ Below</span>
                         </div>
                       </div>
                     </div>
@@ -3032,11 +3035,11 @@ export default function App() {
             
             {modalPage === 'settings' && (
               <div>
-                <h3 style={{ marginTop: 0, marginBottom: 20 }}>Settings</h3>
+                <h3 style={{ marginTop: 0, marginBottom: 20, color: '#f5e6c8' }}>Settings</h3>
                 
                 {/* Test Combat Templates */}
                 <div style={{ marginBottom: 20 }}>
-                  <h4 style={{ marginBottom: 12, color: '#2c3e50' }}>Debug: Combat Templates</h4>
+                  <h4 style={{ marginBottom: 12, color: '#f5e6c8' }}>Debug: Combat Templates</h4>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
                     {/* Test Goblins */}
                     <button 
@@ -3107,13 +3110,13 @@ export default function App() {
                       🐍 Blind Cave Snake (Boss)
                     </button>
                   </div>
-                  <p style={{ fontSize: 12, color: '#6c757d', marginTop: 12, fontStyle: 'italic' }}>
+                  <p style={{ fontSize: 12, color: '#9aa5b1', marginTop: 12, fontStyle: 'italic' }}>
                     💡 Tip: Combat templates are loaded from enemy definitions. Areas with onEnter: initiateCombat will start combat automatically.
                   </p>
                 </div>
                 
-                <div style={{ padding: 20, background: '#f8f9fa', borderRadius: 8, border: '2px dashed #dee2e6' }}>
-                  <p style={{ color: '#6c757d', fontSize: 14, margin: 0, textAlign: 'center' }}>More settings coming soon...</p>
+                <div style={{ padding: 20, background: 'rgba(245,230,200,0.06)', borderRadius: 8, border: '2px dashed rgba(201,168,76,0.2)' }}>
+                  <p style={{ color: '#9aa5b1', fontSize: 14, margin: 0, textAlign: 'center' }}>More settings coming soon...</p>
                 </div>
               </div>
             )}
