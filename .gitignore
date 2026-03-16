@@ -8,7 +8,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-package-lock.json
 .pnpm-debug.log
 
 # Expo / React Native
@@ -30,6 +29,8 @@ ios/DerivedData/
 dist/
 build/
 web-build/
+release/**
+!release/*.exe
 
 # TypeScript
 *.tsbuildinfo
