@@ -62,6 +62,53 @@ npm run build
 # Output: dist/
 ```
 
+### Build a Windows `.exe` (Installer + Portable)
+
+Underfortress can be packaged as a desktop app using Electron.
+
+```bash
+# Install dependencies (already done once per clone)
+npm install
+
+# Optional: run as desktop app in development
+npm run electron:dev
+
+# Build web assets and create Windows packages
+npm run dist:win
+```
+
+Packaging output goes to `release/` and includes:
+
+- NSIS installer (`.exe`)
+- Portable executable (`.exe`)
+
+Notes:
+
+- Building Windows artifacts is most reliable on Windows (or CI with a Windows runner).
+- Unsigned `.exe` files may show SmartScreen warnings.
+
+### Build Windows `.exe` via GitHub Actions (Codespaces-friendly)
+
+This repository includes a workflow at `.github/workflows/windows-exe.yml` that builds on `windows-latest` and uploads downloadable `.exe` artifacts.
+
+How to use:
+
+```bash
+# Commit and push your changes
+git add .
+git commit -m "Add/Update game changes"
+git push
+```
+
+Then in GitHub:
+
+1. Open **Actions**
+2. Select **Build Windows EXE**
+3. Run workflow (or use the latest run from `main` push)
+4. Download artifact: `underfortress-windows-exe`
+
+The artifact contains the NSIS installer `.exe` and portable `.exe` from `release/`.
+
 ### Run Tests
 
 ```bash
