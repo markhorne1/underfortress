@@ -8,6 +8,10 @@ if (isContainer) {
   // Avoid GPU init failures in headless/containerized sessions.
   app.disableHardwareAcceleration();
   app.commandLine.appendSwitch('disable-gpu');
+  // Disable desktop integration features that require a full system DBus.
+  app.commandLine.appendSwitch('disable-features', 'UseDBusMenu,GlobalMediaControls,MediaRouter');
+  // Keep container logs actionable by hiding known non-fatal Chromium DBus errors.
+  app.commandLine.appendSwitch('log-level', '3');
 }
 
 function createWindow() {

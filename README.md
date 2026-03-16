@@ -102,6 +102,10 @@ npm run electron:dev
 # Codespaces/devcontainer headless run
 npm run electron:dev:codespace
 
+# Expected behavior in Codespaces:
+# - Electron runs headlessly under Xvfb (no desktop window appears)
+# - You can still use the app via the forwarded Vite URL (usually http://localhost:5173)
+
 # Build web assets and create Windows packages
 npm run dist:win
 ```
