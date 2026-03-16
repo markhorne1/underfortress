@@ -12,11 +12,11 @@ Currently unfinished, only the first 20 or so areas have background images and h
 
 ![Title Screen](screenshots/01-title.png)
 
-### Equipment
+### Gameplay
 
 ![Equipment](screenshots/02-gameplay.png)
 
-### Gameplay
+### Equipment
 
 ![Gameplay](screenshots/03-equipment.png)
 
