@@ -14,11 +14,11 @@ Currently unfinished, only the first 20 or so areas have background images and h
 
 ### Equipment
 
-![Equipment](screenshots/02-equipment.png)
+![Equipment](screenshots/02-gameplay.png)
 
 ### Gameplay
 
-![Gameplay](screenshots/03-gameplay.png)
+![Gameplay](screenshots/03-equipment.png)
 
 ### Skills
 
