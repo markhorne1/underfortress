@@ -28,19 +28,9 @@ Currently unfinished, only the first 20 or so areas have background images and h
 
 ![Spells](screenshots/05-spells.png)
 
+### Combat
 
-Generate fresh screenshots automatically:
-
-```bash
-# Terminal 1
-npm run dev
-
-# Terminal 2
-npx playwright install chromium
-npm run screenshots
-```
-
-Output files are written to `screenshots/`.
+![Spells](screenshots/06-combat.webp)
 
 ## Features
 
