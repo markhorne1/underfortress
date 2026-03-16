@@ -13,6 +13,7 @@
     "screenshots:topnav": "node tools/captureTopNavScreenshots.mjs",
     "screenshots:all": "node tools/captureAllAreaScreenshots.mjs",
     "electron:dev": "concurrently -k \"vite\" \"wait-on tcp:5173 && electron .\"",
+    "electron:dev:codespace": "concurrently -k \"vite\" \"wait-on tcp:5173 && dbus-run-session -- xvfb-run -a electron .\"",
     "dist:win": "npm run build && electron-builder --win nsis portable"
   },
   "dependencies": {

@@ -99,6 +99,9 @@ npm install
 # Optional: run as desktop app in development
 npm run electron:dev
 
+# Codespaces/devcontainer headless run
+npm run electron:dev:codespace
+
 # Build web assets and create Windows packages
 npm run dist:win
 ```
