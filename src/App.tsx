@@ -5,6 +5,55 @@ import { executeChoice } from './engine/execute';
 import { getActiveSkills, getPassiveSkills, getTotalArmourRating } from './engine/skillCalculations';
 import { initiateCombat, playerAttack, enemyTurn, selectEnemy, castSpell, intimidateEnemy, playerSlash, playerPivot } from './engine/combatNew';
 
+function getCreatureImage(enemy: { name?: string; tags?: string[]; kind?: string }): string {
+  const name = (enemy.name || '').toLowerCase();
+  const tags = (enemy.tags || []).map(t => t.toLowerCase());
+  const kind = (enemy.kind || '').toLowerCase();
+
+  // Bosses / chiefs — check before generic types
+  if (tags.includes('boss') || tags.includes('elite')) {
+    if (name.includes('orc') || tags.includes('orc'))
+      return '/content/creatures/orc_chief.webp';
+    if (name.includes('goblin') || tags.includes('goblin'))
+      return '/content/creatures/goblin_chief.webp';
+  }
+
+  // Redknife goblins — distinct bloody variant
+  if (name.includes('redknife') || tags.includes('redknife'))
+    return '/content/creatures/goblin_redknife.webp';
+
+  // Snakes and deep-cave creatures
+  if (name.includes('snake') || name.includes('crawler') || name.includes('listener'))
+    return '/content/creatures/giant_snake.webp';
+
+  // Rats and swarms
+  if (name.includes('rat') || tags.includes('swarm') || name.includes('spore'))
+    return '/content/creatures/cave_rat.webp';
+
+  // Wargs
+  if (name.includes('warg') || tags.includes('warg'))
+    return '/content/creatures/warg.webp';
+
+  // Troll-hounds
+  if (name.includes('hound') || tags.includes('hound'))
+    return '/content/creatures/troll_hound.webp';
+
+  // Trolls / ogres
+  if (name.includes('troll') || name.includes('ogre') || tags.includes('troll'))
+    return '/content/creatures/orc_chief.webp';
+
+  // Hobgoblins — distinct from orcs
+  if (name.includes('hobgoblin') || tags.includes('hobgoblin'))
+    return '/content/creatures/hobgoblin.webp';
+
+  // Orcs
+  if (name.includes('orc') || tags.includes('orc'))
+    return '/content/creatures/orc.webp';
+
+  // Default — goblin
+  return '/content/creatures/goblin.webp';
+}
+
 export default function App() {
   const [page, setPage] = useState<'title'|'menu'|'game'>('title');
   const [loading, setLoading] = useState(true);
@@ -28,6 +77,12 @@ export default function App() {
         .mobile-close-x {
           display: none !important;
         }
+        .area-bg-desktop {
+          display: block !important;
+        }
+        .area-bg-mobile {
+          display: none !important;
+        }
       }
       
       /* Mobile: Hide health in topNav, show separate mobile bar */
@@ -43,6 +98,12 @@ export default function App() {
         }
         .mobile-close-x {
           display: inline !important;
+        }
+        .area-bg-desktop {
+          display: none !important;
+        }
+        .area-bg-mobile {
+          display: block !important;
         }
       }
     `;
@@ -339,20 +400,24 @@ export default function App() {
       
       {/* Main Content - Centered with fullscreen area background */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', overflowY: 'auto', position: 'relative', background: '#2a2a2a' }}>
-        {/* Fullscreen background image keyed to area */}
+        {/* Fullscreen background image keyed to area — desktop & mobile variants */}
         {area && (() => {
           const areaId = area.id || currentAreaId || '';
-          const bgPath = `/content/leonardo/nano banana pro/desktop/${areaId}.jpg`;
+          const desktopPath = `/content/leonardo/nano banana pro/desktop/${areaId}.jpg`;
+          const mobilePath = `/content/leonardo/nano banana pro/mobile/${areaId}.jpg`;
+          const bgStyle: React.CSSProperties = {
+            position: 'absolute',
+            inset: 0,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            zIndex: 0
+          };
           return (
-            <div style={{
-              position: 'absolute',
-              inset: 0,
-              backgroundImage: `url("${bgPath}")`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              backgroundRepeat: 'no-repeat',
-              zIndex: 0
-            }} />
+            <>
+              <div className="area-bg-desktop" style={{ ...bgStyle, backgroundImage: `url("${desktopPath}")` }} />
+              <div className="area-bg-mobile" style={{ ...bgStyle, backgroundImage: `url("${mobilePath}")` }} />
+            </>
           );
         })()}
         {area ? (
@@ -852,9 +917,7 @@ export default function App() {
                         }).map((enemy) => {
                           const isSelected = combat.selectedEnemyId === enemy.instanceId;
                           const isDead = enemy.health <= 0;
-                          const nameLC = (enemy.name || '').toLowerCase();
-                          const isOrc = nameLC.includes('orc');
-                          const creatureImg = isOrc ? '/content/creatures/orc.png' : '/content/creatures/goblin.png';
+                          const creatureImg = getCreatureImage(enemy);
                           
                           return (
                             <div
@@ -900,9 +963,8 @@ export default function App() {
                                   <img src={creatureImg} alt={enemy.name} style={{
                                     width: 72,
                                     height: 72,
-                                    objectFit: 'contain',
-                                    transform: isOrc ? 'scale(1.18)' : 'scale(1)',
-                                    transformOrigin: 'center center',
+                                    objectFit: 'cover',
+                                    borderRadius: '50%',
                                     display: 'block'
                                   }} />
                                 )}
@@ -957,9 +1019,7 @@ export default function App() {
                             paddingRight: reserveEnemies.length > 4 ? 8 : 0
                           }}>
                             {reserveEnemies.map((enemy) => {
-                              const nameLC = (enemy.name || '').toLowerCase();
-                              const isOrc = nameLC.includes('orc');
-                              const creatureImg = isOrc ? '/content/creatures/orc.png' : '/content/creatures/goblin.png';
+                              const creatureImg = getCreatureImage(enemy);
                               return (
                               <div
                                 key={enemy.instanceId}
@@ -983,9 +1043,8 @@ export default function App() {
                                   <img src={creatureImg} alt={enemy.name} style={{
                                     width: 48,
                                     height: 48,
-                                    objectFit: 'contain',
-                                    transform: isOrc ? 'scale(1.18)' : 'scale(1)',
-                                    transformOrigin: 'center center',
+                                    objectFit: 'cover',
+                                    borderRadius: '50%',
                                     display: 'block'
                                   }} />
                                 </div>
@@ -1486,8 +1545,8 @@ export default function App() {
       
       {/* Modal Overlay */}
       {modalPage && (
-        <div style={{ position: 'fixed', top: 56, left: 0, right: 0, bottom: 0, background: '#2a2a2a', zIndex: 10000, overflow: 'auto' }}>
-          <div style={{ maxWidth: 1200, margin: '0 auto', padding: 40 }}>
+        <div style={{ position: 'fixed', top: 56, left: 0, right: 0, bottom: 0, background: 'url(/content/ui/parchment.webp) center center / cover #2a2a2a', zIndex: 10000, overflow: 'auto' }}>
+          <div style={{ maxWidth: 1200, margin: '0 auto', padding: 40, background: 'rgba(42,42,42,0.85)', minHeight: '100%' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 30, paddingBottom: 20, borderBottom: '2px solid rgba(201,168,76,0.3)' }}>
               <h2 style={{ margin: 0, fontSize: 32, color: '#f5e6c8' }}>{modalPage.charAt(0).toUpperCase() + modalPage.slice(1)}</h2>
               <button onClick={() => setModalPage(null)} style={{ background: 'linear-gradient(135deg, #c9a84c, #a07830)', border: '1px solid #e0c068', fontSize: 14, cursor: 'pointer', color: '#1a1000', padding: '8px 16px', borderRadius: 6, fontWeight: 'bold', whiteSpace: 'nowrap' }}>
@@ -1590,163 +1649,98 @@ export default function App() {
                 </div>
                 
                 <div style={{ display: 'flex', flexDirection: 'row', gap: 32, flexWrap: 'wrap' }}>
-                  {/* Paper Doll Visual with body-shaped layout */}
+                  {/* Paper Doll with character image and positioned equipment slots */}
                   <div style={{ 
                     position: 'relative', 
-                    width: '100%', 
-                    maxWidth: 400,
+                    width: 340,
                     flex: '0 0 auto',
-                    background: 'url(/icons/paper_doll_bg.svg) center center no-repeat, linear-gradient(180deg, rgba(245,230,200,0.06) 0%, rgba(201,168,76,0.08) 100%)', 
-                    backgroundSize: 'contain',
+                    background: 'url(/content/ui/parchment.webp) center center / cover',
                     borderRadius: 12, 
-                    border: '3px solid rgba(201,168,76,0.3)', 
-                    padding: '24px 20px'
+                    border: '3px solid rgba(201,168,76,0.4)', 
+                    padding: '20px 16px',
+                    boxShadow: '0 4px 16px rgba(0,0,0,0.4)'
                   }}>
-                    {/* Head slot */}
-                    <div style={{ 
-                      textAlign: 'center', 
-                      padding: 12, 
-                      background: equipment.head ? 'rgba(201,168,76,0.2)' : 'rgba(245,230,200,0.06)', 
-                      border: '3px dashed rgba(201,168,76,0.4)', 
-                      borderRadius: 8, 
-                      fontSize: 14, 
-                      fontWeight: 600,
-                      width: 80,
-                      height: 64,
-                      margin: '0 auto 16px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                    }}>
-                      {equipment.head || 'HEAD'}
+                    {/* Character image */}
+                    <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 8 }}>
+                      <img src="/content/ui/paper_doll.webp" alt="Character" style={{ 
+                        width: 200, 
+                        height: 'auto',
+                        opacity: 0.9,
+                        filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))'
+                      }} />
                     </div>
-                    
-                    {/* Chest slot */}
-                    <div style={{ 
-                      textAlign: 'center', 
-                      padding: 16, 
-                      background: equipment.chest ? 'rgba(201,168,76,0.2)' : 'rgba(245,230,200,0.06)', 
-                      border: '3px dashed rgba(201,168,76,0.4)', 
-                      borderRadius: 8, 
-                      fontSize: 14, 
-                      fontWeight: 600,
-                      width: 100,
-                      height: 96,
-                      margin: '0 auto 16px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                    }}>
-                      {equipment.chest || 'CHEST'}
-                    </div>
-                    
-                    {/* Hands row - shows gloves with weapons layered on top */}
-                    <div style={{ display: 'flex', gap: 48, justifyContent: 'center', marginBottom: 16 }}>
-                      {/* Offhand (left hand) */}
-                      <div style={{ 
-                        position: 'relative', 
-                        textAlign: 'center', 
-                        padding: 12, 
-                        background: (equipment.gloves || equipment.offhand) ? 'rgba(201,168,76,0.2)' : 'rgba(245,230,200,0.06)', 
-                        border: '3px dashed rgba(201,168,76,0.4)', 
-                        borderRadius: 8, 
-                        fontSize: 14, 
-                        fontWeight: 600,
-                        width: 80,
-                        height: 64,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                      }}>
-                        {equipment.gloves && <div style={{ fontSize: 10, color: '#9aa5b1', marginBottom: 4 }}>GLOVES</div>}
-                        {equipment.offhand ? (
-                          <div style={{ position: 'relative' }}>
-                            {(() => {
-                              const content = getContentSnapshot();
-                              const items = content?.items || new Map();
-                              const item = items.get(equipment.offhand);
-                              return item?.icon ? (
-                                <img src={item.icon} alt={item.name} style={{ width: 64, height: 64, display: 'block', margin: '0 auto' }} />
-                              ) : equipment.offhand;
-                            })()}
+
+                    {/* Equipment slots positioned under body areas */}
+                    {(() => {
+                      const content = getContentSnapshot();
+                      const items = content?.items || new Map();
+                      const slotDefs: Array<{ slot: string; label: string; width: number }> = [
+                        { slot: 'head', label: 'HEAD', width: 72 },
+                        { slot: 'chest', label: 'CHEST', width: 84 },
+                        { slot: 'mainhand', label: 'R.HAND', width: 72 },
+                        { slot: 'offhand', label: 'L.HAND', width: 72 },
+                        { slot: 'gloves', label: 'GLOVES', width: 72 },
+                        { slot: 'legs', label: 'LEGS', width: 84 },
+                        { slot: 'boots', label: 'BOOTS', width: 72 },
+                      ];
+                      
+                      const renderSlot = (slot: string, label: string, width: number) => {
+                        const itemId = equipment[slot];
+                        const item = itemId ? items.get(itemId) : null;
+                        return (
+                          <div key={slot} style={{
+                            width,
+                            textAlign: 'center',
+                            padding: '6px 4px',
+                            background: itemId ? 'rgba(160,120,48,0.35)' : 'rgba(80,60,30,0.25)',
+                            border: `2px ${itemId ? 'solid' : 'dashed'} rgba(160,120,48,${itemId ? '0.7' : '0.4'})`,
+                            borderRadius: 6,
+                            display: 'flex',
+                            flexDirection: 'column' as const,
+                            alignItems: 'center',
+                            gap: 2
+                          }}>
+                            <div style={{ fontSize: 9, fontWeight: 'bold', color: '#6b5a3e', letterSpacing: 0.5, textTransform: 'uppercase' as const }}>{label}</div>
+                            {item?.icon ? (
+                              <img src={item.icon} alt={item.name} style={{ width: 32, height: 32 }} />
+                            ) : (
+                              <div style={{ width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, opacity: 0.3, color: '#6b5a3e' }}>—</div>
+                            )}
+                            <div style={{ fontSize: 9, color: '#5a4a30', fontWeight: 600, lineHeight: 1.1, maxWidth: width - 8, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const }}>
+                              {item?.name || ''}
+                            </div>
                           </div>
-                        ) : (
-                          <div>L.HAND</div>
-                        )}
-                      </div>
-                      {/* Mainhand (right hand) */}
-                      <div style={{ 
-                        position: 'relative', 
-                        textAlign: 'center', 
-                        padding: 12, 
-                        background: (equipment.gloves || equipment.mainhand) ? 'rgba(201,168,76,0.2)' : 'rgba(245,230,200,0.06)', 
-                        border: '3px dashed rgba(201,168,76,0.4)', 
-                        borderRadius: 8, 
-                        fontSize: 14, 
-                        fontWeight: 600,
-                        width: 80,
-                        height: 64,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                      }}>
-                        {equipment.gloves && <div style={{ fontSize: 10, color: '#9aa5b1', marginBottom: 4 }}>GLOVES</div>}
-                        {equipment.mainhand ? (
-                          <div style={{ position: 'relative' }}>
-                            {(() => {
-                              const content = getContentSnapshot();
-                              const items = content?.items || new Map();
-                              const item = items.get(equipment.mainhand);
-                              return item?.icon ? (
-                                <img src={item.icon} alt={item.name} style={{ width: 64, height: 64, display: 'block', margin: '0 auto' }} />
-                              ) : equipment.mainhand;
-                            })()}
+                        );
+                      };
+
+                      return (
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
+                          {/* Head */}
+                          {renderSlot('head', 'HEAD', 72)}
+
+                          {/* Chest */}
+                          {renderSlot('chest', 'CHEST', 84)}
+
+                          {/* Arms row: offhand / mainhand */}
+                          <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
+                            {renderSlot('offhand', 'L.HAND', 72)}
+                            {renderSlot('mainhand', 'R.HAND', 72)}
                           </div>
-                        ) : (
-                          <div>R.HAND</div>
-                        )}
-                      </div>
-                    </div>
-                    
-                    {/* Legs slot */}
-                    <div style={{ 
-                      textAlign: 'center', 
-                      padding: 12, 
-                      background: equipment.legs ? 'rgba(201,168,76,0.2)' : 'rgba(245,230,200,0.06)', 
-                      border: '3px dashed rgba(201,168,76,0.4)', 
-                      borderRadius: 8, 
-                      fontSize: 14, 
-                      fontWeight: 600,
-                      width: 100,
-                      height: 80,
-                      margin: '0 auto 16px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                    }}>
-                      {equipment.legs || 'LEGS'}
-                    </div>
-                    
-                    {/* Boots slot */}
-                    <div style={{ 
-                      textAlign: 'center', 
-                      padding: 12, 
-                      background: equipment.boots ? 'rgba(201,168,76,0.2)' : 'rgba(245,230,200,0.06)', 
-                      border: '3px dashed rgba(201,168,76,0.4)', 
-                      borderRadius: 8, 
-                      fontSize: 14, 
-                      fontWeight: 600,
-                      width: 80,
-                      height: 48,
-                      margin: '0 auto',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                    }}>
-                      {equipment.boots || 'BOOTS'}
-                    </div>
+
+                          {/* Gloves */}
+                          {renderSlot('gloves', 'GLOVES', 72)}
+
+                          {/* Belt divider */}
+                          <div style={{ width: '60%', height: 1, background: 'rgba(160,120,48,0.3)', margin: '2px 0' }} />
+
+                          {/* Legs */}
+                          {renderSlot('legs', 'LEGS', 84)}
+
+                          {/* Boots */}
+                          {renderSlot('boots', 'BOOTS', 72)}
+                        </div>
+                      );
+                    })()}
                   </div>
                   
                   {/* Equipment Details - Weapons and Armor Sections */}
