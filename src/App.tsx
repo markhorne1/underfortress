@@ -192,7 +192,7 @@ export default function App() {
     return (
       <div style={{height:'100vh', background:'#2a2a2a', display:'flex', alignItems:'center', justifyContent:'center', flexDirection:'column', position:'relative'}}>
         <div style={{textAlign:'center'}}>
-          <h1 style={{fontSize:48, fontFamily:'serif', color:'#f5e6c8', textShadow:'2px 2px 8px rgba(0,0,0,0.6)'}}>Underfortress</h1>
+          <h1 style={{fontSize:48, fontFamily:'serif', color:'#f5e6c8', textShadow:'2px 2px 8px rgba(0,0,0,0.6)'}}>Treasure Of The Underfortress</h1>
           <div style={{marginTop:8,color:'#c9a84c'}}>A gamebook adventure</div>
         </div>
         <button aria-label="Enter the Underfortress" onClick={() => setPage('menu')} style={{marginTop:32, background:'transparent', border:'none', cursor:'pointer', padding:0}}>

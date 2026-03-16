@@ -1,10 +1,46 @@
-# Underfortress
+# Treasure Of The Underfortress
 
 A data-driven, illustrated gamebook RPG built with **React**, **TypeScript**, and **Vite**. Inspired by classic Fighting Fantasy and interactive fiction, Underfortress presents a branching narrative set in a besieged fantasy city — complete with turn-based combat, spellcasting, quest systems, and a fog-of-war map.
 
+## Project Status
+
+Currently unfinished, only the first 20 or so areas have background images and have been tested. 
+
 ## Screenshots
 
-<!-- Add screenshots here when available -->
+### Title Screen
+
+![Title Screen](screenshots/01-title.png)
+
+### Equipment
+
+![Equipment](screenshots/02-equipment.png)
+
+### Gameplay
+
+![Gameplay](screenshots/03-gameplay.png)
+
+### Skills
+
+![Skills](screenshots/04-skills.png)
+
+### Spells
+
+![Spells](screenshots/05-spells.png)
+
+
+Generate fresh screenshots automatically:
+
+```bash
+# Terminal 1
+npm run dev
+
+# Terminal 2
+npx playwright install chromium
+npm run screenshots
+```
+
+Output files are written to `screenshots/`.
 
 ## Features
 
@@ -114,6 +150,20 @@ The artifact contains the NSIS installer `.exe` and portable `.exe` from `releas
 ```bash
 npm test
 ```
+
+## Troubleshooting (Codespaces ENOPRO)
+
+If command execution intermittently fails with provider errors, run commands
+through the Python retry wrapper:
+
+```bash
+python3 tools/enopro_workaround.py --cwd /workspaces/underfortress -- npm run build
+```
+
+VS Code task is also included:
+
+1. Run task: **Run Command (Python ENOPRO Workaround)**
+2. Enter the command you want to execute
 
 ## Project Structure
 
