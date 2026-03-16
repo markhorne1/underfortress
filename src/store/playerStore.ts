@@ -21,7 +21,7 @@ export type PlayerActions = {
   loadState: () => Promise<void>;
   newGame: () => Promise<void>;
   moveTo: (areaId?: string, skipExitCheck?: boolean) => Promise<void>;
-  handleChoice: (choice: any) => Promise<void>;
+  handleChoice: (choice: any) => Promise<{ log: string[] } | void>;
   handleAction: (actionType: string, action: any) => Promise<{ success: boolean; log: string[] }>;
   allocateStats: (changes: { power: number; mind: number; agility: number; vision: number }) => Promise<void>;
   startThreat: (tConfig: any) => Promise<void>;
@@ -106,6 +106,14 @@ export function createPlayerStore(storage: KVStorage) {
           statPoints: 5
         },
         health: 100,
+        stamina: 100,
+        maxStamina: 100,
+        flags: {},
+        quests: {},
+        questLog: [],
+        combat: null,
+        activeThreats: [],
+        jobs: {},
         lastCheckpointId: startId,
         hasSave: true 
       } as any);
@@ -350,6 +358,8 @@ export function createPlayerStore(storage: KVStorage) {
       
       // Autosave
       await storage.setItem(STORAGE_KEY, JSON.stringify(get()));
+      
+      return { log: result.log };
     },
     handleAction: async (actionType: string, action: any) => {
       const currentState = get();

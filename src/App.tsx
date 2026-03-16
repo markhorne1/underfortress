@@ -117,6 +117,8 @@ export default function App() {
   const [spellTreePath, setSpellTreePath] = useState<string | null>(null); // Which path's spell tree to show
   const [selectedSpell, setSelectedSpell] = useState<string | null>(null); // Selected spell for casting
   const [pendingStats, setPendingStats] = useState({ power: 0, mind: 0, agility: 0, vision: 0 }); // Pending changes
+  const [actionResult, setActionResult] = useState<{ success: boolean; log: string[] } | null>(null);
+  const [inventoryPage, setInventoryPage] = useState(0);
 
   const combatLogRef = useRef<HTMLDivElement>(null); // Ref for auto-scrolling combat log
   const newGame = usePlayerStore(s => s.newGame);
@@ -153,6 +155,25 @@ export default function App() {
       combatLogRef.current.scrollTop = combatLogRef.current.scrollHeight;
     }
   }, [combat?.combatLog]);
+
+  // Clear action result when area changes
+  useEffect(() => {
+    setActionResult(null);
+  }, [currentAreaId]);
+
+  // Preload adjacent area images when area changes
+  useEffect(() => {
+    if (!currentAreaId) return;
+    const area = getAreaById(currentAreaId as string);
+    if (!area?.exits) return;
+    const adjacentIds = Object.values(area.exits).map((e: any) => typeof e === 'string' ? e : e?.target).filter(Boolean);
+    for (const id of adjacentIds) {
+      const desktop = new Image();
+      desktop.src = `/content/leonardo/nano banana pro/desktop/${id}.jpg`;
+      const mobile = new Image();
+      mobile.src = `/content/leonardo/nano banana pro/mobile/${id}.jpg`;
+    }
+  }, [currentAreaId]);
 
   const onNew = async () => {
     await newGame();
@@ -403,8 +424,9 @@ export default function App() {
         {/* Fullscreen background image keyed to area — desktop & mobile variants */}
         {area && (() => {
           const areaId = area.id || currentAreaId || '';
-          const desktopPath = `/content/leonardo/nano banana pro/desktop/${areaId}.jpg`;
-          const mobilePath = `/content/leonardo/nano banana pro/mobile/${areaId}.jpg`;
+          const suffix = flags?.[`area:${areaId}:combat_defeated`] ? '_defeated' : '';
+          const desktopPath = `/content/leonardo/nano banana pro/desktop/${areaId}${suffix}.jpg`;
+          const mobilePath = `/content/leonardo/nano banana pro/mobile/${areaId}${suffix}.jpg`;
           const bgStyle: React.CSSProperties = {
             position: 'absolute',
             inset: 0,
@@ -426,6 +448,13 @@ export default function App() {
             <div style={{ flex: 1 }} />
             <div style={{ background: 'rgba(30,28,24,0.80)', backdropFilter: 'blur(10px)', borderRadius: 12, padding: '20px 28px', border: '1px solid rgba(201,168,76,0.25)', boxShadow: '0 8px 32px rgba(0,0,0,0.5)' }}>
               <p style={{ whiteSpace: 'pre-wrap', lineHeight: 1.6, textAlign: 'center', color: '#e8dcc8' }}>{area.description}</p>
+              {actionResult && (
+                <div style={{ marginTop: 12, padding: '12px 16px', borderRadius: 8, background: actionResult.success ? 'rgba(46,204,113,0.15)' : 'rgba(231,76,60,0.15)', border: `1px solid ${actionResult.success ? 'rgba(46,204,113,0.4)' : 'rgba(231,76,60,0.4)'}` }}>
+                  {actionResult.log.map((line, i) => (
+                    <p key={i} style={{ margin: i === 0 ? 0 : '6px 0 0', fontSize: 14, lineHeight: 1.5, color: actionResult.success ? '#2ecc71' : '#e74c3c', textAlign: 'center' }}>{line}</p>
+                  ))}
+                </div>
+              )}
             </div>
             
             {/* Combat UI - Fixed Overlay Beneath TopNav */}
@@ -1508,10 +1537,14 @@ export default function App() {
                     // Check if this is an action that returns a result
                     if (c.actionType && c.rawAction) {
                       const handleAction = (usePlayerStore as any).getState().handleAction;
-                      await handleAction(c.actionType, c.rawAction);
+                      const result = await handleAction(c.actionType, c.rawAction);
+                      setActionResult(result);
                     } else {
                       const handleChoice = (usePlayerStore as any).getState().handleChoice;
-                      await handleChoice(c);
+                      const result = await handleChoice(c);
+                      if (result?.log?.length && !c.goToAreaId) {
+                        setActionResult({ success: true, log: result.log });
+                      }
                     }
                   }} 
                   title={hoverText}
@@ -1545,7 +1578,7 @@ export default function App() {
       
       {/* Modal Overlay */}
       {modalPage && (
-        <div style={{ position: 'fixed', top: 56, left: 0, right: 0, bottom: 0, background: 'url(/content/ui/parchment.webp) center center / cover #2a2a2a', zIndex: 10000, overflow: 'auto' }}>
+        <div style={{ position: 'fixed', top: 56, left: 0, right: 0, bottom: 0, background: '#1a1a1a', zIndex: 10000, overflow: 'auto' }}>
           <div style={{ maxWidth: 1200, margin: '0 auto', padding: 40, background: 'rgba(42,42,42,0.85)', minHeight: '100%' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 30, paddingBottom: 20, borderBottom: '2px solid rgba(201,168,76,0.3)' }}>
               <h2 style={{ margin: 0, fontSize: 32, color: '#f5e6c8' }}>{modalPage.charAt(0).toUpperCase() + modalPage.slice(1)}</h2>
@@ -1555,389 +1588,231 @@ export default function App() {
               </button>
             </div>
             
-            {modalPage === 'inventory' && (
-              <div>
-                {/* Stash Section */}
-                <div style={{ marginBottom: 30, padding: 24, background: 'linear-gradient(135deg, #f39c12, #e67e22)', borderRadius: 12, border: '3px solid #d68910', boxShadow: '0 4px 12px rgba(243, 156, 18, 0.3)' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div>
-                      <div style={{ color: '#fff', fontSize: 14, fontWeight: 'bold', marginBottom: 4, opacity: 0.9 }}>STASH</div>
-                      <div style={{ color: '#fff', fontSize: 28, fontWeight: 'bold' }}>💰 {stats.gold} Gold</div>
-                    </div>
-                    <div style={{ fontSize: 48, opacity: 0.3 }}>💰</div>
+            {modalPage === 'inventory' && (() => {
+              const content = getContentSnapshot();
+              const items = content?.items || new Map();
+              const ITEMS_PER_PAGE = 8;
+              const totalPages = Math.max(1, Math.ceil(inventory.length / ITEMS_PER_PAGE));
+              const safePageIdx = Math.min(inventoryPage, totalPages - 1);
+              const pageItems = inventory.slice(safePageIdx * ITEMS_PER_PAGE, (safePageIdx + 1) * ITEMS_PER_PAGE);
+
+              const pageBtn: React.CSSProperties = {
+                padding: '8px 16px', fontSize: 16, fontWeight: 'bold',
+                background: 'rgba(90,62,27,0.7)', color: '#d4b577', border: '2px solid rgba(139,90,43,0.6)',
+                borderRadius: 6, cursor: 'pointer', minWidth: 44
+              };
+              const pageBtnDisabled: React.CSSProperties = { ...pageBtn, opacity: 0.3, cursor: 'default' };
+
+              return (
+                <div style={{
+                  background: 'url(/content/ui/parchment.webp) center center / cover',
+                  borderRadius: 10, border: '4px solid rgba(139,90,43,0.55)',
+                  padding: '28px 24px 20px', minHeight: 460, position: 'relative',
+                  boxShadow: '0 8px 32px rgba(0,0,0,0.5), inset 0 0 80px rgba(139,90,43,0.08)'
+                }}>
+                  {/* Gold banner */}
+                  <div style={{ textAlign: 'center', marginBottom: 20, paddingBottom: 16, borderBottom: '2px solid rgba(139,90,43,0.25)' }}>
+                    <div style={{ color: '#5a3e1b', fontSize: 24, fontWeight: 'bold', textShadow: '0 1px 0 rgba(255,255,255,0.3)' }}>💰 {stats.gold} Gold</div>
                   </div>
-                </div>
-                
-                {/* Items Section */}
-                <div>
-                  <h3 style={{ marginTop: 0, marginBottom: 16, color: '#f5e6c8', fontSize: 20 }}>Items</h3>
+
+                  {/* Items grid */}
                   {inventory.length === 0 ? (
-                    <div style={{ padding: 40, textAlign: 'center', background: 'rgba(245,230,200,0.08)', borderRadius: 8, border: '2px dashed rgba(201,168,76,0.3)' }}>
-                      <div style={{ fontSize: 48, marginBottom: 12, opacity: 0.3 }}>📦</div>
-                      <p style={{ color: '#9aa5b1', fontSize: 16, margin: 0 }}>No items in inventory</p>
+                    <div style={{ padding: 48, textAlign: 'center' }}>
+                      <div style={{ fontSize: 48, marginBottom: 12, opacity: 0.25 }}>📦</div>
+                      <p style={{ color: '#7a6642', fontSize: 16, margin: 0, fontStyle: 'italic' }}>Your pack is empty</p>
                     </div>
                   ) : (
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: 16 }}>
-                      {inventory.map((item, idx) => {
-                        const content = getContentSnapshot();
-                        const items = content?.items || new Map();
-                        const itemDef = items.get(item.itemId);
-                        
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 14, minHeight: 320 }}>
+                      {pageItems.map((inv, idx) => {
+                        const itemDef = items.get(inv.itemId);
                         return (
-                          <div key={idx} style={{ 
-                            position: 'relative',
-                            padding: 12, 
-                            background: 'rgba(245,230,200,0.08)', 
-                            borderRadius: 8, 
-                            border: '1px solid rgba(201,168,76,0.25)',
-                            boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
-                            transition: 'transform 0.2s, box-shadow 0.2s',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            gap: 8
+                          <div key={inv.itemId + idx} style={{
+                            position: 'relative', padding: '10px 8px',
+                            background: 'rgba(139,90,43,0.12)', borderRadius: 8,
+                            border: '2px solid rgba(139,90,43,0.3)',
+                            display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6
                           }}>
                             {itemDef?.icon && (
-                              <img src={itemDef.icon} alt={itemDef.name} style={{ width: 48, height: 48 }} />
+                              <img src={itemDef.icon} alt={itemDef.name} style={{ width: 44, height: 44 }} />
                             )}
-                            <div style={{ fontSize: 12, fontWeight: 'bold', color: '#f5e6c8', textAlign: 'center', lineHeight: 1.2 }}>
-                              {itemDef?.name || item.itemId}
+                            <div style={{ fontSize: 12, fontWeight: 'bold', color: '#4a3520', textAlign: 'center', lineHeight: 1.2 }}>
+                              {itemDef?.name || inv.itemId}
                             </div>
-                            <div style={{ fontSize: 11, color: '#9aa5b1' }}>
-                              Qty: <span style={{ fontWeight: 'bold', color: '#c9a84c' }}>×{item.qty}</span>
+                            <div style={{ fontSize: 11, color: '#6b5a3e' }}>
+                              Qty: <span style={{ fontWeight: 'bold', color: '#8b5a2b' }}>×{inv.qty}</span>
                             </div>
-                            
-                            {/* Sell button positioned at bottom right */}
                             <button
-                              onClick={() => {
-                                // Placeholder for shop functionality
-                                alert(`Sell ${itemDef?.name || item.itemId}? (Shop system not yet implemented)`);
-                              }}
+                              onClick={() => alert(`Sell ${itemDef?.name || inv.itemId}? (Shop system not yet implemented)`)}
                               style={{
-                                position: 'absolute',
-                                bottom: 8,
-                                right: 8,
-                                padding: '4px 8px',
-                                fontSize: 10,
-                                fontWeight: 'bold',
-                                background: '#f39c12',
-                                color: '#fff',
-                                border: 'none',
-                                borderRadius: 4,
-                                cursor: 'pointer',
-                                boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+                                position: 'absolute', bottom: 6, right: 6,
+                                padding: '3px 7px', fontSize: 10, fontWeight: 'bold',
+                                background: '#b8860b', color: '#fff', border: 'none',
+                                borderRadius: 4, cursor: 'pointer'
                               }}
-                            >
-                              Sell
-                            </button>
+                            >Sell</button>
                           </div>
                         );
                       })}
                     </div>
                   )}
-                </div>
-              </div>
-            )}
-            
-            {modalPage === 'equipment' && (
-              <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16 }}>
-                  <h3 style={{ margin: 0, color: '#f5e6c8' }}>Equipment</h3>
-                  <div style={{ fontSize: 18, fontWeight: 'bold', color: '#c9a84c' }}>
-                    AR: {getTotalArmourRating({ stats, equipment, inventory, currentAreaId, discoveredMap, spellsKnown, spellPathsUnlocked, combatSkills: combatSkills || [], health, stamina: stamina || 0, maxStamina: maxStamina || 0, lastCheckpointId, flags: flags || {}, quests: quests || {}, questLog: questLog || [] })}
-                  </div>
-                </div>
-                
-                <div style={{ display: 'flex', flexDirection: 'row', gap: 32, flexWrap: 'wrap' }}>
-                  {/* Paper Doll with character image and positioned equipment slots */}
-                  <div style={{ 
-                    position: 'relative', 
-                    width: 340,
-                    flex: '0 0 auto',
-                    background: 'url(/content/ui/parchment.webp) center center / cover',
-                    borderRadius: 12, 
-                    border: '3px solid rgba(201,168,76,0.4)', 
-                    padding: '20px 16px',
-                    boxShadow: '0 4px 16px rgba(0,0,0,0.4)'
-                  }}>
-                    {/* Character image */}
-                    <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 8 }}>
-                      <img src="/content/ui/paper_doll.webp" alt="Character" style={{ 
-                        width: 200, 
-                        height: 'auto',
-                        opacity: 0.9,
-                        filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))'
-                      }} />
-                    </div>
 
-                    {/* Equipment slots positioned under body areas */}
+                  {/* Page turning controls */}
+                  {totalPages > 1 && (
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 20, paddingTop: 14, borderTop: '2px solid rgba(139,90,43,0.2)' }}>
+                      <button
+                        onClick={() => setInventoryPage(Math.max(0, safePageIdx - 1))}
+                        disabled={safePageIdx === 0}
+                        style={safePageIdx === 0 ? pageBtnDisabled : pageBtn}
+                      >◀</button>
+                      <span style={{ color: '#5a3e1b', fontSize: 14, fontWeight: 'bold', fontStyle: 'italic' }}>
+                        Page {safePageIdx + 1} of {totalPages}
+                      </span>
+                      <button
+                        onClick={() => setInventoryPage(Math.min(totalPages - 1, safePageIdx + 1))}
+                        disabled={safePageIdx >= totalPages - 1}
+                        style={safePageIdx >= totalPages - 1 ? pageBtnDisabled : pageBtn}
+                      >▶</button>
+                    </div>
+                  )}
+                </div>
+              );
+            })()}
+            
+            {modalPage === 'equipment' && (() => {
+              const content = getContentSnapshot();
+              const items = content?.items || new Map();
+              const arVal = getTotalArmourRating({ stats, equipment, inventory, currentAreaId, discoveredMap, spellsKnown, spellPathsUnlocked, combatSkills: combatSkills || [], health, stamina: stamina || 0, maxStamina: maxStamina || 0, lastCheckpointId, flags: flags || {}, quests: quests || {}, questLog: questLog || [] });
+
+              const renderSlot = (slot: string, label: string) => {
+                const itemId = equipment[slot];
+                const item = itemId ? items.get(itemId) : null;
+                return (
+                  <div style={{
+                    width: 68, textAlign: 'center', padding: '4px 3px',
+                    background: itemId ? 'rgba(201,168,76,0.25)' : 'rgba(50,45,35,0.6)',
+                    border: `2px ${itemId ? 'solid' : 'dashed'} rgba(201,168,76,${itemId ? '0.7' : '0.35'})`,
+                    borderRadius: 6, backdropFilter: 'blur(4px)',
+                    display: 'flex', flexDirection: 'column' as const, alignItems: 'center', gap: 1
+                  }}>
+                    <div style={{ fontSize: 8, fontWeight: 'bold', color: '#c9a84c', letterSpacing: 0.5 }}>{label}</div>
+                    {item?.icon ? (
+                      <img src={item.icon} alt={item.name} style={{ width: 28, height: 28 }} />
+                    ) : (
+                      <div style={{ width: 28, height: 28, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, opacity: 0.3, color: '#c9a84c' }}>—</div>
+                    )}
+                    <div style={{ fontSize: 8, color: '#e8dcc8', fontWeight: 600, lineHeight: 1.1, maxWidth: 62, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const }}>
+                      {item?.name || ''}
+                    </div>
+                    {itemId && (
+                      <button onClick={() => {
+                        const st = usePlayerStore.getState();
+                        const eq = { ...st.equipment }; delete eq[slot];
+                        usePlayerStore.setState({ equipment: eq });
+                      }} style={{ padding: '1px 5px', fontSize: 8, background: '#dc3545', color: '#fff', border: 'none', borderRadius: 3, cursor: 'pointer', marginTop: 1 }}>
+                        ✕
+                      </button>
+                    )}
+                  </div>
+                );
+              };
+
+              return (
+                <div>
+                  {/* AR Banner */}
+                  <div style={{ textAlign: 'center', marginBottom: 16 }}>
+                    <span style={{ fontSize: 18, fontWeight: 'bold', color: '#c9a84c' }}>🛡️ Armour Rating: {arVal}</span>
+                  </div>
+
+                  {/* Paper Doll with overlaid equipment slots */}
+                  <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 24 }}>
+                    <div style={{ position: 'relative', width: 300 }}>
+                      <img src="/content/ui/paper_doll.webp" alt="Character" style={{
+                        width: '100%', display: 'block', opacity: 0.85,
+                        filter: 'drop-shadow(0 0 16px rgba(201,168,76,0.25))'
+                      }} />
+
+                      {/* HEAD — top center */}
+                      <div style={{ position: 'absolute', top: '1%', left: '50%', transform: 'translateX(-50%)' }}>
+                        {renderSlot('head', 'HEAD')}
+                      </div>
+
+                      {/* CHEST — upper torso */}
+                      <div style={{ position: 'absolute', top: '22%', left: '50%', transform: 'translateX(-50%)' }}>
+                        {renderSlot('chest', 'CHEST')}
+                      </div>
+
+                      {/* L.HAND (offhand) — left arm */}
+                      <div style={{ position: 'absolute', top: '30%', left: '2%' }}>
+                        {renderSlot('offhand', 'L.HAND')}
+                      </div>
+
+                      {/* R.HAND (mainhand) — right arm */}
+                      <div style={{ position: 'absolute', top: '30%', right: '2%' }}>
+                        {renderSlot('mainhand', 'R.HAND')}
+                      </div>
+
+                      {/* HANDS / GLOVES — below arms */}
+                      <div style={{ position: 'absolute', top: '46%', left: '50%', transform: 'translateX(-50%)' }}>
+                        {renderSlot('gloves', 'HANDS')}
+                      </div>
+
+                      {/* Belt divider */}
+                      <div style={{ position: 'absolute', top: '56%', left: '20%', right: '20%', height: 2, background: 'rgba(201,168,76,0.3)', borderRadius: 1 }} />
+
+                      {/* LEGS — lower body */}
+                      <div style={{ position: 'absolute', top: '62%', left: '50%', transform: 'translateX(-50%)' }}>
+                        {renderSlot('legs', 'LEGS')}
+                      </div>
+
+                      {/* FEET / BOOTS — bottom */}
+                      <div style={{ position: 'absolute', top: '82%', left: '50%', transform: 'translateX(-50%)' }}>
+                        {renderSlot('boots', 'FEET')}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Available Equipment from Inventory */}
+                  <h4 style={{ marginTop: 0, marginBottom: 12, fontSize: 16, color: '#f5e6c8' }}>AVAILABLE EQUIPMENT</h4>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(100px, 1fr))', gap: 8 }}>
                     {(() => {
-                      const content = getContentSnapshot();
-                      const items = content?.items || new Map();
-                      const slotDefs: Array<{ slot: string; label: string; width: number }> = [
-                        { slot: 'head', label: 'HEAD', width: 72 },
-                        { slot: 'chest', label: 'CHEST', width: 84 },
-                        { slot: 'mainhand', label: 'R.HAND', width: 72 },
-                        { slot: 'offhand', label: 'L.HAND', width: 72 },
-                        { slot: 'gloves', label: 'GLOVES', width: 72 },
-                        { slot: 'legs', label: 'LEGS', width: 84 },
-                        { slot: 'boots', label: 'BOOTS', width: 72 },
-                      ];
-                      
-                      const renderSlot = (slot: string, label: string, width: number) => {
-                        const itemId = equipment[slot];
-                        const item = itemId ? items.get(itemId) : null;
+                      const equipmentItems = inventory.filter(invItem => {
+                        const item = items.get(invItem.itemId);
+                        return item && (item.type === 'weapon' || item.type === 'armor' || item.type === 'ammunition');
+                      });
+                      if (equipmentItems.length === 0) {
+                        return <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: 20, color: '#999', fontSize: 14 }}>No equipment items in inventory</div>;
+                      }
+                      return equipmentItems.map(invItem => {
+                        const item = items.get(invItem.itemId);
+                        if (!item) return null;
+                        const isEquipped = Object.values(equipment).includes(invItem.itemId);
                         return (
-                          <div key={slot} style={{
-                            width,
-                            textAlign: 'center',
-                            padding: '6px 4px',
-                            background: itemId ? 'rgba(160,120,48,0.35)' : 'rgba(80,60,30,0.25)',
-                            border: `2px ${itemId ? 'solid' : 'dashed'} rgba(160,120,48,${itemId ? '0.7' : '0.4'})`,
-                            borderRadius: 6,
-                            display: 'flex',
-                            flexDirection: 'column' as const,
-                            alignItems: 'center',
-                            gap: 2
+                          <div key={invItem.itemId} style={{
+                            padding: 6, background: isEquipped ? 'rgba(46,204,113,0.15)' : 'rgba(245,230,200,0.08)',
+                            border: `2px solid ${isEquipped ? '#2ecc71' : 'rgba(201,168,76,0.25)'}`,
+                            borderRadius: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4,
+                            opacity: isEquipped ? 0.6 : 1
                           }}>
-                            <div style={{ fontSize: 9, fontWeight: 'bold', color: '#6b5a3e', letterSpacing: 0.5, textTransform: 'uppercase' as const }}>{label}</div>
-                            {item?.icon ? (
-                              <img src={item.icon} alt={item.name} style={{ width: 32, height: 32 }} />
-                            ) : (
-                              <div style={{ width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, opacity: 0.3, color: '#6b5a3e' }}>—</div>
+                            {item.icon && <img src={item.icon} alt={item.name} style={{ width: 32, height: 32 }} />}
+                            <div style={{ fontSize: 10, fontWeight: '600', textAlign: 'center', lineHeight: 1.2, color: '#f5e6c8' }}>{item.name}</div>
+                            {invItem.qty > 1 && <div style={{ fontSize: 9, color: '#9aa5b1' }}>×{invItem.qty}</div>}
+                            {!isEquipped && item.slot && (
+                              <button onClick={() => {
+                                const st = usePlayerStore.getState();
+                                usePlayerStore.setState({ equipment: { ...st.equipment, [item.slot]: invItem.itemId } });
+                              }} style={{ padding: '2px 6px', fontSize: 9, background: '#28a745', color: '#fff', border: 'none', borderRadius: 3, cursor: 'pointer', marginTop: 2 }}>
+                                Equip
+                              </button>
                             )}
-                            <div style={{ fontSize: 9, color: '#5a4a30', fontWeight: 600, lineHeight: 1.1, maxWidth: width - 8, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const }}>
-                              {item?.name || ''}
-                            </div>
+                            {isEquipped && <div style={{ fontSize: 9, color: '#2ecc71', marginTop: 2 }}>✓ Equipped</div>}
                           </div>
                         );
-                      };
-
-                      return (
-                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
-                          {/* Head */}
-                          {renderSlot('head', 'HEAD', 72)}
-
-                          {/* Chest */}
-                          {renderSlot('chest', 'CHEST', 84)}
-
-                          {/* Arms row: offhand / mainhand */}
-                          <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
-                            {renderSlot('offhand', 'L.HAND', 72)}
-                            {renderSlot('mainhand', 'R.HAND', 72)}
-                          </div>
-
-                          {/* Gloves */}
-                          {renderSlot('gloves', 'GLOVES', 72)}
-
-                          {/* Belt divider */}
-                          <div style={{ width: '60%', height: 1, background: 'rgba(160,120,48,0.3)', margin: '2px 0' }} />
-
-                          {/* Legs */}
-                          {renderSlot('legs', 'LEGS', 84)}
-
-                          {/* Boots */}
-                          {renderSlot('boots', 'BOOTS', 72)}
-                        </div>
-                      );
+                      });
                     })()}
                   </div>
-                  
-                  {/* Equipment Details - Weapons and Armor Sections */}
-                  <div style={{ flex: '1 1 400px', minWidth: 300 }}>
-                    <h4 style={{ marginTop: 0, marginBottom: 12, fontSize: 16, color: '#f5e6c8' }}>EQUIPPED WEAPONS</h4>
-                    <div style={{ display: 'flex', gap: 12, marginBottom: 24 }}>
-                      {['mainhand', 'offhand'].map(slot => {
-                        const itemId = equipment[slot];
-                        return (
-                          <div key={slot} style={{ 
-                            flex: 1,
-                            padding: '8px 12px', 
-                            background: 'rgba(245,230,200,0.08)',
-                            border: '1px solid rgba(201,168,76,0.25)', 
-                            borderRadius: 6,
-                            display: 'flex', 
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            gap: 4
-                          }}>
-                            <div style={{ fontSize: 11, fontWeight: 'bold', textTransform: 'uppercase', color: '#9aa5b1' }}>
-                              {slot === 'mainhand' ? 'Main Hand' : 'Off Hand'}
-                            </div>
-                            <div style={{ fontSize: 13, fontWeight: '600', color: '#f5e6c8' }}>
-                              {itemId || <em style={{ color: '#adb5bd' }}>Empty</em>}
-                            </div>
-                            {itemId && (() => {
-                              const content = getContentSnapshot();
-                              const items = content?.items || new Map();
-                              const item = items.get(itemId);
-                              return (
-                                <div style={{ fontSize: 10, color: '#9aa5b1', marginTop: 4 }}>
-                                  {item?.attackBonus && <div>⚔️ +{item.attackBonus}% Attack</div>}
-                                  {item?.defenseBonus && <div>🛡️ +{item.defenseBonus}% Defense</div>}
-                                  {item?.damageRating && <div>💥 {item.damageRating} Damage</div>}
-                                </div>
-                              );
-                            })()}
-                            {itemId && (
-                              <button onClick={() => {
-                                const currentState = usePlayerStore.getState();
-                                const newEquipment = { ...currentState.equipment };
-                                delete newEquipment[slot];
-                                usePlayerStore.setState({ equipment: newEquipment });
-                              }} style={{ 
-                                padding: '3px 8px', 
-                                fontSize: 10, 
-                                background: '#dc3545', 
-                                color: '#fff', 
-                                border: 'none', 
-                                borderRadius: 3, 
-                                cursor: 'pointer',
-                                marginTop: 4
-                              }}>
-                                Remove
-                              </button>
-                            )}
-                          </div>
-                        );
-                      })}
-                    </div>
-                    
-                    <h4 style={{ marginTop: 0, marginBottom: 12, fontSize: 16, color: '#f5e6c8' }}>ARMOR PIECES</h4>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: 8 }}>
-                      {['head', 'chest', 'gloves', 'legs', 'boots'].map(slot => {
-                        const itemId = equipment[slot];
-                        return (
-                          <div key={slot} style={{ 
-                            padding: '8px 12px', 
-                            background: 'rgba(245,230,200,0.08)',
-                            border: '1px solid rgba(201,168,76,0.25)', 
-                            borderRadius: 6,
-                            display: 'flex', 
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            gap: 4
-                          }}>
-                            <div style={{ fontSize: 11, fontWeight: 'bold', textTransform: 'uppercase', color: '#9aa5b1' }}>
-                              {slot}
-                            </div>
-                            <div style={{ fontSize: 13, fontWeight: '600', color: '#f5e6c8' }}>
-                              {itemId || <em style={{ color: '#9aa5b1' }}>Empty</em>}
-                            </div>
-                            {itemId && (() => {
-                              const content = getContentSnapshot();
-                              const items = content?.items || new Map();
-                              const item = items.get(itemId);
-                              return (
-                                <div style={{ fontSize: 10, color: '#9aa5b1', marginTop: 4 }}>
-                                  {item?.armourRating && <div>🛡️ {item.armourRating} AR</div>}
-                                  {item?.defenseBonus && <div>🛡️ +{item.defenseBonus}% Defense</div>}
-                                </div>
-                              );
-                            })()}
-                            {itemId && (
-                              <button onClick={() => {
-                                const currentState = usePlayerStore.getState();
-                                const newEquipment = { ...currentState.equipment };
-                                delete newEquipment[slot];
-                                usePlayerStore.setState({ equipment: newEquipment });
-                              }} style={{ 
-                                padding: '3px 8px', 
-                                fontSize: 10, 
-                                background: '#dc3545', 
-                                color: '#fff', 
-                                border: 'none', 
-                                borderRadius: 3, 
-                                cursor: 'pointer',
-                                marginTop: 4
-                              }}>
-                                Remove
-                              </button>
-                            )}
-                          </div>
-                        );
-                      })}
-                    </div>
-                    
-                    {/* Available Equipment from Inventory */}
-                    <h4 style={{ marginTop: 24, marginBottom: 12, fontSize: 16, color: '#f5e6c8' }}>AVAILABLE EQUIPMENT</h4>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(100px, 1fr))', gap: 8 }}>
-                      {(() => {
-                        const content = getContentSnapshot();
-                        const items = content?.items || new Map();
-                        const equipmentItems = inventory.filter(invItem => {
-                          const item = items.get(invItem.itemId);
-                          return item && (item.type === 'weapon' || item.type === 'armor' || item.type === 'ammunition');
-                        });
-                        
-                        if (equipmentItems.length === 0) {
-                          return (
-                            <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: 20, color: '#999', fontSize: 14 }}>
-                              No equipment items in inventory
-                            </div>
-                          );
-                        }
-                        
-                        return equipmentItems.map(invItem => {
-                          const item = items.get(invItem.itemId);
-                          if (!item) return null;
-                          
-                          const isEquipped = Object.values(equipment).includes(invItem.itemId);
-                          
-                          return (
-                            <div key={invItem.itemId} style={{ 
-                              padding: '6px', 
-                              background: isEquipped ? 'rgba(46,204,113,0.15)' : 'rgba(245,230,200,0.08)',
-                              border: `2px solid ${isEquipped ? '#2ecc71' : 'rgba(201,168,76,0.25)'}`, 
-                              borderRadius: 6,
-                              display: 'flex', 
-                              flexDirection: 'column',
-                              alignItems: 'center',
-                              gap: 4,
-                              opacity: isEquipped ? 0.6 : 1
-                            }}>
-                              {item.icon && (
-                                <img src={item.icon} alt={item.name} style={{ width: 32, height: 32 }} />
-                              )}
-                              <div style={{ fontSize: 10, fontWeight: '600', textAlign: 'center', lineHeight: 1.2, color: '#f5e6c8' }}>
-                                {item.name}
-                              </div>
-                              {invItem.qty > 1 && (
-                                <div style={{ fontSize: 9, color: '#9aa5b1' }}>×{invItem.qty}</div>
-                              )}
-                              {!isEquipped && item.slot && (
-                                <button
-                                  onClick={() => {
-                                    const currentState = usePlayerStore.getState();
-                                    const newEquipment = { ...currentState.equipment, [item.slot]: invItem.itemId };
-                                    usePlayerStore.setState({ equipment: newEquipment });
-                                  }}
-                                  style={{ 
-                                    padding: '2px 6px', 
-                                    fontSize: 9, 
-                                    background: '#28a745', 
-                                    color: '#fff', 
-                                    border: 'none', 
-                                    borderRadius: 3, 
-                                    cursor: 'pointer',
-                                    marginTop: 2
-                                  }}
-                                >
-                                  Add
-                                </button>
-                              )}
-                              {isEquipped && (
-                                <div style={{ fontSize: 9, color: '#2ecc71', marginTop: 2 }}>✓ Equipped</div>
-                              )}
-                            </div>
-                          );
-                        });
-                      })()}
-                    </div>
-                  </div>
                 </div>
-              </div>
-            )}
+              );
+            })()}
             
             {modalPage === 'skills' && (
               <div>
@@ -2601,7 +2476,7 @@ export default function App() {
                                           {!isLearned && tierUnlocked && (
                                             <button
                                               onClick={() => {
-                                                if (canLearn && confirm(`Learn ${spell.name} for ${spell.cost} Stat Points?`)) {
+                                                if (canLearn) {
                                                   const currentState = usePlayerStore.getState();
                                                   usePlayerStore.setState({
                                                     stats: { ...currentState.stats, statPoints: currentState.stats.statPoints - spell.cost },
