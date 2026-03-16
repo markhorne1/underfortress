@@ -34,7 +34,7 @@ jobs:
           fi
 
       - name: Build Windows packages
-        run: npm run dist:win
+        run: npm run dist:win -- --publish never
 
       - name: Upload Windows EXE artifacts
         uses: actions/upload-artifact@v4
