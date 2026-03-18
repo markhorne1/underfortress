@@ -53,6 +53,30 @@ async function getInvestigationSkill(state: PlayerState): Promise<number> {
   return getInvestigate(state);
 }
 
+function maybeGrantForagedMushroom(areaId: string, action: any, state: PlayerState, log: string[]): void {
+  if (action?.disableForageMushrooms) return;
+
+  // Keep forage rewards out of mostly urban hub areas.
+  const urbanPrefixes = ['c_', 'ce_', 'br_', 'v_'];
+  if (urbanPrefixes.some((prefix) => String(areaId).startsWith(prefix))) return;
+
+  // "Most" searchable areas can yield fungi.
+  if (Math.random() > 0.7) return;
+
+  const roll = Math.random();
+  let itemId = 'mushroom_green';
+  if (roll > 0.92) itemId = 'mushroom_purplish';
+  else if (roll > 0.8) itemId = 'mushroom_purple';
+  else if (roll > 0.62) itemId = 'mushroom_golden';
+  else if (roll > 0.35) itemId = 'mushroom_red';
+
+  const existing = state.inventory.find((i: any) => i.itemId === itemId);
+  if (existing) existing.qty += 1;
+  else state.inventory.push({ itemId, qty: 1 } as any);
+
+  log.push(`🍄 You forage ${itemId}.`);
+}
+
 export async function performSearch(areaId: string, action: any, state: PlayerState): Promise<{ state: PlayerState; log: string[]; success: boolean }> {
   const newState = JSON.parse(JSON.stringify(state));
   const searchFlag = `area:${areaId}:searched`;
@@ -98,6 +122,7 @@ export async function performSearch(areaId: string, action: any, state: PlayerSt
       Object.assign(newState, res.state);
       log.push(...res.log);
     }
+    maybeGrantForagedMushroom(areaId, action, newState, log);
     // Mark as searched only on success
     if (!newState.flags) newState.flags = {};
     (newState.flags as any)[searchFlag] = true;

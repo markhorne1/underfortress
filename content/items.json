@@ -44,6 +44,26 @@
     "description": "A simple hunting bow. Effective at range."
   },
   {
+    "id": "cutlass",
+    "name": "Cutlass",
+    "type": "weapon",
+    "slot": "mainhand",
+    "damageRating": 3,
+    "stackable": false,
+    "value": 18,
+    "description": "A short, curved blade favored in close quarters."
+  },
+  {
+    "id": "redknife",
+    "name": "Redknife",
+    "type": "weapon",
+    "slot": "mainhand",
+    "damageRating": 5,
+    "stackable": false,
+    "value": 35,
+    "description": "A jagged goblin-forged blade with a blood-red edge."
+  },
+  {
     "id": "battle_axe",
     "name": "Battle Axe",
     "type": "weapon",
@@ -82,6 +102,16 @@
     "stackable": false,
     "value": 50,
     "description": "A sturdy steel shield that deflects blows."
+  },
+  {
+    "id": "small_shield",
+    "name": "Small Shield",
+    "type": "armor",
+    "slot": "offhand",
+    "armourRating": 2,
+    "stackable": false,
+    "value": 20,
+    "description": "A compact shield that still catches the worst hits."
   },
   {
     "id": "leather_armor",
@@ -150,6 +180,46 @@
     "stackable": true,
     "value": 50,
     "description": "A scroll inscribed with magical formulae."
+  },
+  {
+    "id": "mushroom_red",
+    "name": "Red Mushroom",
+    "type": "consumable",
+    "stackable": true,
+    "value": 2,
+    "description": "A bright red cap that restores 10 health when eaten."
+  },
+  {
+    "id": "mushroom_green",
+    "name": "Green Mushroom",
+    "type": "consumable",
+    "stackable": true,
+    "value": 1,
+    "description": "A mild forest mushroom that restores 5 health."
+  },
+  {
+    "id": "mushroom_golden",
+    "name": "Golden Mushroom",
+    "type": "consumable",
+    "stackable": true,
+    "value": 5,
+    "description": "Rare and warm to the touch. Grants +2 damage for your next combat."
+  },
+  {
+    "id": "mushroom_purple",
+    "name": "Purple Mushroom",
+    "type": "consumable",
+    "stackable": true,
+    "value": 4,
+    "description": "Deep violet flesh that restores all stamina."
+  },
+  {
+    "id": "mushroom_purplish",
+    "name": "Purplish Mushroom",
+    "type": "consumable",
+    "stackable": true,
+    "value": 7,
+    "description": "An unstable variant that doubles max stamina for the next battle."
   },
   {
     "id": "banner_cloth_strip",

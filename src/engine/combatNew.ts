@@ -135,6 +135,29 @@ function getEnemyDamageRating(enemy: EnemyInstance): number {
 export function initiateCombat(enemyIds: string[], state: PlayerState): PlayerState {
   const newState = JSON.parse(JSON.stringify(state));
   const enemyInstances: EnemyInstance[] = [];
+  newState.flags = newState.flags || {};
+
+  // Apply pending consumable pre-combat effects.
+  const pendingDamageBonus = Number(newState.flags._nextCombatAttackDamageBonus || 0);
+  if (pendingDamageBonus > 0) {
+    newState.activeBuffs = newState.activeBuffs || [];
+    newState.activeBuffs.push({
+      stat: 'attackDamage',
+      value: pendingDamageBonus,
+      duration: 999,
+      source: 'next_combat_consumable'
+    } as any);
+    delete newState.flags._nextCombatAttackDamageBonus;
+  }
+
+  const staminaMult = Number(newState.flags._nextBattleStaminaMultiplier || 1);
+  if (staminaMult > 1) {
+    const baseMax = newState.maxStamina || getMaxStamina(newState);
+    newState.flags._baseMaxStaminaBeforeNextBattle = baseMax;
+    newState.maxStamina = baseMax * staminaMult;
+    newState.stamina = newState.maxStamina;
+    delete newState.flags._nextBattleStaminaMultiplier;
+  }
   
   console.log('🎮 initiateCombat called with enemyIds:', enemyIds);
   const content = getContentSnapshot();
@@ -173,6 +196,13 @@ export function initiateCombat(enemyIds: string[], state: PlayerState): PlayerSt
     combatLog: [`Combat initiated! ${enemyInstances.length} ${enemyInstances.length === 1 ? 'enemy' : 'enemies'} appeared!`],
     intimidationAttempts: {}
   };
+
+  if (pendingDamageBonus > 0) {
+    newState.combat.combatLog.push(`🍄 Golden mushroom effect active: +${pendingDamageBonus} damage this combat.`);
+  }
+  if (staminaMult > 1) {
+    newState.combat.combatLog.push(`🍄 Purplish mushroom effect active: max stamina x${staminaMult} this combat.`);
+  }
   
   return newState;
 }
@@ -687,6 +717,26 @@ export function endCombat(victory: boolean, state: PlayerState): { state: Player
     let totalGold = 0;
     let totalStatPoints = 0;
     const itemsLooted: string[] = [];
+
+    const grantLootItem = (itemId: string, qty: number) => {
+      if (!itemId || qty <= 0) return;
+      const existing = newState.inventory.find((i: any) => i.itemId === itemId);
+      if (existing) {
+        existing.qty += qty;
+      } else {
+        newState.inventory.push({ itemId, qty });
+      }
+      itemsLooted.push(`${itemId} x${qty}`);
+    };
+
+    const isOrcOrGoblin = (enemyDef: any) => {
+      const id = String(enemyDef?.id || '').toLowerCase();
+      const name = String(enemyDef?.name || '').toLowerCase();
+      const tags = Array.isArray(enemyDef?.tags)
+        ? enemyDef.tags.map((t: any) => String(t).toLowerCase())
+        : [];
+      return id.includes('orc') || id.includes('goblin') || name.includes('orc') || name.includes('goblin') || tags.includes('orc') || tags.includes('goblin');
+    };
     
     for (const enemy of newState.combat.enemies) {
       const enemyDef = getEnemyById(enemy.enemyId);
@@ -720,19 +770,31 @@ export function endCombat(victory: boolean, state: PlayerState): { state: Player
         // Item drops
         if (enemyDef.loot.items && Array.isArray(enemyDef.loot.items)) {
           for (const lootEntry of enemyDef.loot.items) {
-            const chance = lootEntry.chance || 1;
+            const chance = lootEntry.chance ?? lootEntry.probability ?? 1;
             if (Math.random() <= chance) {
-              const qty = lootEntry.qty || 1;
-              if (qty > 0) {
-                const existing = newState.inventory.find((i: any) => i.itemId === lootEntry.itemId);
-                if (existing) {
-                  existing.qty += qty;
-                } else {
-                  newState.inventory.push({ itemId: lootEntry.itemId, qty });
-                }
-                itemsLooted.push(`${lootEntry.itemId} x${qty}`);
-              }
+              const minQty = lootEntry.min ?? lootEntry.qty ?? 1;
+              const maxQty = lootEntry.max ?? lootEntry.qty ?? minQty;
+              const qty = Math.max(1, Math.floor(Math.random() * (maxQty - minQty + 1)) + minQty);
+              grantLootItem(lootEntry.itemId, qty);
             }
+          }
+        }
+      }
+
+      // Bonus common-sense drops for orc/goblin encounters.
+      if (isOrcOrGoblin(enemyDef)) {
+        const idText = String(enemyDef.id || '').toLowerCase();
+        const isOrc = idText.includes('orc');
+        const bonusDrops = [
+          { itemId: 'redknife', chance: 0.2, qty: 1 },
+          { itemId: 'cutlass', chance: 0.14, qty: 1 },
+          { itemId: 'small_shield', chance: 0.1, qty: 1 },
+          { itemId: 'chainmail', chance: isOrc ? 0.08 : 0.03, qty: 1 }
+        ];
+
+        for (const drop of bonusDrops) {
+          if (Math.random() <= drop.chance) {
+            grantLootItem(drop.itemId, drop.qty);
           }
         }
       }
@@ -796,6 +858,21 @@ export function endCombat(victory: boolean, state: PlayerState): { state: Player
     };
     
     newState.combat.active = false;
+  }
+
+  // Clear one-combat consumable effects after combat ends.
+  if (Array.isArray(newState.activeBuffs)) {
+    newState.activeBuffs = newState.activeBuffs.filter((b: any) => b.source !== 'next_combat_consumable');
+  }
+
+  // Revert temporary max stamina granted for one battle.
+  if (newState.flags && newState.flags._baseMaxStaminaBeforeNextBattle) {
+    const baseMax = Number(newState.flags._baseMaxStaminaBeforeNextBattle);
+    if (baseMax > 0) {
+      newState.maxStamina = baseMax;
+      newState.stamina = baseMax;
+    }
+    delete newState.flags._baseMaxStaminaBeforeNextBattle;
   }
   
   return { state: newState, log };

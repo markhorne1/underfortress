@@ -20,6 +20,7 @@ export type PlayerActions = {
   hasSave: boolean;
   loadState: () => Promise<void>;
   newGame: () => Promise<void>;
+  consumeInventoryItem: (itemId: string) => Promise<{ success: boolean; log: string[] }>;
   moveTo: (areaId?: string, skipExitCheck?: boolean) => Promise<void>;
   handleChoice: (choice: any) => Promise<{ log: string[] } | void>;
   handleAction: (actionType: string, action: any) => Promise<{ success: boolean; log: string[] }>;
@@ -120,6 +121,61 @@ export function createPlayerStore(storage: KVStorage) {
       // persist
       await storage.setItem(STORAGE_KEY, JSON.stringify(get()));
     },
+    consumeInventoryItem: async (itemId: string) => {
+      const state = get() as any;
+      const inv = [...(state.inventory || [])];
+      const idx = inv.findIndex((i: any) => i.itemId === itemId && i.qty > 0);
+      if (idx < 0) {
+        return { success: false, log: [`No ${itemId} in inventory.`] };
+      }
+
+      const logs: string[] = [];
+      const flags = { ...(state.flags || {}) };
+      const activeBuffs = [...(state.activeBuffs || [])];
+      let health = state.health ?? 100;
+      let stamina = state.stamina ?? 0;
+      let maxStamina = state.maxStamina ?? 0;
+
+      switch (itemId) {
+        case 'mushroom_red':
+          health = Math.min(100, health + 10);
+          logs.push('You eat the red mushroom and recover 10 health.');
+          break;
+        case 'mushroom_green':
+          health = Math.min(100, health + 5);
+          logs.push('You eat the green mushroom and recover 5 health.');
+          break;
+        case 'mushroom_purple':
+          stamina = maxStamina;
+          logs.push('The purple mushroom restores your stamina to full.');
+          break;
+        case 'mushroom_golden':
+          flags._nextCombatAttackDamageBonus = (flags._nextCombatAttackDamageBonus || 0) + 2;
+          logs.push('Golden mushroom consumed: +2 damage queued for your next combat.');
+          break;
+        case 'mushroom_purplish':
+          flags._nextBattleStaminaMultiplier = Math.max(2, flags._nextBattleStaminaMultiplier || 1);
+          logs.push('Purplish mushroom consumed: next battle max stamina will be doubled.');
+          break;
+        default:
+          return { success: false, log: [`${itemId} is not currently usable from inventory.`] };
+      }
+
+      inv[idx].qty -= 1;
+      const nextInventory = inv[idx].qty <= 0 ? inv.filter((i: any) => i.qty > 0) : inv;
+
+      set({
+        inventory: nextInventory,
+        flags,
+        activeBuffs,
+        health,
+        stamina,
+        maxStamina
+      } as any);
+
+      await storage.setItem(STORAGE_KEY, JSON.stringify(get()));
+      return { success: true, log: logs };
+    },
     moveTo: async (areaId?: string, skipExitCheck: boolean = false) => {
       if (!areaId) return;
       const allAreas = getAllAreas();
@@ -159,7 +215,13 @@ export function createPlayerStore(storage: KVStorage) {
         if (combatResult.combat) {
           combatResult.combat.threatId = 'direct_combat';
         }
-        set({ combat: combatResult.combat } as any);
+        set({
+          combat: combatResult.combat,
+          activeBuffs: (combatResult as any).activeBuffs,
+          flags: (combatResult as any).flags,
+          stamina: (combatResult as any).stamina,
+          maxStamina: (combatResult as any).maxStamina
+        } as any);
         await storage.setItem(STORAGE_KEY, JSON.stringify(get()));
         return; // Stop further processing
       }
@@ -213,7 +275,13 @@ export function createPlayerStore(storage: KVStorage) {
                 combatResult.combat.threatId = threatId;
                 combatResult.combat.originAreaId = currentState.currentAreaId;
               }
-              set({ combat: combatResult.combat } as any);
+              set({
+                combat: combatResult.combat,
+                activeBuffs: (combatResult as any).activeBuffs,
+                flags: (combatResult as any).flags,
+                stamina: (combatResult as any).stamina,
+                maxStamina: (combatResult as any).maxStamina
+              } as any);
               await storage.setItem(STORAGE_KEY, JSON.stringify(get()));
               return; // Stop further processing
             }
@@ -257,7 +325,13 @@ export function createPlayerStore(storage: KVStorage) {
               if (combatResult.combat) {
                 combatResult.combat.originAreaId = nextAreaId;
               }
-              set({ combat: combatResult.combat } as any);
+              set({
+                combat: combatResult.combat,
+                activeBuffs: (combatResult as any).activeBuffs,
+                flags: (combatResult as any).flags,
+                stamina: (combatResult as any).stamina,
+                maxStamina: (combatResult as any).maxStamina
+              } as any);
               // Combat initiated, stop further processing and save
               await storage.setItem(STORAGE_KEY, JSON.stringify(get()));
               return;

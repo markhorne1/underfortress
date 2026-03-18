@@ -123,6 +123,7 @@ export default function App() {
   const combatLogRef = useRef<HTMLDivElement>(null); // Ref for auto-scrolling combat log
   const newGame = usePlayerStore(s => s.newGame);
   const loadState = usePlayerStore(s => s.loadState);
+  const consumeInventoryItem = usePlayerStore((s: any) => s.consumeInventoryItem);
   const currentAreaId = usePlayerStore(s => s.currentAreaId);
   const discoveredMap = usePlayerStore(s => s.discoveredMap);
   const lastCheckpointId = usePlayerStore(s => s.lastCheckpointId);
@@ -1124,7 +1125,9 @@ export default function App() {
                           activeBuffs: result.state.activeBuffs,
                           stats: result.state.stats,
                           inventory: result.state.inventory,
-                          stamina: result.state.stamina
+                          stamina: result.state.stamina,
+                          maxStamina: result.state.maxStamina,
+                          flags: result.state.flags
                         });
                         
                         // Enemy turn after player attacks
@@ -1136,7 +1139,10 @@ export default function App() {
                               health: enemyResult.state.health,
                               activeBuffs: enemyResult.state.activeBuffs,
                               stats: enemyResult.state.stats,
-                              inventory: enemyResult.state.inventory
+                              inventory: enemyResult.state.inventory,
+                              stamina: enemyResult.state.stamina,
+                              maxStamina: enemyResult.state.maxStamina,
+                              flags: enemyResult.state.flags
                             });
                           }
                         }, 800);
@@ -1181,7 +1187,9 @@ export default function App() {
                               stamina: Math.max(0, currentState.stamina - slashCost),
                               activeBuffs: result.state.activeBuffs,
                               stats: result.state.stats,
-                              inventory: result.state.inventory
+                              inventory: result.state.inventory,
+                              maxStamina: result.state.maxStamina,
+                              flags: result.state.flags
                             });
                             
                             // Enemy turn after slash
@@ -1193,7 +1201,10 @@ export default function App() {
                                   health: enemyResult.state.health,
                                   activeBuffs: enemyResult.state.activeBuffs,
                                   stats: enemyResult.state.stats,
-                                  inventory: enemyResult.state.inventory
+                                  inventory: enemyResult.state.inventory,
+                                  stamina: enemyResult.state.stamina,
+                                  maxStamina: enemyResult.state.maxStamina,
+                                  flags: enemyResult.state.flags
                                 });
                               }
                             }, 1200);
@@ -1240,7 +1251,9 @@ export default function App() {
                             usePlayerStore.setState({ 
                               combat: result.state.combat,
                               stamina: Math.max(0, currentState.stamina - pivotCost),
-                              activeBuffs: result.state.activeBuffs
+                              activeBuffs: result.state.activeBuffs,
+                              maxStamina: result.state.maxStamina,
+                              flags: result.state.flags
                             });
                             
                             // Enemy turn after pivot
@@ -1250,7 +1263,10 @@ export default function App() {
                                 usePlayerStore.setState({ 
                                   combat: enemyResult.state.combat,
                                   health: enemyResult.state.health,
-                                  activeBuffs: enemyResult.state.activeBuffs
+                                  activeBuffs: enemyResult.state.activeBuffs,
+                                  stamina: enemyResult.state.stamina,
+                                  maxStamina: enemyResult.state.maxStamina,
+                                  flags: enemyResult.state.flags
                                 });
                               }
                             }, 1000);
@@ -1303,7 +1319,10 @@ export default function App() {
                               combat: result.state.combat,
                               health: result.state.health,
                               stats: result.state.stats,
-                              inventory: result.state.inventory
+                              inventory: result.state.inventory,
+                              stamina: result.state.stamina,
+                              maxStamina: result.state.maxStamina,
+                              flags: result.state.flags
                             });
                             
                             // Enemy turn after intimidation attempt
@@ -1316,7 +1335,10 @@ export default function App() {
                                     combat: enemyResult.state.combat,
                                     health: enemyResult.state.health,
                                     stats: enemyResult.state.stats,
-                                    inventory: enemyResult.state.inventory
+                                    inventory: enemyResult.state.inventory,
+                                    stamina: enemyResult.state.stamina,
+                                    maxStamina: enemyResult.state.maxStamina,
+                                    flags: enemyResult.state.flags
                                   });
                                 }
                               }, 1200);
@@ -1329,7 +1351,10 @@ export default function App() {
                                     combat: enemyResult.state.combat,
                                     health: enemyResult.state.health,
                                     stats: enemyResult.state.stats,
-                                    inventory: enemyResult.state.inventory
+                                    inventory: enemyResult.state.inventory,
+                                    stamina: enemyResult.state.stamina,
+                                    maxStamina: enemyResult.state.maxStamina,
+                                    flags: enemyResult.state.flags
                                   });
                                 }
                               }, 1200);
@@ -1417,7 +1442,9 @@ export default function App() {
                                   stamina: Math.max(0, currentState.stamina - spellCost),
                                   activeBuffs: result.state.activeBuffs,
                                   stats: result.state.stats,
-                                  inventory: result.state.inventory
+                                  inventory: result.state.inventory,
+                                  maxStamina: result.state.maxStamina,
+                                  flags: result.state.flags
                                 });
                                 setSelectedSpell(null);
                                 
@@ -1429,7 +1456,10 @@ export default function App() {
                                       combat: enemyResult.state.combat,
                                       health: enemyResult.state.health,
                                       stats: enemyResult.state.stats,
-                                      inventory: enemyResult.state.inventory
+                                      inventory: enemyResult.state.inventory,
+                                      stamina: enemyResult.state.stamina,
+                                      maxStamina: enemyResult.state.maxStamina,
+                                      flags: enemyResult.state.flags
                                     });
                                   }
                                 }, 1200);
@@ -1650,6 +1680,20 @@ export default function App() {
                                 borderRadius: 4, cursor: 'pointer'
                               }}
                             >Sell</button>
+                            {itemDef?.type === 'consumable' && (
+                              <button
+                                onClick={async () => {
+                                  const result = await consumeInventoryItem(inv.itemId);
+                                  setActionResult(result);
+                                }}
+                                style={{
+                                  position: 'absolute', bottom: 6, left: 6,
+                                  padding: '3px 7px', fontSize: 10, fontWeight: 'bold',
+                                  background: '#2e8b57', color: '#fff', border: 'none',
+                                  borderRadius: 4, cursor: 'pointer'
+                                }}
+                              >Use</button>
+                            )}
                           </div>
                         );
                       })}
