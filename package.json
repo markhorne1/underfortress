@@ -4,6 +4,10 @@
   "private": true,
   "type": "module",
   "main": "electron/main.cjs",
+  "engines": {
+    "node": ">=22.12.0",
+    "npm": ">=10"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -15,7 +19,8 @@
     "screenshots:all": "node tools/captureAllAreaScreenshots.mjs",
     "electron:dev": "concurrently -k \"vite\" \"wait-on tcp:5173 && electron .\"",
     "electron:dev:codespace": "concurrently -k \"vite\" \"bash tools/run-electron-codespace.sh\"",
-    "dist:win": "npm run build && electron-builder --win nsis portable"
+    "dist:win": "npm run build && electron-builder --win nsis portable",
+    "dist:win:codespace": "python3 tools/build_windows.py --cwd ."
   },
   "dependencies": {
     "react": "18.2.0",

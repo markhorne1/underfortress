@@ -57,8 +57,8 @@ Currently unfinished, only the first 20 or so areas have background images and h
 
 ### Prerequisites
 
-- **Node.js** 18.x or later
-- **npm** 9.x+
+- **Node.js** 22.12.0 or later
+- **npm** 10.x+
 
 ### Install & Run
 
@@ -102,9 +102,13 @@ npm run electron:dev
 # Codespaces/devcontainer headless run
 npm run electron:dev:codespace
 
+# Codespaces/Linux Windows packaging fallback
+npm run dist:win:codespace
+
 # Expected behavior in Codespaces:
 # - Electron runs headlessly under Xvfb (no desktop window appears)
 # - You can still use the app via the forwarded Vite URL (usually http://localhost:5173)
+# - Windows packaging dispatches the GitHub Actions workflow when Wine is unavailable
 
 # Build web assets and create Windows packages
 npm run dist:win
@@ -118,6 +122,8 @@ Packaging output goes to `release/` and includes:
 Notes:
 
 - Building Windows artifacts is most reliable on Windows (or CI with a Windows runner).
+- On Linux/Codespaces, use `npm run dist:win:codespace`; the Python wrapper will try a local build when Wine is present, otherwise it dispatches `.github/workflows/windows-exe.yml` via `gh`.
+- If `gh workflow run` returns HTTP 403, the current token cannot dispatch workflows. In that case, push to `main` to use the workflow's existing push trigger, run the workflow manually from GitHub Actions, or re-authenticate `gh` with a token that includes workflow/actions permissions.
 - Unsigned `.exe` files may show SmartScreen warnings.
 
 ### Build Windows `.exe` via GitHub Actions (Codespaces-friendly)
