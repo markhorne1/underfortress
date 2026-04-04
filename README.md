@@ -16,23 +16,6 @@ Android builds are available from the `Build Android APK` GitHub Actions workflo
 
 
 
-## PWA Install
-
-The web build can now be installed like an app on phones and tablets as a Progressive Web App.
-
-How to use it:
-
-
-1. Deploy the site over HTTPS.
-2. Open the site on your phone.
-3. In Chrome on Android, use `Add to Home screen` or `Install app`.
-4. In Safari on iPhone, use `Share` then `Add to Home Screen`.
-
-Notes:
-
-- The PWA uses a service worker for app-shell caching and offline startup support.
-- Any new deployment may require a refresh once before the updated files are cached.
-
 ## Android APK
 
 The repo now includes a GitHub Actions workflow that builds an Android APK from the existing web app using Capacitor.
