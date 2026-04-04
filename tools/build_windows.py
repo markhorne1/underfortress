@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import os
 import platform
+import re
 import shutil
 import subprocess
 import sys
@@ -39,6 +40,40 @@ def git_branch(cwd: Path) -> str:
     )
     branch = completed.stdout.strip()
     return branch or "main"
+
+
+def git_origin_url(cwd: Path) -> str | None:
+    completed = subprocess.run(
+        ["git", "remote", "get-url", "origin"],
+        cwd=cwd,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    url = completed.stdout.strip()
+    return url or None
+
+
+def github_repo_path(remote_url: str | None) -> str | None:
+    if not remote_url:
+        return None
+
+    match = re.search(r"github\.com[:/](?P<repo>[^\s]+?)(?:\.git)?$", remote_url)
+    if not match:
+        return None
+
+    return match.group("repo")
+
+
+def workflow_urls(cwd: Path, workflow: str) -> tuple[str, str] | None:
+    repo_path = github_repo_path(git_origin_url(cwd))
+    if not repo_path:
+        return None
+
+    actions_url = f"https://github.com/{repo_path}/actions"
+    workflow_name = Path(workflow).name
+    workflow_url = f"{actions_url}/workflows/{workflow_name}"
+    return actions_url, workflow_url
 
 
 def should_use_ci(force_ci: bool) -> bool:
@@ -81,6 +116,17 @@ def dispatch_workflow(cwd: Path, workflow: str, ref: str) -> int:
                 "[build-windows] 3. Re-authenticate gh with a token that has repo/actions workflow permissions.",
                 file=sys.stderr,
             )
+            urls = workflow_urls(cwd, workflow)
+            if urls:
+                actions_url, workflow_url = urls
+                print(
+                    f"[build-windows] Actions page: {actions_url}",
+                    file=sys.stderr,
+                )
+                print(
+                    f"[build-windows] Workflow page: {workflow_url}",
+                    file=sys.stderr,
+                )
             return 3
         return completed.returncode
 
