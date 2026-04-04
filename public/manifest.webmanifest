@@ -1,0 +1,17 @@
+{
+  "name": "Treasure Of The Underfortress",
+  "short_name": "Underfortress",
+  "description": "A data-driven gamebook RPG set in a besieged fantasy city.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#1f1a14",
+  "theme_color": "#2a2a2a",
+  "icons": [
+    {
+      "src": "./icons/app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
