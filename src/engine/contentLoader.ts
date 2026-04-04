@@ -4,9 +4,16 @@ let _content: any = {};
 
 const isNode = typeof process !== 'undefined' && !!(process.versions && process.versions.node);
 
+function contentUrl(fname: string) {
+  if (typeof window === 'undefined') {
+    return `content/${fname}`;
+  }
+  return new URL(`content/${fname}`, window.location.href).toString();
+}
+
 async function fetchJsonWeb(fname: string) {
   try {
-    const res = await fetch(`/content/${fname}`);
+    const res = await fetch(contentUrl(fname));
     if (!res.ok) return null;
     return await res.json();
   } catch (err) { return null; }

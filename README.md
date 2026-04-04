@@ -6,6 +6,14 @@ A data-driven, illustrated gamebook RPG built with **React**, **TypeScript**, an
 
 Currently unfinished, only the first 20 or so areas have background images and have been tested. 
 
+## Downloads
+
+Windows builds are available from the GitHub Releases page:
+
+- https://github.com/markhorne1/underfortress/releases
+
+Built `.exe` files should be distributed through GitHub Releases rather than committed into the repository tree.
+
 ## Screenshots
 
 ### Title Screen
@@ -147,6 +155,8 @@ Then in GitHub:
 4. Download artifact: `underfortress-windows-exe`
 
 The artifact contains the NSIS installer `.exe` and portable `.exe` from `release/`.
+
+For end users, prefer GitHub Releases over Actions artifacts because release assets are easier to find and are meant to be the public download surface.
 
 ### Run Tests
 

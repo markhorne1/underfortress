@@ -29,6 +29,7 @@ ios/DerivedData/
 dist/
 build/
 web-build/
+# Keep generated release folders out of git; publish binaries via GitHub Releases.
 release/**
 !release/*.exe
 
@@ -78,3 +79,5 @@ coverage-final.json
 
 # Ignore local content merge outputs if you use separate files (optional)
 # /content/*.merged.json
+
+/tests

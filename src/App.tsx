@@ -5,6 +5,14 @@ import { executeChoice } from './engine/execute';
 import { getActiveSkills, getPassiveSkills, getTotalArmourRating } from './engine/skillCalculations';
 import { initiateCombat, playerAttack, enemyTurn, selectEnemy, castSpell, intimidateEnemy, playerSlash, playerPivot } from './engine/combatNew';
 
+function contentPath(relativePath: string): string {
+  if (typeof window === 'undefined') {
+    return `content/${relativePath}`;
+  }
+
+  return new URL(`content/${relativePath}`, window.location.href).toString();
+}
+
 function getCreatureImage(enemy: { name?: string; tags?: string[]; kind?: string }): string {
   const name = (enemy.name || '').toLowerCase();
   const tags = (enemy.tags || []).map(t => t.toLowerCase());
@@ -13,45 +21,45 @@ function getCreatureImage(enemy: { name?: string; tags?: string[]; kind?: string
   // Bosses / chiefs — check before generic types
   if (tags.includes('boss') || tags.includes('elite')) {
     if (name.includes('orc') || tags.includes('orc'))
-      return '/content/creatures/orc_chief.webp';
+      return contentPath('creatures/orc_chief.webp');
     if (name.includes('goblin') || tags.includes('goblin'))
-      return '/content/creatures/goblin_chief.webp';
+      return contentPath('creatures/goblin_chief.webp');
   }
 
   // Redknife goblins — distinct bloody variant
   if (name.includes('redknife') || tags.includes('redknife'))
-    return '/content/creatures/goblin_redknife.webp';
+    return contentPath('creatures/goblin_redknife.webp');
 
   // Snakes and deep-cave creatures
   if (name.includes('snake') || name.includes('crawler') || name.includes('listener'))
-    return '/content/creatures/giant_snake.webp';
+    return contentPath('creatures/giant_snake.webp');
 
   // Rats and swarms
   if (name.includes('rat') || tags.includes('swarm') || name.includes('spore'))
-    return '/content/creatures/cave_rat.webp';
+    return contentPath('creatures/cave_rat.webp');
 
   // Wargs
   if (name.includes('warg') || tags.includes('warg'))
-    return '/content/creatures/warg.webp';
+    return contentPath('creatures/warg.webp');
 
   // Troll-hounds
   if (name.includes('hound') || tags.includes('hound'))
-    return '/content/creatures/troll_hound.webp';
+    return contentPath('creatures/troll_hound.webp');
 
   // Trolls / ogres
   if (name.includes('troll') || name.includes('ogre') || tags.includes('troll'))
-    return '/content/creatures/orc_chief.webp';
+    return contentPath('creatures/orc_chief.webp');
 
   // Hobgoblins — distinct from orcs
   if (name.includes('hobgoblin') || tags.includes('hobgoblin'))
-    return '/content/creatures/hobgoblin.webp';
+    return contentPath('creatures/hobgoblin.webp');
 
   // Orcs
   if (name.includes('orc') || tags.includes('orc'))
-    return '/content/creatures/orc.webp';
+    return contentPath('creatures/orc.webp');
 
   // Default — goblin
-  return '/content/creatures/goblin.webp';
+  return contentPath('creatures/goblin.webp');
 }
 
 export default function App() {
@@ -170,9 +178,9 @@ export default function App() {
     const adjacentIds = Object.values(area.exits).map((e: any) => typeof e === 'string' ? e : e?.target).filter(Boolean);
     for (const id of adjacentIds) {
       const desktop = new Image();
-      desktop.src = `/content/leonardo/nano banana pro/desktop/${id}.jpg`;
+      desktop.src = contentPath(`leonardo/nano banana pro/desktop/${id}.jpg`);
       const mobile = new Image();
-      mobile.src = `/content/leonardo/nano banana pro/mobile/${id}.jpg`;
+      mobile.src = contentPath(`leonardo/nano banana pro/mobile/${id}.jpg`);
     }
   }, [currentAreaId]);
 
@@ -197,7 +205,7 @@ export default function App() {
           <div style={{marginTop:8,color:'#c9a84c'}}>A gamebook adventure</div>
         </div>
         <button aria-label="Enter the Underfortress" onClick={() => setPage('menu')} style={{marginTop:32, background:'transparent', border:'none', cursor:'pointer', padding:0}}>
-          <img src="/content/ui/start_button.png" alt="Enter The Underfortress" style={{height:64, filter:'drop-shadow(0 4px 12px rgba(201,168,76,0.5))', transition:'transform 0.2s'}} onMouseOver={e => e.currentTarget.style.transform='scale(1.08)'} onMouseOut={e => e.currentTarget.style.transform='scale(1)'} />
+          <img src={contentPath('ui/start_button.png')} alt="Enter The Underfortress" style={{height:64, filter:'drop-shadow(0 4px 12px rgba(201,168,76,0.5))', transition:'transform 0.2s'}} onMouseOver={e => e.currentTarget.style.transform='scale(1.08)'} onMouseOut={e => e.currentTarget.style.transform='scale(1)'} />
         </button>
       </div>
     );
@@ -426,8 +434,8 @@ export default function App() {
         {area && (() => {
           const areaId = area.id || currentAreaId || '';
           const suffix = flags?.[`area:${areaId}:combat_defeated`] ? '_defeated' : '';
-          const desktopPath = `/content/leonardo/nano banana pro/desktop/${areaId}${suffix}.jpg`;
-          const mobilePath = `/content/leonardo/nano banana pro/mobile/${areaId}${suffix}.jpg`;
+          const desktopPath = contentPath(`leonardo/nano banana pro/desktop/${areaId}${suffix}.jpg`);
+          const mobilePath = contentPath(`leonardo/nano banana pro/mobile/${areaId}${suffix}.jpg`);
           const bgStyle: React.CSSProperties = {
             position: 'absolute',
             inset: 0,
@@ -1635,7 +1643,7 @@ export default function App() {
 
               return (
                 <div style={{
-                  background: 'url(/content/ui/parchment.webp) center center / cover',
+                  background: `url(${contentPath('ui/parchment.webp')}) center center / cover`,
                   borderRadius: 10, border: '4px solid rgba(139,90,43,0.55)',
                   padding: '28px 24px 20px', minHeight: 460, position: 'relative',
                   boxShadow: '0 8px 32px rgba(0,0,0,0.5), inset 0 0 80px rgba(139,90,43,0.08)'
@@ -1770,7 +1778,7 @@ export default function App() {
                   {/* Paper Doll with overlaid equipment slots */}
                   <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 24 }}>
                     <div style={{ position: 'relative', width: 300 }}>
-                      <img src="/content/ui/paper_doll.webp" alt="Character" style={{
+                      <img src={contentPath('ui/paper_doll.webp')} alt="Character" style={{
                         width: '100%', display: 'block', opacity: 0.85,
                         filter: 'drop-shadow(0 0 16px rgba(201,168,76,0.25))'
                       }} />
