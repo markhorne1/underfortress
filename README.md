@@ -12,13 +12,16 @@ Windows builds are available from the GitHub Releases page:
 
 - https://github.com/markhorne1/underfortress/releases
 
-Built `.exe` files should be distributed through GitHub Releases rather than committed into the repository tree.
+Android builds are available from the `Build Android APK` GitHub Actions workflow artifact.
+
+
 
 ## PWA Install
 
 The web build can now be installed like an app on phones and tablets as a Progressive Web App.
 
 How to use it:
+
 
 1. Deploy the site over HTTPS.
 2. Open the site on your phone.
@@ -29,6 +32,24 @@ Notes:
 
 - The PWA uses a service worker for app-shell caching and offline startup support.
 - Any new deployment may require a refresh once before the updated files are cached.
+
+## Android APK
+
+The repo now includes a GitHub Actions workflow that builds an Android APK from the existing web app using Capacitor.
+
+How to use it:
+
+1. Open **Actions** in GitHub.
+2. Select **Build Android APK**.
+3. Run the workflow on `main`.
+4. Download the `underfortress-android-apk` artifact from the completed run.
+5. Copy `app-debug.apk` to your Android device and install it.
+
+Notes:
+
+- This workflow currently builds a debug APK, which is suitable for testing and direct installs.
+- Android may warn about installing an app from outside the Play Store; that is expected for a sideloaded debug APK.
+- If you want a signed release APK or Play Store `.aab`, that can be added as a separate release workflow.
 
 ## Screenshots
 

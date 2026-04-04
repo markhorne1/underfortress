@@ -13,6 +13,9 @@
     "build": "vite build",
     "build:wix": "VITE_WIX_CLEAN_BUILD=1 vite build",
     "preview": "vite preview",
+    "android:copy": "cap copy android",
+    "android:sync": "cap sync android",
+    "android:open": "cap open android",
     "test": "jest",
     "screenshots": "node tools/captureScreenshots.mjs",
     "screenshots:topnav": "node tools/captureTopNavScreenshots.mjs",
@@ -29,6 +32,9 @@
     "zustand": "^4.4.0"
   },
   "devDependencies": {
+    "@capacitor/android": "^7.4.2",
+    "@capacitor/cli": "^7.4.2",
+    "@capacitor/core": "^7.4.2",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "4.0.0",
