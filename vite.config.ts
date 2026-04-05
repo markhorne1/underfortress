@@ -24,8 +24,11 @@ export default defineConfig(() => {
   const port = Number(process.env.PORT || 5173)
   const codespaceName = process.env.CODESPACE_NAME
   const forwardingDomain = process.env.GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN
+  const tunnelDomain = forwardingDomain || 'app.github.dev'
   const hmrHost = codespaceName && forwardingDomain
     ? `${codespaceName}-${port}.${forwardingDomain}`
+    : codespaceName
+      ? `${codespaceName}-${port}.${tunnelDomain}`
     : undefined
 
   return {
@@ -42,9 +45,10 @@ export default defineConfig(() => {
       port,
       strictPort: true,
       hmr: {
+        host: hmrHost,
+        port,
         clientPort: 443,
         protocol: 'wss',
-        ...(hmrHost ? { host: hmrHost } : {})
       },
       fs: {
         allow: [path.resolve(__dirname, '.')]
