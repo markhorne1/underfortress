@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { loadContent, getContentSnapshot, getStartAreaId, getAllAreas, getAreaById, getAllSpells } from './engine/contentLoader';
 import { usePlayerStore } from './store/playerStore';
 import { executeChoice } from './engine/execute';
+import { evaluateRequirements } from './engine/requirements';
 import { getActiveSkills, getPassiveSkills, getTotalArmourRating } from './engine/skillCalculations';
 import { initiateCombat, playerAttack, enemyTurn, selectEnemy, castSpell, intimidateEnemy, playerSlash, playerPivot } from './engine/combatNew';
 import { PLAYER_MAX_HEALTH } from './engine/balance';
@@ -1553,7 +1554,6 @@ export default function App() {
               // Check requirements
               const meetsRequirements = !c.requirements || (() => {
                 try {
-                  const { evaluateRequirements } = require('./engine/requirements');
                   const fullState = usePlayerStore.getState();
                   return evaluateRequirements(c.requirements, fullState);
                 } catch {
