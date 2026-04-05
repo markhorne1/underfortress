@@ -10625,6 +10625,924 @@
     "z": -2
   },
   {
+    "id": "s_woods_camp",
+    "title": "Camp in the Woods",
+    "x": 0,
+    "y": 0,
+    "floorId": "surface",
+    "tileStyle": "forest",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, rough militia camp in woodland shadows, bedrolls, cookfire, rabbit snares, dawn mist, cinematic, no text",
+    "description": "A lean militia camp crouches between wet pines and low brush. Bedrolls, cookpots, and a few crude snares tell the story plainly: if you want to last underground, you had better prepare first.\n\nNorth, the forest path winds toward the city gates.",
+    "choices": [
+      {
+        "id": "camp_collect_stipend",
+        "label": "Collect your militia stipend (12 gold).",
+        "requirements": [
+          {
+            "type": "notFlag",
+            "key": "city_stipend_taken"
+          }
+        ],
+        "effects": [
+          {
+            "type": "addGold",
+            "amount": 12
+          },
+          {
+            "type": "setFlag",
+            "key": "city_stipend_taken",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "camp_set_traps",
+        "label": "Set Animal Traps.",
+        "effects": [
+          {
+            "type": "rabbitTrap",
+            "mode": "arm"
+          }
+        ]
+      },
+      {
+        "id": "camp_wait",
+        "label": "Sit For A While.",
+        "effects": [
+          {
+            "type": "rabbitTrap",
+            "mode": "wait",
+            "chancePercent": 55
+          }
+        ]
+      }
+    ],
+    "exits": {
+      "n": "s_forest_path"
+    },
+    "z": 0
+  },
+  {
+    "id": "s_forest_path",
+    "title": "Forest Path",
+    "x": 0,
+    "y": -1,
+    "floorId": "surface",
+    "tileStyle": "forest",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow forest path through damp pines, wheel ruts, city walls in the distance, cinematic, no text",
+    "description": "A muddy path threads through the trees toward the city. Cart ruts, hoof prints, and boot marks all point the same way: everyone still above ground knows something ugly is gathering below.\n\nSouth leads back to camp. North rises toward the city gates.",
+    "exits": {
+      "s": "s_woods_camp",
+      "n": "s_city_gates"
+    },
+    "z": 0
+  },
+  {
+    "id": "s_city_gates",
+    "title": "City Gates",
+    "x": 0,
+    "y": -2,
+    "floorId": "surface",
+    "tileStyle": "city",
+    "cover": "half",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, city gatehouse at dawn, weary guards, market banners, muddy road, cinematic, no text",
+    "description": "The gate sergeant eyes you, then your kit. Refugees, mercenaries, and traders have choked the entries all week, so he wants proof you are worth the trouble. Fresh game will do.\n\nBring him three rabbits and he lets you inside. Once admitted, north leads to Market Street and west to Tavern Street.",
+    "choices": [
+      {
+        "id": "gates_trade_rabbits",
+        "label": "Hand over three rabbits for entry.",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "key": "snared_rabbit",
+            "qty": 3
+          },
+          {
+            "type": "notFlag",
+            "key": "city_gate_access"
+          }
+        ],
+        "effects": [
+          {
+            "type": "removeItem",
+            "itemId": "snared_rabbit",
+            "qty": 3
+          },
+          {
+            "type": "setFlag",
+            "key": "city_gate_access",
+            "value": true
+          },
+          {
+            "type": "message",
+            "text": "The sergeant grunts, pockets the rabbits for the cookhouse, and waves you through."
+          }
+        ]
+      }
+    ],
+    "exits": {
+      "s": "s_forest_path",
+      "n": {
+        "target": "s_market_street",
+        "requirements": [
+          {
+            "type": "hasFlag",
+            "key": "city_gate_access"
+          }
+        ]
+      },
+      "w": {
+        "target": "s_tavern_street",
+        "requirements": [
+          {
+            "type": "hasFlag",
+            "key": "city_gate_access"
+          }
+        ]
+      }
+    },
+    "z": 0
+  },
+  {
+    "id": "s_market_street",
+    "title": "Market Street",
+    "x": 0,
+    "y": -3,
+    "floorId": "surface",
+    "tileStyle": "city",
+    "cover": "half",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, cramped market street with hardware stall, tool racks, lanterns, anxious townsfolk, cinematic, no text",
+    "description": "Market Street smells of lamp oil, wet wood, and nerves. A hardware shop has dragged its practical stock into the open: rope, chalk, wraps, arrows, anything that might help someone come back from the dark.\n\nNorth leads to Undercity Entrance. South returns to the gates.",
+    "choices": [
+      {
+        "id": "market_buy_grapnel",
+        "label": "Buy Rope & Grapnel (4 gold).",
+        "requirements": [
+          {
+            "type": "hasGold",
+            "value": 4
+          },
+          {
+            "type": "not",
+            "condition": {
+              "type": "hasItem",
+              "key": "rope_grapnel"
+            }
+          }
+        ],
+        "effects": [
+          {
+            "type": "spendGold",
+            "amount": 4
+          },
+          {
+            "type": "addItem",
+            "itemId": "rope_grapnel",
+            "qty": 1
+          }
+        ]
+      },
+      {
+        "id": "market_buy_torch_wrap",
+        "label": "Buy Waterproof Torch Wrap (3 gold).",
+        "requirements": [
+          {
+            "type": "hasGold",
+            "value": 3
+          }
+        ],
+        "effects": [
+          {
+            "type": "spendGold",
+            "amount": 3
+          },
+          {
+            "type": "addItem",
+            "itemId": "waterproof_torch_wrap",
+            "qty": 1
+          }
+        ]
+      },
+      {
+        "id": "market_buy_chalk",
+        "label": "Buy Cave Rune Chalk (2 gold).",
+        "requirements": [
+          {
+            "type": "hasGold",
+            "value": 2
+          }
+        ],
+        "effects": [
+          {
+            "type": "spendGold",
+            "amount": 2
+          },
+          {
+            "type": "addItem",
+            "itemId": "cave_rune_chalk",
+            "qty": 1
+          }
+        ]
+      },
+      {
+        "id": "market_buy_oil_rags",
+        "label": "Buy Oil Rag Bundle (2 gold).",
+        "requirements": [
+          {
+            "type": "hasGold",
+            "value": 2
+          }
+        ],
+        "effects": [
+          {
+            "type": "spendGold",
+            "amount": 2
+          },
+          {
+            "type": "addItem",
+            "itemId": "oil_rag_bundle",
+            "qty": 1
+          }
+        ]
+      },
+      {
+        "id": "market_buy_arrows",
+        "label": "Buy Bundle of Arrows (3 gold).",
+        "requirements": [
+          {
+            "type": "hasGold",
+            "value": 3
+          }
+        ],
+        "effects": [
+          {
+            "type": "spendGold",
+            "amount": 3
+          },
+          {
+            "type": "addItem",
+            "itemId": "arrow_bundle",
+            "qty": 1
+          }
+        ]
+      }
+    ],
+    "exits": {
+      "s": "s_city_gates",
+      "n": "s_undercity_entrance"
+    },
+    "z": 0
+  },
+  {
+    "id": "s_tavern_street",
+    "title": "Tavern Street",
+    "x": -1,
+    "y": -2,
+    "floorId": "surface",
+    "tileStyle": "city",
+    "cover": "half",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, crooked tavern street, warm window light, pie stall, dice table, smoke and drizzle, cinematic, no text",
+    "description": "Tavern Street glows with warm shutters and bad decisions. One door promises food, beds, and a full room around the dice table.\n\nEast returns to the city gates.",
+    "choices": [
+      {
+        "id": "tavern_buy_pie",
+        "label": "Buy a Tavern Pie (1 gold).",
+        "requirements": [
+          {
+            "type": "hasGold",
+            "value": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "spendGold",
+            "amount": 1
+          },
+          {
+            "type": "addItem",
+            "itemId": "tavern_pie",
+            "qty": 1
+          }
+        ]
+      },
+      {
+        "id": "tavern_bed",
+        "label": "Rent a bed at the tavern (2 gold, full heal).",
+        "requirements": [
+          {
+            "type": "hasGold",
+            "value": 2
+          }
+        ],
+        "effects": [
+          {
+            "type": "spendGold",
+            "amount": 2
+          },
+          {
+            "type": "heal",
+            "amount": 20
+          },
+          {
+            "type": "unsetFlag",
+            "key": "area:i_underfortress_entry:combat_defeated"
+          },
+          {
+            "type": "message",
+            "text": "You sleep hard, wake fully restored, and hear that the undercity patrol has changed over."
+          }
+        ]
+      },
+      {
+        "id": "tavern_dice_1",
+        "label": "Play Dice for 1 gold.",
+        "requirements": [
+          {
+            "type": "hasGold",
+            "value": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "playDice",
+            "bet": 1
+          }
+        ]
+      },
+      {
+        "id": "tavern_dice_2",
+        "label": "Play Dice for 2 gold.",
+        "requirements": [
+          {
+            "type": "hasGold",
+            "value": 2
+          }
+        ],
+        "effects": [
+          {
+            "type": "playDice",
+            "bet": 2
+          }
+        ]
+      },
+      {
+        "id": "tavern_dice_3",
+        "label": "Play Dice for 3 gold.",
+        "requirements": [
+          {
+            "type": "hasGold",
+            "value": 3
+          }
+        ],
+        "effects": [
+          {
+            "type": "playDice",
+            "bet": 3
+          }
+        ]
+      },
+      {
+        "id": "tavern_dice_4",
+        "label": "Play Dice for 4 gold.",
+        "requirements": [
+          {
+            "type": "hasGold",
+            "value": 4
+          }
+        ],
+        "effects": [
+          {
+            "type": "playDice",
+            "bet": 4
+          }
+        ]
+      }
+    ],
+    "exits": {
+      "e": "s_city_gates"
+    },
+    "z": 0
+  },
+  {
+    "id": "s_undercity_entrance",
+    "title": "Undercity Entrance",
+    "x": 0,
+    "y": -4,
+    "floorId": "surface",
+    "tileStyle": "city",
+    "cover": "half",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow street above sewer steps, bookshop sign Tomb and Tome, iron grates, city stone, cinematic, no text",
+    "description": "The street narrows around iron grates, warning placards, and the leaning frontage of Tomb & Tome. The bookseller has dragged cheap primers and suspicious scrolls into the window for anyone desperate enough to learn fast.\n\nNorth climbs to Castle Rise. South returns to Market Street. Down leads into the undercity approach.",
+    "choices": [
+      {
+        "id": "book_ignite",
+        "label": "Buy Spellbook: Ignite (5 gold).",
+        "requirements": [
+          {
+            "type": "hasGold",
+            "value": 5
+          },
+          {
+            "type": "not",
+            "condition": {
+              "type": "knowsSpell",
+              "spellId": "ignite"
+            }
+          }
+        ],
+        "effects": [
+          {
+            "type": "spendGold",
+            "amount": 5
+          },
+          {
+            "type": "learnSpell",
+            "spellId": "ignite"
+          }
+        ]
+      },
+      {
+        "id": "book_fireblade",
+        "label": "Buy Spellbook: Fireblade (5 gold).",
+        "requirements": [
+          {
+            "type": "hasGold",
+            "value": 5
+          },
+          {
+            "type": "not",
+            "condition": {
+              "type": "knowsSpell",
+              "spellId": "fireblade"
+            }
+          }
+        ],
+        "effects": [
+          {
+            "type": "spendGold",
+            "amount": 5
+          },
+          {
+            "type": "learnSpell",
+            "spellId": "fireblade"
+          }
+        ]
+      },
+      {
+        "id": "book_freeze",
+        "label": "Buy Spellbook: Freeze (5 gold).",
+        "requirements": [
+          {
+            "type": "hasGold",
+            "value": 5
+          },
+          {
+            "type": "not",
+            "condition": {
+              "type": "knowsSpell",
+              "spellId": "freeze"
+            }
+          }
+        ],
+        "effects": [
+          {
+            "type": "spendGold",
+            "amount": 5
+          },
+          {
+            "type": "learnSpell",
+            "spellId": "freeze"
+          }
+        ]
+      },
+      {
+        "id": "book_iceblade",
+        "label": "Buy Spellbook: Iceblade (5 gold).",
+        "requirements": [
+          {
+            "type": "hasGold",
+            "value": 5
+          },
+          {
+            "type": "not",
+            "condition": {
+              "type": "knowsSpell",
+              "spellId": "iceblade"
+            }
+          }
+        ],
+        "effects": [
+          {
+            "type": "spendGold",
+            "amount": 5
+          },
+          {
+            "type": "learnSpell",
+            "spellId": "iceblade"
+          }
+        ]
+      },
+      {
+        "id": "book_stoneskin",
+        "label": "Buy Spellbook: Stone Skin (5 gold).",
+        "requirements": [
+          {
+            "type": "hasGold",
+            "value": 5
+          },
+          {
+            "type": "not",
+            "condition": {
+              "type": "knowsSpell",
+              "spellId": "stone_skin"
+            }
+          }
+        ],
+        "effects": [
+          {
+            "type": "spendGold",
+            "amount": 5
+          },
+          {
+            "type": "learnSpell",
+            "spellId": "stone_skin"
+          }
+        ]
+      },
+      {
+        "id": "book_lightning",
+        "label": "Buy Spellbook: Lightning Bolt (5 gold).",
+        "requirements": [
+          {
+            "type": "hasGold",
+            "value": 5
+          },
+          {
+            "type": "not",
+            "condition": {
+              "type": "knowsSpell",
+              "spellId": "lightning_bolt"
+            }
+          }
+        ],
+        "effects": [
+          {
+            "type": "spendGold",
+            "amount": 5
+          },
+          {
+            "type": "learnSpell",
+            "spellId": "lightning_bolt"
+          }
+        ]
+      },
+      {
+        "id": "scroll_fire",
+        "label": "Buy Fire Path Scroll (5 gold).",
+        "requirements": [
+          {
+            "type": "hasGold",
+            "value": 5
+          },
+          {
+            "type": "not",
+            "condition": {
+              "type": "hasSpellPath",
+              "path": "fire"
+            }
+          }
+        ],
+        "effects": [
+          {
+            "type": "spendGold",
+            "amount": 5
+          },
+          {
+            "type": "unlockPath",
+            "path": "fire"
+          }
+        ]
+      },
+      {
+        "id": "scroll_water",
+        "label": "Buy Water Path Scroll (5 gold).",
+        "requirements": [
+          {
+            "type": "hasGold",
+            "value": 5
+          },
+          {
+            "type": "not",
+            "condition": {
+              "type": "hasSpellPath",
+              "path": "water"
+            }
+          }
+        ],
+        "effects": [
+          {
+            "type": "spendGold",
+            "amount": 5
+          },
+          {
+            "type": "unlockPath",
+            "path": "water"
+          }
+        ]
+      },
+      {
+        "id": "scroll_earth",
+        "label": "Buy Earth Path Scroll (5 gold).",
+        "requirements": [
+          {
+            "type": "hasGold",
+            "value": 5
+          },
+          {
+            "type": "not",
+            "condition": {
+              "type": "hasSpellPath",
+              "path": "earth"
+            }
+          }
+        ],
+        "effects": [
+          {
+            "type": "spendGold",
+            "amount": 5
+          },
+          {
+            "type": "unlockPath",
+            "path": "earth"
+          }
+        ]
+      },
+      {
+        "id": "scroll_air",
+        "label": "Buy Air Path Scroll (5 gold).",
+        "requirements": [
+          {
+            "type": "hasGold",
+            "value": 5
+          },
+          {
+            "type": "not",
+            "condition": {
+              "type": "hasSpellPath",
+              "path": "air"
+            }
+          }
+        ],
+        "effects": [
+          {
+            "type": "spendGold",
+            "amount": 5
+          },
+          {
+            "type": "unlockPath",
+            "path": "air"
+          }
+        ]
+      }
+    ],
+    "exits": {
+      "s": "s_market_street",
+      "n": "s_castle_rise",
+      "d": "i_underfortress_entry"
+    },
+    "z": 0
+  },
+  {
+    "id": "s_castle_rise",
+    "title": "Castle Rise",
+    "x": 0,
+    "y": -5,
+    "floorId": "surface",
+    "tileStyle": "city",
+    "cover": "half",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, uphill castle street, smithy sparks, stone stair, guards moving through drizzle, cinematic, no text",
+    "description": "Castle Rise climbs toward the keep. The smithy is still open, hammering out the last sensible purchases before anyone brave or stupid enough goes below.\n\nNorth leads to the Castle Entrance. East leads to Inn Street. South returns to the Undercity Entrance.",
+    "choices": [
+      {
+        "id": "smith_rusty_sword",
+        "label": "Buy Rusty Sword (5 gold).",
+        "requirements": [
+          {
+            "type": "hasGold",
+            "value": 5
+          },
+          {
+            "type": "not",
+            "condition": {
+              "type": "hasItem",
+              "key": "rusty_sword"
+            }
+          }
+        ],
+        "effects": [
+          {
+            "type": "spendGold",
+            "amount": 5
+          },
+          {
+            "type": "addItem",
+            "itemId": "rusty_sword",
+            "qty": 1
+          }
+        ]
+      },
+      {
+        "id": "smith_staff",
+        "label": "Buy Wooden Staff (5 gold).",
+        "requirements": [
+          {
+            "type": "hasGold",
+            "value": 5
+          },
+          {
+            "type": "not",
+            "condition": {
+              "type": "hasItem",
+              "key": "wooden_staff"
+            }
+          }
+        ],
+        "effects": [
+          {
+            "type": "spendGold",
+            "amount": 5
+          },
+          {
+            "type": "addItem",
+            "itemId": "wooden_staff",
+            "qty": 1
+          }
+        ]
+      },
+      {
+        "id": "smith_bow",
+        "label": "Buy Militia Bow (6 gold).",
+        "requirements": [
+          {
+            "type": "hasGold",
+            "value": 6
+          },
+          {
+            "type": "not",
+            "condition": {
+              "type": "hasItem",
+              "key": "training_bow"
+            }
+          }
+        ],
+        "effects": [
+          {
+            "type": "spendGold",
+            "amount": 6
+          },
+          {
+            "type": "addItem",
+            "itemId": "training_bow",
+            "qty": 1
+          }
+        ]
+      },
+      {
+        "id": "smith_shield",
+        "label": "Buy Small Shield (6 gold).",
+        "requirements": [
+          {
+            "type": "hasGold",
+            "value": 6
+          },
+          {
+            "type": "not",
+            "condition": {
+              "type": "hasItem",
+              "key": "small_shield"
+            }
+          }
+        ],
+        "effects": [
+          {
+            "type": "spendGold",
+            "amount": 6
+          },
+          {
+            "type": "addItem",
+            "itemId": "small_shield",
+            "qty": 1
+          }
+        ]
+      },
+      {
+        "id": "smith_leather",
+        "label": "Buy Leather Armor (8 gold).",
+        "requirements": [
+          {
+            "type": "hasGold",
+            "value": 8
+          },
+          {
+            "type": "not",
+            "condition": {
+              "type": "hasItem",
+              "key": "leather_armor"
+            }
+          }
+        ],
+        "effects": [
+          {
+            "type": "spendGold",
+            "amount": 8
+          },
+          {
+            "type": "addItem",
+            "itemId": "leather_armor",
+            "qty": 1
+          }
+        ]
+      }
+    ],
+    "exits": {
+      "s": "s_undercity_entrance",
+      "n": "s_castle_entrance",
+      "e": "s_inn_street"
+    },
+    "z": 0
+  },
+  {
+    "id": "s_inn_street",
+    "title": "Inn Street",
+    "x": 1,
+    "y": -5,
+    "floorId": "surface",
+    "tileStyle": "city",
+    "cover": "half",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, shabby inn street, crooked signboard, rain-soaked cobbles, tired patrons, cinematic, no text",
+    "description": "The inn on this lane is cheap, damp, and none too clean, but the keeper rents mattresses to anyone with a coin and no standards.\n\nWest returns to Castle Rise.",
+    "choices": [
+      {
+        "id": "inn_dirty_bed",
+        "label": "Rent a bed at the dirty inn (1 gold, heal 10).",
+        "requirements": [
+          {
+            "type": "hasGold",
+            "value": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "spendGold",
+            "amount": 1
+          },
+          {
+            "type": "heal",
+            "amount": 10
+          },
+          {
+            "type": "unsetFlag",
+            "key": "area:i_underfortress_entry:combat_defeated"
+          },
+          {
+            "type": "message",
+            "text": "You wake a little less dead than before. By the time you wash up, the undercity patrol has reset."
+          }
+        ]
+      }
+    ],
+    "exits": {
+      "w": "s_castle_rise"
+    },
+    "z": 0
+  },
+  {
+    "id": "s_castle_entrance",
+    "title": "Castle Entrance",
+    "x": 0,
+    "y": -6,
+    "floorId": "surface",
+    "tileStyle": "city",
+    "cover": "half",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, castle gate under banners, armored guard at attention, storm light, cinematic, no text",
+    "description": "A guard captain at the castle gate sizes you up and speaks plainly. If you want to make a name for yourself, the city does not need another braggart in the yard; it needs someone below. Goblins and orcs have infested the ancient sewers, set camp there, and are preparing to strike the city from within.\n\nHe urges you to go now, prove yourself to the king, and bring back war plans, trophies, or any proof worth a bounty.\n\nSouth returns to Castle Rise.",
+    "exits": {
+      "s": "s_castle_rise"
+    },
+    "z": 0
+  },
+  {
     "id": "i_underfortress_outer",
     "title": "Under-Fortress Outer Wall",
     "x": 5,
@@ -10659,7 +11577,16 @@
     "cover": "low",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, underground fortress gate with iron bars, torch sconces, guards in silhouette, cinematic, no text",
-    "description": "You have answered the call to fight for your city.\n\nBut first you must prove yourself in the Under-Fortress.\n\nTwo sentries stand aside allowing you to enter.",
+    "description": "The sewer stairs break into an ancient threshold of iron bars, carved lintels, and old military stone. A forward patrol has made its stand here, watching the approach to the under-fortress proper.\n\nClear them out and the way below is yours. Up leads back to the city if you are not ready yet.",
+    "onEnter": [
+      {
+        "type": "initiateCombat",
+        "enemyIds": [
+          "goblin_warrior",
+          "goblin_archer"
+        ]
+      }
+    ],
     "choices": [
       {
         "id": "next",
@@ -10674,6 +11601,9 @@
         "goToAreaId": "u_entry_corridor"
       }
     ],
+    "exits": {
+      "u": "s_undercity_entrance"
+    },
     "z": -2
   },
   {

@@ -4,6 +4,7 @@ import { usePlayerStore } from './store/playerStore';
 import { executeChoice } from './engine/execute';
 import { getActiveSkills, getPassiveSkills, getTotalArmourRating } from './engine/skillCalculations';
 import { initiateCombat, playerAttack, enemyTurn, selectEnemy, castSpell, intimidateEnemy, playerSlash, playerPivot } from './engine/combatNew';
+import { PLAYER_MAX_HEALTH } from './engine/balance';
 
 function contentPath(relativePath: string): string {
   if (typeof window === 'undefined') {
@@ -149,6 +150,7 @@ export default function App() {
   const questLog = usePlayerStore(s => s.questLog);
   const flags = usePlayerStore(s => s.flags);
   const state = (usePlayerStore as any).getState();
+  const healthPercent = Math.max(0, Math.min(100, (health / PLAYER_MAX_HEALTH) * 100));
 
   useEffect(() => {
     async function init() {
@@ -348,13 +350,13 @@ export default function App() {
             <span style={{ fontSize: 12, fontWeight: 'bold', whiteSpace: 'nowrap', color: '#f5e6c8' }}>Health:</span>
             <div style={{ flex: 1, height: 20, background: '#e0e0e0', borderRadius: 10, overflow: 'hidden', position: 'relative', minWidth: 100 }}>
               <div style={{ 
-                width: `${health}%`, 
+                width: `${healthPercent}%`, 
                 height: '100%', 
-                background: health > 50 ? '#2ecc71' : health > 25 ? '#f39c12' : '#e74c3c',
+                background: healthPercent > 50 ? '#2ecc71' : healthPercent > 25 ? '#f39c12' : '#e74c3c',
                 transition: 'width 0.3s ease, background 0.3s ease'
               }}></div>
               <span style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)', fontSize: 11, fontWeight: 'bold', color: '#333' }}>
-                {health}/100
+                {health}/{PLAYER_MAX_HEALTH}
               </span>
             </div>
             {stats.statPoints > 0 && (
@@ -393,13 +395,13 @@ export default function App() {
             <span style={{ fontSize: 14, fontWeight: 'bold', minWidth: 60, color: '#f5e6c8' }}>Health:</span>
             <div style={{ flex: 1, height: 24, background: '#e0e0e0', borderRadius: 12, overflow: 'hidden', position: 'relative' }}>
               <div style={{ 
-                width: `${health}%`, 
+                width: `${healthPercent}%`, 
                 height: '100%', 
-                background: health > 50 ? '#2ecc71' : health > 25 ? '#f39c12' : '#e74c3c',
+                background: healthPercent > 50 ? '#2ecc71' : healthPercent > 25 ? '#f39c12' : '#e74c3c',
                 transition: 'width 0.3s ease, background 0.3s ease'
               }}></div>
               <span style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)', fontSize: 12, fontWeight: 'bold', color: '#333' }}>
-                {health}/100
+                {health}/{PLAYER_MAX_HEALTH}
               </span>
             </div>
             {stats.statPoints > 0 && (
@@ -823,7 +825,7 @@ export default function App() {
                           // Respawn at checkpoint with full health
                           usePlayerStore.setState({ 
                             combat: undefined,
-                            health: 100,
+                            health: PLAYER_MAX_HEALTH,
                             currentAreaId: currentState.lastCheckpointId || currentState.currentAreaId
                           });
                         }}
@@ -904,17 +906,17 @@ export default function App() {
                       }}>
                         <div style={{ 
                           height: '100%', 
-                          background: health > 50 
+                          background: healthPercent > 50 
                             ? 'linear-gradient(90deg, #2ecc71, #27ae60)' 
-                            : health > 25 
+                            : healthPercent > 25 
                               ? 'linear-gradient(90deg, #f39c12, #e67e22)'
                               : 'linear-gradient(90deg, #e74c3c, #c0392b)',
-                          width: `${Math.max(0, health)}%`,
+                          width: `${healthPercent}%`,
                           transition: 'width 0.3s'
                         }} />
                       </div>
                       <div style={{ color: '#f1c40f', fontSize: 12, textAlign: 'center', fontWeight: 'bold' }}>
-                        {Math.max(0, health)} / 100 HP
+                        {Math.max(0, health)} / {PLAYER_MAX_HEALTH} HP
                       </div>
                       {/* Stamina Bar */}
                       <div style={{ 

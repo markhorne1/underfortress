@@ -182,6 +182,22 @@
     "description": "A scroll inscribed with magical formulae."
   },
   {
+    "id": "snared_rabbit",
+    "name": "Snared Rabbit",
+    "type": "food",
+    "stackable": true,
+    "value": 1,
+    "description": "A fresh rabbit from a camp snare. The gate sergeant accepts three as proof you can feed yourself."
+  },
+  {
+    "id": "tavern_pie",
+    "name": "Tavern Pie",
+    "type": "consumable",
+    "stackable": true,
+    "value": 2,
+    "description": "A hot meat pie from the tavern. Restores 5 health when eaten."
+  },
+  {
     "id": "mushroom_red",
     "name": "Red Mushroom",
     "type": "consumable",

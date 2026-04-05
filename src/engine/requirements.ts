@@ -4,6 +4,8 @@ import { PlayerState } from './types';
 export function evaluateRequirement(req: any, state: PlayerState): boolean {
   const t = req.type;
   switch (t) {
+    case 'hasGold':
+      return (state.stats?.gold || 0) >= (req.value ?? req.amount ?? req.qty ?? 0);
     case 'hasFlag':
       return !!(state.flags && state.flags[req.key]);
     case 'flagEquals':
@@ -97,6 +99,11 @@ export function evaluateRequirement(req: any, state: PlayerState): boolean {
       const spellId = req.spellId || req.spell || req.key;
       if (!spellId) return false;
       return !!(state.spellsKnown && state.spellsKnown.includes(spellId));
+    }
+    case 'hasSpellPath': {
+      const path = req.path || req.key;
+      if (!path) return false;
+      return !!(state.spellPathsUnlocked && state.spellPathsUnlocked.includes(path));
     }
     case 'counterAtLeast': {
       // Check if a counter flag is at least a certain value

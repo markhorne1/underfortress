@@ -33,6 +33,7 @@ export type Spell = {
 
 export type PlayerStats = {
   gold: number;       // Currency for purchases
+  mana?: number;
   
   // Core Stats (1-10 range)
   power: number;      // Physical strength, melee combat
@@ -123,11 +124,13 @@ export type PlayerState = {
   spellPathsUnlocked: SpellPath[];  // Unlocked magic paths
   combatSkills: string[];  // Learned combat skills (clash, feint, slash)
   stats: PlayerStats;
-  health: number;  // Current health (max 100)
+  health: number;  // Current health (max 20)
   stamina: number;  // Current stamina for skills/spells
   maxStamina: number;  // Maximum stamina (Power×5 + Mind×5 + Agility×5)
   lastCheckpointId: string;  // Area ID of last checkpoint for respawn
   combat?: CombatState;  // Active combat state
+  jobs?: Record<string, any>;
+  activeThreats?: any[];
   flags?: Record<string, any>;
   quests: Record<string, any>;
   questLog: any[];

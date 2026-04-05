@@ -9,6 +9,8 @@ import { PlayerState as EnginePlayerState } from '../engine/types';
 import { applyEffects } from '../engine/effects';
 import { getContentSnapshot } from '../engine/contentLoader';
 import { performEnterEffects, executeChoice } from '../engine/execute';
+import { PLAYER_MAX_HEALTH } from '../engine/balance';
+import { getMaxStamina } from '../engine/skillCalculations';
 
 export type PlayerState = EnginePlayerState & {
   activeThreat?: Threat | undefined;
@@ -52,7 +54,7 @@ export function createPlayerStore(storage: KVStorage) {
       power: 1, mind: 1, agility: 1, vision: 1,
       statPoints: 4
     },
-    health: 100,
+    health: PLAYER_MAX_HEALTH,
     stamina: 15,  // Starting stamina: (1+1+1)×5 = 15
     maxStamina: 15,
     lastCheckpointId: 'start',
@@ -64,6 +66,11 @@ export function createPlayerStore(storage: KVStorage) {
         const raw = await storage.getItem(STORAGE_KEY);
         if (raw) {
           const data = JSON.parse(raw);
+          if (typeof data.health === 'number') {
+            data.health = Math.max(0, Math.min(PLAYER_MAX_HEALTH, data.health));
+          } else {
+            data.health = PLAYER_MAX_HEALTH;
+          }
           // validate loaded area exists
           const loadedArea = (data as any).currentAreaId;
           if (!loadedArea || !getAreaById(loadedArea)) {
@@ -106,7 +113,7 @@ export function createPlayerStore(storage: KVStorage) {
           power: 1, mind: 1, agility: 1, vision: 1,
           statPoints: 5
         },
-        health: 100,
+        health: PLAYER_MAX_HEALTH,
         stamina: 100,
         maxStamina: 100,
         flags: {},
@@ -132,17 +139,17 @@ export function createPlayerStore(storage: KVStorage) {
       const logs: string[] = [];
       const flags = { ...(state.flags || {}) };
       const activeBuffs = [...(state.activeBuffs || [])];
-      let health = state.health ?? 100;
+      let health = state.health ?? PLAYER_MAX_HEALTH;
       let stamina = state.stamina ?? 0;
       let maxStamina = state.maxStamina ?? 0;
 
       switch (itemId) {
         case 'mushroom_red':
-          health = Math.min(100, health + 10);
+          health = Math.min(PLAYER_MAX_HEALTH, health + 10);
           logs.push('You eat the red mushroom and recover 10 health.');
           break;
         case 'mushroom_green':
-          health = Math.min(100, health + 5);
+          health = Math.min(PLAYER_MAX_HEALTH, health + 5);
           logs.push('You eat the green mushroom and recover 5 health.');
           break;
         case 'mushroom_purple':
@@ -156,6 +163,10 @@ export function createPlayerStore(storage: KVStorage) {
         case 'mushroom_purplish':
           flags._nextBattleStaminaMultiplier = Math.max(2, flags._nextBattleStaminaMultiplier || 1);
           logs.push('Purplish mushroom consumed: next battle max stamina will be doubled.');
+          break;
+        case 'tavern_pie':
+          health = Math.min(PLAYER_MAX_HEALTH, health + 5);
+          logs.push('You eat a hot tavern pie and recover 5 health.');
           break;
         default:
           return { success: false, log: [`${itemId} is not currently usable from inventory.`] };

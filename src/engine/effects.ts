@@ -1,10 +1,22 @@
 import { PlayerState, InvItem } from './types';
 import { Threat, advanceThreat as advanceThreatFn, placeHazard as placeHazardFn, shootThreat as shootThreatFn } from './threat';
+import { PLAYER_MAX_HEALTH } from './balance';
 
 export type EffectResult = { state: PlayerState; log: string[] };
 
 function cloneState(s: PlayerState): PlayerState {
   return JSON.parse(JSON.stringify(s));
+}
+
+function randomInt(min: number, max: number): number {
+  if (max <= min) return min;
+  if (typeof crypto !== 'undefined' && typeof crypto.getRandomValues === 'function') {
+    const range = max - min + 1;
+    const values = new Uint32Array(1);
+    crypto.getRandomValues(values);
+    return min + (values[0] % range);
+  }
+  return min + Math.floor(Math.random() * (max - min + 1));
 }
 
 /**
@@ -15,7 +27,7 @@ function handleDeath(state: PlayerState, log: string[]): void {
     // Respawn at last checkpoint
     const checkpointId = state.lastCheckpointId || 'i_underfortress_entry';
     state.currentAreaId = checkpointId;
-    state.health = 100;
+    state.health = PLAYER_MAX_HEALTH;
     log.push(`💀 You died! Respawning at ${checkpointId} with full health.`);
   }
 }
@@ -77,6 +89,16 @@ export function applyEffects(effects: any[] | undefined, state: PlayerState): Ef
         next.stats.gold = (next.stats.gold || 0) + (e.value || 0);
         log.push(`grantGold ${e.value}`);
         break;
+      case 'spendGold': {
+        const amount = e.amount || e.value || 0;
+        if ((next.stats.gold || 0) < amount) {
+          log.push(`Not enough gold for ${amount} gold cost.`);
+          break;
+        }
+        next.stats.gold = Math.max(0, (next.stats.gold || 0) - amount);
+        log.push(`-${amount} gold (total: ${next.stats.gold})`);
+        break;
+      }
       case 'addStatPoints':
         next.stats.statPoints = (next.stats.statPoints || 0) + (e.value || e.amount || 1);
         log.push(`addStatPoints +${e.value || e.amount || 1} (total: ${next.stats.statPoints})`);
@@ -90,12 +112,12 @@ export function applyEffects(effects: any[] | undefined, state: PlayerState): Ef
         log.push(`grantXP ${xpValue} (converted to +${statPointsToAdd} stat points)`);
         break;
       case 'heal':
-        next.health = Math.min((next.health || 100) + (e.value || e.amount || 0), 100);
-        log.push(`heal +${e.value || e.amount || 0} health (now: ${next.health}/100)`);
+        next.health = Math.min((next.health ?? PLAYER_MAX_HEALTH) + (e.value || e.amount || 0), PLAYER_MAX_HEALTH);
+        log.push(`heal +${e.value || e.amount || 0} health (now: ${next.health}/${PLAYER_MAX_HEALTH})`);
         break;
       case 'damage':
-        next.health = Math.max((next.health || 100) - (e.value || e.amount || 0), 0);
-        log.push(`damage -${e.value || e.amount || 0} health (now: ${next.health}/100)`);
+        next.health = Math.max((next.health ?? PLAYER_MAX_HEALTH) - (e.value || e.amount || 0), 0);
+        log.push(`damage -${e.value || e.amount || 0} health (now: ${next.health}/${PLAYER_MAX_HEALTH})`);
         handleDeath(next, log); // Check for death and respawn
         break;
       case 'setCheckpoint':
@@ -288,7 +310,7 @@ export function applyEffects(effects: any[] | undefined, state: PlayerState): Ef
         const idx = next.activeThreats.findIndex((t: any) => t.id === threatId);
         if (idx >= 0) {
           const threat = next.activeThreats[idx];
-          const res = advanceThreatFn(threat, 1);
+          const res = advanceThreatFn(threat);
           next.activeThreats[idx] = res.threat;
           log.push(...res.log);
         } else {
@@ -308,8 +330,8 @@ export function applyEffects(effects: any[] | undefined, state: PlayerState): Ef
       case 'takeDamage': {
         // Apply damage to player
         const amount = e.amount || e.value || e.damage || 0;
-        next.health = Math.max((next.health || 100) - amount, 0);
-        log.push(`Took ${amount} damage (health: ${next.health}/100)`);
+        next.health = Math.max((next.health ?? PLAYER_MAX_HEALTH) - amount, 0);
+        log.push(`Took ${amount} damage (health: ${next.health}/${PLAYER_MAX_HEALTH})`);
         handleDeath(next, log);
         break;
       }
@@ -318,6 +340,82 @@ export function applyEffects(effects: any[] | undefined, state: PlayerState): Ef
         const amount = e.amount || e.value || 0;
         next.stats.gold = (next.stats.gold || 0) + amount;
         log.push(`+${amount} gold (total: ${next.stats.gold})`);
+        break;
+      }
+      case 'rabbitTrap': {
+        const mode = e.mode || e.action || 'wait';
+        next.flags = next.flags || {};
+        if (mode === 'arm') {
+          if (next.flags.city_rabbit_trap_set) {
+            log.push('Your snares are already set between the roots and brush.');
+          } else {
+            next.flags.city_rabbit_trap_set = true;
+            log.push('You set a few simple snares along the game trail near camp.');
+          }
+          break;
+        }
+
+        if (!next.flags.city_rabbit_trap_set) {
+          log.push('You wait for a while, but without snares there is nothing to check.');
+          break;
+        }
+
+        const caught = randomInt(1, 100) <= (e.chancePercent || 55);
+        if (!caught) {
+          log.push('You wait by the fire, then check the snares. Nothing this time.');
+          break;
+        }
+
+        const rabbitItemId = e.itemId || 'snared_rabbit';
+        const inv: InvItem[] = next.inventory || [];
+        const existing = inv.find((item) => item.itemId === rabbitItemId);
+        if (existing) existing.qty += 1;
+        else inv.push({ itemId: rabbitItemId, qty: 1 });
+        next.inventory = inv;
+        log.push('A snare jerks tight in the brush. You catch a rabbit.');
+        break;
+      }
+      case 'playDice': {
+        const bet = e.bet || e.amount || e.value || 1;
+        const currentGold = next.stats.gold || 0;
+        if (currentGold < bet) {
+          log.push(`You need ${bet} gold to join this round.`);
+          break;
+        }
+
+        const opponents = e.opponents || randomInt(1, 3);
+        const pot = bet * (opponents + 1);
+        next.stats.gold = currentGold - bet;
+        log.push(`You stake ${bet} gold at the dice table against ${opponents} locals. Pot: ${pot} gold.`);
+
+        let playerRoll = 0;
+        let opponentRolls: number[] = [];
+        let contenders: string[] = [];
+        let round = 1;
+
+        do {
+          playerRoll = randomInt(1, 6);
+          opponentRolls = Array.from({ length: opponents }, () => randomInt(1, 6));
+          const highest = Math.max(playerRoll, ...opponentRolls);
+          contenders = [];
+          if (playerRoll === highest) contenders.push('player');
+          opponentRolls.forEach((roll, index) => {
+            if (roll === highest) contenders.push(`opponent_${index + 1}`);
+          });
+
+          log.push(`Round ${round}: you roll ${playerRoll}; opponents roll ${opponentRolls.join(', ')}.`);
+          if (contenders.length > 1) {
+            log.push('Highest roll is tied. The tied players reroll.');
+            round += 1;
+          }
+        } while (contenders.length > 1);
+
+        if (contenders[0] === 'player') {
+          next.stats.gold += pot;
+          log.push(`You win the pot and collect ${pot} gold.`);
+        } else {
+          log.push('A local scoops the coins. You lose the wager.');
+        }
         break;
       }
       case 'addToCounter': {
@@ -336,7 +434,7 @@ export function applyEffects(effects: any[] | undefined, state: PlayerState): Ef
         const minDistance = e.minDistance || 0;
         // For now, just apply damage as the enemy shoots back
         if (damage > 0) {
-          next.health = Math.max((next.health || 100) - damage, 0);
+          next.health = Math.max((next.health ?? PLAYER_MAX_HEALTH) - damage, 0);
           log.push(`Enemy returns fire! Took ${damage} damage`);
           handleDeath(next, log);
         }

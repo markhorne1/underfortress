@@ -1,6 +1,7 @@
 import { PlayerState, Enemy, EnemyInstance } from './types';
 import { getTotalArmourRating, getTotalDamageRating, getMeleeAttack, getMeleeDefense, getIntimidation, getMaxStamina } from './skillCalculations';
 import { getContentSnapshot } from './contentLoader';
+import { PLAYER_MAX_HEALTH, getBalancedEnemyMaxHealth } from './balance';
 
 function rollD100(): number {
   // Use crypto.getRandomValues for truly random numbers
@@ -40,7 +41,14 @@ function getEnemyById(enemyId: string): Enemy | null {
         agility: agility,
         vision: 1
       },
-      maxHealth: enemy.stamina * 10 || 10
+      maxHealth: getBalancedEnemyMaxHealth(enemy)
+    };
+  }
+
+  if (enemy.maxHealth === undefined) {
+    enemy = {
+      ...enemy,
+      maxHealth: getBalancedEnemyMaxHealth(enemy)
     };
   }
   
@@ -470,9 +478,9 @@ export function enemyTurn(state: PlayerState): { state: PlayerState; log: string
         newState.health = Math.max(0, newState.health - damage);
         
         if (playerAR > 0) {
-          log.push(`💔 You take ${damage} damage (${baseDamage} - ${arReduction} AR)! (${newState.health}/100 HP)`);
+          log.push(`💔 You take ${damage} damage (${baseDamage} - ${arReduction} AR)! (${newState.health}/${PLAYER_MAX_HEALTH} HP)`);
         } else {
-          log.push(`💔 You take ${damage} damage! (${newState.health}/100 HP)`);
+          log.push(`💔 You take ${damage} damage! (${newState.health}/${PLAYER_MAX_HEALTH} HP)`);
         }
         
         if (newState.health <= 0) {
