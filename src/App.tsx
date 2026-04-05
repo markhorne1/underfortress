@@ -16,16 +16,30 @@ function illustrationExists(variant: 'desktop' | 'mobile', fileName: string): bo
   return key in lookup;
 }
 
-function getIllustrationPath(areaId: string, variant: 'desktop' | 'mobile', suffix = ''): string | null {
-  const preferred = `${areaId}${suffix}.jpg`;
+function getIllustrationPath(area: any, variant: 'desktop' | 'mobile', suffix = ''): string | null {
+  const imageId = String(area?.imageAssetId || area?.id || '');
+  if (!imageId) return null;
+
+  const preferred = `${imageId}${suffix}.jpg`;
   if (illustrationExists(variant, preferred)) {
     return contentPath(`leonardo/nano banana pro/${variant}/${preferred}`);
   }
 
   if (suffix) {
-    const base = `${areaId}.jpg`;
+    const base = `${imageId}.jpg`;
     if (illustrationExists(variant, base)) {
       return contentPath(`leonardo/nano banana pro/${variant}/${base}`);
+    }
+  }
+
+  if (variant === 'mobile') {
+    if (illustrationExists('desktop', preferred)) {
+      return contentPath(`leonardo/nano banana pro/desktop/${preferred}`);
+    }
+
+    const desktopBase = `${imageId}.jpg`;
+    if (illustrationExists('desktop', desktopBase)) {
+      return contentPath(`leonardo/nano banana pro/desktop/${desktopBase}`);
     }
   }
 
@@ -205,12 +219,14 @@ export default function App() {
     if (!area?.exits) return;
     const adjacentIds = Object.values(area.exits).map((e: any) => typeof e === 'string' ? e : e?.target).filter(Boolean);
     for (const id of adjacentIds) {
-      const desktopPath = getIllustrationPath(String(id), 'desktop');
+      const adjacentArea = getAreaById(String(id));
+      if (!adjacentArea) continue;
+      const desktopPath = getIllustrationPath(adjacentArea, 'desktop');
       if (desktopPath) {
         const desktop = new Image();
         desktop.src = desktopPath;
       }
-      const mobilePath = getIllustrationPath(String(id), 'mobile');
+      const mobilePath = getIllustrationPath(adjacentArea, 'mobile');
       if (mobilePath) {
         const mobile = new Image();
         mobile.src = mobilePath;
@@ -468,8 +484,8 @@ export default function App() {
         {area && (() => {
           const areaId = area.id || currentAreaId || '';
           const suffix = flags?.[`area:${areaId}:combat_defeated`] ? '_defeated' : '';
-          const desktopPath = getIllustrationPath(areaId, 'desktop', suffix);
-          const mobilePath = getIllustrationPath(areaId, 'mobile', suffix);
+          const desktopPath = getIllustrationPath(area, 'desktop', suffix);
+          const mobilePath = getIllustrationPath(area, 'mobile', suffix);
           const bgStyle: React.CSSProperties = {
             position: 'absolute',
             inset: 0,

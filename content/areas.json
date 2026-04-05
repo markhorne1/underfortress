@@ -10627,6 +10627,7 @@
   {
     "id": "s_woods_camp",
     "title": "Camp in the Woods",
+    "imageAssetId": "camp",
     "x": 0,
     "y": 0,
     "floorId": "surface",
@@ -10687,6 +10688,7 @@
   {
     "id": "s_forest_path",
     "title": "Forest Path",
+    "imageAssetId": "forest_path",
     "x": 0,
     "y": -1,
     "floorId": "surface",
@@ -10704,6 +10706,7 @@
   {
     "id": "s_city_gates",
     "title": "City Gates",
+    "imageAssetId": "city_gates",
     "x": 0,
     "y": -2,
     "floorId": "surface",
@@ -10771,6 +10774,7 @@
   {
     "id": "s_market_street",
     "title": "Market Street",
+    "imageAssetId": "market_street",
     "x": 0,
     "y": -3,
     "floorId": "surface",
@@ -10902,6 +10906,7 @@
   {
     "id": "s_tavern_street",
     "title": "Tavern Street",
+    "imageAssetId": "tavern_street",
     "x": -1,
     "y": -2,
     "floorId": "surface",
@@ -11033,6 +11038,7 @@
   {
     "id": "s_undercity_entrance",
     "title": "Undercity Entrance",
+    "imageAssetId": "undercity_entrance",
     "x": 0,
     "y": -4,
     "floorId": "surface",
@@ -11323,6 +11329,7 @@
   {
     "id": "s_castle_rise",
     "title": "Castle Rise",
+    "imageAssetId": "castle_rise",
     "x": 0,
     "y": -5,
     "floorId": "surface",
@@ -11483,6 +11490,7 @@
   {
     "id": "s_inn_street",
     "title": "Inn Street",
+    "imageAssetId": "inn_street",
     "x": 1,
     "y": -5,
     "floorId": "surface",
@@ -11529,6 +11537,7 @@
   {
     "id": "s_castle_entrance",
     "title": "Castle Entrance",
+    "imageAssetId": "castle_entrance",
     "x": 0,
     "y": -6,
     "floorId": "surface",
