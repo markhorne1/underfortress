@@ -7,6 +7,31 @@ import { getActiveSkills, getPassiveSkills, getTotalArmourRating } from './engin
 import { initiateCombat, playerAttack, enemyTurn, selectEnemy, castSpell, intimidateEnemy, playerSlash, playerPivot } from './engine/combatNew';
 import { PLAYER_MAX_HEALTH } from './engine/balance';
 
+const desktopIllustrationModules = import.meta.glob('../content/leonardo/nano banana pro/desktop/*.jpg');
+const mobileIllustrationModules = import.meta.glob('../content/leonardo/nano banana pro/mobile/*.jpg');
+
+function illustrationExists(variant: 'desktop' | 'mobile', fileName: string): boolean {
+  const lookup = variant === 'desktop' ? desktopIllustrationModules : mobileIllustrationModules;
+  const key = `../content/leonardo/nano banana pro/${variant}/${fileName}`;
+  return key in lookup;
+}
+
+function getIllustrationPath(areaId: string, variant: 'desktop' | 'mobile', suffix = ''): string | null {
+  const preferred = `${areaId}${suffix}.jpg`;
+  if (illustrationExists(variant, preferred)) {
+    return contentPath(`leonardo/nano banana pro/${variant}/${preferred}`);
+  }
+
+  if (suffix) {
+    const base = `${areaId}.jpg`;
+    if (illustrationExists(variant, base)) {
+      return contentPath(`leonardo/nano banana pro/${variant}/${base}`);
+    }
+  }
+
+  return null;
+}
+
 function contentPath(relativePath: string): string {
   if (typeof window === 'undefined') {
     return `content/${relativePath}`;
@@ -180,10 +205,16 @@ export default function App() {
     if (!area?.exits) return;
     const adjacentIds = Object.values(area.exits).map((e: any) => typeof e === 'string' ? e : e?.target).filter(Boolean);
     for (const id of adjacentIds) {
-      const desktop = new Image();
-      desktop.src = contentPath(`leonardo/nano banana pro/desktop/${id}.jpg`);
-      const mobile = new Image();
-      mobile.src = contentPath(`leonardo/nano banana pro/mobile/${id}.jpg`);
+      const desktopPath = getIllustrationPath(String(id), 'desktop');
+      if (desktopPath) {
+        const desktop = new Image();
+        desktop.src = desktopPath;
+      }
+      const mobilePath = getIllustrationPath(String(id), 'mobile');
+      if (mobilePath) {
+        const mobile = new Image();
+        mobile.src = mobilePath;
+      }
     }
   }, [currentAreaId]);
 
@@ -437,8 +468,8 @@ export default function App() {
         {area && (() => {
           const areaId = area.id || currentAreaId || '';
           const suffix = flags?.[`area:${areaId}:combat_defeated`] ? '_defeated' : '';
-          const desktopPath = contentPath(`leonardo/nano banana pro/desktop/${areaId}${suffix}.jpg`);
-          const mobilePath = contentPath(`leonardo/nano banana pro/mobile/${areaId}${suffix}.jpg`);
+          const desktopPath = getIllustrationPath(areaId, 'desktop', suffix);
+          const mobilePath = getIllustrationPath(areaId, 'mobile', suffix);
           const bgStyle: React.CSSProperties = {
             position: 'absolute',
             inset: 0,
@@ -449,8 +480,8 @@ export default function App() {
           };
           return (
             <>
-              <div className="area-bg-desktop" style={{ ...bgStyle, backgroundImage: `url("${desktopPath}")` }} />
-              <div className="area-bg-mobile" style={{ ...bgStyle, backgroundImage: `url("${mobilePath}")` }} />
+              <div className="area-bg-desktop" style={{ ...bgStyle, backgroundImage: desktopPath ? `url("${desktopPath}")` : undefined }} />
+              <div className="area-bg-mobile" style={{ ...bgStyle, backgroundImage: mobilePath ? `url("${mobilePath}")` : undefined }} />
             </>
           );
         })()}

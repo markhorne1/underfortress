@@ -8,7 +8,14 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Underfortress" />
-    <link rel="manifest" href="./manifest.webmanifest" />
+    <script>
+      if (!window.location.hostname.endsWith('.app.github.dev')) {
+        const manifest = document.createElement('link');
+        manifest.rel = 'manifest';
+        manifest.href = './manifest.webmanifest';
+        document.head.appendChild(manifest);
+      }
+    </script>
     <link rel="icon" href="./icons/app-icon.svg" type="image/svg+xml" />
     <title>Under-Fortress (web)</title>
     <style>
