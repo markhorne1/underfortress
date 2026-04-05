@@ -10635,29 +10635,8 @@
     "cover": "full",
     "blocksLOS": true,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, rough militia camp in woodland shadows, bedrolls, cookfire, rabbit snares, dawn mist, cinematic, no text",
-    "description": "A lean militia camp crouches between wet pines and low brush. Bedrolls, cookpots, and a few crude snares tell the story plainly: if you want to last underground, you had better prepare first.\n\nNorth, the forest path winds toward the city gates.",
+    "description": "As the smell of rabbit stew fills your nostrils for another day you sit and ponder your choices in life. Perhaps you can barter your way into the city to find a real pie and a dry bed to sleep in.",
     "choices": [
-      {
-        "id": "camp_collect_stipend",
-        "label": "Collect your militia stipend (12 gold).",
-        "requirements": [
-          {
-            "type": "notFlag",
-            "key": "city_stipend_taken"
-          }
-        ],
-        "effects": [
-          {
-            "type": "addGold",
-            "amount": 12
-          },
-          {
-            "type": "setFlag",
-            "key": "city_stipend_taken",
-            "value": true
-          }
-        ]
-      },
       {
         "id": "camp_set_traps",
         "label": "Set Animal Traps.",
@@ -10782,7 +10761,104 @@
     "cover": "half",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, cramped market street with hardware stall, tool racks, lanterns, anxious townsfolk, cinematic, no text",
-    "description": "Market Street smells of lamp oil, wet wood, and nerves. A hardware shop has dragged its practical stock into the open: rope, chalk, wraps, arrows, anything that might help someone come back from the dark.\n\nNorth leads to Undercity Entrance. South returns to the gates.",
+    "description": "Market Street smells of lamp oil, wet wood, and nerves. The busiest storefront on the lane is a hardware store with crates of rope, chalk, wraps, and travel gear stacked right up to the threshold, while a food stall nearby keeps hot broth, skewers, and day-old bread moving to anyone heading below.\n\nNorth leads to Undercity Entrance. South returns to the gates.",
+    "choices": [
+      {
+        "id": "enter_hardware_store",
+        "label": "Enter Hardware Store.",
+        "goToAreaId": "s_hardware_store"
+      },
+      {
+        "id": "market_buy_broth",
+        "label": "Buy a bowl of hot broth (1 gold, heal 4).",
+        "requirements": [
+          {
+            "type": "hasGold",
+            "value": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "spendGold",
+            "amount": 1
+          },
+          {
+            "type": "heal",
+            "amount": 4
+          },
+          {
+            "type": "message",
+            "text": "The broth is thin but hot enough to put strength back in your hands."
+          }
+        ]
+      },
+      {
+        "id": "market_buy_skewer",
+        "label": "Buy a meat skewer wrapped in flatbread (2 gold, heal 7).",
+        "requirements": [
+          {
+            "type": "hasGold",
+            "value": 2
+          }
+        ],
+        "effects": [
+          {
+            "type": "spendGold",
+            "amount": 2
+          },
+          {
+            "type": "heal",
+            "amount": 7
+          },
+          {
+            "type": "message",
+            "text": "Grease, salt, and warm bread do more for you than pride ever has."
+          }
+        ]
+      },
+      {
+        "id": "market_buy_rations",
+        "label": "Buy bread, cheese, and dried fruit (3 gold, heal 10).",
+        "requirements": [
+          {
+            "type": "hasGold",
+            "value": 3
+          }
+        ],
+        "effects": [
+          {
+            "type": "spendGold",
+            "amount": 3
+          },
+          {
+            "type": "heal",
+            "amount": 10
+          },
+          {
+            "type": "message",
+            "text": "You eat well by expedition standards, which is to say you no longer feel hollow."
+          }
+        ]
+      }
+    ],
+    "exits": {
+      "s": "s_city_gates",
+      "n": "s_undercity_entrance"
+    },
+    "z": 0
+  },
+  {
+    "id": "s_hardware_store",
+    "title": "Hardware Store",
+    "imageAssetId": "hardware_store",
+    "x": 0,
+    "y": -3,
+    "floorId": "surface",
+    "tileStyle": "city",
+    "cover": "half",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, cramped fantasy hardware shop, ropes, chalk, wrapped tools, lantern light, practical gear stacked high, cinematic, no text",
+    "description": "Every wall is lined with practical gear for people who expect wet tunnels, bad footing, and the need to improvise under pressure. The shopkeeper keeps the useful stock close and the breakable stock well out of reach.",
     "choices": [
       {
         "id": "market_buy_grapnel",
@@ -10895,12 +10971,13 @@
             "qty": 1
           }
         ]
+      },
+      {
+        "id": "leave_hardware_store",
+        "label": "Step back onto Market Street.",
+        "goToAreaId": "s_market_street"
       }
     ],
-    "exits": {
-      "s": "s_city_gates",
-      "n": "s_undercity_entrance"
-    },
     "z": 0
   },
   {
@@ -10914,10 +10991,34 @@
     "cover": "half",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, crooked tavern street, warm window light, pie stall, dice table, smoke and drizzle, cinematic, no text",
-    "description": "Tavern Street glows with warm shutters and bad decisions. One door promises food, beds, and a full room around the dice table.\n\nEast returns to the city gates.",
+    "description": "Tavern Street glows with warm shutters and bad decisions. The sign for Pies & Dice creaks over the busiest doorway on the lane, and the smell of gravy keeps drifting into the rain.\n\nEast returns to the city gates.",
     "choices": [
       {
-        "id": "tavern_buy_pie",
+        "id": "enter_tavern",
+        "label": "Enter Pies & Dice.",
+        "goToAreaId": "s_pies_and_dice"
+      }
+    ],
+    "exits": {
+      "e": "s_city_gates"
+    },
+    "z": 0
+  },
+  {
+    "id": "s_pies_and_dice",
+    "title": "Pies & Dice",
+    "imageAssetId": "tavern",
+    "x": -1,
+    "y": -2,
+    "floorId": "surface",
+    "tileStyle": "city",
+    "cover": "half",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, cramped city tavern interior, pies on a hot board, candlelight, gamblers and travel-stained militia, cinematic, no text",
+    "description": "The common room is all steam, wet wool, and shouted boasts. A serving board by the bar offers meat pies to go, while the loudest voices come from the dice table in the back. The innkeeper will also rent you a narrow upstairs room if you can pay in advance.",
+    "choices": [
+      {
+        "id": "pies_buy_pie",
         "label": "Buy a Tavern Pie (1 gold).",
         "requirements": [
           {
@@ -10938,12 +11039,21 @@
         ]
       },
       {
-        "id": "tavern_bed",
-        "label": "Rent a bed at the tavern (2 gold, full heal).",
+        "id": "pies_enter_dice_table",
+        "label": "Go to the Dice Table.",
+        "goToAreaId": "s_dice_table"
+      },
+      {
+        "id": "pies_rent_room",
+        "label": "Rent a room at the tavern (2 gold).",
         "requirements": [
           {
             "type": "hasGold",
             "value": 2
+          },
+          {
+            "type": "notFlag",
+            "key": "tavern_room_rented"
           }
         ],
         "effects": [
@@ -10952,21 +11062,50 @@
             "amount": 2
           },
           {
-            "type": "heal",
-            "amount": 20
-          },
-          {
-            "type": "unsetFlag",
-            "key": "area:i_underfortress_entry:combat_defeated"
+            "type": "setFlag",
+            "key": "tavern_room_rented",
+            "value": true
           },
           {
             "type": "message",
-            "text": "You sleep hard, wake fully restored, and hear that the undercity patrol has changed over."
+            "text": "The innkeeper takes your coins, slides over a brass key, and points you toward a room upstairs."
           }
         ]
       },
       {
-        "id": "tavern_dice_1",
+        "id": "pies_go_to_bedroom",
+        "label": "Go To Bedroom.",
+        "requirements": [
+          {
+            "type": "hasFlag",
+            "key": "tavern_room_rented"
+          }
+        ],
+        "goToAreaId": "s_tavern_bedroom"
+      },
+      {
+        "id": "pies_leave",
+        "label": "Step back onto Tavern Street.",
+        "goToAreaId": "s_tavern_street"
+      }
+    ],
+    "z": 0
+  },
+  {
+    "id": "s_dice_table",
+    "title": "Dice Table",
+    "imageAssetId": "dice_table",
+    "x": -1,
+    "y": -2,
+    "floorId": "surface",
+    "tileStyle": "city",
+    "cover": "half",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, crowded tavern dice table, tankards, gamblers leaning in, candlelit tension, cinematic, no text",
+    "description": "The back table is ringed three deep with drinkers, cutpurses, and off-duty militia. Stakes stay low enough to avoid knife work, but not low enough to avoid regret.",
+    "choices": [
+      {
+        "id": "dice_play_1",
         "label": "Play Dice for 1 gold.",
         "requirements": [
           {
@@ -10982,7 +11121,7 @@
         ]
       },
       {
-        "id": "tavern_dice_2",
+        "id": "dice_play_2",
         "label": "Play Dice for 2 gold.",
         "requirements": [
           {
@@ -10998,7 +11137,7 @@
         ]
       },
       {
-        "id": "tavern_dice_3",
+        "id": "dice_play_3",
         "label": "Play Dice for 3 gold.",
         "requirements": [
           {
@@ -11014,7 +11153,7 @@
         ]
       },
       {
-        "id": "tavern_dice_4",
+        "id": "dice_play_4",
         "label": "Play Dice for 4 gold.",
         "requirements": [
           {
@@ -11028,11 +11167,62 @@
             "bet": 4
           }
         ]
+      },
+      {
+        "id": "dice_return_tavern",
+        "label": "Return to Pies & Dice.",
+        "goToAreaId": "s_pies_and_dice"
       }
     ],
-    "exits": {
-      "e": "s_city_gates"
-    },
+    "z": 0
+  },
+  {
+    "id": "s_tavern_bedroom",
+    "title": "Tavern Bedroom",
+    "imageAssetId": "tavern_bedroom",
+    "x": -1,
+    "y": -2,
+    "floorId": "surface",
+    "tileStyle": "city",
+    "cover": "half",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, cramped tavern bedroom under rafters, narrow bed, wash basin, travel pack on chair, cinematic, no text",
+    "description": "The room is cramped but dry, with a narrow bed, a wash basin, and a door sturdy enough to keep out the worst of the noise downstairs.",
+    "choices": [
+      {
+        "id": "tavern_bedroom_sleep",
+        "label": "Sleep until morning.",
+        "requirements": [
+          {
+            "type": "hasFlag",
+            "key": "tavern_room_rented"
+          }
+        ],
+        "effects": [
+          {
+            "type": "heal",
+            "amount": 20
+          },
+          {
+            "type": "unsetFlag",
+            "key": "area:i_underfortress_entry:combat_defeated"
+          },
+          {
+            "type": "unsetFlag",
+            "key": "tavern_room_rented"
+          },
+          {
+            "type": "message",
+            "text": "You sleep hard, wake fully restored, and hear that the undercity patrol has changed over."
+          }
+        ]
+      },
+      {
+        "id": "tavern_bedroom_leave",
+        "label": "Go downstairs.",
+        "goToAreaId": "s_pies_and_dice"
+      }
+    ],
     "z": 0
   },
   {
@@ -11046,7 +11236,33 @@
     "cover": "half",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, narrow street above sewer steps, bookshop sign Tomb and Tome, iron grates, city stone, cinematic, no text",
-    "description": "The street narrows around iron grates, warning placards, and the leaning frontage of Tomb & Tome. The bookseller has dragged cheap primers and suspicious scrolls into the window for anyone desperate enough to learn fast.\n\nNorth climbs to Castle Rise. South returns to Market Street. Down leads into the undercity approach.",
+    "description": "The street narrows around iron grates, warning placards, and the leaning frontage of Tomb & Tome. Its windows are crowded with cheap primers, cracked scroll tubes, and enough warding chalk to suggest the owner knows exactly what lives below.\n\nNorth climbs to Castle Rise. South returns to Market Street. Down leads into the undercity approach.",
+    "choices": [
+      {
+        "id": "enter_bookshop",
+        "label": "Enter Bookshop.",
+        "goToAreaId": "s_tomb_and_tome"
+      }
+    ],
+    "exits": {
+      "s": "s_market_street",
+      "n": "s_castle_rise",
+      "d": "i_underfortress_entry"
+    },
+    "z": 0
+  },
+  {
+    "id": "s_tomb_and_tome",
+    "title": "Tomb & Tome",
+    "imageAssetId": "bookshop",
+    "x": 0,
+    "y": -4,
+    "floorId": "surface",
+    "tileStyle": "city",
+    "cover": "half",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, cramped occult bookshop, leaning shelves, scroll tubes, candle smoke, suspicious proprietor, cinematic, no text",
+    "description": "Every shelf leans under the weight of cheap grimoires, damp primers, and scroll cases tied with too many warning charms. The proprietor watches you over a stack of ledgers, ready to sell dangerous knowledge to anyone who pays first.",
     "choices": [
       {
         "id": "book_ignite",
@@ -11317,13 +11533,13 @@
             "path": "air"
           }
         ]
+      },
+      {
+        "id": "leave_bookshop",
+        "label": "Step back out to the Undercity Entrance.",
+        "goToAreaId": "s_undercity_entrance"
       }
     ],
-    "exits": {
-      "s": "s_market_street",
-      "n": "s_castle_rise",
-      "d": "i_underfortress_entry"
-    },
     "z": 0
   },
   {
@@ -11498,15 +11714,43 @@
     "cover": "half",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, shabby inn street, crooked signboard, rain-soaked cobbles, tired patrons, cinematic, no text",
-    "description": "The inn on this lane is cheap, damp, and none too clean, but the keeper rents mattresses to anyone with a coin and no standards.\n\nWest returns to Castle Rise.",
+    "description": "The inn on this lane is cheap, damp, and none too clean, but the keeper still keeps a lamp burning for anyone with coin enough to get in out of the rain.\n\nWest returns to Castle Rise.",
     "choices": [
       {
-        "id": "inn_dirty_bed",
-        "label": "Rent a bed at the dirty inn (1 gold, heal 10).",
+        "id": "enter_inn",
+        "label": "Enter Inn.",
+        "goToAreaId": "s_inn"
+      }
+    ],
+    "exits": {
+      "w": "s_castle_rise"
+    },
+    "z": 0
+  },
+  {
+    "id": "s_inn",
+    "title": "The Inn",
+    "imageAssetId": "inn_street2",
+    "x": 1,
+    "y": -5,
+    "floorId": "surface",
+    "tileStyle": "city",
+    "cover": "half",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, shabby inn common room, damp coats, tired keeper, cheap candles, rough tables, cinematic, no text",
+    "description": "Inside, the inn is warmer than the street but only just. The keeper offers a bare room upstairs to anyone willing to pay before asking questions.",
+    "choices": [
+      {
+        "id": "inn_rent_room",
+        "label": "Rent a room at the inn (1 gold).",
         "requirements": [
           {
             "type": "hasGold",
             "value": 1
+          },
+          {
+            "type": "notFlag",
+            "key": "inn_room_rented"
           }
         ],
         "effects": [
@@ -11514,6 +11758,59 @@
             "type": "spendGold",
             "amount": 1
           },
+          {
+            "type": "setFlag",
+            "key": "inn_room_rented",
+            "value": true
+          },
+          {
+            "type": "message",
+            "text": "The keeper palms your coin, hands you a chipped room key, and jerks his chin toward the stairs."
+          }
+        ]
+      },
+      {
+        "id": "inn_go_to_bedroom",
+        "label": "Go To Bedroom.",
+        "requirements": [
+          {
+            "type": "hasFlag",
+            "key": "inn_room_rented"
+          }
+        ],
+        "goToAreaId": "s_inn_bedroom"
+      },
+      {
+        "id": "inn_leave",
+        "label": "Step back onto Inn Street.",
+        "goToAreaId": "s_inn_street"
+      }
+    ],
+    "z": 0
+  },
+  {
+    "id": "s_inn_bedroom",
+    "title": "Inn Bedroom",
+    "imageAssetId": "inn_bedroom",
+    "x": 1,
+    "y": -5,
+    "floorId": "surface",
+    "tileStyle": "city",
+    "cover": "half",
+    "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, shabby inn bedroom, rumpled blanket, cracked wash bowl, water stains, candle on crate, cinematic, no text",
+    "description": "The room is damp, the blanket thin, and the mattress remembers every previous guest. Still, it is privacy, a door that latches, and somewhere to collapse.",
+    "choices": [
+      {
+        "id": "inn_bedroom_sleep",
+        "label": "Sleep for a few hours.",
+        "requirements": [
+          {
+            "type": "hasFlag",
+            "key": "inn_room_rented"
+          }
+        ],
+        "effects": [
           {
             "type": "heal",
             "amount": 10
@@ -11523,15 +11820,21 @@
             "key": "area:i_underfortress_entry:combat_defeated"
           },
           {
+            "type": "unsetFlag",
+            "key": "inn_room_rented"
+          },
+          {
             "type": "message",
             "text": "You wake a little less dead than before. By the time you wash up, the undercity patrol has reset."
           }
         ]
+      },
+      {
+        "id": "inn_bedroom_leave",
+        "label": "Go downstairs.",
+        "goToAreaId": "s_inn"
       }
     ],
-    "exits": {
-      "w": "s_castle_rise"
-    },
     "z": 0
   },
   {
@@ -11545,7 +11848,39 @@
     "cover": "half",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, castle gate under banners, armored guard at attention, storm light, cinematic, no text",
-    "description": "A guard captain at the castle gate sizes you up and speaks plainly. If you want to make a name for yourself, the city does not need another braggart in the yard; it needs someone below. Goblins and orcs have infested the ancient sewers, set camp there, and are preparing to strike the city from within.\n\nHe urges you to go now, prove yourself to the king, and bring back war plans, trophies, or any proof worth a bounty.\n\nSouth returns to Castle Rise.",
+    "description": "A guard captain at the castle gate sizes you up and speaks plainly. If you want to make a name for yourself, the city does not need another braggart in the yard; it needs someone below. Goblins and orcs have infested the ancient sewers, set camp there, and are preparing to strike the city from within.\n\nHe says that if you are willing to sign the militia roll and take the work seriously, he can authorize a small stipend from the city coffers before sending you down. Bring back war plans, trophies, or any proof worth a bounty.\n\nSouth returns to Castle Rise.",
+    "choices": [
+      {
+        "id": "castle_sign_militia_roll",
+        "label": "Sign the militia roll and accept the stipend (12 gold).",
+        "requirements": [
+          {
+            "type": "notFlag",
+            "key": "city_stipend_taken"
+          }
+        ],
+        "effects": [
+          {
+            "type": "addGold",
+            "amount": 12
+          },
+          {
+            "type": "setFlag",
+            "key": "city_stipend_taken",
+            "value": true
+          },
+          {
+            "type": "setFlag",
+            "key": "militia_roll_signed",
+            "value": true
+          },
+          {
+            "type": "message",
+            "text": "You put your name on the militia roll. The captain presses a 12-gold stipend into your hand and tells you not to waste the city's trust."
+          }
+        ]
+      }
+    ],
     "exits": {
       "s": "s_castle_rise"
     },
