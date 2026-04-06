@@ -104,7 +104,7 @@ function getCreatureImage(enemy: { name?: string; tags?: string[]; kind?: string
 }
 
 export default function App() {
-  const [page, setPage] = useState<'title'|'menu'|'game'>('title');
+  const [page, setPage] = useState<'title'|'menu'|'newgame'|'game'>('title');
   const [loading, setLoading] = useState(true);
   const [mapZLevel, setMapZLevel] = useState<number>(0);
   
@@ -234,8 +234,8 @@ export default function App() {
     }
   }, [currentAreaId]);
 
-  const onNew = async () => {
-    await newGame();
+  const onNew = async (mode: 'normal' | 'hardcore' = 'normal') => {
+    await newGame(mode);
     setPage('game');
   };
 
@@ -266,9 +266,28 @@ export default function App() {
       <div style={{height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', background: '#2a2a2a'}}>
         <h2 style={{marginBottom: 20, color: '#f5e6c8', fontFamily: 'serif'}}>Main Menu</h2>
         <div style={{width:260, display:'flex', flexDirection:'column', alignItems:'center'}}>
-          <button onClick={onNew} style={btnStyle}>New Game</button>
+          <button onClick={() => setPage('newgame')} style={btnStyle}>New Game</button>
           <button onClick={onLoad} style={btnStyle}>Load Game</button>
           <button onClick={() => setPage('title')} style={btnStyle}>Back</button>
+        </div>
+      </div>
+    );
+  }
+
+  if (page === 'newgame') {
+    return (
+      <div style={{height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', background: '#2a2a2a'}}>
+        <h2 style={{marginBottom: 8, color: '#f5e6c8', fontFamily: 'serif'}}>Choose Difficulty</h2>
+        <div style={{width: 320, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16, marginTop: 16}}>
+          <button onClick={() => onNew('normal')} style={{...btnStyle, width: 280}}>
+            <div style={{fontSize: 18, fontWeight: 'bold'}}>Normal Mode</div>
+            <div style={{fontSize: 12, opacity: 0.8, marginTop: 4}}>Keep your loot when you die</div>
+          </button>
+          <button onClick={() => onNew('hardcore')} style={{...btnStyle, width: 280, background: 'linear-gradient(135deg, #c0392b, #96281b)', border: '1px solid #e74c3c'}}>
+            <div style={{fontSize: 18, fontWeight: 'bold'}}>Hardcore Mode</div>
+            <div style={{fontSize: 12, opacity: 0.8, marginTop: 4}}>Lose all loot and gold on death</div>
+          </button>
+          <button onClick={() => setPage('menu')} style={{...btnStyle, background: 'transparent', border: '1px solid rgba(201,168,76,0.4)', marginTop: 8}}>Back</button>
         </div>
       </div>
     );
@@ -832,50 +851,56 @@ export default function App() {
                       </p>
                       
                       {/* Respawn Info */}
-                      <div style={{ 
-                        background: 'rgba(0,0,0,0.4)', 
-                        padding: 20, 
-                        borderRadius: 8,
-                        marginBottom: 24,
-                        border: '2px solid rgba(236, 240, 241, 0.2)'
-                      }}>
-                        <div style={{ 
-                          color: '#95a5a6', 
-                          fontSize: 14, 
-                          textAlign: 'center',
-                          marginBottom: 8
-                        }}>
-                          You will respawn at:
-                        </div>
-                        <div style={{ 
-                          color: '#3498db', 
-                          fontSize: 20, 
-                          textAlign: 'center',
-                          fontWeight: 'bold'
-                        }}>
-                          📍 {combat.defeatScreen.checkpointName}
-                        </div>
-                        <div style={{
-                          color: '#e67e22',
-                          fontSize: 14,
-                          textAlign: 'center',
-                          marginTop: 12,
-                          fontStyle: 'italic'
-                        }}>
-                          Health restored to full
-                        </div>
-                      </div>
+                      {(() => {
+                        const st = usePlayerStore.getState() as any;
+                        const isHardcore = st.gameMode === 'hardcore';
+                        const hasBedroom = !!st.flags?.tavern_room_rented;
+                        const where = hasBedroom ? 'your rented room' : 'Camp in the Woods';
+                        return (
+                          <div style={{ 
+                            background: 'rgba(0,0,0,0.4)', 
+                            padding: 20, 
+                            borderRadius: 8,
+                            marginBottom: 24,
+                            border: '2px solid rgba(236, 240, 241, 0.2)'
+                          }}>
+                            <div style={{ color: '#95a5a6', fontSize: 14, textAlign: 'center', marginBottom: 8 }}>
+                              You will wake up at:
+                            </div>
+                            <div style={{ color: '#3498db', fontSize: 20, textAlign: 'center', fontWeight: 'bold' }}>
+                              📍 {where}
+                            </div>
+                            {isHardcore && (
+                              <div style={{ color: '#e74c3c', fontSize: 14, textAlign: 'center', marginTop: 12, fontWeight: 'bold' }}>
+                                ⚠️ Hardcore Mode — all loot and gold lost
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })()}
                       
                       {/* Respawn Button */}
                       <button
                         onClick={() => {
-                          const currentState = usePlayerStore.getState();
-                          // Respawn at checkpoint with full health
-                          usePlayerStore.setState({ 
+                          const currentState = usePlayerStore.getState() as any;
+                          const isHardcore = currentState.gameMode === 'hardcore';
+                          const hasBedroom = !!currentState.flags?.tavern_room_rented;
+                          const respawnId = hasBedroom ? 's_tavern_bedroom' : 's_woods_camp';
+                          const respawnHealth = hasBedroom ? Math.ceil(PLAYER_MAX_HEALTH / 2) : 5;
+
+                          const updates: any = { 
                             combat: undefined,
-                            health: PLAYER_MAX_HEALTH,
-                            currentAreaId: currentState.lastCheckpointId || currentState.currentAreaId
-                          });
+                            health: respawnHealth,
+                            currentAreaId: respawnId
+                          };
+
+                          if (isHardcore) {
+                            updates.inventory = [];
+                            updates.equipment = {};
+                            updates.stats = { ...currentState.stats, gold: 0 };
+                          }
+
+                          usePlayerStore.setState(updates);
                         }}
                         style={{
                           width: '100%',
@@ -1797,7 +1822,7 @@ export default function App() {
             {modalPage === 'equipment' && (() => {
               const content = getContentSnapshot();
               const items = content?.items || new Map();
-              const arVal = getTotalArmourRating({ stats, equipment, inventory, currentAreaId, discoveredMap, spellsKnown, spellPathsUnlocked, combatSkills: combatSkills || [], health, stamina: stamina || 0, maxStamina: maxStamina || 0, lastCheckpointId, flags: flags || {}, quests: quests || {}, questLog: questLog || [] });
+              const arVal = getTotalArmourRating({ stats, equipment, inventory, currentAreaId, discoveredMap, spellsKnown, spellPathsUnlocked, combatSkills: combatSkills || [], health, stamina: stamina || 0, maxStamina: maxStamina || 0, gameMode: (usePlayerStore.getState() as any).gameMode || 'normal', lastCheckpointId, flags: flags || {}, quests: quests || {}, questLog: questLog || [] });
 
               const renderSlot = (slot: string, label: string) => {
                 const itemId = equipment[slot];

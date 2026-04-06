@@ -21,7 +21,7 @@ export type PlayerState = EnginePlayerState & {
 export type PlayerActions = {
   hasSave: boolean;
   loadState: () => Promise<void>;
-  newGame: () => Promise<void>;
+  newGame: (mode?: 'normal' | 'hardcore') => Promise<void>;
   consumeInventoryItem: (itemId: string) => Promise<{ success: boolean; log: string[] }>;
   sellInventoryItem: (itemId: string) => Promise<{ success: boolean; log: string[] }>;
   moveTo: (areaId?: string, skipExitCheck?: boolean) => Promise<void>;
@@ -59,6 +59,7 @@ export function createPlayerStore(storage: KVStorage) {
     health: PLAYER_MAX_HEALTH,
     stamina: 15,  // Starting stamina: (1+1+1)×5 = 15
     maxStamina: 15,
+    gameMode: 'normal' as const,
     lastCheckpointId: 'start',
     flags: {},
     hasSave: false,
@@ -88,7 +89,7 @@ export function createPlayerStore(storage: KVStorage) {
         console.warn('loadState failed', e);
       }
     },
-    newGame: async () => {
+    newGame: async (mode: 'normal' | 'hardcore' = 'normal') => {
       await loadContent();
       const configuredStartId = getStartAreaId();
       const firstArea = getAllAreas()[0] as any;
@@ -129,6 +130,7 @@ export function createPlayerStore(storage: KVStorage) {
         health: PLAYER_MAX_HEALTH,
         stamina: 100,
         maxStamina: 100,
+        gameMode: mode,
         flags: {},
         quests: {},
         questLog: [],

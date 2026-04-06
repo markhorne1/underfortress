@@ -127,6 +127,7 @@ export type PlayerState = {
   health: number;  // Current health (max 20)
   stamina: number;  // Current stamina for skills/spells
   maxStamina: number;  // Maximum stamina (Power×5 + Mind×5 + Agility×5)
+  gameMode: 'normal' | 'hardcore';  // Normal keeps loot on death, Hardcore loses it
   lastCheckpointId: string;  // Area ID of last checkpoint for respawn
   combat?: CombatState;  // Active combat state
   jobs?: Record<string, any>;

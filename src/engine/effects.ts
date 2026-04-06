@@ -20,15 +20,27 @@ function randomInt(min: number, max: number): number {
 }
 
 /**
- * Check if player has died and handle respawn at last checkpoint
+ * Check if player has died and handle respawn based on game mode
  */
 function handleDeath(state: PlayerState, log: string[]): void {
   if (state.health <= 0) {
-    // Respawn at last checkpoint
-    const checkpointId = state.lastCheckpointId || 'i_underfortress_entry';
-    state.currentAreaId = checkpointId;
-    state.health = PLAYER_MAX_HEALTH;
-    log.push(`💀 You died! Respawning at ${checkpointId} with full health.`);
+    const isHardcore = state.gameMode === 'hardcore';
+    const hasBedroom = !!state.flags?.tavern_room_rented;
+    const respawnId = hasBedroom ? 's_tavern_bedroom' : 's_woods_camp';
+
+    state.currentAreaId = respawnId;
+    state.health = hasBedroom ? Math.ceil(PLAYER_MAX_HEALTH / 2) : 5;
+
+    if (isHardcore) {
+      state.inventory = [];
+      state.equipment = {};
+      state.stats.gold = 0;
+      log.push('💀 You died! Your belongings are lost. You wake with nothing.');
+    } else {
+      log.push(hasBedroom
+        ? '💀 You black out and wake in your rented room, battered but alive.'
+        : '💀 You black out and wake by the campfire, battered but alive.');
+    }
   }
 }
 
