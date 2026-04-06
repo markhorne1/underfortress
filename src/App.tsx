@@ -3,7 +3,7 @@ import { loadContent, getContentSnapshot, getStartAreaId, getAllAreas, getAreaBy
 import { usePlayerStore } from './store/playerStore';
 import { executeChoice } from './engine/execute';
 import { evaluateRequirements } from './engine/requirements';
-import { getActiveSkills, getPassiveSkills, getTotalArmourRating } from './engine/skillCalculations';
+import { getActiveSkills, getPassiveSkills, getTotalArmourRating, getTotalDamageRating, getMeleeAttack, getMeleeDefense, getRangedAttack, getRangedDefense, getDodge, getPerception, getStealth, getPersuasion, getIntimidation, getLockpick, getPickpocket, getCastSpell, getSpellResistance, getSearch, getInvestigate, getMaxStamina } from './engine/skillCalculations';
 import { initiateCombat, playerAttack, enemyTurn, selectEnemy, castSpell, intimidateEnemy, playerSlash, playerPivot } from './engine/combatNew';
 import { PLAYER_MAX_HEALTH } from './engine/balance';
 
@@ -161,7 +161,7 @@ export default function App() {
       document.head.removeChild(style);
     };
   }, []);
-  const [modalPage, setModalPage] = useState<'inventory'|'equipment'|'skills'|'spells'|'quests'|'map'|'settings'|null>(null);
+  const [modalPage, setModalPage] = useState<'inventory'|'equipment'|'skills'|'spells'|'quests'|'map'|'stats'|'settings'|null>(null);
   const [statAllocMode, setStatAllocMode] = useState(false); // Stat allocation modal
   const [spellTreePath, setSpellTreePath] = useState<string | null>(null); // Which path's spell tree to show
   const [selectedSpell, setSelectedSpell] = useState<string | null>(null); // Selected spell for casting
@@ -397,7 +397,7 @@ export default function App() {
             flex: '0.67 1 auto',
             minWidth: 0
           }}>
-          {(['inventory','equipment','skills','spells','quests','map'] as const).map(pg => (
+          {(['inventory','equipment','skills','spells','quests','map','stats'] as const).map(pg => (
             <button key={pg} onClick={() => setModalPage(pg)} style={{ background: 'linear-gradient(135deg, #c9a84c, #a07830)', border: '1px solid #e0c068', fontSize: 12, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap', color: '#1a1000', padding: '6px 12px', borderRadius: 6, textTransform: 'capitalize' }}>{pg}</button>
           ))}
         </div>
@@ -2975,6 +2975,136 @@ export default function App() {
                 );
               })()}
             
+            {modalPage === 'stats' && (() => {
+              const st = usePlayerStore.getState() as any;
+              const ps = { stats, equipment, inventory, currentAreaId, discoveredMap, spellsKnown, spellPathsUnlocked, combatSkills: combatSkills || [], health, stamina: stamina || 0, maxStamina: maxStamina || 0, gameMode: st.gameMode || 'normal', lastCheckpointId, flags: flags || {}, quests: quests || {}, questLog: questLog || [] } as any;
+              const ar = getTotalArmourRating(ps);
+              const dr = getTotalDamageRating(ps);
+              const mAtk = getMeleeAttack(ps);
+              const mDef = getMeleeDefense(ps);
+              const rAtk = getRangedAttack(ps);
+              const rDef = getRangedDefense(ps);
+              const dodge = getDodge(ps);
+              const perception = getPerception(ps);
+              const stealth = getStealth(ps);
+              const persuasion = getPersuasion(ps);
+              const intimidation = getIntimidation(ps);
+              const lockpick = getLockpick(ps);
+              const pickpocket = getPickpocket(ps);
+              const castSpellVal = getCastSpell(ps);
+              const spellRes = getSpellResistance(ps);
+              const search = getSearch(ps);
+              const investigate = getInvestigate(ps);
+              const maxStam = getMaxStamina(ps);
+
+              const statBarStyle = (value: number, max: number, color: string) => ({
+                height: 8, borderRadius: 4, background: 'rgba(0,0,0,0.3)', overflow: 'hidden' as const, flex: 1
+              });
+              const fillStyle = (value: number, max: number, color: string) => ({
+                height: '100%', width: `${Math.min(100, (value / max) * 100)}%`, background: color, borderRadius: 4, transition: 'width 0.3s'
+              });
+
+              const StatRow = ({ label, value, max = 100, color = '#c9a84c' }: { label: string; value: number; max?: number; color?: string }) => (
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '6px 0' }}>
+                  <div style={{ width: 130, fontSize: 13, color: '#c9a84c', fontWeight: 600 }}>{label}</div>
+                  <div style={statBarStyle(value, max, color)}>
+                    <div style={fillStyle(value, max, color)} />
+                  </div>
+                  <div style={{ width: 36, textAlign: 'right', fontSize: 13, color: '#f5e6c8', fontWeight: 'bold' }}>{value}</div>
+                </div>
+              );
+
+              const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
+                <div style={{ marginBottom: 24 }}>
+                  <h3 style={{ margin: '0 0 10px', fontSize: 16, color: '#e0c068', borderBottom: '1px solid rgba(201,168,76,0.3)', paddingBottom: 6 }}>{title}</h3>
+                  {children}
+                </div>
+              );
+
+              return (
+                <div style={{ maxWidth: 500, margin: '0 auto' }}>
+                  {/* Mode & Level info */}
+                  <div style={{ textAlign: 'center', marginBottom: 20, padding: 12, background: 'rgba(201,168,76,0.08)', borderRadius: 8, border: '1px solid rgba(201,168,76,0.2)' }}>
+                    <div style={{ fontSize: 14, color: '#c9a84c', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: 2 }}>
+                      {st.gameMode === 'hardcore' ? '💀 Hardcore Mode' : '🛡️ Normal Mode'}
+                    </div>
+                    <div style={{ fontSize: 13, color: '#f5e6c8', marginTop: 6 }}>
+                      Unspent Stat Points: <span style={{ color: stats.statPoints > 0 ? '#2ecc71' : '#888', fontWeight: 'bold' }}>{stats.statPoints}</span>
+                    </div>
+                  </div>
+
+                  {/* Vitals */}
+                  <Section title="Vitals">
+                    <StatRow label="Health" value={health} max={PLAYER_MAX_HEALTH} color={healthPercent > 50 ? '#2ecc71' : healthPercent > 25 ? '#f39c12' : '#e74c3c'} />
+                    <StatRow label="Stamina" value={stamina || 0} max={maxStam} color="#3498db" />
+                    <StatRow label="Gold" value={stats.gold} max={Math.max(stats.gold, 50)} color="#f1c40f" />
+                  </Section>
+
+                  {/* Core Attributes */}
+                  <Section title="Core Attributes">
+                    <StatRow label="⚔️ Power" value={stats.power} max={10} color="#e74c3c" />
+                    <StatRow label="🧠 Mind" value={stats.mind} max={10} color="#9b59b6" />
+                    <StatRow label="🏃 Agility" value={stats.agility} max={10} color="#2ecc71" />
+                    <StatRow label="👁️ Vision" value={stats.vision} max={10} color="#3498db" />
+                  </Section>
+
+                  {/* Combat Ratings */}
+                  <Section title="Combat">
+                    <StatRow label="Armour Rating" value={ar} max={30} color="#7f8c8d" />
+                    <StatRow label="Damage Rating" value={dr} max={30} color="#e74c3c" />
+                    <StatRow label="Melee Attack" value={mAtk} max={30} color="#e67e22" />
+                    <StatRow label="Melee Defense" value={mDef} max={30} color="#27ae60" />
+                    <StatRow label="Ranged Attack" value={rAtk} max={30} color="#e67e22" />
+                    <StatRow label="Ranged Defense" value={rDef} max={30} color="#27ae60" />
+                    <StatRow label="Dodge" value={dodge} max={30} color="#1abc9c" />
+                  </Section>
+
+                  {/* Magic */}
+                  <Section title="Magic">
+                    <StatRow label="Cast Spell" value={castSpellVal} max={30} color="#9b59b6" />
+                    <StatRow label="Spell Resistance" value={spellRes} max={30} color="#8e44ad" />
+                  </Section>
+
+                  {/* Skills */}
+                  <Section title="Skills">
+                    <StatRow label="Perception" value={perception} max={30} color="#3498db" />
+                    <StatRow label="Search" value={search} max={30} color="#2980b9" />
+                    <StatRow label="Investigate" value={investigate} max={30} color="#2c3e50" />
+                    <StatRow label="Stealth" value={stealth} max={30} color="#34495e" />
+                    <StatRow label="Lockpick" value={lockpick} max={30} color="#95a5a6" />
+                    <StatRow label="Pickpocket" value={pickpocket} max={30} color="#7f8c8d" />
+                  </Section>
+
+                  {/* Social */}
+                  <Section title="Social">
+                    <StatRow label="Persuasion" value={persuasion} max={30} color="#f39c12" />
+                    <StatRow label="Intimidation" value={intimidation} max={30} color="#c0392b" />
+                  </Section>
+
+                  {/* Known abilities summary */}
+                  {(spellsKnown?.length > 0 || combatSkills?.length > 0 || spellPathsUnlocked?.length > 0) && (
+                    <Section title="Abilities">
+                      {spellPathsUnlocked?.length > 0 && (
+                        <div style={{ fontSize: 13, color: '#f5e6c8', marginBottom: 6 }}>
+                          <span style={{ color: '#c9a84c' }}>Spell Paths:</span> {spellPathsUnlocked.join(', ')}
+                        </div>
+                      )}
+                      {spellsKnown?.length > 0 && (
+                        <div style={{ fontSize: 13, color: '#f5e6c8', marginBottom: 6 }}>
+                          <span style={{ color: '#c9a84c' }}>Spells:</span> {spellsKnown.join(', ')}
+                        </div>
+                      )}
+                      {combatSkills?.length > 0 && (
+                        <div style={{ fontSize: 13, color: '#f5e6c8' }}>
+                          <span style={{ color: '#c9a84c' }}>Combat Skills:</span> {combatSkills.join(', ')}
+                        </div>
+                      )}
+                    </Section>
+                  )}
+                </div>
+              );
+            })()}
+
             {modalPage === 'settings' && (
               <div>
                 <h3 style={{ marginTop: 0, marginBottom: 20, color: '#f5e6c8' }}>Settings</h3>
