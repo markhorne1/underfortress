@@ -10693,7 +10693,7 @@
     "cover": "half",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, city gatehouse at dawn, weary guards, market banners, muddy road, cinematic, no text",
-    "description": "The gate sergeant eyes you, then your kit. Refugees, mercenaries, and traders have choked the entries all week, so he wants proof you are worth the trouble. Fresh game will do.\n\nBring him three rabbits and he lets you inside. Once admitted, north leads to Market Street and west to Tavern Street.",
+    "description": "The gate sergeant eyes you, then your kit. Refugees, mercenaries, and traders have choked the entries all week, so he wants proof you are worth the trouble. Fresh game will do.\n\nBring him three rabbits and he lets you inside. Once admitted, north leads into Prison Square.",
     "choices": [
       {
         "id": "gates_trade_rabbits",
@@ -10730,16 +10730,7 @@
     "exits": {
       "s": "s_forest_path",
       "n": {
-        "target": "s_market_street",
-        "requirements": [
-          {
-            "type": "hasFlag",
-            "key": "city_gate_access"
-          }
-        ]
-      },
-      "w": {
-        "target": "s_tavern_street",
+        "target": "s_prison_square",
         "requirements": [
           {
             "type": "hasFlag",
@@ -10751,17 +10742,48 @@
     "z": 0
   },
   {
-    "id": "s_market_street",
-    "title": "Market Street",
-    "imageAssetId": "market_street",
+    "id": "s_prison_square",
+    "title": "Prison Square",
+    "imageAssetId": "prison_square",
     "x": 0,
     "y": -3,
     "floorId": "surface",
     "tileStyle": "city",
     "cover": "half",
     "blocksLOS": false,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, prison yard square inside city walls, guards at a barred wagon, rain-dark stone, market lane right, brewery lane left, cinematic, no text",
+    "description": "Just inside the walls, Prison Square opens around a wagon yard and a squat lockup where guards process drunks, thieves, and anything uglier hauled in from the roads. Market Street runs off to the right. Brewery Lane angles left beneath leaning signs and chimney smoke. South returns to the City Gates.",
+    "choices": [
+      {
+        "id": "prison_guards_talk",
+        "label": "Talk to the prison guards.",
+        "effects": [
+          {
+            "type": "message",
+            "text": "One of the guards sizes you up and jerks a thumb toward the keep. 'If you're new in town, make yourself useful and join the militia. Plenty of work below. And if you catch any enemy combatants alive, bring them here. The prison pays a fair bounty for breathing prisoners.'"
+          }
+        ]
+      }
+    ],
+    "exits": {
+      "s": "s_city_gates",
+      "e": "s_market_street",
+      "w": "s_tavern_street"
+    },
+    "z": 0
+  },
+  {
+    "id": "s_market_street",
+    "title": "Market Street",
+    "imageAssetId": "market_street",
+    "x": 1,
+    "y": -3,
+    "floorId": "surface",
+    "tileStyle": "city",
+    "cover": "half",
+    "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, cramped market street with hardware stall, tool racks, lanterns, anxious townsfolk, cinematic, no text",
-    "description": "Market Street smells of lamp oil, wet wood, and nerves. The busiest storefront on the lane is a hardware store with crates of rope, chalk, wraps, and travel gear stacked right up to the threshold, while a food stall nearby keeps hot broth, skewers, and day-old bread moving to anyone heading below.\n\nNorth leads to Undercity Entrance. South returns to the gates.",
+    "description": "Market Street smells of lamp oil, wet wood, and nerves. The busiest storefront on the lane is a hardware store with crates of rope, chalk, wraps, and travel gear stacked right up to the threshold, while a food stall nearby keeps hot broth, skewers, and day-old bread moving to anyone heading below.\n\nNorth leads to Undercity Entrance. West returns to Prison Square.",
     "choices": [
       {
         "id": "enter_hardware_store",
@@ -10842,7 +10864,7 @@
       }
     ],
     "exits": {
-      "s": "s_city_gates",
+      "w": "s_prison_square",
       "n": "s_undercity_entrance"
     },
     "z": 0
@@ -10982,16 +11004,16 @@
   },
   {
     "id": "s_tavern_street",
-    "title": "Tavern Street",
+    "title": "Brewery Lane",
     "imageAssetId": "tavern_street",
     "x": -1,
-    "y": -2,
+    "y": -3,
     "floorId": "surface",
     "tileStyle": "city",
     "cover": "half",
     "blocksLOS": false,
     "imagePrompt": "fantasy illustration, inked linework + painterly color, crooked tavern street, warm window light, pie stall, dice table, smoke and drizzle, cinematic, no text",
-    "description": "Tavern Street glows with warm shutters and bad decisions. The sign for Pies & Dice creaks over the busiest doorway on the lane, and the smell of gravy keeps drifting into the rain.\n\nEast returns to the city gates.",
+    "description": "Brewery Lane glows with warm shutters, dripping eaves, and the smell of yeast riding the rain. The sign for Pies & Dice creaks over the busiest doorway on the lane, and the smell of gravy keeps drifting down from the kitchen windows.\n\nEast returns to Prison Square.",
     "choices": [
       {
         "id": "enter_tavern",
@@ -11000,7 +11022,7 @@
       }
     ],
     "exits": {
-      "e": "s_city_gates"
+      "e": "s_prison_square"
     },
     "z": 0
   },
@@ -11026,7 +11048,7 @@
             "value": 1
           }
         ],
-        "effects": [
+            "label": "Step back onto Brewery Lane.",
           {
             "type": "spendGold",
             "amount": 1
@@ -11571,6 +11593,7 @@
   {
     "id": "c_blacksmith",
     "title": "Castle Rise Smithy",
+    "imageAssetId": "smithy",
     "x": 0,
     "y": -5,
     "floorId": "surface",
