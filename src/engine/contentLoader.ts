@@ -1,6 +1,7 @@
 import { RuntimeContentSchema } from './schemas';
 
 let _content: any = {};
+const CONTENT_VERSION = '2026-04-06-1';
 
 const isNode = typeof process !== 'undefined' && !!(process.versions && process.versions.node);
 
@@ -8,12 +9,14 @@ function contentUrl(fname: string) {
   if (typeof window === 'undefined') {
     return `content/${fname}`;
   }
-  return new URL(`content/${fname}`, window.location.href).toString();
+  const url = new URL(`content/${fname}`, window.location.href);
+  url.searchParams.set('v', CONTENT_VERSION);
+  return url.toString();
 }
 
 async function fetchJsonWeb(fname: string) {
   try {
-    const res = await fetch(contentUrl(fname));
+    const res = await fetch(contentUrl(fname), { cache: 'no-store' });
     if (!res.ok) return null;
     return await res.json();
   } catch (err) { return null; }
