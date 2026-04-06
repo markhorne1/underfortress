@@ -95,8 +95,8 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   z-index: 1;
   background: rgba(42, 42, 42, 0.80);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(201, 168, 76, 0.2);
   border-radius: 12px;
   padding: 20px 24px;
