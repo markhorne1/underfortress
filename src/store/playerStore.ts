@@ -23,6 +23,7 @@ export type PlayerActions = {
   loadState: () => Promise<void>;
   newGame: () => Promise<void>;
   consumeInventoryItem: (itemId: string) => Promise<{ success: boolean; log: string[] }>;
+  sellInventoryItem: (itemId: string) => Promise<{ success: boolean; log: string[] }>;
   moveTo: (areaId?: string, skipExitCheck?: boolean) => Promise<void>;
   handleChoice: (choice: any) => Promise<{ log: string[] } | void>;
   handleAction: (actionType: string, action: any) => Promise<{ success: boolean; log: string[] }>;
@@ -210,6 +211,23 @@ export function createPlayerStore(storage: KVStorage) {
 
       await storage.setItem(STORAGE_KEY, JSON.stringify(get()));
       return { success: true, log: logs };
+    },
+    sellInventoryItem: async (itemId: string) => {
+      const inv = [...(get().inventory || [])];
+      const idx = inv.findIndex((i: any) => i.itemId === itemId);
+      if (idx < 0) return { success: false, log: ['You don\'t have that item.'] };
+
+      const itemDef = getContentSnapshot().items?.get(itemId);
+      const sellPrice = itemDef?.value || 1;
+
+      inv[idx].qty -= 1;
+      const nextInventory = inv[idx].qty <= 0 ? inv.filter((i: any) => i.qty > 0) : inv;
+      const stats = { ...get().stats };
+      stats.gold = (stats.gold || 0) + sellPrice;
+
+      set({ inventory: nextInventory, stats } as any);
+      await storage.setItem(STORAGE_KEY, JSON.stringify(get()));
+      return { success: true, log: [`Sold ${itemDef?.name || itemId} for ${sellPrice} gold.`] };
     },
     moveTo: async (areaId?: string, skipExitCheck: boolean = false) => {
       if (!areaId) return;

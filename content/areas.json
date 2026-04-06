@@ -10657,6 +10657,20 @@
             "chancePercent": 55
           }
         ]
+      },
+      {
+        "id": "camp_sleep",
+        "label": "Sleep by the fire.",
+        "effects": [
+          {
+            "type": "heal",
+            "amount": 5
+          },
+          {
+            "type": "message",
+            "text": "You curl up near the embers and rest. The warmth eases your aches."
+          }
+        ]
       }
     ],
     "exits": {
@@ -11060,6 +11074,32 @@
             "type": "addItem",
             "itemId": "tavern_pie",
             "qty": 1
+          }
+        ]
+      },
+      {
+        "id": "pies_sell_rabbit",
+        "label": "Sell a rabbit to the innkeeper (1 gold).",
+        "requirements": [
+          {
+            "type": "hasItem",
+            "key": "snared_rabbit",
+            "value": 1
+          }
+        ],
+        "effects": [
+          {
+            "type": "removeItem",
+            "itemId": "snared_rabbit",
+            "qty": 1
+          },
+          {
+            "type": "grantGold",
+            "value": 1
+          },
+          {
+            "type": "message",
+            "text": "The innkeeper weighs the rabbit, nods, and slides a gold coin across the bar."
           }
         ]
       },

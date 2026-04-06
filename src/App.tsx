@@ -1728,15 +1728,30 @@ export default function App() {
                             <div style={{ fontSize: 11, color: '#6b5a3e' }}>
                               Qty: <span style={{ fontWeight: 'bold', color: '#8b5a2b' }}>×{inv.qty}</span>
                             </div>
-                            <button
-                              onClick={() => alert(`Sell ${itemDef?.name || inv.itemId}? (Shop system not yet implemented)`)}
-                              style={{
-                                position: 'absolute', bottom: 6, right: 6,
-                                padding: '3px 7px', fontSize: 10, fontWeight: 'bold',
-                                background: '#b8860b', color: '#fff', border: 'none',
-                                borderRadius: 4, cursor: 'pointer'
-                              }}
-                            >Sell</button>
+                            {(() => {
+                              const sellableAt: Record<string, string[]> = {
+                                's_pies_and_dice': ['food'],
+                                's_market_street': ['consumable'],
+                                'c_blacksmith': ['weapon', 'armor', 'armor_cloak'],
+                              };
+                              const allowed = sellableAt[currentAreaId as string];
+                              const canSell = allowed && itemDef?.type && allowed.includes(itemDef.type);
+                              return canSell ? (
+                                <button
+                                  onClick={async () => {
+                                    const sellFn = (usePlayerStore as any).getState().sellInventoryItem;
+                                    const result = await sellFn(inv.itemId);
+                                    setActionResult(result);
+                                  }}
+                                  style={{
+                                    position: 'absolute', bottom: 6, right: 6,
+                                    padding: '3px 7px', fontSize: 10, fontWeight: 'bold',
+                                    background: '#b8860b', color: '#fff', border: 'none',
+                                    borderRadius: 4, cursor: 'pointer'
+                                  }}
+                                >Sell</button>
+                              ) : null;
+                            })()}
                             {itemDef?.type === 'consumable' && (
                               <button
                                 onClick={async () => {
