@@ -10792,7 +10792,7 @@
       },
       {
         "id": "market_buy_broth",
-        "label": "Buy a bowl of hot broth (1 gold, heal 4).",
+        "label": "Buy a bowl of hot broth (1 gold).",
         "requirements": [
           {
             "type": "hasGold",
@@ -10805,18 +10805,19 @@
             "amount": 1
           },
           {
-            "type": "heal",
-            "amount": 4
+            "type": "addItem",
+            "itemId": "street_broth",
+            "qty": 1
           },
           {
             "type": "message",
-            "text": "The broth is thin but hot enough to put strength back in your hands."
+            "text": "The vendor ladles hot broth into a clay bowl and hands it over."
           }
         ]
       },
       {
         "id": "market_buy_skewer",
-        "label": "Buy a meat skewer wrapped in flatbread (2 gold, heal 7).",
+        "label": "Buy a meat skewer wrapped in flatbread (2 gold).",
         "requirements": [
           {
             "type": "hasGold",
@@ -10829,18 +10830,19 @@
             "amount": 2
           },
           {
-            "type": "heal",
-            "amount": 7
+            "type": "addItem",
+            "itemId": "street_skewer",
+            "qty": 1
           },
           {
             "type": "message",
-            "text": "Grease, salt, and warm bread do more for you than pride ever has."
+            "text": "You tuck the warm skewer into your pack for later."
           }
         ]
       },
       {
         "id": "market_buy_rations",
-        "label": "Buy bread, cheese, and dried fruit (3 gold, heal 10).",
+        "label": "Buy bread, cheese, and dried fruit (3 gold).",
         "requirements": [
           {
             "type": "hasGold",
@@ -10853,12 +10855,13 @@
             "amount": 3
           },
           {
-            "type": "heal",
-            "amount": 10
+            "type": "addItem",
+            "itemId": "street_rations",
+            "qty": 1
           },
           {
             "type": "message",
-            "text": "You eat well by expedition standards, which is to say you no longer feel hollow."
+            "text": "You wrap the food in cloth and stow it. Good for the road."
           }
         ]
       }

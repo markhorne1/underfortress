@@ -180,6 +180,18 @@ export function createPlayerStore(storage: KVStorage) {
           health = Math.min(PLAYER_MAX_HEALTH, health + 5);
           logs.push('You eat a hot tavern pie and recover 5 health.');
           break;
+        case 'street_broth':
+          health = Math.min(PLAYER_MAX_HEALTH, health + 4);
+          logs.push('You drink the hot broth and recover 4 health.');
+          break;
+        case 'street_skewer':
+          health = Math.min(PLAYER_MAX_HEALTH, health + 7);
+          logs.push('You eat the meat skewer and recover 7 health.');
+          break;
+        case 'street_rations':
+          health = Math.min(PLAYER_MAX_HEALTH, health + 10);
+          logs.push('You eat the bread, cheese, and fruit and recover 10 health.');
+          break;
         default:
           return { success: false, log: [`${itemId} is not currently usable from inventory.`] };
       }

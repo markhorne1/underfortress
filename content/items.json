@@ -198,6 +198,30 @@
     "description": "A hot meat pie from the tavern. Restores 5 health when eaten."
   },
   {
+    "id": "street_broth",
+    "name": "Bowl of Hot Broth",
+    "type": "consumable",
+    "stackable": true,
+    "value": 1,
+    "description": "Thin but hot street broth from Market Street. Restores 4 health when eaten."
+  },
+  {
+    "id": "street_skewer",
+    "name": "Meat Skewer",
+    "type": "consumable",
+    "stackable": true,
+    "value": 2,
+    "description": "A meat skewer wrapped in flatbread from Market Street. Restores 7 health when eaten."
+  },
+  {
+    "id": "street_rations",
+    "name": "Street Rations",
+    "type": "consumable",
+    "stackable": true,
+    "value": 3,
+    "description": "Bread, cheese, and dried fruit from Market Street. Restores 10 health when eaten."
+  },
+  {
     "id": "mushroom_red",
     "name": "Red Mushroom",
     "type": "consumable",
