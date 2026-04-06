@@ -44,15 +44,12 @@ export function applyEffects(effects: any[] | undefined, state: PlayerState): Ef
       case 'flag': // alias for setFlag (legacy content support)
       case 'setFlag':
         next.flags[e.key] = e.value ?? true;
-        log.push(`setFlag ${e.key}=${JSON.stringify(next.flags[e.key])}`);
         break;
       case 'unsetFlag':
         delete next.flags[e.key];
-        log.push(`unsetFlag ${e.key}`);
         break;
       case 'incFlag':
         next.flags[e.key] = (next.flags[e.key] || 0) + (e.qty || 1);
-        log.push(`incFlag ${e.key} -> ${next.flags[e.key]}`);
         break;
       case 'addItem':
       case 'giveItem': {
@@ -63,7 +60,6 @@ export function applyEffects(effects: any[] | undefined, state: PlayerState): Ef
         const found = inv.find(i => i.itemId === itemId);
         if (found) found.qty += qty; else inv.push({ itemId, qty });
         next.inventory = inv;
-        log.push(`+${qty} ${itemId}`);
         break;
       }
       case 'message': {
@@ -82,12 +78,11 @@ export function applyEffects(effects: any[] | undefined, state: PlayerState): Ef
           found.qty -= qty;
           if (found.qty <= 0) next.inventory = inv.filter(i => i.itemId !== itemId);
         }
-        log.push(`removeItem ${itemId} x${qty}`);
         break;
       }
       case 'grantGold':
         next.stats.gold = (next.stats.gold || 0) + (e.value || 0);
-        log.push(`grantGold ${e.value}`);
+        log.push(`+${e.value} gold`);
         break;
       case 'spendGold': {
         const amount = e.amount || e.value || 0;
@@ -96,12 +91,12 @@ export function applyEffects(effects: any[] | undefined, state: PlayerState): Ef
           break;
         }
         next.stats.gold = Math.max(0, (next.stats.gold || 0) - amount);
-        log.push(`-${amount} gold (total: ${next.stats.gold})`);
+        log.push(`-${amount} gold`);
         break;
       }
       case 'addStatPoints':
         next.stats.statPoints = (next.stats.statPoints || 0) + (e.value || e.amount || 1);
-        log.push(`addStatPoints +${e.value || e.amount || 1} (total: ${next.stats.statPoints})`);
+        log.push(`+${e.value || e.amount || 1} stat points`);
         break;
       case 'addXP': // Legacy alias for addStatPoints
       case 'grantXP': // Legacy alias for addStatPoints
@@ -109,35 +104,32 @@ export function applyEffects(effects: any[] | undefined, state: PlayerState): Ef
         const xpValue = e.value || e.amount || 0;
         const statPointsToAdd = Math.max(1, Math.floor(xpValue / 10));
         next.stats.statPoints = (next.stats.statPoints || 0) + statPointsToAdd;
-        log.push(`grantXP ${xpValue} (converted to +${statPointsToAdd} stat points)`);
+        log.push(`+${statPointsToAdd} stat points`);
         break;
       case 'heal':
         next.health = Math.min((next.health ?? PLAYER_MAX_HEALTH) + (e.value || e.amount || 0), PLAYER_MAX_HEALTH);
-        log.push(`heal +${e.value || e.amount || 0} health (now: ${next.health}/${PLAYER_MAX_HEALTH})`);
+        log.push(`+${e.value || e.amount || 0} health`);
         break;
       case 'damage':
         next.health = Math.max((next.health ?? PLAYER_MAX_HEALTH) - (e.value || e.amount || 0), 0);
-        log.push(`damage -${e.value || e.amount || 0} health (now: ${next.health}/${PLAYER_MAX_HEALTH})`);
+        log.push(`-${e.value || e.amount || 0} health`);
         handleDeath(next, log); // Check for death and respawn
         break;
       case 'setCheckpoint':
         next.lastCheckpointId = e.areaId || e.value || next.currentAreaId;
-        log.push(`checkpoint set at ${next.lastCheckpointId}`);
         break;
       case 'teleportToAreaId': {
         const aid = e.key || e.areaId || e.toAreaId;
         if (aid) {
           next.currentAreaId = aid;
           next.discoveredMap = { ...(next.discoveredMap || {}), [aid]: true };
-          log.push(`teleportToAreaId ${aid}`);
-        } else log.push('teleportToAreaId missing area id');
+        }
         break;
       }
       case 'incFlagIfQuestActive': {
         const questId = (e as any).questId;
         if (questId && next.quests && next.quests[questId] !== undefined && next.quests[questId] !== 'completed') {
           next.flags[e.key] = (next.flags[e.key] || 0) + (e.qty || 1);
-          log.push(`incFlagIfQuestActive ${e.key} -> ${next.flags[e.key]}`);
         }
         break;
       }
@@ -145,21 +137,18 @@ export function applyEffects(effects: any[] | undefined, state: PlayerState): Ef
         const q = e.key || e.questId;
         if (!q) { log.push('startQuest missing id'); break; }
         next.quests[q] = { status: 'active', stage: 0 } as any;
-        log.push(`startQuest ${q}`);
         break;
       }
       case 'advanceQuest': {
         const q = e.key || e.questId;
         if (!q) { log.push('advanceQuest missing id'); break; }
         next.quests[q] = (next.quests[q] || 0) + (e.qty || 1);
-        log.push(`advanceQuest ${q} -> ${next.quests[q]}`);
         break;
       }
       case 'completeQuest': {
         const q = e.key || e.questId;
         if (!q) { log.push('completeQuest missing id'); break; }
         next.quests[q] = 'completed';
-        log.push(`completeQuest ${q}`);
         break;
       }
       case 'startJob': {
@@ -167,7 +156,6 @@ export function applyEffects(effects: any[] | undefined, state: PlayerState): Ef
         if (!jobId) { log.push('startJob missing id'); break; }
         next.jobs = next.jobs || {};
         next.jobs[jobId] = { status: 'active', startedAt: Date.now() };
-        log.push(`startJob ${jobId}`);
         break;
       }
       case 'completeJob': {
@@ -176,7 +164,6 @@ export function applyEffects(effects: any[] | undefined, state: PlayerState): Ef
         next.jobs = next.jobs || {};
         next.jobs[jobId] = { status: 'completed', completedAt: Date.now() };
         if (e.cooldownHours) next.jobs[jobId].cooldownUntil = Date.now() + e.cooldownHours * 3600 * 1000;
-        log.push(`completeJob ${jobId}`);
         break;
       }
       case 'setCooldown': {
@@ -185,7 +172,6 @@ export function applyEffects(effects: any[] | undefined, state: PlayerState): Ef
         if (jobId && e.minutes) {
           next.jobs[jobId] = next.jobs[jobId] || {};
           next.jobs[jobId].cooldownUntil = Date.now() + e.minutes * 60 * 1000;
-          log.push(`setCooldown ${jobId} -> ${e.minutes}m`);
         }
         break;
       }
@@ -193,7 +179,6 @@ export function applyEffects(effects: any[] | undefined, state: PlayerState): Ef
         const t: Threat = e.threat || { id: e.threatId || e.key || `threat_${Date.now()}`, enemyGroupId: e.enemyGroupId || e.group, distance: e.distance || 3, speed: e.speed || 1 };
         next.activeThreats = next.activeThreats || [];
         next.activeThreats.push(t);
-        log.push(`startThreat ${t.id}`);
         break;
       }
       case 'shootThreat': {
@@ -231,9 +216,9 @@ export function applyEffects(effects: any[] | undefined, state: PlayerState): Ef
         next.spellPathsUnlocked = next.spellPathsUnlocked || [];
         if (!next.spellPathsUnlocked.includes(path)) {
           next.spellPathsUnlocked.push(path);
-          log.push(`unlockPath ${path} - Spell path unlocked!`);
+          log.push(`Spell path unlocked: ${path}!`);
         } else {
-          log.push(`unlockPath ${path} - Already unlocked`);
+          log.push(`Already unlocked: ${path}`);
         }
         break;
       }
@@ -243,9 +228,9 @@ export function applyEffects(effects: any[] | undefined, state: PlayerState): Ef
         next.spellsKnown = next.spellsKnown || [];
         if (!next.spellsKnown.includes(spellId)) {
           next.spellsKnown.push(spellId);
-          log.push(`learnSpell ${spellId} - New spell learned!`);
+          log.push(`New spell learned: ${spellId}!`);
         } else {
-          log.push(`learnSpell ${spellId} - Already known`);
+          log.push(`Already known: ${spellId}`);
         }
         break;
       }
@@ -256,7 +241,6 @@ export function applyEffects(effects: any[] | undefined, state: PlayerState): Ef
         if (!slot) { log.push('equipItem missing slot'); break; }
         next.equipment = next.equipment || {};
         next.equipment[slot] = itemId;
-        log.push(`equipItem ${itemId} equipped to ${slot}`);
         break;
       }
       case 'forceCombatFromThreat': {
@@ -269,7 +253,6 @@ export function applyEffects(effects: any[] | undefined, state: PlayerState): Ef
         // Set a flag that playerStore will detect and handle
         next.flags = next.flags || {};
         next.flags[`_pendingCombat:${threatId}`] = true;
-        log.push(`forceCombatFromThreat ${threatId} - Combat will initiate`);
         break;
       }
       case 'forceCombat':
@@ -299,7 +282,6 @@ export function applyEffects(effects: any[] | undefined, state: PlayerState): Ef
         // Set a flag that playerStore will detect and handle
         next.flags = next.flags || {};
         next.flags[`_pendingDirectCombat`] = JSON.stringify(enemyIds);
-        log.push(`Combat will initiate with ${enemyIds.length} enemies`);
         break;
       }
       case 'advanceThreat': {
@@ -324,14 +306,13 @@ export function applyEffects(effects: any[] | undefined, state: PlayerState): Ef
         next.flags = next.flags || {};
         next.flags['_losBlocked'] = true;
         next.flags['_losBlockedTurns'] = durationTurns;
-        log.push(`Line of sight broken for ${durationTurns} turns`);
         break;
       }
       case 'takeDamage': {
         // Apply damage to player
         const amount = e.amount || e.value || e.damage || 0;
         next.health = Math.max((next.health ?? PLAYER_MAX_HEALTH) - amount, 0);
-        log.push(`Took ${amount} damage (health: ${next.health}/${PLAYER_MAX_HEALTH})`);
+        log.push(`-${amount} health`);
         handleDeath(next, log);
         break;
       }
@@ -339,7 +320,7 @@ export function applyEffects(effects: any[] | undefined, state: PlayerState): Ef
         // Add gold to player
         const amount = e.amount || e.value || 0;
         next.stats.gold = (next.stats.gold || 0) + amount;
-        log.push(`+${amount} gold (total: ${next.stats.gold})`);
+        log.push(`+${amount} gold`);
         break;
       }
       case 'rabbitTrap': {
@@ -425,7 +406,6 @@ export function applyEffects(effects: any[] | undefined, state: PlayerState): Ef
         if (!key) { log.push('addToCounter missing key'); break; }
         next.flags = next.flags || {};
         next.flags[key] = (next.flags[key] || 0) + amount;
-        log.push(`addToCounter ${key} += ${amount} (now: ${next.flags[key]})`);
         break;
       }
       case 'enemyReturnFireIfInRange': {
