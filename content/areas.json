@@ -11556,6 +11556,31 @@
     "description": "Castle Rise climbs toward the keep. The smithy is still open, hammering out the last sensible purchases before anyone brave or stupid enough goes below.\n\nNorth leads to the Castle Entrance. East leads to Inn Street. South returns to the Undercity Entrance.",
     "choices": [
       {
+        "id": "enter_smithy",
+        "label": "Enter Smithy.",
+        "goToAreaId": "c_blacksmith"
+      }
+    ],
+    "exits": {
+      "s": "s_undercity_entrance",
+      "n": "s_castle_entrance",
+      "e": "s_inn_street"
+    },
+    "z": 0
+  },
+  {
+    "id": "c_blacksmith",
+    "title": "Castle Rise Smithy",
+    "x": 0,
+    "y": -5,
+    "floorId": "surface",
+    "tileStyle": "forge",
+    "cover": "full",
+    "blocksLOS": true,
+    "imagePrompt": "fantasy illustration, inked linework + painterly color, cramped city smithy interior, forge glow, weapon racks, apron-clad smith, cinematic, no text",
+    "description": "Inside the smithy, the heat hits first. Weapons hang from soot-dark rafters, shields lean against the wall, and the smith keeps the last useful gear within arm's reach for anyone heading below.",
+    "choices": [
+      {
         "id": "smith_rusty_sword",
         "label": "Buy Rusty Sword (5 gold).",
         "requirements": [
@@ -11694,13 +11719,13 @@
             "qty": 1
           }
         ]
+      },
+      {
+        "id": "leave_smithy",
+        "label": "Step back out to Castle Rise.",
+        "goToAreaId": "s_castle_rise"
       }
     ],
-    "exits": {
-      "s": "s_undercity_entrance",
-      "n": "s_castle_entrance",
-      "e": "s_inn_street"
-    },
     "z": 0
   },
   {
