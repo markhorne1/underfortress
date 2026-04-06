@@ -11048,7 +11048,7 @@
             "value": 1
           }
         ],
-            "label": "Step back onto Brewery Lane.",
+        "effects": [
           {
             "type": "spendGold",
             "amount": 1
@@ -11107,7 +11107,7 @@
       },
       {
         "id": "pies_leave",
-        "label": "Step back onto Tavern Street.",
+        "label": "Step back onto Brewery Lane.",
         "goToAreaId": "s_tavern_street"
       }
     ],

@@ -23,8 +23,6 @@ export function executeChoice(choice: any, state: PlayerState): { state: PlayerS
   if (!can.ok) return { state, log: [can.reason], goToAreaId: undefined };
 
   const choiceLog: string[] = [];
-  if (choice.text) choiceLog.push(`choice: ${choice.text}`);
-  if (choice.label) choiceLog.push(`choice: ${choice.label}`);
 
   const res = executeEffects(choice.effects, state);
   const combined = choiceLog.concat(res.log);

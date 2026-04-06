@@ -506,11 +506,11 @@ export default function App() {
             <h1 style={{ marginTop: 16, marginBottom: 0, textAlign: 'center', fontSize: 22, color: '#f5e6c8', textShadow: '2px 2px 8px rgba(0,0,0,0.8)', letterSpacing: 1 }}>{area.title ?? area.id}</h1>
             <div style={{ flex: 1 }} />
             <div style={{ background: 'rgba(30,28,24,0.10)', backdropFilter: 'blur(4px)', borderRadius: 12, padding: '20px 28px', border: '1px solid rgba(201,168,76,0.25)', boxShadow: '0 8px 32px rgba(0,0,0,0.5)' }}>
-              <p style={{ whiteSpace: 'pre-wrap', lineHeight: 1.6, textAlign: 'center', color: '#e8dcc8', textShadow: '0 2px 6px rgba(0,0,0,0.3)' }}>{area.description}</p>
+              <p style={{ whiteSpace: 'pre-wrap', lineHeight: 1.6, textAlign: 'center', color: '#e8dcc8', textShadow: '0 2px 8px rgba(0,0,0,0.7)' }}>{area.description}</p>
               {actionResult && (
                 <div style={{ marginTop: 12, padding: '12px 16px', borderRadius: 8, background: actionResult.success ? 'rgba(46,204,113,0.15)' : 'rgba(231,76,60,0.15)', border: `1px solid ${actionResult.success ? 'rgba(46,204,113,0.4)' : 'rgba(231,76,60,0.4)'}` }}>
                   {actionResult.log.map((line, i) => (
-                    <p key={i} style={{ margin: i === 0 ? 0 : '6px 0 0', fontSize: 14, lineHeight: 1.5, color: actionResult.success ? '#2ecc71' : '#e74c3c', textAlign: 'center' }}>{line}</p>
+                    <p key={i} style={{ margin: i === 0 ? 0 : '6px 0 0', fontSize: 14, lineHeight: 1.5, color: actionResult.success ? '#2ecc71' : '#e74c3c', textAlign: 'center', textShadow: '0 2px 8px rgba(0,0,0,0.7)' }}>{line}</p>
                   ))}
                 </div>
               )}

@@ -177,7 +177,7 @@ export default function GameScreen({ navigation }: any) {
 const styles = StyleSheet.create({
   container: { flex: 1 },
   title: { fontSize: 18, fontWeight: '700' },
-  desc: { marginTop: 8, fontSize: 14, lineHeight: 20, textShadowColor: 'rgba(0,0,0,0.3)', textShadowOffset: { width: 0, height: 2 }, textShadowRadius: 6 },
+  desc: { marginTop: 8, fontSize: 14, lineHeight: 20, textShadowColor: 'rgba(0,0,0,0.7)', textShadowOffset: { width: 0, height: 2 }, textShadowRadius: 8 },
   actionsRow: { flexDirection: 'row', justifyContent: 'space-around', padding: 8, borderTopWidth: 1, borderColor: '#ddd' },
   moveRow: { flexDirection: 'row', justifyContent: 'space-around', padding: 8 }
   , trackedChip: { position: 'absolute', bottom: 120, left: 12, right: 12, backgroundColor: '#fff', padding: 8, borderRadius: 8, borderWidth:1, borderColor:'#ddd' },

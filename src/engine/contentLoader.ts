@@ -2,12 +2,29 @@ import { RuntimeContentSchema } from './schemas';
 
 let _content: any = {};
 const CONTENT_VERSION = '2026-04-06-1';
+const WEB_CONTENT_URLS: Record<string, string> = {
+  'areas.json': new URL('../../content/areas.json', import.meta.url).toString(),
+  'items.json': new URL('../../content/items.json', import.meta.url).toString(),
+  'jobs.json': new URL('../../content/jobs.json', import.meta.url).toString(),
+  'enemies.json': new URL('../../content/enemies.json', import.meta.url).toString(),
+  'npcs.json': new URL('../../content/npcs.json', import.meta.url).toString(),
+  'spells.json': new URL('../../content/spells.json', import.meta.url).toString(),
+  'spells_combat.json': new URL('../../content/spells_combat.json', import.meta.url).toString(),
+  'recipes.json': new URL('../../content/recipes.json', import.meta.url).toString(),
+  'meta.json': new URL('../../content/meta.json', import.meta.url).toString()
+};
 
 const isNode = typeof process !== 'undefined' && !!(process.versions && process.versions.node);
 
 function contentUrl(fname: string) {
   if (typeof window === 'undefined') {
     return `content/${fname}`;
+  }
+  const resolved = WEB_CONTENT_URLS[fname];
+  if (resolved) {
+    const url = new URL(resolved, window.location.href);
+    url.searchParams.set('v', CONTENT_VERSION);
+    return url.toString();
   }
   const url = new URL(`content/${fname}`, window.location.href);
   url.searchParams.set('v', CONTENT_VERSION);

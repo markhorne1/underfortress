@@ -36,6 +36,7 @@ export type PlayerActions = {
 export type PlayerStore = PlayerState & PlayerActions;
 
 const STORAGE_KEY = 'underfortress_save_v1';
+const DEFAULT_NEW_GAME_START_AREA = 's_woods_camp';
 
 export function createPlayerStore(storage: KVStorage) {
   return create<PlayerStore>((set, get) => ({
@@ -90,16 +91,18 @@ export function createPlayerStore(storage: KVStorage) {
       await loadContent();
       const configuredStartId = getStartAreaId();
       const firstArea = getAllAreas()[0] as any;
-      const fallbackStartId = ['s_woods_camp', 'i_underfortress_entry']
+      const fallbackStartId = [DEFAULT_NEW_GAME_START_AREA, 'i_underfortress_entry']
         .find((areaId) => !!getAreaById(areaId)) || firstArea?.id;
-      const startId = configuredStartId && getAreaById(configuredStartId)
+      const startId = getAreaById(DEFAULT_NEW_GAME_START_AREA)
+        ? DEFAULT_NEW_GAME_START_AREA
+        : configuredStartId && getAreaById(configuredStartId)
         ? configuredStartId
         : fallbackStartId;
       if (!startId || !getAreaById(startId)) {
-        throw new Error(`Invalid startAreaId in content or no fallback area available: ${configuredStartId}`);
+        throw new Error(`Invalid startAreaId in content and default Camp start area missing: ${configuredStartId}`);
       }
       if (startId !== configuredStartId) {
-        console.warn(`Configured start area missing at runtime (${configuredStartId}); falling back to ${startId}.`);
+        console.warn(`Configured start area missing or overridden for New Game (${configuredStartId}); using ${startId}.`);
       }
       const discovered: Record<string, true> = {};
       discovered[startId] = true;
